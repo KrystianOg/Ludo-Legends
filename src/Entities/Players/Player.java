@@ -1,7 +1,8 @@
-package Entities;
+package Entities.Players;
 import Entities.Counters.Counter;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
 public abstract class Player {
 
@@ -9,10 +10,12 @@ public abstract class Player {
     protected int currentlyinbase;
     protected int starting_pos;
 
-    public Player(int starting_pos){
+    BufferedImage ccolor;
+
+    public Player(int starting_pos,BufferedImage ccolor){
         counter=new Counter[4];
 
-
+        this.ccolor=ccolor;
         this.starting_pos=starting_pos;
 
         currentlyinbase=4;
@@ -33,6 +36,8 @@ public abstract class Player {
 
     public abstract void render(Graphics g);
 
-    public abstract void move();
+    public void move() {
+
+    }
 
 }

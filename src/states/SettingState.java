@@ -2,15 +2,15 @@ package states;
 
 import GFX.Assets;
 import ludogame.Game;
+import ludogame.Handler;
 
 import java.awt.*;
 
 public class SettingState extends State{
 
 
-    public SettingState(Game game){
-        super(game);
-
+    public SettingState(Handler handler){
+        super(handler);
     }
 
 
@@ -21,6 +21,6 @@ public class SettingState extends State{
 
     @Override
     public void render(Graphics g) {
-        g.drawImage(Assets.counter_b,0,0,null);
+        g.drawImage(Assets.rollimg[5],0,0,null);
     }
 }

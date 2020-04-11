@@ -1,8 +1,7 @@
 package states;
 
-import Entities.Counters.Counter;
-import Entities.Player;
 import ludogame.Game;
+import ludogame.Handler;
 
 import java.awt.*;
 
@@ -11,10 +10,8 @@ public class PrepState extends State {
     int[][] counter=new int[4][4];
 
 
-
-
-    public PrepState(Game game) {
-        super(game);
+    public PrepState(Handler handler) {
+        super(handler);
     }
 
 

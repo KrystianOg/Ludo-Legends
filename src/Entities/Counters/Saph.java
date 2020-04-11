@@ -2,17 +2,20 @@ package Entities.Counters;
 
 import GFX.Assets;
 import ludogame.Game;
+import ludogame.Handler;
 
 import java.awt.*;
 
 public class Saph extends Counter{
     //wojownik
 
-    Game game;
+    Handler handler;
+    int  c;
 
-    public Saph(Game game, int x, int y) {
-        super(x, y,Counter.DEFAULT_WIDTH,Counter.DEFAULT_HEIGHT);
-        this.game=game;
+    public Saph(Handler handler, int x, int y,int c) {
+        super(handler,x, y,Counter.DEFAULT_WIDTH,Counter.DEFAULT_HEIGHT);
+        this.handler=handler;
+        this.c=c;
     }
 
     @Override
@@ -23,7 +26,7 @@ public class Saph extends Counter{
 
     @Override
     public void render(Graphics g) {
-        g.drawImage(Assets.counter_g,(int)x,(int) y,null);
+        g.drawImage(Assets.counter[c],(int)x,(int) y,null);
         g.drawImage(Assets.sword,(int)x,(int)y+11,null);
     }
 

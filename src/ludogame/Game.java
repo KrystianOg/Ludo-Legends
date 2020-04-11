@@ -10,20 +10,22 @@ import states.*;
 
 public class Game implements Runnable {
 
-    private Display display;
-    public int width,height;
-    public String title;
-    private boolean running=false;
-    private Thread thread;
+    private Display display;        //klasa wyswietlajaca obraz (+canvas)
+    public int width,height;        //szer/wys okna
+    public String title;            //nazwa "gry"
+    private boolean running=false;  //odpowiada za wyjscie z gry
+    private Thread thread;          //
 
-    private BufferStrategy bs;
-    private Graphics g;
+    private BufferStrategy bs;      //-info
+    private Graphics g;             //grafika
 
-    //States
-    private State gamestate;
-    private State menustate;
-    private State settingstate;
-    private State prepstate;
+    private Handler handler;
+
+    //States                        // odpowiada za dzialanie roznych
+    public State gamestate;        // funkcji gry (np. gra,menu,ustawienia)
+    public State menustate;
+    public State settingstate;
+    public State prepstate;        //- wybor postaci przed grą
 
     //Input
     private MouseManager mousemanager;
@@ -44,15 +46,17 @@ public class Game implements Runnable {
         display.getCanvas().addMouseListener(mousemanager);
         Assets.init();
 
-        prepstate=new PrepState(this);
-        gamestate=new GameState(this,prepstate);
-        menustate=new MenuState(this);
-        settingstate=new SettingState(this);
-        State.setState(gamestate);
+        handler=new Handler(this);
 
+        prepstate=new PrepState(handler);
+        gamestate=new GameState(handler,prepstate);
+        menustate=new MenuState(handler);
+        settingstate=new SettingState(handler);
+
+
+
+        State.setState(gamestate); //gamestate change
     }
-
-
 
     private void tick(){
         mousemanager.tick();
@@ -141,6 +145,11 @@ public class Game implements Runnable {
         }
 
 
+    }
+
+
+    public State getState(){
+        return State.getState();
     }
 
 }

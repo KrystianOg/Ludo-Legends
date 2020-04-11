@@ -1,12 +1,14 @@
 package Entities.Counters;
 
+import ludogame.Handler;
+
 import java.awt.*;
 
 public class Venator extends Counter {
     //łowca -?
 
-    public Venator(int x, int y, int width, int height) {
-        super(x, y, width, height);
+    public Venator(Handler handler, int x, int y, int width, int height) {
+        super(handler,x, y, width, height);
     }
 
     @Override

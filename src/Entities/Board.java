@@ -1,6 +1,7 @@
 package Entities;
 
 import GFX.Assets;
+import ludogame.Handler;
 
 import java.awt.*;
 
@@ -8,8 +9,8 @@ public class Board extends Entity {
 
     Tile[][] map=new Tile[9][];
 
-    public Board(int x, int y, int width, int height) {
-        super(x, y, width, height);
+    public Board(Handler handler, int x, int y, int width, int height) {
+        super(handler,x, y, width, height);
 
         setMap();
 

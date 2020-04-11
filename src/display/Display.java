@@ -1,5 +1,7 @@
 package display;
 
+import GFX.Assets;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -26,6 +28,7 @@ public class Display {
         frame.setSize(width,height);
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setIconImage(Toolkit.getDefaultToolkit().getImage("graphics/Main_Logo.png"));
         frame.setResizable(false);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);

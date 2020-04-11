@@ -8,9 +8,12 @@ public class MouseManager implements MouseListener {
     private int x,y;
     private boolean loop;
 
+    public MouseManager (){
+        this.x=-1;
+        this.y=-1;
+    }
+
     public void tick(){
-
-
         System.out.println("X: "+getX()+"\t\tY: "+getY());
     }
 

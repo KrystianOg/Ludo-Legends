@@ -1,5 +1,7 @@
 package Entities.Counters;
 
+import ludogame.Handler;
+
 import java.awt.*;
 
 public class Intan extends Counter {
@@ -7,8 +9,8 @@ public class Intan extends Counter {
 
 
 
-    public Intan(int x, int y, int width, int height) {
-        super(x, y, width, height);
+    public Intan(Handler handler, int x, int y, int width, int height) {
+        super(handler,x, y, width, height);
     }
 
     @Override

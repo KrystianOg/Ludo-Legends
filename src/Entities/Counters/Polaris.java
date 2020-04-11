@@ -1,12 +1,14 @@
 package Entities.Counters;
 
+import ludogame.Handler;
+
 import java.awt.*;
 
 public class Polaris extends Counter {
     //przesuwa pionek nastepnego o wyrzucona liczbe oczek
 
-    public Polaris(int x, int y, int width, int height) {
-        super(x, y, width, height);
+    public Polaris(Handler handler, int x, int y, int width, int height) {
+        super(handler,x, y, width, height);
     }
 
     @Override
