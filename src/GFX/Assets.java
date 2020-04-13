@@ -7,7 +7,7 @@ import java.io.File;
 public class Assets {
 
 
-    private static final int p_width=41,p_height=78,r_width=75,r_height=75;
+    private static final int p_width=41,p_height=78,r_width=75,r_height=75, b_width=200, b_height=60;
     public static BufferedImage roll_1,roll_2,roll_3,roll_4,roll_5,roll_6;
     public static BufferedImage counter_y,counter_b,counter_r,counter_g;
     public static BufferedImage sword,cloak_b,cloak_f;
