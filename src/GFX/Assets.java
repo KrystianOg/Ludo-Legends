@@ -11,6 +11,7 @@ public class Assets {
     public static BufferedImage roll_1,roll_2,roll_3,roll_4,roll_5,roll_6;
     public static BufferedImage counter_y,counter_b,counter_r,counter_g;
     public static BufferedImage sword,cloak_b,cloak_f;
+    public static BufferedImage ultimate_bar_b, ultimate_bar_g, ultimate_bar_r, ultimate_bar_y;
 
     public static BufferedImage map;
 
@@ -18,6 +19,7 @@ public class Assets {
     public static void init(){
         SpriteSheet roll=new SpriteSheet(ImageLoader.loadImage("graphics/Dice/Roll.png"));
         SpriteSheet player=new SpriteSheet(ImageLoader.loadImage("graphics/Counters/Pionki.png"));
+        SpriteSheet ultimate_bar=new SpriteSheet(ImageLoader.loadImage("graphics/Ultimate_Bar_Sheet.png"));
 
         map=ImageLoader.loadImage("graphics/Map.png");
         sword=ImageLoader.loadImage("graphics/Counters/Sword1.png");
@@ -38,6 +40,10 @@ public class Assets {
         counter_r=player.crop(0,p_height,p_width,p_height);
         counter_b=player.crop(p_width,p_height,p_width,p_height);
 
+        ultimate_bar_b=ultimate_bar.crop(0, 0, b_width, b_height);
+        ultimate_bar_g=ultimate_bar.crop(b_width, 0, b_width, b_height);        
+        ultimate_bar_r=ultimate_bar.crop(0, b_height, b_width, b_height);
+        ultimate_bar_y=ultimate_bar.crop(b_width, b_height, b_width, b_height);
     }
 
 }
