@@ -16,6 +16,10 @@ public class Game implements Runnable {
     private boolean running=false;  //odpowiada za wyjscie z gry
     private Thread thread;          //
 
+    //FPS
+    public static int FPS=60;
+
+
     private BufferStrategy bs;      //-info
     private Graphics g;             //grafika
 
@@ -93,8 +97,7 @@ public class Game implements Runnable {
     public void run() {
         init();
 
-        int fps=60;
-        double timePerTick= 1000000000/fps;   //in nanoseconds
+        double timePerTick= 1000000000/FPS;   //in nanoseconds
         double delta=0;
         long now;
         long lastTime=System.nanoTime();

@@ -4,13 +4,13 @@ import java.awt.image.BufferedImage;
 
 public class Assets {
 
-
     private static final int P_WIDTH=41,P_HEIGHT=78,
             R_WIDTH=75,R_HEIGHT =75;
 
     public static BufferedImage sword,cloak_b,cloak_f;
     public static BufferedImage progressbar_b,progressbar_f;
     public static BufferedImage map;
+    public static BufferedImage timerFrame;
     public static BufferedImage[] game_button =new BufferedImage[2],
                                   settings_button =new BufferedImage[2],
                                   rollimg =new BufferedImage[6],
@@ -28,8 +28,6 @@ public class Assets {
         cloak_b=ImageLoader.loadImage("graphics/Counters/Cloak_Back.png");
         cloak_f=ImageLoader.loadImage("graphics/Counters/Cloak_Front.png");
 
-        //ikona gry
-
         //progressbar
         progressbar_b=ImageLoader.loadImage("graphics/ProgressBar/Bar_Back.png");
         progressbar_f=ImageLoader.loadImage("graphics/ProgressBar/Bar_Front.png");
@@ -40,7 +38,6 @@ public class Assets {
         settings_button[0]=ImageLoader.loadImage("graphics/Menu/settings.png");
         settings_button[1]=ImageLoader.loadImage("graphics/Menu/settings_onhover.png");
 
-
         //kostka do gry
         rollimg[0]=roll.crop(0,0,R_WIDTH,R_HEIGHT);
         rollimg[1]=roll.crop(R_WIDTH,0,R_WIDTH,R_HEIGHT);
@@ -48,13 +45,13 @@ public class Assets {
         rollimg[3]=roll.crop(0,R_HEIGHT,R_WIDTH,R_HEIGHT);
         rollimg[4]=roll.crop(R_WIDTH,R_HEIGHT,R_WIDTH,R_HEIGHT);
         rollimg[5]=roll.crop(R_WIDTH*2,R_HEIGHT,R_WIDTH,R_HEIGHT);
+        timerFrame=ImageLoader.loadImage("graphics/Dice/Timer.png");
 
         //kolory pionkow
         counter[0]=player.crop(0,0,P_WIDTH,P_HEIGHT);
         counter[1]=player.crop(P_WIDTH,0,P_WIDTH,P_HEIGHT);
         counter[2]=player.crop(0,P_HEIGHT,P_WIDTH,P_HEIGHT);
         counter[3]=player.crop(P_WIDTH,P_HEIGHT,P_WIDTH,P_HEIGHT);
-
     }
 
 }

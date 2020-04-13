@@ -73,6 +73,7 @@ public class Dice extends Entity {
             }
             else if(handler.getGameState().getPlayer(handler.getGameState().getTurnof()).isIsinbase()&&handler.getGameState().getRoll()!=6){
                 handler.getGameState().setTurnof();
+                handler.getGameState().getTimer().resetTimer();
                 setRolled(false);
             }
             else if(!handler.getGameState().getPlayer(handler.getGameState().getTurnof()).isIsinbase()){
@@ -82,6 +83,14 @@ public class Dice extends Entity {
             System.out.println("MOVING: "+handler.getGameState().getTurnof());
 
         }
+    }
+
+    public int getTickCopunt(){
+        return this.tickcount;
+    }
+
+    public void setTickcount(){
+        this.tickcount=0;
     }
 
     @Override

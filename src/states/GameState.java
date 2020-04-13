@@ -7,6 +7,7 @@ import Entities.Dice;
 import Entities.Players.Player;
 import Entities.Players.Person;
 import Entities.Tile;
+import Entities.Timer;
 import GFX.Assets;
 import ludogame.Handler;
 
@@ -17,6 +18,7 @@ public class GameState extends State{
     Player[] player=new Player[4];
     Board board;
     Dice dice;
+    Timer timer;
 
     public static final Color[] color=new Color[4];
 
@@ -40,6 +42,7 @@ public class GameState extends State{
         //counter=new Counter[4][4];
         board=new Board(handler,0,0,750,850);   //złe liczby-zmienic
         dice=new Dice(handler,765,300);
+        timer=new Timer(handler,765,300);
 
         turnof=(int)(Math.random()*4);
         System.out.println("MOVING: "+turnof);
@@ -107,10 +110,10 @@ public class GameState extends State{
     }
 
     private void setColors(){
-                color[0]=new Color(255,194,0);
+                color[0]=new Color(255,214,0);
                 color[1]=new Color(0,109,200);
                 color[2]=new Color(201,0,1);
-                color[3]=new Color(48,156,0);
+                color[3]=new Color(0,190,0);
     }
 
     public Player getPlayer(int i){
@@ -141,8 +144,11 @@ public class GameState extends State{
 
     @Override
     public void tick() {
-        if(!dice.isRolled())
-        dice.tick();
+        if(!dice.isRolled()) {
+            dice.tick();
+            timer.tick();
+        }
+
 
         if(dice.isRolled())
         player[turnof].tick();
@@ -150,7 +156,9 @@ public class GameState extends State{
 
     @Override
     public void render(Graphics g) {
+        timer.render(g);
         dice.render(g);
+
         board.render(g);
 
         player[0].render(g);
@@ -174,6 +182,10 @@ public class GameState extends State{
 
     public Dice getDice(){
         return this.dice;
+    }
+
+    public Timer getTimer(){
+        return this.timer;
     }
 
 }
