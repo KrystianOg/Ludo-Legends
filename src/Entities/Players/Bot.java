@@ -5,8 +5,8 @@ import java.awt.image.BufferedImage;
 
 
 public class Bot extends Player {
-    public Bot(int starting_pos, BufferedImage ccolor) {
-        super(starting_pos,ccolor);
+    public Bot(int startingPos, int endingPos,BufferedImage ccolor) {
+        super(startingPos,endingPos,ccolor);
     }
 
     @Override

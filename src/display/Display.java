@@ -30,6 +30,7 @@ public class Display {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setIconImage(Toolkit.getDefaultToolkit().getImage("graphics/Main_Logo.png"));
         frame.setResizable(false);
+        frame.getContentPane().setBackground(Color.white);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
 

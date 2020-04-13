@@ -7,13 +7,18 @@ import java.awt.*;
 public class Venator extends Counter {
     //łowca -?
 
-    public Venator(Handler handler, int x, int y, int width, int height) {
-        super(handler,x, y, width, height);
+    public Venator(Handler handler, float x, float y, int width, int height,int counterNr) {
+        super(handler,x, y, width, height,counterNr);
     }
 
     @Override
     public void move() {
 
+    }
+
+    @Override
+    public int getUltLoad() {
+        return 0;
     }
 
     @Override

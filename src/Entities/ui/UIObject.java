@@ -24,10 +24,7 @@ public abstract class UIObject {
     public abstract void onClick();
 
     public void onMouseMove(MouseEvent e){
-        if(hitbox.contains(e.getX(),e.getY()))
-            hovering=true;
-        else
-            hovering=false;
+        hovering= hitbox.contains(e.getX(), e.getY());
     }
 
     public void onMouseRelease(MouseEvent e){

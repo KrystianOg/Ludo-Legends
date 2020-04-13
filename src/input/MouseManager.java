@@ -6,15 +6,13 @@ import java.awt.event.MouseListener;
 public class MouseManager implements MouseListener {
 
     private int x,y;
-    private boolean loop;
-
     public MouseManager (){
         this.x=-1;
         this.y=-1;
     }
 
     public void tick(){
-        System.out.println("X: "+getX()+"\t\tY: "+getY());
+
     }
 
     @Override
@@ -27,10 +25,6 @@ public class MouseManager implements MouseListener {
 
     public int getX() {
         return x;
-    }
-
-    public void setLoop(boolean set){
-        this.loop=set;
     }
 
     public void setX(int x) {

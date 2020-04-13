@@ -1,5 +1,6 @@
 package Entities.Players;
 import ludogame.Handler;
+import states.GameState;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -13,44 +14,37 @@ public class Person extends Player {
     private static final int ANIM_TICKS=25;
     private int tickcount=-1;
 
-    int i=-1;
+    private boolean clicked=false;
 
-    public Person(Handler handler, int starting_pos, BufferedImage ccolor) {
-        super(starting_pos,ccolor);
+    public Person(Handler handler, int startingPos,int endingPos, BufferedImage ccolor) { //zmienic na getter
+        super(startingPos,endingPos,ccolor);
         this.handler = handler;
         mx=-1;
         my=-1;
-
     }
+
+
+
 
     @Override
     public void tick() {
 
-        counter[0].tick();
-        counter[1].tick();
-        counter[2].tick();
-        counter[3].tick();
+        if(!clicked) {
+            counterNr = getInput();
 
-
-
-
-    /*
-
-        if(handler.getGame().getMousemanager().getX()!=mx&&handler.getGame().getMousemanager().getY()!=my&&tickcount<0){
-            setMx(handler.getGame().getMousemanager().getX());
-            setMy(handler.getGame().getMousemanager().getY());
-            tickcount=0;
+            if(counterNr!=-1)
+                clicked=true;
         }
-        else if(tickcount>=0&&i>=0&&tickcount<=ANIM_TICKS){
-            counter[i].tick();
-            tickcount++;
+
+
+        if(counterNr>0) {
+            counter[counterNr].tick();
+            System.out.println("CLICKED: "+counterNr);
         }
-        else if(tickcount>ANIM_TICKS){
-            resetTick();
-            //counter[i].setPosonmap(1);
-            handler.getGame().getMousemanager().reset();
-        }
-*/
+        //counter[0].tick();
+        //counter[1].tick();
+        //counter[2].tick();
+        //counter[3].tick();
 
     }
 
@@ -71,7 +65,7 @@ public class Person extends Player {
 
     private void resetTick(){
         this.tickcount=-1;
-        this.i=-1;
+        this.counterNr=-1;
         this.mx=-1;
         this.my=-1;
     }

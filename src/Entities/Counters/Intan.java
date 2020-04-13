@@ -1,6 +1,7 @@
 package Entities.Counters;
 
 import ludogame.Handler;
+import states.GameState;
 
 import java.awt.*;
 
@@ -9,8 +10,13 @@ public class Intan extends Counter {
 
 
 
-    public Intan(Handler handler, int x, int y, int width, int height) {
-        super(handler,x, y, width, height);
+    public Intan(Handler handler, float x, float y, int width, int height,int counterNr) {
+        super(handler,x, y, width, height,counterNr);
+    }
+
+    @Override
+    public int getUltLoad() {
+        return 0;
     }
 
     @Override

@@ -1,8 +1,6 @@
 package GFX;
 
-import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.io.File;
 
 public class Assets {
 
@@ -11,8 +9,7 @@ public class Assets {
             R_WIDTH=75,R_HEIGHT =75;
 
     public static BufferedImage sword,cloak_b,cloak_f;
-    public static BufferedImage main_logo;
-
+    public static BufferedImage progressbar_b,progressbar_f;
     public static BufferedImage map;
     public static BufferedImage[] game_button =new BufferedImage[2],
                                   settings_button =new BufferedImage[2],
@@ -33,6 +30,9 @@ public class Assets {
 
         //ikona gry
 
+        //progressbar
+        progressbar_b=ImageLoader.loadImage("graphics/ProgressBar/Bar_Back.png");
+        progressbar_f=ImageLoader.loadImage("graphics/ProgressBar/Bar_Front.png");
 
         //przyciski menu
         game_button[0]=ImageLoader.loadImage("graphics/Menu/game.png");
