@@ -10,37 +10,30 @@ import java.awt.*;
 
 public class MenuState extends State{
 
-    UIImageButton game;
-    UIImageButton settings;
+	Entities.Button game, settings;
 
 
     public MenuState(Handler handler){
     super(handler);
 
-    this.game=new UIImageButton((1000 / 2) - (350 / 2), 200, 350, 90, Assets.game_button, new ClickListener() {
-        @Override
-        public void onClick() {
-            State.setState(handler.getGame().gamestate);
-        }
-    });
-
-    settings=new UIImageButton((1000 / 2) - (350 / 2), 400, 350, 90, Assets.settings_button, new ClickListener() {
-        @Override
-        public void onClick() {
-
-        }
-    });
-
+    game=new Entities.Button(handler,(handler.getFrameWidth()-350)/2,500,350,90, Assets.game_button,handler.getGame().gamestate);
+    
+    settings=new Entities.Button(handler,(handler.getFrameWidth()-350)/2,600,350,90, Assets.settings_button,handler.getGame().menustate);
+    
     }
 
 
     @Override
     public void tick() {
-
+    	game.tick();
+    	settings.tick();
     }
 
     @Override
     public void render(Graphics g) {
-
+    	g.setColor(new Color(153,153,153));
+        g.fillRect(0,0,handler.getFrameWidth(),handler.getFrameHeight());
+        game.render(g);
+        settings.render(g);
     }
 }
