@@ -61,10 +61,10 @@ public class GameState extends State{
             Funi a1, a4;
             Saph a2, a3;
 
-            a1=new Funi(handler,W1,H1,0,0);
-            a2=new Saph(handler,W2,H1,0,1);
-            a3=new Saph(handler,W1,H2,0,2);
-            a4=new Funi(handler,W2,H2,0,3);
+            a1=new Funi(handler,W1,H1);
+            a2=new Saph(handler,W2,H1);
+            a3=new Saph(handler,W1,H2);
+            a4=new Funi(handler,W2,H2);
 
             player[3].setCounters(a1,a2,a3,a4);
 
@@ -73,10 +73,10 @@ public class GameState extends State{
             Intan b2,b3;
             Saph b4;
 
-            b1=new Funi(handler,450+W1,H1,1,0);
-            b2=new Intan(handler,450+W2,H1,1,1);
-            b3=new Intan(handler,450+W1,H2,1,2);
-            b4=new Saph(handler,450+W2,H2,1,3);
+            b1=new Funi(handler,450+W1,H1);
+            b2=new Intan(handler,450+W2,H1);
+            b3=new Intan(handler,450+W1,H2);
+            b4=new Saph(handler,450+W2,H2);
 
             player[0].setCounters(b1,b2,b3,b4);
 
@@ -85,10 +85,10 @@ public class GameState extends State{
             Intan c2;
             Saph c4;
 
-            c1= new Funi(handler,W1,450+H1,2,0);
-            c2= new Intan(handler,W2,450+H1,2,1);
-            c3= new Funi(handler,W1,450+H2,2,2);
-            c4= new Saph(handler,W2,450+H2,2,3);
+            c1= new Funi(handler,W1,450+H1);
+            c2= new Intan(handler,W2,450+H1);
+            c3= new Funi(handler,W1,450+H2);
+            c4= new Saph(handler,W2,450+H2);
 
             player[2].setCounters(c1,c2,c3,c4);
 
@@ -97,10 +97,10 @@ public class GameState extends State{
             Saph  d4;
             Intan d3;
 
-            d1= new Funi(handler,450+W1,450+H1,3,0);
-            d2= new Funi(handler,450+W2,450+H1,3,1);
-            d3= new Intan(handler,450+W1,450+H2,3,2);
-            d4= new Saph(handler,450+W2,450+H2,3,3);
+            d1= new Funi(handler,450+W1,450+H1);
+            d2= new Funi(handler,450+W2,450+H1);
+            d3= new Intan(handler,450+W1,450+H2);
+            d4= new Saph(handler,450+W2,450+H2);
 
             player[1].setCounters(d1,d2,d3,d4);
 

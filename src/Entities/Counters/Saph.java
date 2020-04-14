@@ -15,10 +15,10 @@ public class Saph extends Counter{
     protected int counterNr;
     protected int c;
 
-    public Saph(Handler handler, float x, float y,int c,int counterNr) {
-        super(handler,x, y,counterNr);
+    public Saph(Handler handler, float x, float y) {
+        super(handler,x, y);
         this.handler=handler;
-        this.c=c;
+        this.c=2;
     }
 
     @Override

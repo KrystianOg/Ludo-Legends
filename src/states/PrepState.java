@@ -25,7 +25,9 @@ public class PrepState extends State {
         counter[5]=new Samaya();
         counter[6]=new Saph();
         counter[7]=new Venator();
-*/      apply=new Entities.Button(handler,(handler.getFrameWidth()-350)/2,300,350,90, Assets.apply_button);
+*/
+        counter[0]=new Funi(handler,200,200);
+        apply=new Entities.Button(handler,(handler.getFrameWidth()-350)/2,300,350,90, Assets.apply_button);
 
     }
 
@@ -33,6 +35,7 @@ public class PrepState extends State {
 
     @Override
     public void tick() {
+        counter[0].tick();
         apply.tick();
     }
 
@@ -40,7 +43,7 @@ public class PrepState extends State {
     public void render(Graphics g) {
         g.setColor(new Color(153,153,153));
         g.fillRect(0,0,handler.getFrameWidth(),handler.getFrameHeight());
-
+        counter[0].renderPick(g);
         apply.render(g);
         //renderPick();
     }

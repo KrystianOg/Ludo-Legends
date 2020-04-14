@@ -12,9 +12,9 @@ public class Intan extends Counter {
 
     int c;      //przenieść do counter
 
-    public Intan(Handler handler, float x, float y, int c,int counterNr) {
-        super(handler,x, y, counterNr);
-        this.c=c;
+    public Intan(Handler handler, float x, float y) {
+        super(handler,x, y);
+        this.c=0;
     }
 
     @Override

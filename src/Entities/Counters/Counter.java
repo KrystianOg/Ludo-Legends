@@ -43,6 +43,8 @@ public abstract class Counter extends Entity {
 
     public Counter(Handler handler,float x,float y){
         super(handler,x,y,DEFAULT_ICON_WIDTH,DEFAULT_ICON_HEIGHT);
+        hitbox=new Rectangle((int)x,(int)y,DEFAULT_ICON_WIDTH,DEFAULT_ICON_HEIGHT);
+        ultimateBar=new UltimateBar(handler,0);
     }
 
     public abstract int getUltLoad();
