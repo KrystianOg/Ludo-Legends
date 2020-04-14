@@ -1,14 +1,12 @@
 package Entities.Players;
 
-import Entities.Counters.Counter;
-import Entities.Player;
-
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
 
 public class Bot extends Player {
-    public Bot(int starting_pos) {
-        super(starting_pos);
+    public Bot(int startingPos, int endingPos,BufferedImage ccolor) {
+        super(startingPos,endingPos,ccolor);
     }
 
     @Override
@@ -22,14 +20,7 @@ public class Bot extends Player {
 
     }
 
-    @Override
-    public void move() {
-
-    }
-
     private int getInput(){
-
         return (int)(Math.random()*4+1);
-
     }
 }

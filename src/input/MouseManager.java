@@ -2,58 +2,48 @@ package input;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 
-public class MouseManager implements MouseListener {
+public class MouseManager implements MouseListener, MouseMotionListener{ //poprawić + usunac gettery i settery
 
     private int x,y;
-    private boolean loop;
+    private int hoverx,hovery;
+
+    public MouseManager (){
+        this.x=-1;
+        this.y=-1;
+    }
 
     public void tick(){
 
-
-        System.out.println("X: "+getX()+"\t\tY: "+getY());
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
         if(x!=e.getPoint().x&&y!=e.getPoint().y) {
-            setX(e.getPoint().x);
-            setY(e.getPoint().y);
+           this.x=e.getPoint().x;
+           this.y=e.getPoint().y;
+            System.out.println("PX: "+x+"PY: "+y);
         }
     }
 
-    public int getX() {
-        return x;
-    }
+    @Override
+    public void mouseMoved(MouseEvent e) {
+        this.hoverx=e.getX();
+        this.hovery=e.getY();
 
-    public void setLoop(boolean set){
-        this.loop=set;
-    }
-
-    public void setX(int x) {
-        this.x = x;
-    }
-
-    public int getY() {
-        return y;
-    }
-
-    public void setY(int y) {
-        this.y = y;
+        //System.out.println("X: "+hoverx+"Y: "+hovery);
     }
 
     public void reset(){
         this.y=-1;
         this.x=-1;
-
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
 
     }
-
-
 
     @Override
     public void mouseReleased(MouseEvent e) {
@@ -68,5 +58,25 @@ public class MouseManager implements MouseListener {
     @Override
     public void mouseExited(MouseEvent e) {
 
+    }
+
+    @Override
+    public void mouseDragged(MouseEvent e) {
+
+    }
+
+    public int getHoverX(){
+        return this.hoverx;
+    }
+
+    public int getHoverY(){
+        return this.hovery;
+    }
+
+    public int getX(){
+        return this.x;
+    }
+    public int getY(){
+        return this.y;
     }
 }

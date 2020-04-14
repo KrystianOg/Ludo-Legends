@@ -2,33 +2,40 @@ package Entities.Counters;
 
 import GFX.Assets;
 import ludogame.Game;
+import ludogame.Handler;
 
 import java.awt.*;
 
 public class Saph extends Counter{
     //wojownik
 
-    Game game;
+    private static final int ULT_LOAD=30;
 
-    public Saph(Game game, int x, int y) {
-        super(x, y,Counter.DEFAULT_WIDTH,Counter.DEFAULT_HEIGHT);
-        this.game=game;
+    Handler handler;
+    protected int counterNr;
+    protected int c;
+
+    public Saph(Handler handler, float x, float y) {
+        super(handler,x, y);
+        this.handler=handler;
+        this.c=2;
     }
 
     @Override
-    public void tick() {
-        y-=2;
-        hitbox.y-=2;
+    public int getUltLoad() {
+        return ULT_LOAD;
+    }
+
+    @Override
+    public void renderPick(Graphics g) {
+
     }
 
     @Override
     public void render(Graphics g) {
-        g.drawImage(Assets.counter_g,(int)x,(int) y,null);
-        g.drawImage(Assets.sword,(int)x,(int)y+11,null);
+        g.drawImage(Assets.counter[c], (int)x, (int)y,null);
+        g.drawImage(Assets.sword, (int)x, (int)y +11,null);
+        ultimateBar.render(g);
     }
 
-    @Override
-    public void move() {
-
-    }
 }
