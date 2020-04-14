@@ -21,8 +21,6 @@ public class MouseManager implements MouseListener, MouseMotionListener { //popr
         this.y=-1;
         this.x=-1;
     }
-    
-    public void tick(){
 
 
     public void tick(){
@@ -49,14 +47,6 @@ public class MouseManager implements MouseListener, MouseMotionListener { //popr
     public boolean isRightPressed() {
     	return rightPressed;
     }
-    
-    public int getY() {
-        return y;
-    }
-
-    public int getX() {
-        return x;
-
     
     @Override
     public void mouseClicked(MouseEvent e) {
@@ -95,7 +85,6 @@ public class MouseManager implements MouseListener, MouseMotionListener { //popr
 	}
 	
 	public int getHoverX(){
-
         return this.hoverx;
     }
 

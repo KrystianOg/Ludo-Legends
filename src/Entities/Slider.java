@@ -9,27 +9,25 @@ import ludogame.Handler;
 public class Slider extends Entity{
 
 	private Rectangle hitbox;
-	private int frameWidth;
     private boolean pressed;
-    private boolean onhover;
     private float positionX;
+
+    private int ZMIENNA;
     
 	public Slider(Handler handler, float x, float y, int width, int height, int frameWidth) {
 		super(handler, x, y, width, height);
 		
 		this.hitbox=new Rectangle((int)x,(int)y, frameWidth, height);
 		this.pressed=false;
-	    this.onhover=false;
 	    positionX=x;
-	    frameWidth=this.frameWidth;
 	}
 
 	@Override
 	public void tick() {
 		
-		if(this.hitbox.contains(handler.getGame().getMousemanager().getHoverX(),handler.getGame().getMousemanager().getHoverY()) && handler.getGame().getMousemanager().isLeftPressed()) {
+		if(this.hitbox.contains(handler.getHoverX(),handler.getHoverY()) && handler.getGame().getMousemanager().isLeftPressed()) {
             this.pressed=true;
-            positionX=handler.getGame().getMousemanager().getHoverX();
+            positionX=handler.getHoverX();
 		}
         else
             this.pressed=false;
@@ -41,7 +39,5 @@ public class Slider extends Entity{
 		if(pressed)
 			g.drawImage(Assets.slider_front,(int)handler.getGame().getMousemanager().getHoverX()-8,(int)y, width, height, null);
 		else g.drawImage(Assets.slider_front,(int)positionX-8,(int)y, width, height, null);
-		
 	}
-
 }

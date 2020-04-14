@@ -1,8 +1,6 @@
 package Entities;
 
 import ludogame.Handler;
-import states.State;
-
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
@@ -12,7 +10,6 @@ public class Button extends Entity {
     private Rectangle hitbox;
     private boolean pressed;
     private boolean onhover;
-
 
     public Button(Handler handler, float x, float y, int width, int height,BufferedImage[] button){
         super(handler,x,y,width,height);
@@ -28,12 +25,6 @@ public class Button extends Entity {
     @Override
     public void tick() {
 
-
-        if(this.hitbox.contains(handler.getGame().getMousemanager().getX(),handler.getGame().getMousemanager().getY())){
-            State.setState(changeTo);
-        }
-
-
         if(this.hitbox.contains(handler.getGame().getMousemanager().getHoverX(),handler.getGame().getMousemanager().getHoverY()))
             this.onhover=true;
         else
@@ -47,11 +38,6 @@ public class Button extends Entity {
             g.drawImage(button[1],(int)x,(int)y,null);
         else
             g.drawImage(button[0],(int)x,(int)y,null);
-
-
-    }
-}
-
     }
 
     public Rectangle getHitbox(){
