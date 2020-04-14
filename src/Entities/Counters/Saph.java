@@ -33,8 +33,4 @@ public class Saph extends Counter{
         ultimateBar.render(g);
     }
 
-    @Override
-    public void move() {
-
-    }
 }

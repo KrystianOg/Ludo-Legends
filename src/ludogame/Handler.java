@@ -1,6 +1,6 @@
 package ludogame;
 
-import Entities.Dice;
+import Entities.HUD.Dice;
 import Entities.Players.Player;
 import states.GameState;
 

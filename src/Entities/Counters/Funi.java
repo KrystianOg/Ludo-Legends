@@ -34,8 +34,4 @@ public class Funi extends Counter{
         return ULT_LOAD;
     }
 
-    @Override
-    public void move() {
-
-    }
 }

@@ -7,7 +7,7 @@ public class Assets {
     private static final int P_WIDTH=41,P_HEIGHT=78,
             R_WIDTH=75,R_HEIGHT =75;
 
-    public static BufferedImage sword,cloak_b,cloak_f;
+    public static BufferedImage sword,cloak_b,cloak_f,shield;
     public static BufferedImage progressbar_b,progressbar_f;
     public static BufferedImage map;
     public static BufferedImage timerFrame;
@@ -27,6 +27,7 @@ public class Assets {
         sword=ImageLoader.loadImage("graphics/Counters/Sword1.png");
         cloak_b=ImageLoader.loadImage("graphics/Counters/Cloak_Back.png");
         cloak_f=ImageLoader.loadImage("graphics/Counters/Cloak_Front.png");
+        shield=ImageLoader.loadImage("graphics/Counters/Shield.png");
 
         //progressbar
         progressbar_b=ImageLoader.loadImage("graphics/ProgressBar/Bar_Back.png");

@@ -10,12 +10,6 @@ public class Samaya extends Counter {
     public Samaya(Handler handler, float x, float y, int width, int height,int counterNr) {
         super(handler,x, y, width, height,counterNr);
     }
-
-    @Override
-    public void move() {
-
-    }
-
     @Override
     public int getUltLoad() {
         return 0;

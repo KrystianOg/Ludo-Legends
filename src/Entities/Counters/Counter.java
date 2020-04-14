@@ -51,10 +51,7 @@ public abstract class Counter extends Entity {
 
     private void moveLogic(){
 
-        if(handler.getPlayer().isIsinbase()&&handler.getGameState().getRoll()!=6&&!handler.getDice().isRolled()){
-
-        }
-        else if(tickcount<0&&handler.getDice().isRolled()&&this.hitbox.contains(handler.getGame().getMousemanager().getX(),handler.getGame().getMousemanager().getY())){
+        if(tickcount<0&&handler.getDice().isRolled()&&this.hitbox.contains(handler.getGame().getMousemanager().getX(),handler.getGame().getMousemanager().getY())){
             if(this.isinbase&&handler.getRoll()==6) {
                 //
                 int i = handler.getPlayer().getStarting_pos();
@@ -118,7 +115,6 @@ public abstract class Counter extends Entity {
                 handler.getPlayer().setClicked(false);
                 handler.getPlayer().setPoints(moves);
                 handler.setTurnof();
-                this.
                 moves=0;                //reset void
                 tickcount=-1;           //reset void
             }
@@ -145,8 +141,6 @@ public abstract class Counter extends Entity {
     private void setUltLoad(){
         this.ultLoad=(int)(Math.ceil(100*handler.getPlayer().getPoints()/getUltLoad()));
     }
-
-    public abstract void move();
 
     private int getNextTile(){
         if(posonmap==51)

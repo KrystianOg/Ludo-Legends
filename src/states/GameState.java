@@ -2,12 +2,13 @@ package states;
 import Entities.Board;
 import Entities.Counters.Counter;
 import Entities.Counters.Funi;
+import Entities.Counters.Intan;
 import Entities.Counters.Saph;
-import Entities.Dice;
+import Entities.HUD.Dice;
 import Entities.Players.Player;
 import Entities.Players.Person;
 import Entities.Tile;
-import Entities.Timer;
+import Entities.HUD.Timer;
 import GFX.Assets;
 import ludogame.Handler;
 
@@ -35,9 +36,7 @@ public class GameState extends State{
     public GameState(Handler handler, State prepstate){
         super(handler);
 
-
         prepState=prepstate;
-
 
         //counter=new Counter[4][4];
         board=new Board(handler,0,0,750,850);   //złe liczby-zmienic
@@ -75,22 +74,24 @@ public class GameState extends State{
             player[3].setCounters(a1,a2,a3,a4);
 
         //player1
-            Funi b1, b3;
-            Saph b2, b4;
+            Funi b1;
+            Intan b2,b3;
+            Saph b4;
 
             b1=new Funi(handler,450+W1,H1,1,0);
-            b2=new Saph(handler,450+W2,H1,1,1);
-            b3=new Funi(handler,450+W1,H2,1,2);
+            b2=new Intan(handler,450+W2,H1,1,1);
+            b3=new Intan(handler,450+W1,H2,1,2);
             b4=new Saph(handler,450+W2,H2,1,3);
 
             player[0].setCounters(b1,b2,b3,b4);
 
         //player2
-            Funi c1, c2,c3;
+            Funi c1, c3;
+            Intan c2;
             Saph c4;
 
             c1= new Funi(handler,W1,450+H1,2,0);
-            c2= new Funi(handler,W2,450+H1,2,1);
+            c2= new Intan(handler,W2,450+H1,2,1);
             c3= new Funi(handler,W1,450+H2,2,2);
             c4= new Saph(handler,W2,450+H2,2,3);
 
@@ -98,11 +99,12 @@ public class GameState extends State{
 
        //player3
             Funi d1, d2;
-            Saph d3, d4;
+            Saph  d4;
+            Intan d3;
 
             d1= new Funi(handler,450+W1,450+H1,3,0);
             d2= new Funi(handler,450+W2,450+H1,3,1);
-            d3= new Saph(handler,450+W1,450+H2,3,2);
+            d3= new Intan(handler,450+W1,450+H2,3,2);
             d4= new Saph(handler,450+W2,450+H2,3,3);
 
             player[1].setCounters(d1,d2,d3,d4);
@@ -140,15 +142,12 @@ public class GameState extends State{
         }
     }
 
-
-
     @Override
     public void tick() {
         if(!dice.isRolled()) {
             dice.tick();
             timer.tick();
         }
-
 
         if(dice.isRolled())
         player[turnof].tick();

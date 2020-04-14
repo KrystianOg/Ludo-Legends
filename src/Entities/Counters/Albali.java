@@ -21,11 +21,6 @@ public class Albali extends Counter {
     }
 
     @Override
-    public void move() {
-
-    }
-
-    @Override
     public void tick() {
 
     }

@@ -1,4 +1,4 @@
-package Entities;
+package Entities.HUD;
 
 import Entities.Entity;
 import GFX.Assets;
@@ -15,8 +15,6 @@ public class Dice extends Entity {
 
     protected Rectangle hitbox;
 
-
-
     private boolean rolled;
     private int roll;
 
@@ -30,6 +28,7 @@ public class Dice extends Entity {
         super(handler,x, y, DICE_WIDTH, DICE_HEIGHT);
         this.hitbox=new Rectangle(x,y,DICE_WIDTH,DICE_HEIGHT);
         this.setRolled(false);
+
     }
 
     public boolean isRolled() {

@@ -12,11 +12,6 @@ public class Venator extends Counter {
     }
 
     @Override
-    public void move() {
-
-    }
-
-    @Override
     public int getUltLoad() {
         return 0;
     }
