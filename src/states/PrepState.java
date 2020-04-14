@@ -27,11 +27,9 @@ public class PrepState extends State {
         counter[7]=new Venator();
 */
         counter[0]=new Funi(handler,200,200);
-        apply=new Entities.Button(handler,(handler.getFrameWidth()-350)/2,300,350,90, Assets.apply_button);
+        apply=new Entities.Button(handler,(handler.getFrameWidth()-350)/2,300,350,90, Assets.apply_button,handler.getGame().gamestate);
 
     }
-
-
 
     @Override
     public void tick() {

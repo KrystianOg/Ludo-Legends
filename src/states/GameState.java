@@ -30,7 +30,7 @@ public class GameState extends State{
 
     private int roll;
 
-    public GameState(Handler handler, State prepstate){
+    public GameState(Handler handler){
         super(handler);
 
         //counter=new Counter[4][4];

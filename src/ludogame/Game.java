@@ -54,11 +54,10 @@ public class Game implements Runnable {
 
         handler=new Handler(this);
 
-        prepstate=new PrepState(handler);
-        gamestate=new GameState(handler,prepstate);
-        menustate=new MenuState(handler);
+        gamestate=new GameState(handler);
         settingstate=new SettingState(handler);
-
+        menustate=new MenuState(handler);
+        prepstate=new PrepState(handler);
 
 
         State.setState(prepstate); //gamestate change
