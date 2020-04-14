@@ -26,7 +26,7 @@ public class Game implements Runnable {
     private Handler handler;
 
     //States                        // odpowiada za dzialanie roznych
-    public State gamestate;        // funkcji gry (np. gra,menu,ustawienia)
+    public State gamestate;         // funkcji gry (np. gra,menu,ustawienia)
     public State menustate;
     public State settingstate;
     public State prepstate;        //- wybor postaci przed grą
@@ -53,11 +53,11 @@ public class Game implements Runnable {
         Assets.init();
 
         handler=new Handler(this);
-
+        prepstate=new PrepState(handler);
+        menustate=new MenuState(handler);
         gamestate=new GameState(handler);
         settingstate=new SettingState(handler);
-        menustate=new MenuState(handler);
-        prepstate=new PrepState(handler);
+
 
 
         State.setState(prepstate); //gamestate change

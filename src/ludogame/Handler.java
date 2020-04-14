@@ -68,4 +68,20 @@ public class Handler {      //przekazuje zmienne do klas
         return this.getGame().getFrameHeight();
     }
 
+    public int getHoverX(){
+        return this.getGame().getMousemanager().getHoverX();
+    }
+
+    public int getHoverY(){
+        return this.getGame().getMousemanager().getHoverY();
+    }
+
+    public int getMouseClickX(){
+        return this.getGame().getMousemanager().getX();
+    }
+
+    public int getMouseClickY(){
+        return this.getGame().getMousemanager().getY();
+    }
+
 }

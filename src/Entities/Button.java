@@ -13,9 +13,7 @@ public class Button extends Entity {
     private boolean pressed;
     private boolean onhover;
 
-    private State changeTo;
-
-    public Button(Handler handler, float x, float y, int width, int height,BufferedImage[] button,State changeTo){
+    public Button(Handler handler, float x, float y, int width, int height,BufferedImage[] button){
         super(handler,x,y,width,height);
 
         this.hitbox=new Rectangle((int)x,(int)y,width,height);
@@ -23,16 +21,11 @@ public class Button extends Entity {
         this.button=button;
         this.pressed=false;
         this.onhover=false;
-        this.changeTo=changeTo;
         System.out.println("X: "+x+"Y: "+y);
     }
 
     @Override
     public void tick() {
-
-        if(this.hitbox.contains(handler.getGame().getMousemanager().getX(),handler.getGame().getMousemanager().getY())){
-            State.setState(changeTo);
-        }
 
         if(this.hitbox.contains(handler.getGame().getMousemanager().getHoverX(),handler.getGame().getMousemanager().getHoverY()))
             this.onhover=true;
@@ -42,11 +35,13 @@ public class Button extends Entity {
 
     @Override
     public void render(Graphics g) {
-
         if(onhover)
             g.drawImage(button[1],(int)x,(int)y,null);
         else
             g.drawImage(button[0],(int)x,(int)y,null);
+    }
 
+    public Rectangle getHitbox(){
+        return this.hitbox;
     }
 }
