@@ -3,6 +3,7 @@ package states;
 import Entities.Counters.*;
 import Entities.Button;
 
+
 import GFX.Assets;
 import ludogame.Handler;
 
@@ -29,6 +30,7 @@ public class PrepState extends State {
         counter[7]=new Venator();
 */
         counter[0]=new Funi(handler,200,200);
+
         apply=new Button(handler,(float)((handler.getFrameWidth()-350)/2),300,350,90, Assets.apply_button);
     }
 
@@ -38,6 +40,7 @@ public class PrepState extends State {
         if(apply.getHitbox().contains(handler.getMouseClickX(),handler.getMouseClickY())){
             setState(handler.getGame().gamestate);
         }
+
 
         counter[0].tick();
         apply.tick();

@@ -34,7 +34,8 @@ public class GameState extends State{
         super(handler);
 
         //counter=new Counter[4][4];
-        board=new Board(handler,0,0,750,850);   //złe liczby-zmienic
+        board=new Board(handler,0,0,750,850);   //z�e liczby-zmienic
+
         dice=new Dice(handler,765,300);
         timer=new Timer(handler,765,300);
 

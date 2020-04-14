@@ -10,7 +10,9 @@ public class Intan extends Counter {
     //2 razy trzeba go zbic zeby przesunal sie do "bazy"
     private static final boolean ULT=false;
 
-    int c;      //przenieść do counter
+
+    int c;      //przenie�� do counter
+
 
     public Intan(Handler handler, float x, float y) {
         super(handler,x, y);

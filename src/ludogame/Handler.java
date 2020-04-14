@@ -2,6 +2,8 @@ package ludogame;
 
 import Entities.HUD.Dice;
 import Entities.Players.Player;
+import input.MouseManager;
+
 import states.GameState;
 
 public class Handler {      //przekazuje zmienne do klas
@@ -67,6 +69,7 @@ public class Handler {      //przekazuje zmienne do klas
     public int getFrameHeight(){
         return this.getGame().getFrameHeight();
     }
+
 
     public int getHoverX(){
         return this.getGame().getMousemanager().getHoverX();
