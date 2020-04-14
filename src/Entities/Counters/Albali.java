@@ -1,16 +1,27 @@
 package Entities.Counters;
 
+import ludogame.Handler;
+import states.GameState;
+
 import java.awt.*;
 
 public class Albali extends Counter {
     //zbija wszystkie ktore minie podczas trwania umiejetnosci;
 
-    public Albali(int x, int y, int width, int height) {
-        super(x, y, width, height);
+    public static final int ULT_LOAD=40;
+
+
+    public Albali(Handler handler, float x, float y,int counterNr) {
+        super(handler,x, y,counterNr);
     }
 
     @Override
-    public void move() {
+    public int getUltLoad() {
+        return ULT_LOAD;
+    }
+
+    @Override
+    public void renderPick(Graphics g) {
 
     }
 

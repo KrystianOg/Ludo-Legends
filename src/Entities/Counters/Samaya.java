@@ -1,16 +1,22 @@
 package Entities.Counters;
 
+import ludogame.Handler;
+
 import java.awt.*;
 
 public class Samaya extends Counter {
     //passive, nie zbija ale jej tez nie das sie zbic
 
-    public Samaya(int x, int y, int width, int height) {
-        super(x, y, width, height);
+    public Samaya(Handler handler, float x, float y,int counterNr) {
+        super(handler,x, y,counterNr);
+    }
+    @Override
+    public int getUltLoad() {
+        return 0;
     }
 
     @Override
-    public void move() {
+    public void renderPick(Graphics g) {
 
     }
 

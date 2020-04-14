@@ -1,5 +1,7 @@
 package display;
 
+import GFX.Assets;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -10,7 +12,7 @@ public class Display {
     private Canvas canvas;
 
     private String title;
-    private int width,height;
+    private static int width,height;
 
 
     public Display(String title,int width,int height){
@@ -26,7 +28,9 @@ public class Display {
         frame.setSize(width,height);
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setIconImage(Toolkit.getDefaultToolkit().getImage("graphics/Main_Logo.png"));
         frame.setResizable(false);
+        frame.getContentPane().setBackground(Color.white);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
 
@@ -47,7 +51,5 @@ public class Display {
     public JFrame getFrame(){
         return frame;
     }
-
-
 
 }

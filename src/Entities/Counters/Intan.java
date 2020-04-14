@@ -1,28 +1,35 @@
 package Entities.Counters;
 
+import GFX.Assets;
+import ludogame.Handler;
+import states.GameState;
+
 import java.awt.*;
 
 public class Intan extends Counter {
     //2 razy trzeba go zbic zeby przesunal sie do "bazy"
+    private static final boolean ULT=false;
 
+    int c;      //przenieœæ do counter
 
-
-    public Intan(int x, int y, int width, int height) {
-        super(x, y, width, height);
+    public Intan(Handler handler, float x, float y) {
+        super(handler,x, y);
+        this.c=0;
     }
 
     @Override
-    public void move() {
-
+    public int getUltLoad() {
+        return 100;
     }
 
     @Override
-    public void tick() {
+    public void renderPick(Graphics g) {
 
     }
 
     @Override
     public void render(Graphics g) {
-
+        g.drawImage(Assets.counter[c],(int)x,(int)y,null);
+        g.drawImage(Assets.shield,(int)x-3,(int)y+21,null);
     }
 }

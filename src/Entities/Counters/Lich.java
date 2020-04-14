@@ -1,16 +1,23 @@
 package Entities.Counters;
 
+import ludogame.Handler;
+
 import java.awt.*;
 
 public class Lich extends Counter {
     //wskrzesza na 3 rundy, jak dojdzie do kona to zalicza jak nie to dead / zbijable?
 
-    public Lich(int x, int y, int width, int height) {
-        super(x, y, width, height);
+    public Lich(Handler handler, float x, float y,int counterNr) {
+        super(handler,x, y,counterNr);
     }
 
     @Override
-    public void move() {
+    public int getUltLoad() {
+        return 0;
+    }
+
+    @Override
+    public void renderPick(Graphics g) {
 
     }
 
