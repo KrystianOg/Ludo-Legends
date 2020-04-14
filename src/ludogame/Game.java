@@ -26,10 +26,12 @@ public class Game implements Runnable {
     private Handler handler;
 
     //States                        // odpowiada za dzialanie roznych
+
     public State gamestate;        // funkcji gry (np. gra,menu,ustawienia)
     public State menustate;
     public State settingstate;
-    public State prepstate;        //- wybor postaci przed gr¹
+    public State prepstate;        //- wybor postaci przed grï¿½
+
 
     //Input
     private MouseManager mousemanager;
@@ -54,6 +56,7 @@ public class Game implements Runnable {
 
         handler=new Handler(this);
 
+
         gamestate=new GameState(handler);
         settingstate=new SettingState(handler);
         prepstate=new PrepState(handler);
@@ -62,6 +65,7 @@ public class Game implements Runnable {
 
 
         State.setState(menustate); //gamestate change
+
     }
 
     private void tick(){

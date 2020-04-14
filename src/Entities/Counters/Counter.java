@@ -191,4 +191,5 @@ public abstract class Counter extends Entity {
         handler.getPlayer().resetCounterNr();
         handler.getGameState().setCounter(this,posonmap);
     }
+
 }

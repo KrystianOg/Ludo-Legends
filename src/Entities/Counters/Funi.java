@@ -40,5 +40,5 @@ public class Funi extends Counter{
     public int getUltLoad() {
         return ULT_LOAD;
     }
-
 }
+

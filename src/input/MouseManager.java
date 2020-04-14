@@ -4,16 +4,18 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
-public class MouseManager implements MouseListener, MouseMotionListener {
+public class MouseManager implements MouseListener, MouseMotionListener { //poprawić + usunac gettery i settery
 
     private int x,y;
     private boolean leftPressed, rightPressed;
+
     private int hoverx,hovery;
 
     public MouseManager (){
         this.x=-1;
         this.y=-1;
     }
+
     
     public void reset(){
         this.y=-1;
@@ -23,7 +25,8 @@ public class MouseManager implements MouseListener, MouseMotionListener {
     public void tick(){
 
 
-        System.out.println("X: "+getX()+"\t\tY: "+getY());
+    public void tick(){
+
     }
 
     @Override
@@ -33,6 +36,7 @@ public class MouseManager implements MouseListener, MouseMotionListener {
         else if (e.getButton() == MouseEvent.BUTTON3)
         	rightPressed = true;
         if(x!=e.getPoint().x&&y!=e.getPoint().y) {
+
             this.x=e.getPoint().x;
             this.y=e.getPoint().y;
             }
@@ -52,7 +56,7 @@ public class MouseManager implements MouseListener, MouseMotionListener {
 
     public int getX() {
         return x;
-    }
+
     
     @Override
     public void mouseClicked(MouseEvent e) {
@@ -77,6 +81,7 @@ public class MouseManager implements MouseListener, MouseMotionListener {
 
     }
 
+
 	@Override
 	public void mouseDragged(MouseEvent e) {
 		this.hoverx=e.getX();
@@ -90,10 +95,19 @@ public class MouseManager implements MouseListener, MouseMotionListener {
 	}
 	
 	public int getHoverX(){
+
         return this.hoverx;
     }
 
     public int getHoverY(){
         return this.hovery;
     }
+
+    public int getX(){
+        return this.x;
+    }
+    public int getY(){
+        return this.y;
+    }
+
 }

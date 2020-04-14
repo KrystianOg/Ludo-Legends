@@ -38,4 +38,6 @@ public class Saph extends Counter{
         ultimateBar.render(g);
     }
 
+
 }
+
