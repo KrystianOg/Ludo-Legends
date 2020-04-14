@@ -1,28 +1,47 @@
 package states;
 
-import ludogame.Game;
+import Entities.Counters.*;
+import GFX.Assets;
 import ludogame.Handler;
 
 import java.awt.*;
 
 public class PrepState extends State {
 
-    int[][] counter=new int[4][4];
+    Counter[] counter;
 
+    Entities.Button apply;
 
     public PrepState(Handler handler) {
         super(handler);
+
+        counter=new Counter[8];
+/*
+        counter[0]=new Albali(Handler handler,(float));
+        counter[1]=new Funi();
+        counter[2]=new Intan();
+        counter[3]=new Lich();
+        counter[4]=new Polaris();
+        counter[5]=new Samaya();
+        counter[6]=new Saph();
+        counter[7]=new Venator();
+*/      apply=new Entities.Button(handler,(handler.getFrameWidth()-350)/2,300,350,90, Assets.apply_button);
+
     }
 
 
 
     @Override
     public void tick() {
-
+        apply.tick();
     }
 
     @Override
     public void render(Graphics g) {
+        g.setColor(new Color(153,153,153));
+        g.fillRect(0,0,handler.getFrameWidth(),handler.getFrameHeight());
 
+        apply.render(g);
+        //renderPick();
     }
 }

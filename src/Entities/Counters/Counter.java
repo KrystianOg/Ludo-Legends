@@ -9,7 +9,9 @@ import java.awt.*;
 public abstract class Counter extends Entity {
 
     public static final int DEFAULT_WIDTH=41,
-                            DEFAULT_HEIGHT=78;
+                            DEFAULT_HEIGHT=78,
+                            DEFAULT_ICON_WIDTH=90,
+                            DEFAULT_ICON_HEIGHT=90;
 
     //
     protected float basex,basey;
@@ -21,8 +23,7 @@ public abstract class Counter extends Entity {
     //
 
     //Ultimate bar
-    protected UltimateBar ultimateBar;
-    protected int ultLoad;
+    public UltimateBar ultimateBar;         //zmienic na protected/private
 
     //animacja pionkow
     private static final int COUNTER_ANIM_TICKS=25;
@@ -30,22 +31,27 @@ public abstract class Counter extends Entity {
     private int moves=-1;
     private boolean changeDirection;
 
-    public Counter(Handler handler, float x, float y, int width, int height,int nr) {
-        super(handler,x, y,width,height);
+    public Counter(Handler handler, float x, float y,int ULT_LOAD) {
+        super(handler,x, y,DEFAULT_WIDTH,DEFAULT_HEIGHT);
 
         this.basex=x;
         this.basey=y;
         hitbox=new Rectangle((int)x, (int)y,DEFAULT_WIDTH,DEFAULT_HEIGHT);
         isinbase=true;
-        ultimateBar=new UltimateBar(handler,nr);
+        ultimateBar=new UltimateBar(handler,ULT_LOAD);
+    }
+
+    public Counter(Handler handler,float x,float y){
+        super(handler,x,y,DEFAULT_ICON_WIDTH,DEFAULT_ICON_HEIGHT);
     }
 
     public abstract int getUltLoad();
 
+    public abstract void renderPick(Graphics g);
+
     public void tick(){
 
         moveLogic();
-        setUltLoad();
         ultimateBar.tick();
     }
 
@@ -136,10 +142,6 @@ public abstract class Counter extends Entity {
             setPosonmap();
             handler.getGameState().boardLogic(posonmap);
         }
-    }
-
-    private void setUltLoad(){
-        this.ultLoad=(int)(Math.ceil(100*handler.getPlayer().getPoints()/getUltLoad()));
     }
 
     private int getNextTile(){

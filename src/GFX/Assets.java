@@ -13,6 +13,7 @@ public class Assets {
     public static BufferedImage timerFrame;
     public static BufferedImage[] game_button =new BufferedImage[2],
                                   settings_button =new BufferedImage[2],
+                                  apply_button=new BufferedImage[2],
                                   rollimg =new BufferedImage[6],
                                   counter =new BufferedImage[4];
 
@@ -38,6 +39,8 @@ public class Assets {
         game_button[1]=ImageLoader.loadImage("graphics/Menu/game_onhover.png");
         settings_button[0]=ImageLoader.loadImage("graphics/Menu/settings.png");
         settings_button[1]=ImageLoader.loadImage("graphics/Menu/settings_onhover.png");
+        apply_button[0]=ImageLoader.loadImage("graphics/Menu/apply.png");
+        apply_button[1]=ImageLoader.loadImage("graphics/Menu/apply_onhover.png");
 
         //kostka do gry
         rollimg[0]=roll.crop(0,0,R_WIDTH,R_HEIGHT);

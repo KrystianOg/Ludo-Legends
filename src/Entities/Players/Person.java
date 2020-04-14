@@ -41,10 +41,6 @@ public class Person extends Player {
             counter[counterNr].tick();
             System.out.println("CLICKED: "+counterNr);
         }
-        //counter[0].tick();
-        //counter[1].tick();
-        //counter[2].tick();
-        //counter[3].tick();
 
     }
 

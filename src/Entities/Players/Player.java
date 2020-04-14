@@ -6,7 +6,7 @@ import java.awt.image.BufferedImage;
 
 public abstract class Player {
 
-    protected Counter[] counter;
+    public Counter[] counter;
 
     protected int currentlyinbase;
 

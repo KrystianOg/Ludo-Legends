@@ -13,13 +13,18 @@ public class Intan extends Counter {
     int c;      //przenieść do counter
 
     public Intan(Handler handler, float x, float y, int c,int counterNr) {
-        super(handler,x, y, Counter.DEFAULT_WIDTH, Counter.DEFAULT_HEIGHT,counterNr);
+        super(handler,x, y, counterNr);
         this.c=c;
     }
 
     @Override
     public int getUltLoad() {
         return 100;
+    }
+
+    @Override
+    public void renderPick(Graphics g) {
+
     }
 
     @Override

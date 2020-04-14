@@ -11,13 +11,18 @@ public class Albali extends Counter {
     public static final int ULT_LOAD=40;
 
 
-    public Albali(Handler handler, float x, float y, int width, int height,int counterNr) {
-        super(handler,x, y, width, height,counterNr);
+    public Albali(Handler handler, float x, float y,int counterNr) {
+        super(handler,x, y,counterNr);
     }
 
     @Override
     public int getUltLoad() {
         return ULT_LOAD;
+    }
+
+    @Override
+    public void renderPick(Graphics g) {
+
     }
 
     @Override

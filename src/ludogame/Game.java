@@ -48,6 +48,8 @@ public class Game implements Runnable {
         display =new Display(title,width,height);
         display.getFrame().addMouseListener(mousemanager);
         display.getCanvas().addMouseListener(mousemanager);
+        display.getFrame().addMouseMotionListener(mousemanager);
+        display.getCanvas().addMouseMotionListener(mousemanager);
         Assets.init();
 
         handler=new Handler(this);
@@ -59,7 +61,7 @@ public class Game implements Runnable {
 
 
 
-        State.setState(gamestate); //gamestate change
+        State.setState(prepstate); //gamestate change
     }
 
     private void tick(){
@@ -67,7 +69,6 @@ public class Game implements Runnable {
 
         if(State.getState()!=null)
             State.getState().tick();
-
 
     }
 
@@ -153,6 +154,14 @@ public class Game implements Runnable {
 
     public State getState(){
         return State.getState();
+    }
+
+    public int getFrameHeight(){
+        return this.height;
+    }
+
+    public int getFrameWidth(){
+        return this.width;
     }
 
 }

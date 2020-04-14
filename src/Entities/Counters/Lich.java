@@ -7,13 +7,18 @@ import java.awt.*;
 public class Lich extends Counter {
     //wskrzesza na 3 rundy, jak dojdzie do kona to zalicza jak nie to dead / zbijable?
 
-    public Lich(Handler handler, float x, float y, int width, int height,int counterNr) {
-        super(handler,x, y, width, height,counterNr);
+    public Lich(Handler handler, float x, float y,int counterNr) {
+        super(handler,x, y,counterNr);
     }
 
     @Override
     public int getUltLoad() {
         return 0;
+    }
+
+    @Override
+    public void renderPick(Graphics g) {
+
     }
 
     @Override

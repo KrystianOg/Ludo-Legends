@@ -60,7 +60,12 @@ public class Handler {      //przekazuje zmienne do klas
         return gameState.getRoll();
     }
 
+    public int getFrameWidth(){
+        return this.getGame().getFrameWidth();
+    }
 
-
+    public int getFrameHeight(){
+        return this.getGame().getFrameHeight();
+    }
 
 }

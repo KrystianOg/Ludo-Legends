@@ -16,7 +16,7 @@ public class Saph extends Counter{
     protected int c;
 
     public Saph(Handler handler, float x, float y,int c,int counterNr) {
-        super(handler,x, y,Counter.DEFAULT_WIDTH,Counter.DEFAULT_HEIGHT,counterNr);
+        super(handler,x, y,counterNr);
         this.handler=handler;
         this.c=c;
     }
@@ -24,6 +24,11 @@ public class Saph extends Counter{
     @Override
     public int getUltLoad() {
         return ULT_LOAD;
+    }
+
+    @Override
+    public void renderPick(Graphics g) {
+
     }
 
     @Override

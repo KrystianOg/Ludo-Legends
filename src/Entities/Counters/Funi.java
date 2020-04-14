@@ -17,9 +17,12 @@ public class Funi extends Counter{
     int c;
 
     public Funi(Handler handler, float x, float y,int c,int counterNr) {
-        super(handler,x, y,Counter.DEFAULT_WIDTH,Counter.DEFAULT_HEIGHT,counterNr);
+        super(handler,x, y,ULT_LOAD);
         this.c=c;
     }
+
+
+
 
     @Override
     public void render(Graphics g) {
@@ -27,6 +30,13 @@ public class Funi extends Counter{
         g.drawImage(Assets.counter[c], (int)x, (int)y,null);
         g.drawImage(Assets.cloak_f, (int)x-5, (int)y-10,null);
         ultimateBar.render(g);
+    }
+
+    @Override
+    public void renderPick(Graphics g) {
+        g.drawImage(Assets.cloak_b, (int)x-5, (int)y-10,(int)0.9*Assets.cloak_b.getWidth(),(int)0.9*Assets.cloak_b.getHeight(),null);
+        g.drawImage(Assets.counter[c], (int)x, (int)y,(int)0.9*Assets.counter[c].getWidth(),(int)0.9*Assets.counter[c].getHeight(),null);
+        g.drawImage(Assets.cloak_f, (int)x-5, (int)y-10,(int)0.9*Assets.cloak_f.getWidth(),(int)0.9*Assets.cloak_f.getHeight(),null);
     }
 
     @Override
