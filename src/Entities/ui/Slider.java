@@ -15,13 +15,18 @@ public class Slider extends Entity {
 
 	Button reset;
 	
-	private Rectangle hitbox;
+	private final Rectangle hitbox;
     private boolean pressed;
-    private float positionX, frameWidth;
-    private float minValue, maxValue, defaultValue, minMax;
+    private float positionX;
+	private final float frameWidth;
+    private final float minValue;
+	private final float maxValue;
+	private final float defaultValue;
+	private final float minMax;
     private float value;
     private int valueInt;
-    private String valueString, title;
+    private String valueString;
+	private final String title;
     
 	public Slider(Handler handler, float x, float y, int width, int height, int frameWidth, float minValue, float maxValue, float defaultValue, String title) {
 		super(handler, x, y, width, height);
@@ -39,7 +44,7 @@ public class Slider extends Entity {
 	    valueInt=Math.round(value);
 	    valueString = String.valueOf(valueInt);
 	    
-	    reset=new Button(handler, (int)x*2+(int)frameWidth, y, 100, 40, Assets.reset_button);
+	    reset=new Button(handler, (int)x*2+ frameWidth, y, 100, 40, Assets.reset_button);
 	}
 
 	@Override
@@ -80,7 +85,15 @@ public class Slider extends Entity {
 
 	}
 
-	public int getValueInt(){
+	public int getValueInt() {
 		return valueInt;
+	}
+
+	public void reset() {
+		positionX=x+((defaultValue-minValue)/minMax *200);
+	    value=(positionX-x)*minMax/200 + minValue;
+	    valueInt=Math.round(value);
+	    valueString = String.valueOf(valueInt);
+
 	}
 }
