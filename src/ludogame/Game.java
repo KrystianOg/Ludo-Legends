@@ -19,7 +19,6 @@ public class Game implements Runnable {
     //FPS
     public static int FPS=60;
 
-
     private BufferStrategy bs;      //-info
     private Graphics g;             //grafika
 

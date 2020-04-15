@@ -27,7 +27,9 @@ public class Assets {
                                   settings_button =new BufferedImage[2],
                                   apply_button=new BufferedImage[2],
                                   rollimg =new BufferedImage[6],
-                                  counter =new BufferedImage[4];
+                                  counter =new BufferedImage[4],
+                                  back_button =new BufferedImage[2],
+                                  reset_button =new BufferedImage[2];
 
     public static void init(){
     	font28=FontLoader.loadfont("fonts/Ubuntu-R.ttf", 28);
@@ -64,6 +66,10 @@ public class Assets {
         //settings
         slider_front=ImageLoader.loadImage("graphics/Settings/slider_front.png");
         slider_back=ImageLoader.loadImage("graphics/Settings/slider_back.png");
+        back_button[0]=ImageLoader.loadImage("graphics/Settings/back_button.png");
+        back_button[1]=ImageLoader.loadImage("graphics/Settings/back_button_onhover.png");
+        reset_button[0]=ImageLoader.loadImage("graphics/Settings/reset.png");
+        reset_button[1]=ImageLoader.loadImage("graphics/Settings/reset_onhover.png");
         
         //kostka do gry
         rollimg[0]=roll.crop(0,0,R_WIDTH,R_HEIGHT);
