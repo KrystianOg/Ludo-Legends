@@ -78,4 +78,10 @@ public class Slider extends Entity{
 		reset.render(g);
 
 	}
+	public void reset() {
+		positionX=x+((defaultValue-minValue)/minMax *200);
+	    value=(positionX-x)*minMax/200 + minValue;
+	    valueInt=Math.round(value);
+	    valueString = String.valueOf(valueInt);
+	}
 }
