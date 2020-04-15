@@ -1,5 +1,6 @@
 package Entities.Counters;
 
+import GFX.Assets;
 import ludogame.Handler;
 
 import java.awt.*;
@@ -8,7 +9,7 @@ public class Venator extends Counter {
     //łowca -?
 
     public Venator(Handler handler, float x, float y,int counterNr) {
-        super(handler,x, y,counterNr);
+        super(handler,x, y,counterNr, Assets.counter[0]);
     }
 
     @Override

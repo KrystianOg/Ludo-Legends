@@ -4,6 +4,8 @@ import Entities.Counters.*;
 import Entities.Button;
 
 
+import Entities.PlayerPick;
+import Entities.Players.Player;
 import GFX.Assets;
 import ludogame.Handler;
 
@@ -11,38 +13,59 @@ import java.awt.*;
 
 public class PrepState extends State {
 
-    Counter[] counter;
+    private static final int PLAYER_POSY=150;
 
-    Entities.Button apply;
+    Counter[] counter;
+    Button apply;
+    Player[] player;
+
+    PlayerPick[] playerPick;
+
+    private int picking=0;
+    private boolean typePick;
 
     public PrepState(Handler handler) {
         super(handler);
 
         counter=new Counter[8];
-/*
-        counter[0]=new Albali(Handler handler,(float));
-        counter[1]=new Funi();
-        counter[2]=new Intan();
-        counter[3]=new Lich();
-        counter[4]=new Polaris();
-        counter[5]=new Samaya();
-        counter[6]=new Saph();
-        counter[7]=new Venator();
-*/
-        counter[0]=new Funi(handler,200,200);
+        player=new Player[4];
+        this.typePick=true;
 
-        apply=new Button(handler,(float)((handler.getFrameWidth()-350)/2),300,350,90, Assets.apply_button);
+        playerPick=new PlayerPick[4];
+
+        playerPick[0]=new PlayerPick(handler,handler.getFrameWidth()/2-195,PLAYER_POSY,Assets.tile[0],Assets.arrow[0]);
+        playerPick[1]=new PlayerPick(handler,handler.getFrameWidth()/2-95,PLAYER_POSY,Assets.tile[1],Assets.arrow[1]);
+        playerPick[2]=new PlayerPick(handler,handler.getFrameWidth()/2+5,PLAYER_POSY,Assets.tile[2],Assets.arrow[2]);
+        playerPick[3]=new PlayerPick(handler,handler.getFrameWidth()/2+105,PLAYER_POSY,Assets.tile[3],Assets.arrow[3]);
+
+        apply=new Button(handler,(float)((handler.getFrameWidth()-350)/2),500,350,90, Assets.apply_button);
     }
 
     @Override
     public void tick() {
 
-        if(apply.getHitbox().contains(handler.getMouseClickX(),handler.getMouseClickY())){
-            setState(handler.getGame().gamestate);
+        if(typePick){
+            playerPick[0].tick();
+            playerPick[1].tick();
+            playerPick[2].tick();
+            playerPick[3].tick();
+
+            if(apply.getHitbox().contains(handler.getMouseClickX(),handler.getMouseClickY())){
+                handler.resetMousePOS();
+                typePick=false;
+            }
+
         }
 
+        else if(!typePick) {
 
-        counter[0].tick();
+            if (apply.getHitbox().contains(handler.getMouseClickX(), handler.getMouseClickY())) {
+                //System.out.println("Pick: " + picking);
+            }
+
+
+        }
+
         apply.tick();
     }
 
@@ -50,8 +73,28 @@ public class PrepState extends State {
     public void render(Graphics g) {
         g.setColor(new Color(153,153,153));
         g.fillRect(0,0,handler.getFrameWidth(),handler.getFrameHeight());
-        counter[0].renderPick(g);
         apply.render(g);
-        //renderPick();
+
+        if(typePick){
+            playerPick[0].render(g);
+            playerPick[1].render(g);
+            playerPick[2].render(g);
+            playerPick[3].render(g);
+        }
+        else{
+
+
+        }
+
+
+
+    }
+
+    private void setPlayer(Player player) {
+        for(int i=0;i<4;i++){
+            if(this.player[i]==null)
+                this.player[i]=player;
+
+        }
     }
 }

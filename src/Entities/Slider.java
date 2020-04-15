@@ -14,6 +14,8 @@ public class Slider extends Entity{
 	private Rectangle hitbox;
     private boolean pressed;
     private float positionX, frameWidth;
+
+
     private float minValue, maxValue, defaultValue, minMax;
     private float value;
     private String valueString;
@@ -27,7 +29,7 @@ public class Slider extends Entity{
 		this.minValue=minValue;
 		this.maxValue=maxValue;
 		this.defaultValue=defaultValue;
-		this.minMax=minMax;
+
 		minMax=maxValue-minValue;
 	    positionX=x+((defaultValue-minValue)/minMax *200);
 	    value=(positionX-x)*minMax/200 + minValue;
@@ -42,7 +44,6 @@ public class Slider extends Entity{
             positionX=handler.getHoverX();
             value=(positionX-x)*minMax/200 + minValue;
             valueString = String.valueOf(value);
-            
 		}
         else
             this.pressed=false;
@@ -53,8 +54,8 @@ public class Slider extends Entity{
 	public void render(Graphics g) {
 		g.drawImage(Assets.slider_back, (int)x, (int)y+10, null);
 		if(pressed)
-			g.drawImage(Assets.slider_front,(int)handler.getGame().getMousemanager().getHoverX()-8,(int)y, width, height, null);
+			g.drawImage(Assets.slider_front,handler.getHoverX()-8,(int)y, width, height, null);
 		else g.drawImage(Assets.slider_front,(int)positionX-8,(int)y, width, height, null);
-		Text.drawString(g, valueString , (int)x+(int)frameWidth, (int)y+height/2, false, Color.WHITE, Assets.font28);
+			Text.drawString(g, valueString , (int)x+(int)frameWidth, (int)y+height/2, false, Color.WHITE, Assets.Ubuntu28);
 	}
 }

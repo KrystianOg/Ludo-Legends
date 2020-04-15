@@ -5,20 +5,20 @@ import java.awt.image.BufferedImage;
 
 public class Assets {
 
-    private static final int P_WIDTH=41,P_HEIGHT=78,
-            R_WIDTH=75,R_HEIGHT =75;
+    public static final int P_WIDTH=41,P_HEIGHT=78,
+                             R_WIDTH=75,R_HEIGHT =75,
+                             ARROW_WIDTH=50,ARROW_HEIGHT=50,
+                             TILE_WIDTH=90,TILE_HEIGHT=90;
 
-    public static Font font28;
+    public static Font Ubuntu28;
 
- 
- 
+
     public static BufferedImage logo;
     public static BufferedImage slider_front, slider_back;
 
 
     public static BufferedImage sword,cloak_b,cloak_f,shield;
     public static BufferedImage progressbar_b,progressbar_f;
-
 
     public static BufferedImage map;
     public static BufferedImage timerFrame;
@@ -27,12 +27,15 @@ public class Assets {
                                   settings_button =new BufferedImage[2],
                                   apply_button=new BufferedImage[2],
                                   rollimg =new BufferedImage[6],
-                                  counter =new BufferedImage[4];
+                                  counter =new BufferedImage[4],
+                                  tile=new BufferedImage[5],
+                                  player=new BufferedImage[3],
+                                  arrow=new BufferedImage[5];
 
     public static void init(){
-    	font28=FontLoader.loadfont("fonts/Ubuntu-R.ttf", 28);
+    	Ubuntu28=FontLoader.loadfont("fonts/Ubuntu-R.ttf", 28);
         SpriteSheet roll=new SpriteSheet(ImageLoader.loadImage("graphics/Dice/Roll.png"));
-        SpriteSheet player=new SpriteSheet(ImageLoader.loadImage("graphics/Counters/Pionki.png"));
+        SpriteSheet counters=new SpriteSheet(ImageLoader.loadImage("graphics/Counters/Pionki.png"));
 
         //mapa
         map=ImageLoader.loadImage("graphics/Map.png");
@@ -50,11 +53,11 @@ public class Assets {
 
 
         //progressbar
-        progressbar_b=ImageLoader.loadImage("graphics/ProgressBar/Bar_Back.png");
+        progressbar_b=ImageLoader.loadImage("graphics/ProgressBar/Bar_Back.png");   //dodać siatke
         progressbar_f=ImageLoader.loadImage("graphics/ProgressBar/Bar_Front.png");
 
         //przyciski menu
-        game_button[0]=ImageLoader.loadImage("graphics/Menu/game.png");
+        game_button[0]=ImageLoader.loadImage("graphics/Menu/game.png");         //dodac siatke
         game_button[1]=ImageLoader.loadImage("graphics/Menu/game_onhover.png");
         settings_button[0]=ImageLoader.loadImage("graphics/Menu/settings.png");
         settings_button[1]=ImageLoader.loadImage("graphics/Menu/settings_onhover.png");
@@ -75,22 +78,32 @@ public class Assets {
         timerFrame=ImageLoader.loadImage("graphics/Dice/Timer.png");
 
         //kolory pionkow
-        counter[0]=player.crop(0,0,P_WIDTH,P_HEIGHT);
-        counter[1]=player.crop(P_WIDTH,0,P_WIDTH,P_HEIGHT);
-        counter[2]=player.crop(0,P_HEIGHT,P_WIDTH,P_HEIGHT);
-        counter[3]=player.crop(P_WIDTH,P_HEIGHT,P_WIDTH,P_HEIGHT);
+        counter[0]=counters.crop(0,0,P_WIDTH,P_HEIGHT);
+        counter[1]=counters.crop(P_WIDTH,0,P_WIDTH,P_HEIGHT);
+        counter[2]=counters.crop(0,P_HEIGHT,P_WIDTH,P_HEIGHT);
+        counter[3]=counters.crop(P_WIDTH,P_HEIGHT,P_WIDTH,P_HEIGHT);
 
-     
-    
+        //kolory tła wyboru
+        SpriteSheet tileSheet=new SpriteSheet(ImageLoader.loadImage("graphics/PreparationState/tileSheet.png"));
+        tile[0]=tileSheet.crop(TILE_WIDTH,0,TILE_WIDTH,TILE_HEIGHT);
+        tile[1]=tileSheet.crop(TILE_WIDTH,TILE_HEIGHT,TILE_WIDTH,TILE_HEIGHT);
+        tile[2]=tileSheet.crop(0,TILE_HEIGHT,TILE_WIDTH,TILE_HEIGHT);
+        tile[3]=tileSheet.crop(0,0,TILE_WIDTH,TILE_HEIGHT);
+        tile[4]=tileSheet.crop(TILE_WIDTH*2,0,TILE_WIDTH,TILE_HEIGHT);
 
+        //strzałki przy wyborze
+        SpriteSheet arrowSheet=new SpriteSheet(ImageLoader.loadImage("graphics/PreparationState/arrowSheet.png"));
+        arrow[0]=arrowSheet.crop(ARROW_WIDTH,0,ARROW_WIDTH,ARROW_HEIGHT);
+        arrow[1]=arrowSheet.crop(ARROW_WIDTH,ARROW_HEIGHT,ARROW_WIDTH,ARROW_HEIGHT);
+        arrow[2]=arrowSheet.crop(0,ARROW_HEIGHT,ARROW_WIDTH,ARROW_HEIGHT);
+        arrow[3]=arrowSheet.crop(0,0,ARROW_WIDTH,ARROW_HEIGHT);
+        arrow[4]=arrowSheet.crop(ARROW_WIDTH*2,0,ARROW_WIDTH,ARROW_HEIGHT);
 
-
-        
-
-
-       
-
-
+        //typy graczy
+        SpriteSheet playerSheet=new SpriteSheet(ImageLoader.loadImage("graphics/PreparationState/playerSheet.png"));
+        player[0]=playerSheet.crop(0,0,TILE_WIDTH,TILE_HEIGHT);
+        player[1]=playerSheet.crop(0,TILE_HEIGHT,TILE_WIDTH,TILE_HEIGHT);
+        player[2]=playerSheet.crop(TILE_WIDTH,0,TILE_WIDTH,TILE_HEIGHT);
     }
 
 }
