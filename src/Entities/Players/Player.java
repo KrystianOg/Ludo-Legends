@@ -16,19 +16,19 @@ public abstract class Player {
     protected int starting_pos;
     protected int ending_pos;
 
-    BufferedImage ccolor;
+    BufferedImage counterColor;
 
     protected boolean clicked;
     protected int counterNr=-1;
 
-    public Player(int starting_pos,int ending_pos,BufferedImage ccolor){
+    public Player(int starting_pos,int ending_pos,BufferedImage counterColor){
 
         this.starting_pos=starting_pos;
         this.ending_pos=ending_pos;
         counter=new Counter[4];
 
         this.isinbase=true;
-        this.ccolor=ccolor;
+        this.counterColor=counterColor;
 
         currentlyinbase=4;
 

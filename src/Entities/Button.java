@@ -19,16 +19,12 @@ public class Button extends Entity {
         this.button=button;
         this.pressed=false;
         this.onhover=false;
-        System.out.println("X: "+x+"Y: "+y);
+        //System.out.println("X: "+x+"Y: "+y);
     }
 
     @Override
     public void tick() {
-
-        if(this.hitbox.contains(handler.getGame().getMousemanager().getHoverX(),handler.getGame().getMousemanager().getHoverY()))
-            this.onhover=true;
-        else
-            this.onhover=false;
+        this.onhover= this.hitbox.contains(handler.getGame().getMousemanager().getHoverX(), handler.getGame().getMousemanager().getHoverY());
     }
 
     @Override

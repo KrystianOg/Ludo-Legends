@@ -5,6 +5,7 @@ import Entities.UltimateBar;
 import ludogame.Handler;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
 public abstract class Counter extends Entity {
 
@@ -26,14 +27,16 @@ public abstract class Counter extends Entity {
     public UltimateBar ultimateBar;         //zmienic na protected/private
 
     //animacja pionkow
+    BufferedImage counterColor;
     private static final int COUNTER_ANIM_TICKS=25;
     private int tickcount=-1;
     private int moves=-1;
     private boolean changeDirection;
 
-    public Counter(Handler handler, float x, float y,int ULT_LOAD) {
+    public Counter(Handler handler, float x, float y,int ULT_LOAD,BufferedImage counterColor) {
         super(handler,x, y,DEFAULT_WIDTH,DEFAULT_HEIGHT);
 
+        this.counterColor=counterColor;
         this.basex=x;
         this.basey=y;
         hitbox=new Rectangle((int)x, (int)y,DEFAULT_WIDTH,DEFAULT_HEIGHT);
@@ -165,7 +168,6 @@ public abstract class Counter extends Entity {
             this.y=basey;
             this.hitbox.x=(int)basex;
             this.hitbox.y=(int)basey;
-
         }
         else{
 

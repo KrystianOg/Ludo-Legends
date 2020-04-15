@@ -87,4 +87,8 @@ public class Handler {      //przekazuje zmienne do klas
         return this.getGame().getMousemanager().getY();
     }
 
+    public void resetMousePOS(){
+        getGame().getMousemanager().reset();
+    }
+
 }
