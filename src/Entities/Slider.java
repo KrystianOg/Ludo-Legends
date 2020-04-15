@@ -11,17 +11,16 @@ import ludogame.Handler;
 
 public class Slider extends Entity{
 
-	Entities.Button reset;
-	
 	private Rectangle hitbox;
     private boolean pressed;
     private float positionX, frameWidth;
+
+
     private float minValue, maxValue, defaultValue, minMax;
     private float value;
-    private int valueInt;
-    private String valueString, title;
+    private String valueString;
     
-	public Slider(Handler handler, float x, float y, int width, int height, int frameWidth, float minValue, float maxValue, float defaultValue, String title) {
+	public Slider(Handler handler, float x, float y, int width, int height, int frameWidth, float minValue, float maxValue, float defaultValue) {
 		super(handler, x, y, width, height);
 		
 		this.hitbox=new Rectangle((int)x,(int)y, frameWidth, height);
@@ -30,15 +29,11 @@ public class Slider extends Entity{
 		this.minValue=minValue;
 		this.maxValue=maxValue;
 		this.defaultValue=defaultValue;
-		this.minMax=minMax;
-		this.title=title;
+
 		minMax=maxValue-minValue;
 	    positionX=x+((defaultValue-minValue)/minMax *200);
 	    value=(positionX-x)*minMax/200 + minValue;
-	    valueInt=Math.round(value);
-	    valueString = String.valueOf(valueInt);
-	    
-	    reset=new Button(handler, (int)x*2+(int)frameWidth, y, 100, 40, Assets.reset_button);
+	    valueString = String.valueOf(value);
 	}
 
 	@Override
@@ -48,21 +43,10 @@ public class Slider extends Entity{
             this.pressed=true;
             positionX=handler.getHoverX();
             value=(positionX-x)*minMax/200 + minValue;
-
-            valueInt=Math.round(value);
-    	    valueString = String.valueOf(valueInt);
-            
-
+            valueString = String.valueOf(value);
 		}
         else
             this.pressed=false;
-		if(this.reset.getHitbox().contains(handler.getMouseClickX(),handler.getMouseClickY())) {
-			positionX=x+((defaultValue-minValue)/minMax *200);
-		    value=(positionX-x)*minMax/200 + minValue;
-		    valueInt=Math.round(value);
-		    valueString = String.valueOf(valueInt);
-		}
-        reset.tick();
 		
 	}
 
@@ -72,10 +56,6 @@ public class Slider extends Entity{
 		if(pressed)
 			g.drawImage(Assets.slider_front,handler.getHoverX()-8,(int)y, width, height, null);
 		else g.drawImage(Assets.slider_front,(int)positionX-8,(int)y, width, height, null);
-
-		Text.drawString(g, valueString , (int)x+(int)frameWidth, (int)y+height/2, false, Color.WHITE, Assets.font28);
-		Text.drawString(g, title, (int)x-50, (int)y, false, Color.WHITE, Assets.font28);
-		reset.render(g);
-
+			Text.drawString(g, valueString , (int)x+(int)frameWidth, (int)y+height/2, false, Color.WHITE, Assets.Ubuntu28);
 	}
 }

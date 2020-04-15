@@ -5,33 +5,21 @@ import Entities.Players.Player;
 import input.MouseManager;
 
 import states.GameState;
-import states.SettingState;
 
 public class Handler {      //przekazuje zmienne do klas
 
     private Game game;
 
     private GameState gameState=null;
-    private SettingState settingState=null;
     //inne zmienne
 
 
     public GameState getGameState() {
         return gameState;
     }
-    
 
     public void setGameState(GameState gameState) {
         this.gameState = gameState;
-    }
-    
-    public SettingState getSettingState() {
-        return settingState;
-    }
-    
-
-    public void setSettingState(SettingState settingState) {
-        this.settingState = settingState;
     }
 
     public Handler(Game game){

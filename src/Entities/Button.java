@@ -31,9 +31,9 @@ public class Button extends Entity {
     public void render(Graphics g) {
 
         if(onhover)
-            g.drawImage(button[1],(int)x,(int)y, width, height,null);
+            g.drawImage(button[1],(int)x,(int)y,null);
         else
-            g.drawImage(button[0],(int)x,(int)y, width, height, null);
+            g.drawImage(button[0],(int)x,(int)y,null);
     }
 
     public Rectangle getHitbox(){
