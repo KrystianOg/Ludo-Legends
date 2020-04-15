@@ -12,7 +12,6 @@ public class Assets {
 
     public static Font Ubuntu28;
 
-
     public static BufferedImage logo;
     public static BufferedImage slider_front, slider_back;
 
