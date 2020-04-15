@@ -1,10 +1,7 @@
 package Entities.Counters;
 
-import Entities.UltimateBar;
 import GFX.Assets;
-import ludogame.Game;
 import ludogame.Handler;
-import states.GameState;
 
 import java.awt.*;
 

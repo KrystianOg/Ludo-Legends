@@ -1,12 +1,13 @@
-package Entities;
+package Entities.ui;
 
 import java.awt.*;
 
+import Entities.Entity;
 import GFX.Assets;
 import ludogame.Handler;
 import states.GameState;
 
-public class UltimateBar extends Entity{
+public class UltimateBar extends Entity {
 
     public static final int ULTIMATEBAR_WIDTH=200, ULTIMATEBAR_HEIGHT=60;
 

@@ -1,9 +1,9 @@
 package Entities;
 
 import Entities.Counters.Counter;
+import Entities.ui.Tile;
 import GFX.Assets;
 import ludogame.Handler;
-import states.GameState;
 
 import java.awt.*;
 

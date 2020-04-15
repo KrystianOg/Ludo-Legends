@@ -1,14 +1,15 @@
 package states;
 
 import GFX.Assets;
-import Entities.Button;
+import Entities.ui.Button;
+import ludogame.Game;
 import ludogame.Handler;
 
 import java.awt.*;
 
 public class MenuState extends State{
 
-	Entities.Button game, settings;
+	Button game, settings;
 
 
     public MenuState(Handler handler){
@@ -36,7 +37,7 @@ public class MenuState extends State{
 
     @Override
     public void render(Graphics g) {
-    	g.setColor(new Color(153,153,153));
+    	g.setColor(Game.MENU_GRAY);
         g.fillRect(0,0,handler.getFrameWidth(),handler.getFrameHeight());
         g.drawImage(Assets.logo, 220, 25, 500, 500, null);
 

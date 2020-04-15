@@ -1,9 +1,8 @@
 package Entities.Counters;
 
-import Entities.CountersTiles.CounterTile;
+import Entities.ui.CounterTile;
 import GFX.Assets;
 import ludogame.Handler;
-import states.GameState;
 
 import java.awt.*;
 

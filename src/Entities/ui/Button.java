@@ -1,5 +1,6 @@
-package Entities;
+package Entities.ui;
 
+import Entities.Entity;
 import ludogame.Handler;
 import java.awt.*;
 import java.awt.image.BufferedImage;

@@ -16,10 +16,12 @@ public class Game implements Runnable {
     private boolean running=false;  //odpowiada za wyjscie z gry
     private Thread thread;          //
 
-    //FPS
-    public static int FPS=60;
+    //Colors
+    public static final Color MENU_GRAY=new Color(235,235,235);
 
+    //FPS
     private BufferStrategy bs;      //-info
+
     private Graphics g;             //grafika
 
     private Handler handler;
@@ -100,23 +102,35 @@ public class Game implements Runnable {
     public void run() {
         init();
 
-        double timePerTick= 1000000000/FPS;   //in nanoseconds
+        double timePerTick= 1000000000/SettingState.FPS;   //in nanoseconds
         double delta=0;
         long now;
         long lastTime=System.nanoTime();
 
+        long timer=0;
+        int ticks=0;
+
         while(running){
             now=System.nanoTime();
             delta+=(now-lastTime)/timePerTick;
+            timer+=now-lastTime;
             lastTime=now;
-
 
             if(delta>=1) {
                 tick();
                 render();
+                ticks++;
                 delta--;
+                timePerTick=1000000000/SettingState.FPS;
             }
 
+
+            if(SettingState.FPS_COUNTER)        //fps counter
+            if(timer>=1000000000){
+                System.out.println("FPS: "+ticks);
+                ticks=0;
+                timer=0;
+            }
 
         }
         stop();

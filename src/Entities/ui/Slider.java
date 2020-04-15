@@ -1,17 +1,19 @@
-package Entities;
+package Entities.ui;
 
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 
+import Entities.Entity;
+import Entities.ui.Button;
 import GFX.Assets;
 import GFX.Text;
 
 import ludogame.Handler;
 
-public class Slider extends Entity{
+public class Slider extends Entity {
 
-	Entities.Button reset;
+	Button reset;
 	
 	private Rectangle hitbox;
     private boolean pressed;
@@ -30,7 +32,6 @@ public class Slider extends Entity{
 		this.minValue=minValue;
 		this.maxValue=maxValue;
 		this.defaultValue=defaultValue;
-		this.minMax=minMax;
 		this.title=title;
 		minMax=maxValue-minValue;
 	    positionX=x+((defaultValue-minValue)/minMax *200);
@@ -73,9 +74,13 @@ public class Slider extends Entity{
 			g.drawImage(Assets.slider_front,handler.getHoverX()-8,(int)y, width, height, null);
 		else g.drawImage(Assets.slider_front,(int)positionX-8,(int)y, width, height, null);
 
-		Text.drawString(g, valueString , (int)x+(int)frameWidth, (int)y+height/2, false, Color.WHITE, Assets.font28);
-		Text.drawString(g, title, (int)x-50, (int)y, false, Color.WHITE, Assets.font28);
+		Text.drawString(g, valueString , (int)x+(int)frameWidth, (int)y+height/2, false, Color.BLACK, Assets.Ubuntu28);
+		Text.drawString(g, title, (int)x-50, (int)y, false, Color.BLACK, Assets.Ubuntu28);
 		reset.render(g);
 
+	}
+
+	public int getValueInt(){
+		return valueInt;
 	}
 }

@@ -6,7 +6,7 @@ import java.awt.image.BufferedImage;
 
 public abstract class Player {
 
-    public Counter[] counter;
+    public  Counter[] counter;      //zmienic na private / protected
 
     protected int currentlyinbase;
 
@@ -16,7 +16,7 @@ public abstract class Player {
     protected int starting_pos;
     protected int ending_pos;
 
-    BufferedImage counterColor;
+    protected BufferedImage counterColor;
 
     protected boolean clicked;
     protected int counterNr=-1;

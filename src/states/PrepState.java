@@ -1,12 +1,16 @@
 package states;
 
 import Entities.Counters.*;
-import Entities.Button;
+import Entities.Players.Blank;
+import Entities.Players.Bot;
+import Entities.Players.Person;
+import Entities.ui.Button;
 
 
-import Entities.PlayerPick;
+import Entities.ui.PlayerPick;
 import Entities.Players.Player;
 import GFX.Assets;
+import ludogame.Game;
 import ludogame.Handler;
 
 import java.awt.*;
@@ -53,6 +57,21 @@ public class PrepState extends State {
             if(apply.getHitbox().contains(handler.getMouseClickX(),handler.getMouseClickY())){
                 handler.resetMousePOS();
                 typePick=false;
+
+                for(int i=0;i<4;i++){
+                    switch(playerPick[i].getCurrentPick()){
+                        case 0:
+                            //handler.getGameState().setPlayers(new Bot());
+                            break;
+                        case 1:
+                            //player[i]=new Person();
+                            break;
+                        case 2:
+                            //player[i]=new Blank();
+                            break;
+                    }
+                }
+                //handler.getGameState().setPlayers(player[]);
             }
 
         }
@@ -71,7 +90,7 @@ public class PrepState extends State {
 
     @Override
     public void render(Graphics g) {
-        g.setColor(new Color(153,153,153));
+        g.setColor(Game.MENU_GRAY);
         g.fillRect(0,0,handler.getFrameWidth(),handler.getFrameHeight());
         apply.render(g);
 
@@ -83,10 +102,7 @@ public class PrepState extends State {
         }
         else{
 
-
         }
-
-
 
     }
 
@@ -97,4 +113,9 @@ public class PrepState extends State {
 
         }
     }
+
+    public Player[] getPlayers(){
+        return this.player;
+    }
+
 }

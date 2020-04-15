@@ -1,4 +1,4 @@
-package Entities;
+package Entities.ui;
 
 import Entities.Counters.Counter;
 
@@ -12,7 +12,7 @@ public class Tile {
 
     Counter[] counter=new Counter[4];
 
-    Tile(int x,int y,boolean capturable){
+    public Tile(int x,int y,boolean capturable){
         this.x=x;
         this.y=y;
         this.capturable=capturable;

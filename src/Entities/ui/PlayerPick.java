@@ -1,5 +1,6 @@
-package Entities;
+package Entities.ui;
 
+import Entities.Entity;
 import GFX.Assets;
 import ludogame.Handler;
 
@@ -95,5 +96,9 @@ public class PlayerPick extends Entity {
         graphic.drawImage(bimg, null, 0, 0);
         graphic.dispose();
         return rotated;
+    }
+
+    public int getCurrentPick(){
+        return this.currentPick;
     }
 }

@@ -2,15 +2,15 @@ package Entities.HUD;
 
 import Entities.Entity;
 import GFX.Assets;
-import ludogame.Game;
 import ludogame.Handler;
 import states.GameState;
+import states.SettingState;
 
 import java.awt.*;
 
 public class Timer extends Entity {
 
-    private int time=10*Game.FPS,      //ilość klatek, pierwsza liczba to czas w sekundach
+    private int time=10* SettingState.FPS,      //ilość klatek, pierwsza liczba to czas w sekundach
             currentTime=0;
     private static int TIMER_WIDTH=87,TIMER_HEIGHT=87;
 

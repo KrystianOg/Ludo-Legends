@@ -28,10 +28,8 @@ public class Assets {
                                   apply_button=new BufferedImage[2],
                                   rollimg =new BufferedImage[6],
                                   counter =new BufferedImage[4],
-
                                   back_button =new BufferedImage[2],
-                                  reset_button =new BufferedImage[2];
-
+                                  reset_button =new BufferedImage[2],
                                   tile=new BufferedImage[5],
                                   player=new BufferedImage[3],
                                   arrow=new BufferedImage[5];
@@ -71,8 +69,10 @@ public class Assets {
         //settings
         slider_front=ImageLoader.loadImage("graphics/Settings/slider_front.png");
         slider_back=ImageLoader.loadImage("graphics/Settings/slider_back.png");
+
         back_button[0]=ImageLoader.loadImage("graphics/Settings/back_button.png");
         back_button[1]=ImageLoader.loadImage("graphics/Settings/back_button_onhover.png");
+
         reset_button[0]=ImageLoader.loadImage("graphics/Settings/reset.png");
         reset_button[1]=ImageLoader.loadImage("graphics/Settings/reset_onhover.png");
         

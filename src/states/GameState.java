@@ -7,7 +7,7 @@ import Entities.Counters.Saph;
 import Entities.HUD.Dice;
 import Entities.Players.Player;
 import Entities.Players.Person;
-import Entities.Tile;
+import Entities.ui.Tile;
 import Entities.HUD.Timer;
 import GFX.Assets;
 import ludogame.Handler;
@@ -16,10 +16,10 @@ import java.awt.*;
 
 public class GameState extends State{
 
-    Player[] player=new Player[4];
-    Board board;
-    Dice dice;
-    Timer timer;
+    private Player[] player;
+    private Board board;
+    private Dice dice;
+    private Timer timer;
 
     public static final Color[] color=new Color[4];
 
@@ -44,17 +44,14 @@ public class GameState extends State{
         this.setRoll(6);
         handler.setGameState(this);
         //wybieranie graczy
-
+        this.player=new Player[4];
         setColors();
-        setPlayers();
+
         setCounters();
     }
 
-    private void setPlayers() {
-        player[0] = new Person(handler, 1,51, Assets.counter[0]); //pobiera z prepstate
-        player[1] = new Person(handler, 14,12,Assets.counter[1]);
-        player[2] = new Person(handler, 27,25,Assets.counter[2]);
-        player[3] = new Person(handler, 40,38,Assets.counter[3]);
+    public void setPlayers(Player[] player){
+        this.player=player;
     }
 
     private void setCounters(){
@@ -66,7 +63,7 @@ public class GameState extends State{
             a2=new Saph(handler,W2,H1);
             a3=new Saph(handler,W1,H2);
             a4=new Funi(handler,W2,H2);
-
+/*
         player[3].setCounter(a1);
         player[3].setCounter(a2);
         player[3].setCounter(a3);
@@ -116,7 +113,7 @@ public class GameState extends State{
          player[1].setCounter(d2);
          player[1].setCounter(d3);
          player[1].setCounter(d4);
-
+*/
     }
 
     private void setColors(){

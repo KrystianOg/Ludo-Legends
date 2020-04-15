@@ -2,33 +2,35 @@ package ludogame;
 
 import Entities.HUD.Dice;
 import Entities.Players.Player;
-import input.MouseManager;
-
 import states.GameState;
+import states.PrepState;
 import states.SettingState;
+import states.State;
 
 public class Handler {      //przekazuje zmienne do klas
 
     private Game game;
 
-    private GameState gameState=null;
-    private SettingState settingState=null;
-    //inne zmienne
+    private GameState gameState;
+    private PrepState prepState;
+    private SettingState settingState;
 
 
     public GameState getGameState() {
         return gameState;
     }
-    
+
+    public void setPrepState(PrepState prepState){
+        this.prepState=prepState;
+    }
+
+    public SettingState getSettingState() {
+        return settingState;
+    }
 
     public void setGameState(GameState gameState) {
         this.gameState = gameState;
     }
-    
-    public SettingState getSettingState() {
-        return settingState;
-    }
-    
 
     public void setSettingState(SettingState settingState) {
         this.settingState = settingState;
@@ -37,7 +39,6 @@ public class Handler {      //przekazuje zmienne do klas
     public Handler(Game game){
         this.game=game;
     }
-
 
     public Game getGame() {
         return game;
@@ -68,7 +69,6 @@ public class Handler {      //przekazuje zmienne do klas
     public void setTurnof(){
         gameState.setTurnof();
     }
-
 
     public int getRoll(){
         return gameState.getRoll();
@@ -101,6 +101,10 @@ public class Handler {      //przekazuje zmienne do klas
 
     public void resetMousePOS(){
         getGame().getMousemanager().reset();
+    }
+
+    public State getPrepState(){
+        return this.getGame().prepstate;
     }
 
 }
