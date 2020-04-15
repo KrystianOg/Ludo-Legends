@@ -22,11 +22,6 @@ public class MouseManager implements MouseListener, MouseMotionListener { //popr
         this.x=-1;
     }
 
-
-    public void tick(){
-
-    }
-
     @Override
     public void mousePressed(MouseEvent e) {
         if(e.getButton() == MouseEvent.BUTTON1)

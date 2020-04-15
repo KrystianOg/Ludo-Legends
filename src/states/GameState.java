@@ -51,7 +51,7 @@ public class GameState extends State{
     }
 
     private void setPlayers() {
-        player[0] = new Person(handler, 1,51, Assets.counter[0]);
+        player[0] = new Person(handler, 1,51, Assets.counter[0]); //pobiera z prepstate
         player[1] = new Person(handler, 14,12,Assets.counter[1]);
         player[2] = new Person(handler, 27,25,Assets.counter[2]);
         player[3] = new Person(handler, 40,38,Assets.counter[3]);

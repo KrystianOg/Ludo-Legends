@@ -68,7 +68,6 @@ public class Game implements Runnable {
     }
 
     private void tick(){
-        mousemanager.tick();
 
         if(State.getState()!=null)
             State.getState().tick();
@@ -120,9 +119,7 @@ public class Game implements Runnable {
 
 
         }
-
         stop();
-
     }
 
     public MouseManager getMousemanager(){

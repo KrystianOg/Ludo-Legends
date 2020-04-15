@@ -21,10 +21,14 @@ public class MenuState extends State{
     @Override
     public void tick() {
 
-        if(this.game.getHitbox().contains(handler.getMouseClickX(),handler.getMouseClickY()))
+        if(this.game.getHitbox().contains(handler.getMouseClickX(),handler.getMouseClickY())) {
+            handler.resetMousePOS();
             setState(handler.getGame().prepstate);
-        else if(this.settings.getHitbox().contains(handler.getMouseClickX(),handler.getMouseClickY()))
+        }
+        else if(this.settings.getHitbox().contains(handler.getMouseClickX(),handler.getMouseClickY())) {
+            handler.resetMousePOS();
             setState(handler.getGame().settingstate);
+        }
 
     	game.tick();
     	settings.tick();

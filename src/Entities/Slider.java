@@ -48,9 +48,11 @@ public class Slider extends Entity{
             this.pressed=true;
             positionX=handler.getHoverX();
             value=(positionX-x)*minMax/200 + minValue;
+
             valueInt=Math.round(value);
     	    valueString = String.valueOf(valueInt);
             
+
 		}
         else
             this.pressed=false;
@@ -68,10 +70,12 @@ public class Slider extends Entity{
 	public void render(Graphics g) {
 		g.drawImage(Assets.slider_back, (int)x, (int)y+10, null);
 		if(pressed)
-			g.drawImage(Assets.slider_front,(int)handler.getGame().getMousemanager().getHoverX()-8,(int)y, width, height, null);
+			g.drawImage(Assets.slider_front,handler.getHoverX()-8,(int)y, width, height, null);
 		else g.drawImage(Assets.slider_front,(int)positionX-8,(int)y, width, height, null);
+
 		Text.drawString(g, valueString , (int)x+(int)frameWidth, (int)y+height/2, false, Color.WHITE, Assets.font28);
 		Text.drawString(g, title, (int)x-50, (int)y, false, Color.WHITE, Assets.font28);
 		reset.render(g);
+
 	}
 }
