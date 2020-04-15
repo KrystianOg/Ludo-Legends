@@ -14,7 +14,7 @@ public class SettingState extends State{
     public SettingState(Handler handler){
         super(handler);
         
-        slider=new Entities.Slider(handler, 100, 100, 17, 29, 200);
+        slider=new Entities.Slider(handler, 100, 100, 17, 29, 200, 24, 144, 60);
 
     }
 
