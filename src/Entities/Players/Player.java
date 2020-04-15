@@ -22,6 +22,7 @@ public abstract class Player {
     protected int counterNr=-1;
 
     public Player(int starting_pos,int ending_pos,BufferedImage ccolor){
+
         this.starting_pos=starting_pos;
         this.ending_pos=ending_pos;
         counter=new Counter[4];
@@ -29,17 +30,17 @@ public abstract class Player {
         this.isinbase=true;
         this.ccolor=ccolor;
 
-
         currentlyinbase=4;
 
     }
 
-    public void setCounters(Counter c1,Counter c2,Counter c3,Counter c4){
-        this.counter[0]=c1;
-        this.counter[1]=c2;
-        this.counter[2]=c3;
-        this.counter[3]=c4;
-
+    public void setCounter(Counter counter){
+        for(int i=0;i<4;i++){
+            if(this.counter[i]==null) {
+                this.counter[i] = counter;
+                break;
+            }
+        }
     }
 
     public boolean isIsinbase() {

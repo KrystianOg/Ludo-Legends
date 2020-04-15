@@ -67,7 +67,10 @@ public class GameState extends State{
             a3=new Saph(handler,W1,H2);
             a4=new Funi(handler,W2,H2);
 
-            player[3].setCounters(a1,a2,a3,a4);
+        player[3].setCounter(a1);
+        player[3].setCounter(a2);
+        player[3].setCounter(a3);
+        player[3].setCounter(a4);
 
         //player1
             Funi b1;
@@ -79,7 +82,10 @@ public class GameState extends State{
             b3=new Intan(handler,450+W1,H2);
             b4=new Saph(handler,450+W2,H2);
 
-            player[0].setCounters(b1,b2,b3,b4);
+        player[0].setCounter(b1);
+        player[0].setCounter(b2);
+        player[0].setCounter(b3);
+        player[0].setCounter(b4);
 
         //player2
             Funi c1, c3;
@@ -91,7 +97,10 @@ public class GameState extends State{
             c3= new Funi(handler,W1,450+H2);
             c4= new Saph(handler,W2,450+H2);
 
-            player[2].setCounters(c1,c2,c3,c4);
+        player[2].setCounter(c1);
+        player[2].setCounter(c2);
+        player[2].setCounter(c3);
+        player[2].setCounter(c4);
 
        //player3
             Funi d1, d2;
@@ -103,7 +112,10 @@ public class GameState extends State{
             d3= new Intan(handler,450+W1,450+H2);
             d4= new Saph(handler,450+W2,450+H2);
 
-            player[1].setCounters(d1,d2,d3,d4);
+         player[1].setCounter(d1);
+         player[1].setCounter(d2);
+         player[1].setCounter(d3);
+         player[1].setCounter(d4);
 
     }
 

@@ -33,6 +33,7 @@ public class MouseManager implements MouseListener, MouseMotionListener { //popr
             leftPressed = true;
         else if (e.getButton() == MouseEvent.BUTTON3)
         	rightPressed = true;
+
         if(x!=e.getPoint().x&&y!=e.getPoint().y) {
 
             this.x=e.getPoint().x;

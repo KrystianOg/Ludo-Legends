@@ -22,7 +22,7 @@ public class MenuState extends State{
     public void tick() {
 
         if(this.game.getHitbox().contains(handler.getMouseClickX(),handler.getMouseClickY()))
-            setState(handler.getGame().gamestate);
+            setState(handler.getGame().prepstate);
         else if(this.settings.getHitbox().contains(handler.getMouseClickX(),handler.getMouseClickY()))
             setState(handler.getGame().settingstate);
 
