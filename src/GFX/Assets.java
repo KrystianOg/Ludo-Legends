@@ -1,5 +1,6 @@
 package GFX;
 
+import java.awt.Font;
 import java.awt.image.BufferedImage;
 
 public class Assets {
@@ -7,7 +8,7 @@ public class Assets {
     private static final int P_WIDTH=41,P_HEIGHT=78,
             R_WIDTH=75,R_HEIGHT =75;
 
-
+    public static Font font28;
 
  
  
@@ -29,6 +30,7 @@ public class Assets {
                                   counter =new BufferedImage[4];
 
     public static void init(){
+    	font28=FontLoader.loadfont("fonts/Ubuntu-R.ttf", 28);
         SpriteSheet roll=new SpriteSheet(ImageLoader.loadImage("graphics/Dice/Roll.png"));
         SpriteSheet player=new SpriteSheet(ImageLoader.loadImage("graphics/Counters/Pionki.png"));
 
