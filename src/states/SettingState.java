@@ -11,7 +11,7 @@ import java.awt.*;
 public class SettingState extends State{
 
     //SETTINGS
-    public static int FPS,BUTTON_SIZE,ULT_LOAD;
+    public static int FPS,BUTTON_SIZE,ULT_LOAD,DICE_ANIM_TIME;
     public static boolean FPS_COUNTER;
 
 	private final Slider slider_fps;
@@ -19,6 +19,7 @@ public class SettingState extends State{
     private final Slider ultload;
 	private final Button back;
     private final Button reset_all;
+    private final Slider dice_anim_time;        //time in seconds
 
 
 	
@@ -34,6 +35,7 @@ public class SettingState extends State{
         slider_fps=new Slider(handler, 100, 100, 17, 29, 200, 25, 144, 60, "FPS");
         button_size=new Slider(handler, 100, 200, 17, 29, 200, 50, 150, 100, "HUD size");
         ultload=new Slider(handler, 100, 300, 17, 29, 200, 0, 400, 100, "Ultimate ability load speed");
+        dice_anim_time=new Slider(handler, 100, 400, 17, 29, 200, 3, 30, 10, "Dice animation time");
         back=new Button(handler, handler.getFrameWidth() -100, handler.getFrameHeight() -100, 90, 90, Assets.back_button);
         reset_all=new Button(handler, 100, 700, 90, 90, Assets.back_button);
     }
@@ -50,10 +52,12 @@ public class SettingState extends State{
     	button_size.tick();
     	ultload.tick();
     	back.tick();
+    	dice_anim_time.tick();
     	if(this.reset_all.getHitbox().contains(handler.getMouseClickX(),handler.getMouseClickY())) {
             slider_fps.reset();
             button_size.reset();
             ultload.reset();
+            dice_anim_time.reset();
     	}
 
     	reset_all.tick();
@@ -69,11 +73,13 @@ public class SettingState extends State{
         ultload.render(g);
         back.render(g);
         reset_all.render(g);
+        dice_anim_time.render(g);
     }
 
     public void setSettings(){
         SettingState.FPS=this.slider_fps.getValueInt();
         SettingState.BUTTON_SIZE=this.button_size.getValueInt();
         SettingState.ULT_LOAD=this.ultload.getValueInt();
+        SettingState.DICE_ANIM_TIME=this.dice_anim_time.getValueInt();
     }
 }
