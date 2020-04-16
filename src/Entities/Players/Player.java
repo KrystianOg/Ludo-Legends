@@ -38,7 +38,6 @@ public abstract class Player {
         for(int i=0;i<4;i++){
             if(this.counter[i]==null) {
                 this.counter[i] = counter;
-                break;
             }
         }
     }

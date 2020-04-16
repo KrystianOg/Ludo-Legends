@@ -29,7 +29,7 @@ public class Assets {
                                   counter =new BufferedImage[4],
                                   back_button =new BufferedImage[2],
                                   reset_button =new BufferedImage[2],
-                                  tile=new BufferedImage[5],
+                                  tile=new BufferedImage[6],
                                   player=new BufferedImage[3],
                                   arrow=new BufferedImage[5];
 
@@ -85,10 +85,10 @@ public class Assets {
         timerFrame=ImageLoader.loadImage("graphics/Dice/Timer.png");
 
         //kolory pionkow
-        counter[0]=counters.crop(0,0,P_WIDTH,P_HEIGHT);
-        counter[1]=counters.crop(P_WIDTH,0,P_WIDTH,P_HEIGHT);
+        counter[0]=counters.crop(P_WIDTH,0,P_WIDTH,P_HEIGHT);
+        counter[1]=counters.crop(P_WIDTH,P_HEIGHT,P_WIDTH,P_HEIGHT);
         counter[2]=counters.crop(0,P_HEIGHT,P_WIDTH,P_HEIGHT);
-        counter[3]=counters.crop(P_WIDTH,P_HEIGHT,P_WIDTH,P_HEIGHT);
+        counter[3]=counters.crop(0,0,P_WIDTH,P_HEIGHT);
 
         //kolory tła wyboru
         SpriteSheet tileSheet=new SpriteSheet(ImageLoader.loadImage("graphics/PreparationState/tileSheet.png"));
@@ -97,6 +97,7 @@ public class Assets {
         tile[2]=tileSheet.crop(0,TILE_HEIGHT,TILE_WIDTH,TILE_HEIGHT);
         tile[3]=tileSheet.crop(0,0,TILE_WIDTH,TILE_HEIGHT);
         tile[4]=tileSheet.crop(TILE_WIDTH*2,0,TILE_WIDTH,TILE_HEIGHT);
+        tile[5]=tileSheet.crop(TILE_WIDTH*2,TILE_HEIGHT,TILE_WIDTH,TILE_HEIGHT);
 
         //strzałki przy wyborze
         SpriteSheet arrowSheet=new SpriteSheet(ImageLoader.loadImage("graphics/PreparationState/arrowSheet.png"));
