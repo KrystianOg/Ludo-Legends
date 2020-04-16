@@ -12,8 +12,9 @@ public class PlayerPick extends Entity {
     private static final int PLAYER_PICK_WIDTH=90,
                              PLAYER_PICK_HEIGHT=270;
 
-    private BufferedImage bColor;
-    private BufferedImage arrowUp,arrowDown;
+    private final BufferedImage bColor;
+    private final BufferedImage arrowUp;
+    private final BufferedImage arrowDown;
 
     Rectangle arrowUpHitbox;
     Rectangle arrowDownHitbox;
@@ -37,7 +38,6 @@ public class PlayerPick extends Entity {
         this.hooverUp=false;
 
         this.arrowUp=rotate(arrow,180);
-
     }
 
     @Override

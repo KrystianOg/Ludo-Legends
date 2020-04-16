@@ -31,6 +31,7 @@ public class SettingState extends State{
         BUTTON_SIZE=100;       //wartość procentowa
         ULT_LOAD=100;           //wartość procentowa
         FPS_COUNTER=false;
+        DICE_ANIM_TIME=10;
 
         slider_fps=new Slider(handler, 100, 100, 17, 29, 200, 25, 144, 60, "FPS");
         button_size=new Slider(handler, 100, 200, 17, 29, 200, 50, 150, 100, "HUD size");
