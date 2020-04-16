@@ -1,6 +1,7 @@
 package Entities.Players;
 import ludogame.Handler;
 import states.GameState;
+import states.SettingState;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -8,10 +9,9 @@ import java.awt.image.BufferedImage;
 
 public class Person extends Player {
 
-    private Handler handler;
+    private final Handler handler;
 
-    private int mx,my;
-    private static final int ANIM_TICKS=25;
+    private static final int ANIM_TICKS=(int)(0.42* SettingState.FPS);
     private int tickcount=-1;
 
     private boolean clicked=false;
@@ -19,8 +19,7 @@ public class Person extends Player {
     public Person(Handler handler, int startingPos,int endingPos, BufferedImage ccolor) { //zmienic na getter
         super(startingPos,endingPos,ccolor);
         this.handler = handler;
-        mx=-1;
-        my=-1;
+
     }
 
 
@@ -36,7 +35,6 @@ public class Person extends Player {
                 clicked=true;
         }
 
-
         if(counterNr>0) {
             counter[counterNr].tick();
             System.out.println("CLICKED: "+counterNr);
@@ -46,12 +44,10 @@ public class Person extends Player {
 
     @Override
     public void render(Graphics g) {
-
         counter[0].render(g);
         counter[1].render(g);
         counter[2].render(g);
         counter[3].render(g);
-
     }
 
     @Override
@@ -62,8 +58,6 @@ public class Person extends Player {
     private void resetTick(){
         this.tickcount=-1;
         this.counterNr=-1;
-        this.mx=-1;
-        this.my=-1;
     }
 
     private int getInput() {
@@ -81,10 +75,4 @@ public class Person extends Player {
             return -1;
     }
 
-    private void setMx(int mx){
-        this.mx=mx;
-    }
-    private void setMy(int my){
-        this.my=my;
-    }
 }

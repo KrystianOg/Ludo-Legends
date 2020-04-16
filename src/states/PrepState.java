@@ -1,14 +1,9 @@
 package states;
 
 import Entities.Counters.*;
-import Entities.Players.Blank;
-import Entities.Players.Bot;
-import Entities.Players.Person;
-import Entities.ui.Button;
-
-
-import Entities.ui.PlayerPick;
+import Entities.ui.*;
 import Entities.Players.Player;
+import Entities.ui.Button;
 import GFX.Assets;
 import ludogame.Game;
 import ludogame.Handler;
@@ -27,6 +22,7 @@ public class PrepState extends State {
 
     private int picking=0;
     private boolean typePick;
+    private final LegendPick[] legendPick;
 
     public PrepState(Handler handler) {
         super(handler);
@@ -34,6 +30,13 @@ public class PrepState extends State {
         counter=new Counter[8];
         player=new Player[4];
         this.typePick=true;
+
+        legendPick=new LegendPick[4];
+
+        legendPick[0]=new LegendPick(handler,Assets.counter[0]);
+        legendPick[1]=new LegendPick(handler,Assets.counter[1]);
+        legendPick[2]=new LegendPick(handler,Assets.counter[2]);
+        legendPick[3]=new LegendPick(handler,Assets.counter[3]);
 
         playerPick=new PlayerPick[4];
 
@@ -78,11 +81,18 @@ public class PrepState extends State {
 
         else if(!typePick) {
 
+            legendPick[picking].tick();
+
             if (apply.getHitbox().contains(handler.getMouseClickX(), handler.getMouseClickY())) {
-                //System.out.println("Pick: " + picking);
+                handler.resetMousePOS();
+                System.out.println("Pick: " + picking);
+                picking++;
             }
 
+            if(picking==5){
 
+
+            }
         }
 
         apply.tick();
@@ -102,16 +112,10 @@ public class PrepState extends State {
         }
         else{
 
-        }
-
-    }
-
-    private void setPlayer(Player player) {
-        for(int i=0;i<4;i++){
-            if(this.player[i]==null)
-                this.player[i]=player;
+            legendPick[picking].render(g);
 
         }
+
     }
 
     public Player[] getPlayers(){

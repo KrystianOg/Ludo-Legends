@@ -1,6 +1,5 @@
 package Entities.Counters;
 
-import Entities.ui.CounterTile;
 import GFX.Assets;
 import ludogame.Handler;
 
@@ -11,12 +10,9 @@ public class Albali extends Counter {
 
     private static final int ULT_LOAD=40;
 
-    CounterTile counterTile;
 
     public Albali(Handler handler, float x, float y,int counterNr) {
         super(handler,x, y,counterNr, Assets.counter[0]);
-
-        //counterTile=new CounterTile()
     }
 
     @Override
