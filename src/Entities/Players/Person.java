@@ -17,13 +17,10 @@ public class Person extends Player {
     private boolean clicked=false;
 
     public Person(Handler handler, int startingPos,int endingPos, BufferedImage ccolor) { //zmienic na getter
-        super(startingPos,endingPos,ccolor);
+        super(handler,startingPos,endingPos,ccolor);
         this.handler = handler;
 
     }
-
-
-
 
     @Override
     public void tick() {
@@ -48,11 +45,6 @@ public class Person extends Player {
         counter[1].render(g);
         counter[2].render(g);
         counter[3].render(g);
-    }
-
-    @Override
-    public void move() {
-
     }
 
     private void resetTick(){

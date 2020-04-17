@@ -1,10 +1,12 @@
 package Entities.Counters;
 
+import Entities.ui.UltimateBar;
 import GFX.Assets;
 import ludogame.Game;
 import ludogame.Handler;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
 public class Saph extends Counter{
     //wojownik
@@ -15,20 +17,11 @@ public class Saph extends Counter{
     protected int counterNr;
     protected int c;
 
-    public Saph(Handler handler, float x, float y) {
-        super(handler,x, y);
+    public Saph(Handler handler, float x, float y, BufferedImage counterColor) {
+        super(handler,x, y,counterColor);
+        ultimateBar=new UltimateBar(handler,ULT_LOAD);
         this.handler=handler;
         this.c=2;
-    }
-
-    @Override
-    public int getUltLoad() {
-        return ULT_LOAD;
-    }
-
-    @Override
-    public void renderPick(Graphics g) {
-
     }
 
     @Override

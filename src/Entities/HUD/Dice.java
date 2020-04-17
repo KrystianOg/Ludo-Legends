@@ -84,7 +84,7 @@ public class Dice extends Entity {
         }
     }
 
-    public int getTickCopunt(){
+    public int getTickCount(){
         return this.tickcount;
     }
 

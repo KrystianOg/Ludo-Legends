@@ -1,5 +1,6 @@
 package Entities.Counters;
 
+import Entities.ui.UltimateBar;
 import ludogame.Handler;
 
 import java.awt.*;
@@ -9,17 +10,8 @@ public class Polaris extends Counter {
     //przesuwa pionek nastepnego o wyrzucona liczbe oczek
 
     public Polaris(Handler handler, float x, float y,BufferedImage counterColor) {
-        super(handler,x, y,1,counterColor);
-    }
-
-    @Override
-    public int getUltLoad() {
-        return 0;
-    }
-
-    @Override
-    public void renderPick(Graphics g) {
-
+        super(handler,x, y,counterColor);
+        ultimateBar=new UltimateBar(handler,20);
     }
 
     @Override

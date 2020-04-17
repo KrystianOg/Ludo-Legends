@@ -17,7 +17,7 @@ public class Game implements Runnable {
     private Thread thread;          //
 
     //Colors
-    public static final Color MENU_GRAY=new Color(235,235,235);
+    public static final Color MENU_GRAY=new Color(41,41,41);
 
     //FPS
     private BufferStrategy bs;      //-info
@@ -35,7 +35,7 @@ public class Game implements Runnable {
 
 
     //Input
-    private MouseManager mousemanager;
+    private final MouseManager mousemanager;
 
 
     public Game(String title,int width,int height){

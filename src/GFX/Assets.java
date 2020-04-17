@@ -1,6 +1,6 @@
 package GFX;
 
-import java.awt.Font;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class Assets {
@@ -31,12 +31,15 @@ public class Assets {
                                   reset_button =new BufferedImage[2],
                                   tile=new BufferedImage[6],
                                   player=new BufferedImage[3],
-                                  arrow=new BufferedImage[5];
+                                  arrow=new BufferedImage[5],
+                                  dynamicBackground=new BufferedImage[2];
+
+
 
     public static void init(){
+        //czcionka
     	Ubuntu28=FontLoader.loadfont("fonts/Ubuntu-R.ttf", 28);
-        SpriteSheet roll=new SpriteSheet(ImageLoader.loadImage("graphics/Dice/Roll.png"));
-        SpriteSheet counters=new SpriteSheet(ImageLoader.loadImage("graphics/Counters/Pionki.png"));
+
 
         //mapa
         map=ImageLoader.loadImage("graphics/Map.png");
@@ -57,6 +60,7 @@ public class Assets {
         progressbar_b=ImageLoader.loadImage("graphics/ProgressBar/Bar_Back.png");   //dodać siatke
         progressbar_f=ImageLoader.loadImage("graphics/ProgressBar/Bar_Front.png");
 
+
         //przyciski menu
         game_button[0]=ImageLoader.loadImage("graphics/Menu/game.png");         //dodac siatke
         game_button[1]=ImageLoader.loadImage("graphics/Menu/game_onhover.png");
@@ -74,8 +78,10 @@ public class Assets {
 
         reset_button[0]=ImageLoader.loadImage("graphics/Settings/reset.png");
         reset_button[1]=ImageLoader.loadImage("graphics/Settings/reset_onhover.png");
-        
+
+
         //kostka do gry
+        SpriteSheet roll=new SpriteSheet(ImageLoader.loadImage("graphics/Dice/Roll.png"));
         rollimg[0]=roll.crop(0,0,R_WIDTH,R_HEIGHT);
         rollimg[1]=roll.crop(R_WIDTH,0,R_WIDTH,R_HEIGHT);
         rollimg[2]=roll.crop(R_WIDTH*2,0,R_WIDTH,R_HEIGHT);
@@ -84,11 +90,14 @@ public class Assets {
         rollimg[5]=roll.crop(R_WIDTH*2,R_HEIGHT,R_WIDTH,R_HEIGHT);
         timerFrame=ImageLoader.loadImage("graphics/Dice/Timer.png");
 
+
         //kolory pionkow
+        SpriteSheet counters=new SpriteSheet(ImageLoader.loadImage("graphics/Counters/Pionki.png"));
         counter[0]=counters.crop(P_WIDTH,0,P_WIDTH,P_HEIGHT);
         counter[1]=counters.crop(P_WIDTH,P_HEIGHT,P_WIDTH,P_HEIGHT);
         counter[2]=counters.crop(0,P_HEIGHT,P_WIDTH,P_HEIGHT);
         counter[3]=counters.crop(0,0,P_WIDTH,P_HEIGHT);
+
 
         //kolory tła wyboru
         SpriteSheet tileSheet=new SpriteSheet(ImageLoader.loadImage("graphics/PreparationState/tileSheet.png"));
@@ -99,6 +108,7 @@ public class Assets {
         tile[4]=tileSheet.crop(TILE_WIDTH*2,0,TILE_WIDTH,TILE_HEIGHT);
         tile[5]=tileSheet.crop(TILE_WIDTH*2,TILE_HEIGHT,TILE_WIDTH,TILE_HEIGHT);
 
+
         //strzałki przy wyborze
         SpriteSheet arrowSheet=new SpriteSheet(ImageLoader.loadImage("graphics/PreparationState/arrowSheet.png"));
         arrow[0]=arrowSheet.crop(ARROW_WIDTH,0,ARROW_WIDTH,ARROW_HEIGHT);
@@ -107,11 +117,37 @@ public class Assets {
         arrow[3]=arrowSheet.crop(0,0,ARROW_WIDTH,ARROW_HEIGHT);
         arrow[4]=arrowSheet.crop(ARROW_WIDTH*2,0,ARROW_WIDTH,ARROW_HEIGHT);
 
+
         //typy graczy
         SpriteSheet playerSheet=new SpriteSheet(ImageLoader.loadImage("graphics/PreparationState/playerSheet.png"));
         player[0]=playerSheet.crop(0,0,TILE_WIDTH,TILE_HEIGHT);
         player[1]=playerSheet.crop(0,TILE_HEIGHT,TILE_WIDTH,TILE_HEIGHT);
         player[2]=playerSheet.crop(TILE_WIDTH,0,TILE_WIDTH,TILE_HEIGHT);
+
+        //dynamic background
+        dynamicBackground[0]=ImageLoader.loadImage("graphics/Menu/Background_1.png");
+        dynamicBackground[1]=ImageLoader.loadImage("graphics/Menu/Background_2.png");
+    }
+
+
+    //metoda obrotu grafik
+    public static BufferedImage rotate(BufferedImage bimg, double angle) { //obrót BufferedImage
+
+        int w = bimg.getWidth();
+        int h = bimg.getHeight();
+
+        BufferedImage rotated = new BufferedImage(w, h, bimg.getType());
+        Graphics2D graphic = rotated.createGraphics();
+        graphic.rotate(Math.toRadians(angle), w/2, h/2);
+        graphic.drawImage(bimg, null, 0, 0);
+        graphic.dispose();
+        return rotated;
+    }
+
+    //metoda zmieniająca przezroczystość grafik     na wyjsciu gotowy obraz
+    public static BufferedImage opacity(BufferedImage image,float opacity){       //np opacity 0.5
+
+        return image;       //czy coś tam typu BufferedImage
     }
 
 }

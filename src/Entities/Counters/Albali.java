@@ -1,9 +1,11 @@
 package Entities.Counters;
 
+import Entities.ui.UltimateBar;
 import GFX.Assets;
 import ludogame.Handler;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
 public class Albali extends Counter {
     //zbija wszystkie ktore minie podczas trwania umiejetnosci;
@@ -11,18 +13,10 @@ public class Albali extends Counter {
     private static final int ULT_LOAD=40;
 
 
-    public Albali(Handler handler, float x, float y,int counterNr) {
-        super(handler,x, y,counterNr, Assets.counter[0]);
-    }
+    public Albali(Handler handler, float x, float y, BufferedImage counterColor) {
+        super(handler,x, y,counterColor);
 
-    @Override
-    public int getUltLoad() {
-        return ULT_LOAD;
-    }
-
-    @Override
-    public void renderPick(Graphics g) {
-
+        ultimateBar=new UltimateBar(handler,ULT_LOAD);
     }
 
     @Override

@@ -1,40 +1,28 @@
 package Entities.Counters;
 
+import Entities.ui.UltimateBar;
 import GFX.Assets;
 import ludogame.Handler;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
 public class Funi extends Counter{
     //tworzy ogien na randomowych polach
 
     private static final int ULT_LOAD=25; //zmienic na zdefiniowane w klasie abstrakcyjnej
 
-    int c;
-
-    public Funi(Handler handler, float x, float y) {
-        super(handler,x, y,ULT_LOAD,Assets.counter[0]);
-        this.c=1;
+    public Funi(Handler handler, float x, float y, BufferedImage counterColor) {
+        super(handler,x, y,counterColor);
+        ultimateBar=new UltimateBar(handler,ULT_LOAD);
     }
 
     @Override
     public void render(Graphics g) {
         g.drawImage(Assets.cloak_b, (int)x-5, (int)y-10,null);
-        g.drawImage(Assets.counter[c], (int)x, (int)y,null);
+        //g.drawImage(Assets.counter[c], (int)x, (int)y,null);
         g.drawImage(Assets.cloak_f, (int)x-5, (int)y-10,null);
         ultimateBar.render(g);
-    }
-
-    @Override
-    public void renderPick(Graphics g) {
-        //g.drawImage(Assets.cloak_b, (int)x-5, (int)y-10,(int)0.8*Assets.cloak_b.getWidth(),(int)0.9*Assets.cloak_b.getHeight(),null);
-        //g.drawImage(Assets.counter[c], (int)x, (int)y,(int)0.8*Assets.counter[c].getWidth(),(int)0.9*Assets.counter[c].getHeight(),null);
-        //g.drawImage(Assets.cloak_f, (int)x-5, (int)y-10,(int)0.8*Assets.cloak_f.getWidth(),(int)0.9*Assets.cloak_f.getHeight(),null);
-    }
-
-    @Override
-    public int getUltLoad() {
-        return ULT_LOAD;
     }
 }
 
