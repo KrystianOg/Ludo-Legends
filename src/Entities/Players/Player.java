@@ -62,7 +62,6 @@ public abstract class Player {
         this.isinbase = isinbase;
     }
 
-
     public int getStarting_pos() {
         return starting_pos;
     }

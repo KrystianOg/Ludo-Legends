@@ -75,6 +75,7 @@ public class SettingState extends State{
 
     	g.setColor(Color.white);
         g.fillRect(0,0,handler.getFrameWidth(),handler.getFrameHeight());
+        if(SettingState.DYNAMIC_BACKGROUND)
         dynamicBackground.render(g);
         slider_fps.render(g);
         button_size.render(g);

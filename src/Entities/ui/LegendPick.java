@@ -14,13 +14,6 @@ public class LegendPick extends Entity {
 
     private static final int SPACING=10;
 
-
-    //przenieść to ---->
-    public static final int[] COUNTER_POS_X={166,166,92,92},
-                              COUNTER_POS_Y={88,162,162,88};
-    // <----
-
-
     private final CounterTile[] counterTile;
 
     private final BufferedImage counter;

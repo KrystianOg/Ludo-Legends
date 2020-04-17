@@ -99,12 +99,6 @@ public class GameState extends State{
 
         if(dice.isRolled())
         player[turnof].tick();
-
-        player[turnof].counter[0].ultimateBar.tick();
-        player[turnof].counter[1].ultimateBar.tick();
-        player[turnof].counter[2].ultimateBar.tick();
-        player[turnof].counter[3].ultimateBar.tick();
-
     }
 
     @Override
@@ -116,19 +110,10 @@ public class GameState extends State{
 
         board.render(g);
 //
-
-
         player[0].render(g);
         player[1].render(g);
         player[2].render(g);
         player[3].render(g);
-
-        player[turnof].counter[0].ultimateBar.render(g);
-        player[turnof].counter[1].ultimateBar.render(g);
-        player[turnof].counter[2].ultimateBar.render(g);
-        player[turnof].counter[3].ultimateBar.render(g);
-
-
     }
 
     public Tile getTile(int i){
@@ -151,4 +136,8 @@ public class GameState extends State{
         return this.timer;
     }
 
+    public void setRolled(){
+        dice.setRolled(true);
+        this.dice.setTickcount();
+    }
 }

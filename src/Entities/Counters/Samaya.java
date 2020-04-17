@@ -1,6 +1,5 @@
 package Entities.Counters;
 
-import Entities.ui.UltimateBar;
 import ludogame.Handler;
 
 import java.awt.*;
@@ -11,7 +10,8 @@ public class Samaya extends Counter {
 
     public Samaya(Handler handler, float x, float y, BufferedImage counterColor) {
         super(handler,x, y,counterColor);
-        ultimateBar=new UltimateBar(handler,20);
+        this.ultBar=false;
+        ultimateBar=null;
     }
 
     @Override
@@ -21,6 +21,6 @@ public class Samaya extends Counter {
 
     @Override
     public void render(Graphics g) {
-
+        g.drawImage(counterColor, (int)x, (int)y,null);
     }
 }

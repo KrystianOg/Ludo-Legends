@@ -1,6 +1,5 @@
 package Entities.Players;
 import ludogame.Handler;
-import states.GameState;
 import states.SettingState;
 
 import java.awt.*;
@@ -25,18 +24,24 @@ public class Person extends Player {
     @Override
     public void tick() {
 
-        if(!clicked) {
-            counterNr = getInput();
-
-            if(counterNr!=-1)
-                clicked=true;
+        if(!handler.getDice().isRolled()) {
+            handler.getDice().tick();
+            handler.getTimer().tick();
         }
 
-        if(counterNr>0) {
-            counter[counterNr].tick();
-            System.out.println("CLICKED: "+counterNr);
-        }
+        else{
+            if (!clicked) {
+                counterNr = getInput();
 
+                if (counterNr != -1)
+                    clicked = true;
+            }
+
+            if (counterNr > 0) {
+                counter[counterNr].tick();
+                System.out.println("CLICKED: " + counterNr);
+            }
+        }
     }
 
     @Override

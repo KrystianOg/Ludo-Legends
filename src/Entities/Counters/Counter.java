@@ -22,7 +22,8 @@ public abstract class Counter extends Entity {
     //
 
     //Ultimate bar
-    public UltimateBar ultimateBar;         //zmienic na protected/private
+    protected boolean ultBar;
+    protected UltimateBar ultimateBar;         //zmienic na protected/private
 
     //animacja pionkow
     BufferedImage counterColor;

@@ -16,8 +16,7 @@ public class Intan extends Counter {
 
     public Intan(Handler handler, float x, float y, BufferedImage counterColor) {
         super(handler,x, y,counterColor);
-        ultimateBar=new UltimateBar(handler,30);
-
+        this.ultBar=false;
     }
 
     @Override

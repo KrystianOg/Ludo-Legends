@@ -15,6 +15,7 @@ public class Albali extends Counter {
 
     public Albali(Handler handler, float x, float y, BufferedImage counterColor) {
         super(handler,x, y,counterColor);
+        this.ultBar=true;
 
         ultimateBar=new UltimateBar(handler,ULT_LOAD);
     }
@@ -26,6 +27,7 @@ public class Albali extends Counter {
 
     @Override
     public void render(Graphics g) {
-
+        g.drawImage(counterColor, (int)x, (int)y,null);
+        ultimateBar.render(g);
     }
 }
