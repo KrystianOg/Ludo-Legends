@@ -18,7 +18,7 @@ public class MenuState extends State{
         super(handler);
         game=new Button(handler,(handler.getFrameWidth()-350)/2,500,350,90, Assets.game_button);
         settings=new Button(handler,(handler.getFrameWidth()-350)/2,600,350,90, Assets.settings_button);
-        this.dynamicBackground=new DynamicBackground(handler,800);
+        this.dynamicBackground=new DynamicBackground(handler,790);
     }
 
 
@@ -43,8 +43,10 @@ public class MenuState extends State{
 
     @Override
     public void render(Graphics g) {
-    	g.setColor(Game.MENU_GRAY);
+    	g.setColor(Color.white);
         g.fillRect(0,0,handler.getFrameWidth(),handler.getFrameHeight());
+
+        if(SettingState.DYNAMIC_BACKGROUND)
         dynamicBackground.render(g);
 
         g.drawImage(Assets.logo, 220, 25, 500, 500, null);

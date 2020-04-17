@@ -11,14 +11,14 @@ public class Display {
 
     private Canvas canvas;
 
-    private String title;
+    private final String title;
     private static int width,height;
 
 
     public Display(String title,int width,int height){
         this.title=title;
-        this.width=width;
-        this.height=height;
+        Display.width =width;
+        Display.height =height;
 
         createDisplay();
     }

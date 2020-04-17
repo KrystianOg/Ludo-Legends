@@ -8,8 +8,8 @@ import java.awt.image.BufferedImage;
 public class Button extends Entity {
 
     private BufferedImage[] button;
-    private Rectangle hitbox;
-    private boolean pressed;
+    private final Rectangle hitbox;
+    private final boolean pressed;
     private boolean onhover;
 
     public Button(Handler handler, float x, float y, int width, int height,BufferedImage[] button){

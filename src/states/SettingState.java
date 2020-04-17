@@ -12,7 +12,7 @@ public class SettingState extends State{
 
     //SETTINGS
     public static int FPS,BUTTON_SIZE,ULT_LOAD,DICE_ANIM_TIME;
-    public static boolean FPS_COUNTER;
+    public static boolean FPS_COUNTER,DYNAMIC_BACKGROUND;
 
 	private final Slider slider_fps;
     private final Slider button_size;
@@ -30,6 +30,7 @@ public class SettingState extends State{
         ULT_LOAD=100;           //wartość procentowa
         FPS_COUNTER=false;
         DICE_ANIM_TIME=10;
+        DYNAMIC_BACKGROUND=true;
 
         slider_fps=new Slider(handler, 100, 100, 17, 29, 200, 25, 144, 60, "FPS");
         button_size=new Slider(handler, 100, 200, 17, 29, 200, 50, 150, 100, "HUD size");
