@@ -16,12 +16,13 @@ import java.awt.*;
 
 public class GameState extends State{
 
-    private Player[] player;
+    private final Player[] player;
     private Board board;
     private Dice dice;
     private Timer timer;
 
     public static final Color[] color=new Color[4];
+
 
     private static final int W1=92,H1=91;
     private static final int W2=166,H2=166;
@@ -33,87 +34,29 @@ public class GameState extends State{
     public GameState(Handler handler){
         super(handler);
 
-        //counter=new Counter[4][4];
-        board=new Board(handler,0,0,750,850);   //z�e liczby-zmienic
+        handler.setGameState(this);
+        this.player=new Player[4];
+        setColors();
+    }
 
+    public void init(){
+
+        board=new Board(handler,0,0,750,790);   //z�e liczby-zmienic
         dice=new Dice(handler,765,300);
         timer=new Timer(handler,765,300);
 
         turnof=(int)(Math.random()*4);
         System.out.println("MOVING: "+turnof);
         this.setRoll(6);
-        handler.setGameState(this);
-        //wybieranie graczy
-        this.player=new Player[4];
-        setColors();
-
-        setCounters();
     }
 
-    public void setPlayers(Player[] player){
-        this.player=player;
-    }
-
-    private void setCounters(){
-        //player 0
-            Funi a1, a4;
-            Saph a2, a3;
-
-            a1=new Funi(handler,W1,H1);
-            a2=new Saph(handler,W2,H1);
-            a3=new Saph(handler,W1,H2);
-            a4=new Funi(handler,W2,H2);
-/*
-        player[3].setCounter(a1);
-        player[3].setCounter(a2);
-        player[3].setCounter(a3);
-        player[3].setCounter(a4);
-
-        //player1
-            Funi b1;
-            Intan b2,b3;
-            Saph b4;
-
-            b1=new Funi(handler,450+W1,H1);
-            b2=new Intan(handler,450+W2,H1);
-            b3=new Intan(handler,450+W1,H2);
-            b4=new Saph(handler,450+W2,H2);
-
-        player[0].setCounter(b1);
-        player[0].setCounter(b2);
-        player[0].setCounter(b3);
-        player[0].setCounter(b4);
-
-        //player2
-            Funi c1, c3;
-            Intan c2;
-            Saph c4;
-
-            c1= new Funi(handler,W1,450+H1);
-            c2= new Intan(handler,W2,450+H1);
-            c3= new Funi(handler,W1,450+H2);
-            c4= new Saph(handler,W2,450+H2);
-
-        player[2].setCounter(c1);
-        player[2].setCounter(c2);
-        player[2].setCounter(c3);
-        player[2].setCounter(c4);
-
-       //player3
-            Funi d1, d2;
-            Saph  d4;
-            Intan d3;
-
-            d1= new Funi(handler,450+W1,450+H1);
-            d2= new Funi(handler,450+W2,450+H1);
-            d3= new Intan(handler,450+W1,450+H2);
-            d4= new Saph(handler,450+W2,450+H2);
-
-         player[1].setCounter(d1);
-         player[1].setCounter(d2);
-         player[1].setCounter(d3);
-         player[1].setCounter(d4);
-*/
+    public void setPlayer(Player player){
+        for(int i=0;i<4;i++){
+            if(this.player[i]==null){
+                this.player[i]=player;
+                break;
+            }
+        }
     }
 
     private void setColors(){
@@ -156,11 +99,11 @@ public class GameState extends State{
 
         if(dice.isRolled())
         player[turnof].tick();
+
         player[turnof].counter[0].ultimateBar.tick();
         player[turnof].counter[1].ultimateBar.tick();
         player[turnof].counter[2].ultimateBar.tick();
         player[turnof].counter[3].ultimateBar.tick();
-
 
     }
 
@@ -172,6 +115,8 @@ public class GameState extends State{
         dice.render(g);
 
         board.render(g);
+//
+
 
         player[0].render(g);
         player[1].render(g);
@@ -182,6 +127,8 @@ public class GameState extends State{
         player[turnof].counter[1].ultimateBar.render(g);
         player[turnof].counter[2].ultimateBar.render(g);
         player[turnof].counter[3].ultimateBar.render(g);
+
+
     }
 
     public Tile getTile(int i){

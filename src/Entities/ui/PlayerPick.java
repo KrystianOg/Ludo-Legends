@@ -24,7 +24,6 @@ public class PlayerPick extends Entity {
     private int currentPick;
 
 
-
     public PlayerPick(Handler handler, float x, float y, BufferedImage bColor,BufferedImage arrow) {
         super(handler, x, y, PLAYER_PICK_WIDTH,PLAYER_PICK_HEIGHT);
 
@@ -37,7 +36,7 @@ public class PlayerPick extends Entity {
         this.hooverDown=false;
         this.hooverUp=false;
 
-        this.arrowUp=rotate(arrow,180);
+        this.arrowUp=Assets.rotate(arrow,180);         //obrót obrazka
     }
 
     @Override
@@ -78,6 +77,8 @@ public class PlayerPick extends Entity {
         g.drawImage(arrowDown,arrowDownHitbox.x,arrowDownHitbox.y,null);
         g.drawImage(arrowUp,arrowUpHitbox.x,arrowUpHitbox.y,null);
 
+
+
         if(!hooverUp)
             g.drawImage(Assets.arrow[4],arrowUpHitbox.x,arrowUpHitbox.y,null);
         if(!hooverDown)
@@ -85,18 +86,6 @@ public class PlayerPick extends Entity {
 
     }
 
-    public static BufferedImage rotate(BufferedImage bimg, double angle) { //obrót BufferedImage
-
-        int w = bimg.getWidth();
-        int h = bimg.getHeight();
-
-        BufferedImage rotated = new BufferedImage(w, h, bimg.getType());
-        Graphics2D graphic = rotated.createGraphics();
-        graphic.rotate(Math.toRadians(angle), w/2, h/2);
-        graphic.drawImage(bimg, null, 0, 0);
-        graphic.dispose();
-        return rotated;
-    }
 
     public int getCurrentPick(){
         return this.currentPick;

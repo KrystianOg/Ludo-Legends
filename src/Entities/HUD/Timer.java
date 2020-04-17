@@ -10,17 +10,19 @@ import java.awt.*;
 
 public class Timer extends Entity {
 
-    private int time=10* SettingState.FPS,      //ilość klatek, pierwsza liczba to czas w sekundach
-            currentTime=0;
-    private static int TIMER_WIDTH=87,TIMER_HEIGHT=87;
+    private final int time;      //ilość klatek, pierwsza liczba to czas w sekundach
+            private int currentTime=0;
+    private static final int TIMER_WIDTH=87;
+    private static final int TIMER_HEIGHT=87;
 
 
     public Timer(Handler handler, float x, float y) {
         super(handler, x-6, y-6, TIMER_WIDTH,TIMER_HEIGHT);
+        this.time=SettingState.FPS*SettingState.DICE_ANIM_TIME;
     }
 
     public void setcurrentTime(){
-        if(handler.getDice().getTickCopunt()<0)
+        if(handler.getDice().getTickCount()<0)
         this.currentTime++;
 
         if(currentTime==time){
@@ -28,7 +30,6 @@ public class Timer extends Entity {
             currentTime=0;
         }
     }
-
 
     @Override
     public void tick() {

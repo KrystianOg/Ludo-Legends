@@ -21,8 +21,6 @@ public class SettingState extends State{
     private final Button reset_all;
     private final Slider dice_anim_time;        //time in seconds
 
-
-	
     public SettingState(Handler handler){
         super(handler);
 

@@ -1,5 +1,6 @@
 package Entities.Players;
 import Entities.Counters.Counter;
+import ludogame.Handler;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -16,16 +17,22 @@ public abstract class Player {
     protected int starting_pos;
     protected int ending_pos;
 
+    protected Handler handler;
     protected BufferedImage counterColor;
 
     protected boolean clicked;
     protected int counterNr=-1;
 
-    public Player(int starting_pos,int ending_pos,BufferedImage counterColor){
+    public Player(Handler handler,int starting_pos,int ending_pos,BufferedImage counterColor){
 
         this.starting_pos=starting_pos;
         this.ending_pos=ending_pos;
+
         counter=new Counter[4];
+        counter[0]=null;
+        counter[1]=null;
+        counter[2]=null;
+        counter[3]=null;
 
         this.isinbase=true;
         this.counterColor=counterColor;
@@ -34,10 +41,15 @@ public abstract class Player {
 
     }
 
+    public void setCounters(Counter[] counters){
+        this.counter=counters;
+    }
+
     public void setCounter(Counter counter){
         for(int i=0;i<4;i++){
             if(this.counter[i]==null) {
                 this.counter[i] = counter;
+                break;
             }
         }
     }
@@ -58,10 +70,6 @@ public abstract class Player {
     public abstract void tick();
 
     public abstract void render(Graphics g);
-
-    public void move() {
-
-    }
 
     public void setClicked(boolean clicked){
         this.clicked=clicked;

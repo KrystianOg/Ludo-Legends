@@ -15,9 +15,12 @@ public class Handler {      //przekazuje zmienne do klas
     private PrepState prepState;
     private SettingState settingState;
 
-
     public GameState getGameState() {
         return gameState;
+    }
+
+    public PrepState getPrepState(){
+        return prepState;
     }
 
     public void setPrepState(PrepState prepState){
@@ -101,10 +104,6 @@ public class Handler {      //przekazuje zmienne do klas
 
     public void resetMousePOS(){
         getGame().getMousemanager().reset();
-    }
-
-    public State getPrepState(){
-        return this.getGame().prepstate;
     }
 
 }

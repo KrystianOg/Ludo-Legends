@@ -14,11 +14,12 @@ public class CounterTile extends Entity {
     private static final int COUNTER_WIDTH=32,
                              COUNTER_HEIGHT=60;
 
-    private Rectangle hitbox;
+    private final Rectangle hitbox;
     private boolean hover;
     private boolean clicked;
 
-    private BufferedImage[] img;
+    private final BufferedImage[] img;
+
 
     CounterTile(Handler handler, float x, float y,BufferedImage color){
         super(handler,x,y,COUNTER_TILE_WIDTH,COUNTER_TILE_HEIGHT);
@@ -34,6 +35,13 @@ public class CounterTile extends Entity {
 
     CounterTile(Handler handler, float x, float y,BufferedImage color, BufferedImage img_f,BufferedImage img_b){
         super(handler,x,y,COUNTER_TILE_WIDTH,COUNTER_TILE_HEIGHT);
+
+        this.hitbox=new Rectangle((int)x,(int)y,COUNTER_TILE_WIDTH,COUNTER_TILE_HEIGHT);
+        this.hover=false;
+
+        img=new BufferedImage[3];
+        this.clicked=false;
+
         this.img[0]=color;
         this.img[1]=img_f;
         this.img[2]=img_b;
@@ -41,6 +49,13 @@ public class CounterTile extends Entity {
 
     CounterTile(Handler handler, float x, float y,BufferedImage color, BufferedImage img_f){
         super(handler,x,y,COUNTER_TILE_WIDTH,COUNTER_TILE_HEIGHT);
+
+        this.hitbox=new Rectangle((int)x,(int)y,COUNTER_TILE_WIDTH,COUNTER_TILE_HEIGHT);
+        this.hover=false;
+
+        img=new BufferedImage[3];
+        this.clicked=false;
+
         this.img[0]=color;
         this.img[1]=img_f;
         this.img[2]=null;
@@ -88,7 +103,11 @@ public class CounterTile extends Entity {
         System.out.println("WYBOR: " + clicked);
     }
 
-    public boolean ischoosen(){
+    public boolean isChoosen(){
         return this.clicked;
+    }
+
+    public void setChoosen(){
+        this.clicked=false;
     }
 }
