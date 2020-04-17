@@ -71,6 +71,8 @@ public class DynamicBackground {
             g.drawImage(dynamicBackground[0], (int)position[0], 0, width, height, null);
             g.drawImage(dynamicBackground[1], (int)position[1], 0, width, height, null);
 
+
+
     }
 
     private void moveBackgroundLogic(int i){

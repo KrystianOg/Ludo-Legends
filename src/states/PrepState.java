@@ -8,6 +8,7 @@ import Entities.ui.Button;
 import Entities.ui.LegendPick;
 import Entities.ui.PlayerPick;
 import GFX.Assets;
+import GFX.DynamicBackground;
 import ludogame.Game;
 import ludogame.Handler;
 
@@ -18,7 +19,7 @@ import java.util.List;
 
 public class PrepState extends State {
 
-    private static final int PLAYER_POSY=150,PLAYER_SHIFT=450;
+    private static final int PLAYER_POSY=230,PLAYER_SHIFT=450;
 
     private static final int[] PLAYER_STARTING_POS={1,14,27,40},
                                PLAYER_ENDING_POS={51,12,25,38};
@@ -35,6 +36,8 @@ public class PrepState extends State {
     private boolean typePick;
     private LegendPick[] legendPick;
 
+    DynamicBackground dynamicBackground;
+
     public PrepState(Handler handler) {
         super(handler);
 
@@ -43,7 +46,9 @@ public class PrepState extends State {
         apply=new Button(handler,(float)((handler.getFrameWidth()-350)/2),500,350,90, Assets.apply_button);
     }
 
-    public void init(){
+    public void init(DynamicBackground dynamicBackground){
+
+        this.dynamicBackground=dynamicBackground;
 
         this.typePick=true;
         this.picking =0;
@@ -66,6 +71,8 @@ public class PrepState extends State {
 
     @Override
     public void tick() {
+
+        dynamicBackground.tick();
 
         if(typePick){
             playerPick[0].tick();
@@ -125,8 +132,11 @@ public class PrepState extends State {
 
     @Override
     public void render(Graphics g) {
-        g.setColor(Game.MENU_GRAY);
+        g.setColor(Color.white);
         g.fillRect(0,0,handler.getFrameWidth(),handler.getFrameHeight());
+
+        dynamicBackground.render(g);
+
         apply.render(g);
 
         if(typePick){
@@ -225,7 +235,5 @@ public class PrepState extends State {
         typePick=true;
         picking=0;
     }
-
-
 
 }

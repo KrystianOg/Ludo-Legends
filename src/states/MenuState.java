@@ -29,12 +29,13 @@ public class MenuState extends State{
 
         if(this.game.getHitbox().contains(handler.getMouseClickX(),handler.getMouseClickY())) {
             handler.resetMousePOS();
-            handler.getPrepState().init();
+            handler.getPrepState().init(this.dynamicBackground);
             setState(handler.getGame().prepstate);
         }
         else if(this.settings.getHitbox().contains(handler.getMouseClickX(),handler.getMouseClickY())) {
             handler.resetMousePOS();
             setState(handler.getGame().settingstate);
+            handler.getSettingState().setDynamicBackground(this.dynamicBackground);
         }
 
     	game.tick();
