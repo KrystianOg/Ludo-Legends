@@ -34,8 +34,8 @@ public class DynamicBackground {
         this.dynamicBackground=Assets.dynamicBackground;
 
         this.cluePoint=new int[2];
-        this.cluePoint[0]=(30-this.width+handler.getFrameWidth());
-        this.cluePoint[1]=-30;
+        this.cluePoint[0]=(200-this.width+handler.getFrameWidth());
+        this.cluePoint[1]=-200;
 
         System.out.println(cluePoint[0]+" "+cluePoint[1]);
 
@@ -68,8 +68,8 @@ public class DynamicBackground {
 
     public void render(Graphics g){
 
-            g.drawImage(dynamicBackground[0], (int)position[0], -5, width, height, null);
-            g.drawImage(dynamicBackground[1], (int)position[1], -5, width, height, null);
+            g.drawImage(dynamicBackground[0], (int)position[0], 0, width, height, null);
+            g.drawImage(dynamicBackground[1], (int)position[1], 0, width, height, null);
 
     }
 

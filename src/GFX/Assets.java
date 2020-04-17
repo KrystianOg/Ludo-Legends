@@ -125,8 +125,8 @@ public class Assets {
         player[2]=playerSheet.crop(TILE_WIDTH,0,TILE_WIDTH,TILE_HEIGHT);
 
         //dynamic background
-        dynamicBackground[0]=ImageLoader.loadImage("graphics/Menu/Background_1.png");
-        dynamicBackground[1]=ImageLoader.loadImage("graphics/Menu/Background_2.png");
+        dynamicBackground[0]=ImageLoader.loadImage("graphics/Menu/Background_3.png");
+        dynamicBackground[1]=ImageLoader.loadImage("graphics/Menu/Background_4.png");
     }
 
 
