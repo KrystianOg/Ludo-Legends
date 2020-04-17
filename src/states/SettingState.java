@@ -41,8 +41,8 @@ public class SettingState extends State{
         button_size=new Slider(handler, 100, 200, 17, 29, 200, 50, 150, 100, "HUD size");
         ultload=new Slider(handler, 100, 300, 17, 29, 200, 0, 400, 100, "Ultimate ability load speed");
         dice_anim_time=new Slider(handler, 100, 400, 17, 29, 200, 3, 30, 10, "Dice animation time");
-        back=new Button(handler, handler.getFrameWidth() -100, handler.getFrameHeight() -100, 90, 90, Assets.back_button);
-        reset_all=new Button(handler, 100, 700, 90, 90, Assets.back_button);
+        back=new Button(handler, handler.getFrameWidth() -100, handler.getFrameHeight() -100, 90, 90, Assets.big_button_template,Assets.defaults_button);
+        reset_all=new Button(handler, 100, 700, 90, 90, Assets.big_button_template,Assets.defaults_button);
     }
 
     @Override

@@ -9,7 +9,6 @@ import Entities.ui.LegendPick;
 import Entities.ui.PlayerPick;
 import GFX.Assets;
 import GFX.DynamicBackground;
-import ludogame.Game;
 import ludogame.Handler;
 
 import java.awt.*;
@@ -43,7 +42,7 @@ public class PrepState extends State {
 
         handler.setPrepState(this);
 
-        apply=new Button(handler,(float)((handler.getFrameWidth()-350)/2),500,350,90, Assets.apply_button);
+        apply=new Button(handler,(float)((handler.getFrameWidth()-350)/2),500,350,90, Assets.big_button_template,Assets.apply_button);
     }
 
     public void init(DynamicBackground dynamicBackground){

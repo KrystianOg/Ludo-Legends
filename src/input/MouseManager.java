@@ -78,6 +78,8 @@ public class MouseManager implements MouseListener, MouseMotionListener { //popr
 	public void mouseMoved(MouseEvent e) {
         this.hoverx=e.getX();
         this.hovery=e.getY();
+
+        System.out.println("X: "+hoverx+"Y: "+hovery);
 	}
 	
 	public int getHoverX(){
