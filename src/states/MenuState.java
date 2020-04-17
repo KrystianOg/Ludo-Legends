@@ -45,6 +45,8 @@ public class MenuState extends State{
     public void render(Graphics g) {
     	g.setColor(Game.MENU_GRAY);
         g.fillRect(0,0,handler.getFrameWidth(),handler.getFrameHeight());
+
+        if(SettingState.DYNAMIC_BACKGROUND)
         dynamicBackground.render(g);
 
         g.drawImage(Assets.logo, 220, 25, 500, 500, null);

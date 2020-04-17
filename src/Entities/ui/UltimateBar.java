@@ -19,7 +19,7 @@ public class UltimateBar extends Entity {
     public UltimateBar(Handler handler,int ULT_LOAD) {
 
         super(handler,(float)765, (float)55+3*60, ULTIMATEBAR_WIDTH, ULTIMATEBAR_HEIGHT);
-        this.ULT_LOAD=ULT_LOAD;
+        UltimateBar.ULT_LOAD =ULT_LOAD;
     }
 
     @Override

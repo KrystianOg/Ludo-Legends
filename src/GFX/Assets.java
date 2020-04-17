@@ -150,4 +150,5 @@ public class Assets {
         return image;       //czy coś tam typu BufferedImage
     }
 
+
 }
