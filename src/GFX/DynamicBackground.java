@@ -18,7 +18,7 @@ public class DynamicBackground {
 
     private double difference;
 
-    private final int[] cluePoint;
+    private static int[] cluePoint;
     private final int[] follow;
     private final double[] position;
     private final boolean[] right;
@@ -33,9 +33,9 @@ public class DynamicBackground {
 
         this.dynamicBackground=Assets.dynamicBackground;
 
-        this.cluePoint=new int[2];
-        this.cluePoint[0]=(200-this.width+handler.getFrameWidth());
-        this.cluePoint[1]=-200;
+        cluePoint=new int[2];
+        cluePoint[0]=(200-this.width+handler.getFrameWidth());
+        cluePoint[1]=-200;
 
         System.out.println(cluePoint[0]+" "+cluePoint[1]);
 
@@ -56,9 +56,6 @@ public class DynamicBackground {
 
         difference=(20/ (double)SettingState.FPS);
 
-        System.out.println(SettingState.FPS);
-        System.out.println(difference);
-
         moveBackgroundLogic(0);
         moveBackgroundLogic(1);
         ticks++;
@@ -70,6 +67,8 @@ public class DynamicBackground {
 
             g.drawImage(dynamicBackground[0], (int)position[0], 0, width, height, null);
             g.drawImage(dynamicBackground[1], (int)position[1], 0, width, height, null);
+
+
 
     }
 
@@ -90,11 +89,6 @@ public class DynamicBackground {
 
     private void changeDirection(int i){
         right[i]= !right[i];
-    }
-
-    public void init(){
-
-
     }
 
 }

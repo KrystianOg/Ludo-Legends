@@ -22,17 +22,22 @@ public class Assets {
     public static BufferedImage map;
     public static BufferedImage timerFrame;
 
-    public static BufferedImage[] game_button =new BufferedImage[2],
-                                  settings_button =new BufferedImage[2],
-                                  apply_button=new BufferedImage[2],
-                                  rollimg =new BufferedImage[6],
+    public static BufferedImage[] big_button_template=new BufferedImage[2],
+                                  reset_button_template=new BufferedImage[2];
+
+    public static BufferedImage[] rollimg =new BufferedImage[6],
                                   counter =new BufferedImage[4],
                                   back_button =new BufferedImage[2],
-                                  reset_button =new BufferedImage[2],
                                   tile=new BufferedImage[6],
                                   player=new BufferedImage[3],
                                   arrow=new BufferedImage[5],
                                   dynamicBackground=new BufferedImage[2];
+
+    public static BufferedImage apply_button,
+                                defaults_button,
+                                settings_button,
+                                reset_button,
+                                game_button;
 
 
 
@@ -62,12 +67,14 @@ public class Assets {
 
 
         //przyciski menu
-        game_button[0]=ImageLoader.loadImage("graphics/Menu/game.png");         //dodac siatke
-        game_button[1]=ImageLoader.loadImage("graphics/Menu/game_onhover.png");
-        settings_button[0]=ImageLoader.loadImage("graphics/Menu/settings.png");
-        settings_button[1]=ImageLoader.loadImage("graphics/Menu/settings_onhover.png");
-        apply_button[0]=ImageLoader.loadImage("graphics/Menu/apply.png");
-        apply_button[1]=ImageLoader.loadImage("graphics/Menu/apply_onhover.png");
+        SpriteSheet big_button_templates=new SpriteSheet(ImageLoader.loadImage("graphics/Menu/big_button_template.png"));
+        big_button_template[0]=big_button_templates.crop(0,0,350,90);
+        big_button_template[1]=big_button_templates.crop(0,90,350,90);
+
+        game_button=ImageLoader.loadImage("graphics/Menu/game.png");         //dodac siatke
+        settings_button=ImageLoader.loadImage("graphics/Menu/settings.png");
+        apply_button=ImageLoader.loadImage("graphics/Menu/apply.png");
+        defaults_button=ImageLoader.loadImage("graphics/Menu/defaults.png");
 
         //settings
         slider_front=ImageLoader.loadImage("graphics/Settings/slider_front.png");
@@ -76,9 +83,10 @@ public class Assets {
         back_button[0]=ImageLoader.loadImage("graphics/Settings/back_button.png");
         back_button[1]=ImageLoader.loadImage("graphics/Settings/back_button_onhover.png");
 
-        reset_button[0]=ImageLoader.loadImage("graphics/Settings/reset.png");
-        reset_button[1]=ImageLoader.loadImage("graphics/Settings/reset_onhover.png");
-
+        SpriteSheet reset_button_templates=new SpriteSheet(ImageLoader.loadImage("graphics/Settings/reset_button_template.png"));
+        reset_button_template[0]=reset_button_templates.crop(0,0,225,90);
+        reset_button_template[1]=reset_button_templates.crop(0,90,225,90);
+        reset_button=ImageLoader.loadImage("graphics/Settings/reset.png");
 
         //kostka do gry
         SpriteSheet roll=new SpriteSheet(ImageLoader.loadImage("graphics/Dice/Roll.png"));

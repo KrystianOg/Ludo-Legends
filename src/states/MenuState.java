@@ -3,7 +3,6 @@ package states;
 import GFX.Assets;
 import Entities.ui.Button;
 import GFX.DynamicBackground;
-import ludogame.Game;
 import ludogame.Handler;
 
 import java.awt.*;
@@ -16,8 +15,8 @@ public class MenuState extends State{
 
     public MenuState(Handler handler){
         super(handler);
-        game=new Button(handler,(handler.getFrameWidth()-350)/2,500,350,90, Assets.game_button);
-        settings=new Button(handler,(handler.getFrameWidth()-350)/2,600,350,90, Assets.settings_button);
+        game=new Button(handler,(handler.getFrameWidth()-350)/2,500,350,90, Assets.big_button_template,Assets.game_button);
+        settings=new Button(handler,(handler.getFrameWidth()-350)/2,600,350,90, Assets.big_button_template,Assets.settings_button);
         this.dynamicBackground=new DynamicBackground(handler,790);
     }
 
@@ -29,12 +28,13 @@ public class MenuState extends State{
 
         if(this.game.getHitbox().contains(handler.getMouseClickX(),handler.getMouseClickY())) {
             handler.resetMousePOS();
-            handler.getPrepState().init();
+            handler.getPrepState().init(this.dynamicBackground);
             setState(handler.getGame().prepstate);
         }
         else if(this.settings.getHitbox().contains(handler.getMouseClickX(),handler.getMouseClickY())) {
             handler.resetMousePOS();
             setState(handler.getGame().settingstate);
+            handler.getSettingState().setDynamicBackground(this.dynamicBackground);
         }
 
     	game.tick();

@@ -3,6 +3,7 @@ package states;
 import Entities.ui.Button;
 import Entities.ui.Slider;
 import GFX.Assets;
+import GFX.DynamicBackground;
 import ludogame.Game;
 import ludogame.Handler;
 
@@ -19,7 +20,9 @@ public class SettingState extends State{
     private final Slider ultload;
 	private final Button back;
     private final Button reset_all;
-    private final Slider dice_anim_time;        //time in seconds
+    private final Slider dice_anim_time;
+
+    DynamicBackground dynamicBackground;//time in seconds
 
     public SettingState(Handler handler){
         super(handler);
@@ -32,16 +35,20 @@ public class SettingState extends State{
         DICE_ANIM_TIME=10;
         DYNAMIC_BACKGROUND=true;
 
+        handler.setSettingState(this);
+
         slider_fps=new Slider(handler, 100, 100, 17, 29, 200, 25, 144, 60, "FPS");
         button_size=new Slider(handler, 100, 200, 17, 29, 200, 50, 150, 100, "HUD size");
         ultload=new Slider(handler, 100, 300, 17, 29, 200, 0, 400, 100, "Ultimate ability load speed");
         dice_anim_time=new Slider(handler, 100, 400, 17, 29, 200, 3, 30, 10, "Dice animation time");
-        back=new Button(handler, handler.getFrameWidth() -100, handler.getFrameHeight() -100, 90, 90, Assets.back_button);
-        reset_all=new Button(handler, 100, 700, 90, 90, Assets.back_button);
+        back=new Button(handler, handler.getFrameWidth() -100, handler.getFrameHeight() -100, 90, 90, Assets.big_button_template,Assets.defaults_button);
+        reset_all=new Button(handler, 100, 700, 90, 90, Assets.big_button_template,Assets.defaults_button);
     }
 
     @Override
     public void tick() {
+
+        dynamicBackground.tick();
     	if(this.back.getHitbox().contains(handler.getMouseClickX(),handler.getMouseClickY())) {
             handler.resetMousePOS();
             setSettings();
@@ -66,14 +73,19 @@ public class SettingState extends State{
     @Override
     public void render(Graphics g) {
 
-    	g.setColor(Game.MENU_GRAY);
+    	g.setColor(Color.white);
         g.fillRect(0,0,handler.getFrameWidth(),handler.getFrameHeight());
+        dynamicBackground.render(g);
         slider_fps.render(g);
         button_size.render(g);
         ultload.render(g);
         back.render(g);
         reset_all.render(g);
         dice_anim_time.render(g);
+    }
+
+    public void setDynamicBackground(DynamicBackground dynamicBackground){
+        this.dynamicBackground=dynamicBackground;
     }
 
     public void setSettings(){

@@ -10,8 +10,7 @@ public class LegendPick extends Entity {
 
     public static final int LEGEND_WINDOW_W=390,
                             LEGEND_WINDOW_H=190,
-                            LEGEND_WINDOW_X=300,
-                            LEGEND_WINDOW_Y=200;
+                            LEGEND_WINDOW_Y=280;
 
     private static final int SPACING=10;
 
@@ -29,7 +28,7 @@ public class LegendPick extends Entity {
 
 
     public LegendPick(Handler handler,BufferedImage counter) {
-        super(handler,LEGEND_WINDOW_X,LEGEND_WINDOW_Y,LEGEND_WINDOW_W,LEGEND_WINDOW_H);
+        super(handler,(handler.getFrameWidth()-LEGEND_WINDOW_W)/2,LEGEND_WINDOW_Y,LEGEND_WINDOW_W,LEGEND_WINDOW_H);
 
         this.choosen=0;
         this.counter=counter;
@@ -54,7 +53,6 @@ public class LegendPick extends Entity {
             if(counterTile[i].isChoosen())
                 choosen++;
         }
-        System.out.println("CHOOSEN: "+choosen);
     }
 
     @Override

@@ -99,8 +99,6 @@ public class CounterTile extends Entity {
 
         else if(clicked)
             clicked = false;
-
-        System.out.println("WYBOR: " + clicked);
     }
 
     public boolean isChoosen(){

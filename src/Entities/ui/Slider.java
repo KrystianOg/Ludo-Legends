@@ -44,7 +44,7 @@ public class Slider extends Entity {
 	    valueInt=Math.round(value);
 	    valueString = String.valueOf(valueInt);
 	    
-	    reset=new Button(handler, (int)x*2+ frameWidth, y, 100, 40, Assets.reset_button);
+	    reset=new Button(handler, (int)x*2+ frameWidth, y, 100, 40, Assets.reset_button_template,Assets.reset_button);
 	}
 
 	@Override
