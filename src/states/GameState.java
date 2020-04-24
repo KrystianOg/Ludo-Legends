@@ -16,16 +16,12 @@ import java.awt.*;
 
 public class GameState extends State{
 
-    private final Player[] player;
+    private final Player[] player;          //vector
     private Board board;
     private Dice dice;
     private Timer timer;
 
     public static final Color[] color=new Color[4];
-
-
-    private static final int W1=92,H1=91;
-    private static final int W2=166,H2=166;
 
     private int turnof;
 
@@ -36,7 +32,6 @@ public class GameState extends State{
 
         handler.setGameState(this);
         this.player=new Player[4];
-        setColors();
     }
 
     public void init(){
@@ -46,7 +41,6 @@ public class GameState extends State{
         timer=new Timer(handler,765,300);
 
         turnof=(int)(Math.random()*4);
-        System.out.println("MOVING: "+turnof);
         this.setRoll(6);
     }
 
@@ -57,13 +51,6 @@ public class GameState extends State{
                 break;
             }
         }
-    }
-
-    private void setColors(){
-                color[0]=new Color(255,214,0);
-                color[1]=new Color(0,109,200);
-                color[2]=new Color(201,0,1);
-                color[3]=new Color(0,190,0);
     }
 
     public Player getPlayer(int i){
@@ -92,19 +79,7 @@ public class GameState extends State{
 
     @Override
     public void tick() {
-        if(!dice.isRolled()) {
-            dice.tick();
-            timer.tick();
-        }
-
-        if(dice.isRolled())
         player[turnof].tick();
-
-        player[turnof].counter[0].ultimateBar.tick();
-        player[turnof].counter[1].ultimateBar.tick();
-        player[turnof].counter[2].ultimateBar.tick();
-        player[turnof].counter[3].ultimateBar.tick();
-
     }
 
     @Override
@@ -115,19 +90,7 @@ public class GameState extends State{
         dice.render(g);
 
         board.render(g);
-//
-
-
-        player[0].render(g);
-        player[1].render(g);
-        player[2].render(g);
-        player[3].render(g);
-
-        player[turnof].counter[0].ultimateBar.render(g);
-        player[turnof].counter[1].ultimateBar.render(g);
-        player[turnof].counter[2].ultimateBar.render(g);
-        player[turnof].counter[3].ultimateBar.render(g);
-
+        renderPlayers(g);
 
     }
 
@@ -151,4 +114,13 @@ public class GameState extends State{
         return this.timer;
     }
 
+    private void renderPlayers(Graphics g){
+        for(int i=0;i<4;i++){
+            player[i].render(g);
+        }
+    }
+
+    public Board getBoard(){
+        return this.board;
+    }
 }

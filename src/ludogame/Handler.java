@@ -1,13 +1,15 @@
 package ludogame;
 
+import Entities.Board;
 import Entities.HUD.Dice;
+import Entities.HUD.Timer;
 import Entities.Players.Player;
+import Entities.ui.Tile;
 import states.GameState;
 import states.PrepState;
 import states.SettingState;
-import states.State;
 
-public class Handler {      //przekazuje zmienne do klas
+public class Handler {
 
     private Game game;
 
@@ -74,36 +76,46 @@ public class Handler {      //przekazuje zmienne do klas
     }
 
     public int getRoll(){
-        return gameState.getRoll();
+        return gameState.getDice().getRoll();
+    }
+
+    public Timer getTimer(){
+        return gameState.getTimer();
     }
 
     public int getFrameWidth(){
-        return this.getGame().getFrameWidth();
+        return game.getFrameWidth();
     }
 
     public int getFrameHeight(){
-        return this.getGame().getFrameHeight();
+        return game.getFrameHeight();
     }
 
-
     public int getHoverX(){
-        return this.getGame().getMousemanager().getHoverX();
+        return game.getMousemanager().getHoverX();
     }
 
     public int getHoverY(){
-        return this.getGame().getMousemanager().getHoverY();
+        return game.getMousemanager().getHoverY();
     }
 
     public int getMouseClickX(){
-        return this.getGame().getMousemanager().getX();
+        return game.getMousemanager().getX();
     }
 
     public int getMouseClickY(){
-        return this.getGame().getMousemanager().getY();
+        return game.getMousemanager().getY();
     }
 
     public void resetMousePOS(){
-        getGame().getMousemanager().reset();
+        game.getMousemanager().reset();
     }
 
+    public Board getBoard(){
+        return gameState.getBoard();
+    }
+
+    public Tile getTile(int i){
+        return gameState.getBoard().getTile(i);
+    }
 }

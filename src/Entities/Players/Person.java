@@ -1,6 +1,5 @@
 package Entities.Players;
 import ludogame.Handler;
-import states.GameState;
 import states.SettingState;
 
 import java.awt.*;
@@ -9,47 +8,67 @@ import java.awt.image.BufferedImage;
 
 public class Person extends Player {
 
-    private final Handler handler;
+    private int input;
 
-    private static final int ANIM_TICKS=(int)(0.42* SettingState.FPS);
-    private int tickcount=-1;
+    private final int ANIM_TICKS=(int)(0.42* SettingState.FPS);
 
-    private boolean clicked=false;
-
-    public Person(Handler handler, int startingPos,int endingPos, BufferedImage ccolor) { //zmienic na getter
-        super(handler,startingPos,endingPos,ccolor);
-        this.handler = handler;
-
+    public Person(Handler handler, int startingPos,int endingPos, BufferedImage counterColor) { //zmienic na getter
+        super(handler,startingPos,endingPos,counterColor);
+        input=-1;
     }
 
     @Override
     public void tick() {
 
-        if(!clicked) {
-            counterNr = getInput();
+        if(!counterIsMoving())
+            moveLogic();
 
-            if(counterNr!=-1)
-                clicked=true;
-        }
+        for(int i=0;i<counter.length;i++)
+            counter[i].tick();
 
-        if(counterNr>0) {
-            counter[counterNr].tick();
-            System.out.println("CLICKED: "+counterNr);
-        }
+
 
     }
 
     @Override
     public void render(Graphics g) {
-        counter[0].render(g);
-        counter[1].render(g);
-        counter[2].render(g);
-        counter[3].render(g);
+
+        for(int i=0;i<counter.length;i++)
+            counter[i].render(g);
+
     }
 
-    private void resetTick(){
-        this.tickcount=-1;
-        this.counterNr=-1;
+    private void moveLogic(){
+        if(!handler.getDice().isRolled()) {
+            handler.getDice().tick();
+            handler.getTimer().tick();
+        }
+
+        else{
+            if(isinbase&&handler.getRoll()!=6) {
+                handler.setTurnof();
+                handler .getDice().setRolled(false);
+                handler.getTimer().resetTimer();
+            }
+            else if(handler.getRoll()==6) {
+                input=getInput();
+
+                if(input>=0) {
+                    counter[input].setMoving(true);
+                }
+            }
+            else if(!isinbase&&handler.getRoll()<6){
+                input=getInput();
+
+                if(input>=0) {
+                    if(!counter[input].isInbase()) {
+                        counter[input].setMoving(true);
+                    }
+                }
+            }
+
+        }
+
     }
 
     private int getInput() {

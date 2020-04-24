@@ -10,13 +10,19 @@ import java.awt.image.BufferedImage;
 
 public class Intan extends Counter {
     //2 razy trzeba go zbic zeby przesunal sie do "bazy"
+
+    public static final int SHIELD_POSX=-3,SHIELD_POSY=21;
     private static final boolean ULT=false;
 
     //passive bez paska umiejetnosci
 
     public Intan(Handler handler, float x, float y, BufferedImage counterColor) {
         super(handler,x, y,counterColor);
-        ultimateBar=new UltimateBar(handler,30);
+        this.ultBar=false;
+    }
+
+    @Override
+    protected void counterLogic() {
 
     }
 

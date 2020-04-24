@@ -16,7 +16,7 @@ public class Assets {
     public static BufferedImage slider_front, slider_back;
 
 
-    public static BufferedImage sword,cloak_b,cloak_f,shield;
+    public static BufferedImage sword,cloak_b,cloak_f,shield,wand;
     public static BufferedImage progressbar_b,progressbar_f;
 
     public static BufferedImage map;
@@ -40,7 +40,6 @@ public class Assets {
                                 game_button;
 
 
-
     public static void init(){
         //czcionka
     	Ubuntu28=FontLoader.loadfont("fonts/Ubuntu-R.ttf", 28);
@@ -59,7 +58,7 @@ public class Assets {
         cloak_b=ImageLoader.loadImage("graphics/Counters/Cloak_Back.png");
         cloak_f=ImageLoader.loadImage("graphics/Counters/Cloak_Front.png");
         shield=ImageLoader.loadImage("graphics/Counters/Shield.png");
-
+        wand=ImageLoader.loadImage("graphics/Counters/wand1.png");
 
         //progressbar
         progressbar_b=ImageLoader.loadImage("graphics/ProgressBar/Bar_Back.png");   //dodać siatke

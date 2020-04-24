@@ -21,7 +21,7 @@ public class Timer extends Entity {
         this.time=SettingState.FPS*SettingState.DICE_ANIM_TIME;
     }
 
-    public void setcurrentTime(){
+    private void setcurrentTime(){
         if(handler.getDice().getTickCount()<0)
         this.currentTime++;
 

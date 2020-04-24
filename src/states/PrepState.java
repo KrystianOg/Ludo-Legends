@@ -20,14 +20,17 @@ public class PrepState extends State {
 
     private static final int PLAYER_POSY=230,PLAYER_SHIFT=450;
 
-    private static final int[] PLAYER_STARTING_POS={1,14,27,40},
-                               PLAYER_ENDING_POS={51,12,25,38};
+    private static final int[]  PLAYER_STARTING_POS={1,14,27,40},
+                                PLAYER_ENDING_POS={51,12,25,38};
+
+    private static final int[]  COUNTER_POS_X={166,166,92,92},
+                                COUNTER_POS_Y={88,162,162,88},
+                                BASE_POS_X={450,450,0,0},
+                                BASE_POS_Y={0,450,450,0};
+
 
     //zoptymalizować
-
-    Counter[] counter;
     Button apply;
-    //Player[] player;
 
     PlayerPick[] playerPick;
 
@@ -49,8 +52,8 @@ public class PrepState extends State {
 
         this.dynamicBackground=dynamicBackground;
 
-        this.typePick=true;
-        this.picking =0;
+        typePick=true;
+        picking =0;
 
         legendPick=new LegendPick[4];
 
@@ -84,23 +87,17 @@ public class PrepState extends State {
                 typePick=false;
 
                 for(int i=0;i<4;i++){
-                    switch(playerPick[i].getCurrentPick()){
-                        case 0:
-                            handler.getGameState().setPlayer(new Bot(handler,PLAYER_STARTING_POS[i],PLAYER_ENDING_POS[i],Assets.counter[i]));
-                            break;
-                        case 1:
-                            handler.getGameState().setPlayer(new Person(handler,PLAYER_STARTING_POS[i],PLAYER_ENDING_POS[i],Assets.counter[i]));
-                            break;
-                        case 2:
-                            handler.getGameState().setPlayer(new Blank(handler,PLAYER_STARTING_POS[i],PLAYER_ENDING_POS[i],Assets.counter[i]));
-                            break;
+                    switch (playerPick[i].getCurrentPick()) {
+                        case 0 -> handler.getGameState().setPlayer(new Bot(handler, PLAYER_STARTING_POS[i], PLAYER_ENDING_POS[i], Assets.counter[i]));
+                        case 1 -> handler.getGameState().setPlayer(new Person(handler, PLAYER_STARTING_POS[i], PLAYER_ENDING_POS[i], Assets.counter[i]));
+                        case 2 -> handler.getGameState().setPlayer(new Blank(handler, PLAYER_STARTING_POS[i], PLAYER_ENDING_POS[i], Assets.counter[i]));
                     }
                 }
             }
 
         }
 
-        else if(!typePick) {
+        else {
 
             legendPick[picking].tick();
 
@@ -133,7 +130,7 @@ public class PrepState extends State {
     public void render(Graphics g) {
         g.setColor(Color.white);
         g.fillRect(0,0,handler.getFrameWidth(),handler.getFrameHeight());
-
+        if(SettingState.DYNAMIC_BACKGROUND)
         dynamicBackground.render(g);
 
         apply.render(g);
@@ -155,35 +152,22 @@ public class PrepState extends State {
 
         //zobaczyc czy da sie zrobic jak w setstate
 
+        int i=0;
+
             for(int j=0;j<8;j++) {
                 if (legendPick[picking].getCounterTile(j).isChoosen()){
-                    switch(j){
-                        case 0:
-                            handler.getGameState().getPlayer(picking).setCounter(new Albali(handler,LegendPick.COUNTER_POS_X[picking],LegendPick.COUNTER_POS_Y[picking],Assets.counter[picking]));
-                            break;
-                        case 1:
-                            handler.getGameState().getPlayer(picking).setCounter(new Funi(handler,LegendPick.COUNTER_POS_X[picking],LegendPick.COUNTER_POS_Y[picking],Assets.counter[picking]));
-                            break;
-                        case 2:
-                            handler.getGameState().getPlayer(picking).setCounter(new Intan(handler,LegendPick.COUNTER_POS_X[picking],LegendPick.COUNTER_POS_Y[picking],Assets.counter[picking]));
-                            break;
-                        case 3:
-                            handler.getGameState().getPlayer(picking).setCounter(new Lich(handler,LegendPick.COUNTER_POS_X[picking],LegendPick.COUNTER_POS_Y[picking],Assets.counter[picking]));
-                            break;
-                        case 4:
-                            handler.getGameState().getPlayer(picking).setCounter(new Polaris(handler,LegendPick.COUNTER_POS_X[picking],LegendPick.COUNTER_POS_Y[picking],Assets.counter[picking]));
-                            break;
-                        case 5:
-                            handler.getGameState().getPlayer(picking).setCounter(new Samaya(handler,LegendPick.COUNTER_POS_X[picking],LegendPick.COUNTER_POS_Y[picking],Assets.counter[picking]));
-                            break;
-                        case 6:
-                            handler.getGameState().getPlayer(picking).setCounter(new Saph(handler,LegendPick.COUNTER_POS_X[picking],LegendPick.COUNTER_POS_Y[picking],Assets.counter[picking]));
-                            break;
-                        case 7:
-                            handler.getGameState().getPlayer(picking).setCounter(new Venator(handler,LegendPick.COUNTER_POS_X[picking],LegendPick.COUNTER_POS_Y[picking],Assets.counter[picking]));
-                            break;
+                    switch (j) {
+                        case 0 -> handler.getGameState().getPlayer(picking).setCounter(new Albali(handler, BASE_POS_X[picking]+COUNTER_POS_X[i], BASE_POS_Y[picking]+COUNTER_POS_Y[i], Assets.counter[picking]));
+                        case 1 -> handler.getGameState().getPlayer(picking).setCounter(new Funi(handler, BASE_POS_X[picking]+COUNTER_POS_X[i], BASE_POS_Y[picking]+COUNTER_POS_Y[i], Assets.counter[picking]));
+                        case 2 -> handler.getGameState().getPlayer(picking).setCounter(new Intan(handler, BASE_POS_X[picking]+COUNTER_POS_X[i], BASE_POS_Y[picking]+COUNTER_POS_Y[i], Assets.counter[picking]));
+                        case 3 -> handler.getGameState().getPlayer(picking).setCounter(new Lich(handler, BASE_POS_X[picking]+COUNTER_POS_X[i], BASE_POS_Y[picking]+COUNTER_POS_Y[i], Assets.counter[picking]));
+                        case 4 -> handler.getGameState().getPlayer(picking).setCounter(new Polaris(handler, BASE_POS_X[picking]+COUNTER_POS_X[i], BASE_POS_Y[picking]+COUNTER_POS_Y[i], Assets.counter[picking]));
+                        case 5 -> handler.getGameState().getPlayer(picking).setCounter(new Samaya(handler, BASE_POS_X[picking]+COUNTER_POS_X[i], BASE_POS_Y[picking]+COUNTER_POS_Y[i], Assets.counter[picking]));
+                        case 6 -> handler.getGameState().getPlayer(picking).setCounter(new Saph(handler, BASE_POS_X[picking]+COUNTER_POS_X[i], BASE_POS_Y[picking]+COUNTER_POS_Y[i], Assets.counter[picking]));
+                        case 7 -> handler.getGameState().getPlayer(picking).setCounter(new Venator(handler, BASE_POS_X[picking]+COUNTER_POS_X[i], BASE_POS_Y[picking]+COUNTER_POS_Y[i], Assets.counter[picking]));
                     }
                     legendPick[picking].getCounterTile(j).setChoosen();
+                    i++;
                 }
             }
         }
@@ -192,38 +176,21 @@ public class PrepState extends State {
         //RNG
         Integer[] random={0,1,2,3,4,5,6,7};
         List<Integer> randomList= Arrays.asList(random);
-        Arrays.asList(random);
         Collections.shuffle(randomList);
         randomList.toArray(random);
 
         //
 
         for(int i=0;i<4;i++){
-            switch(random[i]){
-                case 0:
-                    handler.getGameState().getPlayer(picking).setCounter(new Albali(handler,LegendPick.COUNTER_POS_X[picking],LegendPick.COUNTER_POS_Y[picking],Assets.counter[picking]));
-                    break;
-                case 1:
-                    handler.getGameState().getPlayer(picking).setCounter(new Funi(handler,LegendPick.COUNTER_POS_X[picking],LegendPick.COUNTER_POS_Y[picking],Assets.counter[picking]));
-                    break;
-                case 2:
-                    handler.getGameState().getPlayer(picking).setCounter(new Intan(handler,LegendPick.COUNTER_POS_X[picking],LegendPick.COUNTER_POS_Y[picking],Assets.counter[picking]));
-                    break;
-                case 3:
-                    handler.getGameState().getPlayer(picking).setCounter(new Lich(handler,LegendPick.COUNTER_POS_X[picking],LegendPick.COUNTER_POS_Y[picking],Assets.counter[picking]));
-                    break;
-                case 4:
-                    handler.getGameState().getPlayer(picking).setCounter(new Polaris(handler,LegendPick.COUNTER_POS_X[picking],LegendPick.COUNTER_POS_Y[picking],Assets.counter[picking]));
-                    break;
-                case 5:
-                    handler.getGameState().getPlayer(picking).setCounter(new Samaya(handler,LegendPick.COUNTER_POS_X[picking],LegendPick.COUNTER_POS_Y[picking],Assets.counter[picking]));
-                    break;
-                case 6:
-                    handler.getGameState().getPlayer(picking).setCounter(new Saph(handler,LegendPick.COUNTER_POS_X[picking],LegendPick.COUNTER_POS_Y[picking],Assets.counter[picking]));
-                    break;
-                case 7:
-                    handler.getGameState().getPlayer(picking).setCounter(new Venator(handler,LegendPick.COUNTER_POS_X[picking],LegendPick.COUNTER_POS_Y[picking],Assets.counter[picking]));
-                    break;
+            switch (random[i]) {
+                case 0 -> handler.getPlayer(picking).setCounter(new Albali(handler, BASE_POS_X[picking]+COUNTER_POS_X[i], BASE_POS_Y[picking]+COUNTER_POS_Y[i], Assets.counter[picking]));
+                case 1 -> handler.getPlayer(picking).setCounter(new Funi(handler, BASE_POS_X[picking]+COUNTER_POS_X[i], BASE_POS_Y[picking]+COUNTER_POS_Y[i], Assets.counter[picking]));
+                case 2 -> handler.getPlayer(picking).setCounter(new Intan(handler, BASE_POS_X[picking]+COUNTER_POS_X[i], BASE_POS_Y[picking]+COUNTER_POS_Y[i], Assets.counter[picking]));
+                case 3 -> handler.getPlayer(picking).setCounter(new Lich(handler, BASE_POS_X[picking]+COUNTER_POS_X[i], BASE_POS_Y[picking]+COUNTER_POS_Y[i], Assets.counter[picking]));
+                case 4 -> handler.getPlayer(picking).setCounter(new Polaris(handler, BASE_POS_X[picking]+COUNTER_POS_X[i], BASE_POS_Y[picking]+COUNTER_POS_Y[i], Assets.counter[picking]));
+                case 5 -> handler.getPlayer(picking).setCounter(new Samaya(handler, BASE_POS_X[picking]+COUNTER_POS_X[i], BASE_POS_Y[picking]+COUNTER_POS_Y[i], Assets.counter[picking]));
+                case 6 -> handler.getPlayer(picking).setCounter(new Saph(handler, BASE_POS_X[picking]+COUNTER_POS_X[i], BASE_POS_Y[picking]+COUNTER_POS_Y[i], Assets.counter[picking]));
+                case 7 -> handler.getPlayer(picking).setCounter(new Venator(handler,BASE_POS_X[picking]+COUNTER_POS_X[i], BASE_POS_Y[picking]+COUNTER_POS_Y[i], Assets.counter[picking]));
             }
         }
     }

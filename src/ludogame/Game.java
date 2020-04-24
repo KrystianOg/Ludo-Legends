@@ -8,6 +8,8 @@ import display.*;
 import input.MouseManager;
 import states.*;
 
+import static states.GameState.color;
+
 public class Game implements Runnable {
 
     private Display display;        //klasa wyswietlajaca obraz (+canvas)
@@ -56,7 +58,7 @@ public class Game implements Runnable {
         Assets.init();
 
         handler=new Handler(this);
-
+        setColors();
 
         gamestate=new GameState(handler);
         settingstate=new SettingState(handler);
@@ -163,6 +165,13 @@ public class Game implements Runnable {
         }
 
 
+    }
+
+    private void setColors(){
+        color[0]=new Color(255,214,0);
+        color[1]=new Color(0,109,200);
+        color[2]=new Color(201,0,1);
+        color[3]=new Color(0,190,0);
     }
 
 

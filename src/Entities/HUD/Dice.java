@@ -13,87 +13,74 @@ public class Dice extends Entity {
     public static final int DICE_WIDTH=75,
                             DICE_HEIGHT=75;
 
-    protected Rectangle hitbox;
+    private final Rectangle hitbox;
 
     private boolean rolled;
+    private boolean clicked;
     private int roll;
 
-
     //animation
-    private int tickcount=-1;
-    private static final int DICE_ANIM_TICKS=25;
+    private int tickcount;
+    private static final int DICE_ANIM_TICKS=27;
 
 
     public Dice(Handler handler, int x, int y) {
         super(handler,x, y, DICE_WIDTH, DICE_HEIGHT);
-        this.hitbox=new Rectangle(x,y,DICE_WIDTH,DICE_HEIGHT);
-        this.setRolled(false);
-
+        hitbox=new Rectangle(x,y,DICE_WIDTH,DICE_HEIGHT);
+        rolled=false;
+        clicked=false;
+        tickcount=-1;
+        roll=6;
     }
 
     public boolean isRolled() {
         return rolled;
     }
 
-    public void setRolled(boolean rolled) {
-        this.rolled = rolled;
-    }
-
-    public int getRoll() {
+    public int getRoll(){
         return roll;
-    }
-
-    public void setRoll(int roll) {
-        this.roll = roll;
     }
 
     @Override
     public void tick() {
 
-        if(tickcount<0&&!isRolled()&&this.hitbox.contains(handler.getGame().getMousemanager().getX(),handler.getGame().getMousemanager().getY())){
+        if(this.hitbox.contains(handler.getMouseClickX(),handler.getMouseClickY())&&!rolled&&!clicked){
+            handler.resetMousePOS();
+            clicked=true;
             tickcount=0;
         }
-        else if(tickcount>=0&&tickcount<DICE_ANIM_TICKS&&tickcount%4==0){
-            handler.getGameState().setRoll((int)(Math.random()*6+1));
+        else if(tickcount>=0&&tickcount<DICE_ANIM_TICKS){
             tickcount++;
-        }
-
-        else if(tickcount>=0&&tickcount<DICE_ANIM_TICKS&&tickcount%4!=0){
-            tickcount++;
-        }
-        else if(tickcount<0&&isRolled()&&this.hitbox.contains(handler.getGame().getMousemanager().getX(),handler.getGame().getMousemanager().getY())){
-
+            if(tickcount%4==0)
+                roll=(int)(Math.random()*6+1);        //  1-6
         }
         else if(tickcount==DICE_ANIM_TICKS){
-            handler.getGame().getMousemanager().reset();
-
-            if(handler.getGameState().getPlayer(handler.getGameState().getTurnof()).isIsinbase()&&handler.getGameState().getRoll()==6){
-                setRolled(true);
-            }
-            else if(handler.getGameState().getPlayer(handler.getGameState().getTurnof()).isIsinbase()&&handler.getGameState().getRoll()!=6){
-                handler.getGameState().setTurnof();
-                handler.getGameState().getTimer().resetTimer();
-                setRolled(false);
-            }
-            else if(!handler.getGameState().getPlayer(handler.getGameState().getTurnof()).isIsinbase()){
-                setRolled(true);
-            }
+            rolled=true;
+            clicked=false;
             tickcount=-1;
-            System.out.println("MOVING: "+handler.getGameState().getTurnof());
-
         }
-    }
 
-    public int getTickCount(){
-        return this.tickcount;
     }
 
     public void setTickcount(){
         this.tickcount=0;
     }
 
+    public int getTickCount(){
+        return this.tickcount;
+    }
+
+    public void setRolled(boolean rolled){
+        this.rolled=rolled;
+    }
+
+    public void botRoll(){
+        clicked=true;
+        tickcount=0;
+    }
+
     @Override
     public void render(Graphics g) {
-        g.drawImage(Assets.rollimg[handler.getGameState().getRoll()-1],(int)x,(int)y,null);
+        g.drawImage(Assets.rollimg[roll-1],(int)x,(int)y,null);
     }
 }
