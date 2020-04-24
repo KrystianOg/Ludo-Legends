@@ -26,8 +26,6 @@ public class Person extends Player {
         for(int i=0;i<counter.length;i++)
             counter[i].tick();
 
-
-
     }
 
     @Override
@@ -53,17 +51,17 @@ public class Person extends Player {
             else if(handler.getRoll()==6) {
                 input=getInput();
 
-                if(input>=0) {
+                if(input>=0)
                     counter[input].setMoving(true);
-                }
+
             }
             else if(!isinbase&&handler.getRoll()<6){
                 input=getInput();
 
                 if(input>=0) {
-                    if(!counter[input].isInbase()) {
+                    if(!counter[input].isInbase())
                         counter[input].setMoving(true);
-                    }
+
                 }
             }
 
@@ -75,7 +73,6 @@ public class Person extends Player {
 
         if(counter[0].hitbox.contains(handler.getGame().getMousemanager().getX(),handler.getGame().getMousemanager().getY()))
            return 0;
-
         else if(counter[1].hitbox.contains(handler.getGame().getMousemanager().getX(),handler.getGame().getMousemanager().getY()))
             return 1;
         else if(counter[2].hitbox.contains(handler.getGame().getMousemanager().getX(),handler.getGame().getMousemanager().getY()))
