@@ -16,7 +16,7 @@ public class Polaris extends Counter {
     }
 
     @Override
-    public void tick() {
+    protected void counterLogic() {
 
     }
 

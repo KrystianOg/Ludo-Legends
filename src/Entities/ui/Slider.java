@@ -74,6 +74,7 @@ public class Slider extends Entity {
 
 	@Override
 	public void render(Graphics g) {
+
 		g.drawImage(Assets.slider_back, (int)x, (int)y+10, null);
 		if(pressed)
 			g.drawImage(Assets.slider_front,handler.getHoverX()-8,(int)y, width, height, null);

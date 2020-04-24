@@ -1,8 +1,10 @@
 package ludogame;
 
+import Entities.Board;
 import Entities.HUD.Dice;
 import Entities.HUD.Timer;
 import Entities.Players.Player;
+import Entities.ui.Tile;
 import states.GameState;
 import states.PrepState;
 import states.SettingState;
@@ -74,7 +76,7 @@ public class Handler {
     }
 
     public int getRoll(){
-        return gameState.getRoll();
+        return gameState.getDice().getRoll();
     }
 
     public Timer getTimer(){
@@ -107,5 +109,13 @@ public class Handler {
 
     public void resetMousePOS(){
         game.getMousemanager().reset();
+    }
+
+    public Board getBoard(){
+        return gameState.getBoard();
+    }
+
+    public Tile getTile(int i){
+        return gameState.getBoard().getTile(i);
     }
 }

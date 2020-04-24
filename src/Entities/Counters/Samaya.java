@@ -15,7 +15,7 @@ public class Samaya extends Counter {
     }
 
     @Override
-    public void tick() {
+    protected void counterLogic() {
 
     }
 

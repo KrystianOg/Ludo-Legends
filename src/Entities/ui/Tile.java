@@ -29,7 +29,7 @@ public class Tile {
             this.counter[3]=counter;
         else{
 
-            counter.setIsinbase(true);
+            //counter.setIsinbase(true);
         }
 
 

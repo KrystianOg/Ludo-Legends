@@ -14,23 +14,31 @@ public abstract class Counter extends Entity {
 
     //
     protected float basex,basey;
-
+    //
     protected int posonmap;
-    protected float directionx,directiony;
-    protected boolean isinbase;
+    protected double directionx,directiony;
+    protected boolean cisinbase;
     public Rectangle hitbox;
+    protected boolean moving;
     //
 
     //Ultimate bar
     protected boolean ultBar;
-    protected UltimateBar ultimateBar;         //zmienic na protected/private
+    protected UltimateBar ultimateBar=null;        //zmienic na protected/private
 
-    //animacja pionkow
+    //
+    protected boolean isUltBar;
+
     BufferedImage counterColor;
+
+    //animacja
     private static final int COUNTER_ANIM_TICKS=25;
-    private int tickcount=-1;
-    private int moves=-1;
-    private boolean changeDirection;
+    private int tickcount=0;
+    private int moved=0;
+
+    //problem - nienaturalne nakładanie tekstur przy ruchu
+
+
 
     public Counter(Handler handler, float x, float y,BufferedImage counterColor) {
         super(handler,x, y,DEFAULT_WIDTH,DEFAULT_HEIGHT);
@@ -39,103 +47,101 @@ public abstract class Counter extends Entity {
         this.basex=x;
         this.basey=y;
         hitbox=new Rectangle((int)x, (int)y,DEFAULT_WIDTH,DEFAULT_HEIGHT);
-        isinbase=true;
-
+        cisinbase=true;
+        moving =false;
     }
 
     public void tick(){
+        if(ultimateBar!=null)
+            ultimateBar.tick();
 
-        moveLogic();
-        ultimateBar.tick();
+        if(moving) {
+
+            moveLogic();
+
+
+
+        }
     }
 
     private void moveLogic(){
+        if(cisinbase) {
 
-        if(tickcount<0&&handler.getDice().isRolled()&&this.hitbox.contains(handler.getGame().getMousemanager().getX(),handler.getGame().getMousemanager().getY())){
-            if(this.isinbase&&handler.getRoll()==6) {
-                //
-                int i = handler.getPlayer().getStarting_pos();
+            if (tickcount == 0) {
+                Tile tempTile = handler.getTile(handler.getPlayer(handler.getTurnOf()).getStarting_pos());
 
-                Tile tile = handler.getGameState().getTile(i);
+                directionx = (tempTile.x + 4 - this.x) / COUNTER_ANIM_TICKS;
+                directiony = (tempTile.y - 48 - this.y) / COUNTER_ANIM_TICKS;
+                tickcount++;
+            } else if (tickcount > 0 && tickcount < COUNTER_ANIM_TICKS) {
+                x += directionx;
+                y += directiony;
 
-                directionx = (tile.x+5 - this.x) / (COUNTER_ANIM_TICKS);
-                directiony = (tile.y-51 - this.y) / (COUNTER_ANIM_TICKS);
 
-                System.out.println("DX: " + directionx  + " DY: " + directiony );
+                tickcount++;
+            } else if (tickcount == COUNTER_ANIM_TICKS) {
+                Tile tempTile = handler.getTile(handler.getPlayer(handler.getTurnOf()).getStarting_pos());
+                x = tempTile.x + 4;
+                y = tempTile.y - 48;
+                hitbox.x=(int)x;
+                hitbox.y=(int)y;
 
+
+
+                cisinbase = false;
                 tickcount = 0;
-
-            }
-            else if(!this.isinbase){
-
-                Tile tile = handler.getGameState().getTile(getNextTile());
-
-                directionx = (tile.x+5 - this.x) / (COUNTER_ANIM_TICKS);
-                directiony = (tile.y-51 - this.y) / (COUNTER_ANIM_TICKS);
-
-                System.out.println("DX: " + directionx  + "DY: " + directiony );
-
-                tickcount = 0;
-            }
-
-        }
-        else if(tickcount>=0&&tickcount<COUNTER_ANIM_TICKS){
-
-            if(changeDirection){
-
-                Tile tile = handler.getGameState().getTile(getNextTile());
-
-                directionx = (tile.x+5 - this.x) / (COUNTER_ANIM_TICKS);
-                directiony = (tile.y-51 - this.y) / (COUNTER_ANIM_TICKS);
-
-                changeDirection=false;
-                System.out.println("DX: " + directionx  + "DY: " + directiony );
-            }
-            y+=directiony;
-            x+=directionx;
-
-            hitbox.y+=directiony;
-            hitbox.x+=directionx;
-
-            tickcount++;
-
-        }
-        else if(tickcount==COUNTER_ANIM_TICKS){
-            handler.getGame().getMousemanager().reset();
-
-            moves++;
-
-            // pozycja ++
-            posonmap++;
-            if(posonmap==52)
-                posonmap=0;
-
-            if(moves==handler.getRoll()) {
+                moving = false;
+                posonmap = handler.getPlayer(handler.getTurnOf()).getStarting_pos();
+                handler.getTimer().resetTimer();
                 handler.getDice().setRolled(false);
-                handler.getPlayer().setClicked(false);
-                handler.getPlayer().setPoints(moves);
-                handler.setTurnof();
-                moves=0;                //reset void
-                tickcount=-1;           //reset void
+                handler.getPlayer(handler.getTurnOf()).setIsinbase(false);
             }
-            else if(isinbase) {
-                handler.getDice().setRolled(false);
-                handler.getPlayer().setIsinbase(false);
-                setIsinbase(false);
-                handler.getPlayer().setClicked(false);
+        }
+        else{
+            if(tickcount==0) {
+                Tile tempTile = handler.getTile(getNextTile());
 
-                moves=0;
-                tickcount=-1;
+                directionx = (tempTile.x + 4 - this.x) / COUNTER_ANIM_TICKS;
+                directiony = (tempTile.y - 48 - this.y) / COUNTER_ANIM_TICKS;
+                tickcount++;
             }
-            else{
+            else if(tickcount>0&&tickcount<COUNTER_ANIM_TICKS){
+                x += directionx;
+                y += directiony;
+                tickcount++;
+            }
+            else if(tickcount==COUNTER_ANIM_TICKS){
+
+                Tile tempTile = handler.getTile(getNextTile());
+                x = tempTile.x + 4;
+                y = tempTile.y - 48;
+
                 tickcount=0;
-                changeDirection=true;
+
+                posonmap++;
+                if(posonmap==52)
+                    posonmap=0;
+
+                moved++;
+
+                System.out.println(posonmap);
+
+                if(moved==handler.getRoll()){
+                    moving=false;
+                    hitbox.x=(int)x;
+                    hitbox.y=(int)y;
+
+                    if(handler.getRoll()!=6)
+                    handler.setTurnof();
+
+                    handler.getDice().setRolled(false);
+                    handler.getTimer().resetTimer();
+                    moved=0;
+
+                }
             }
-
-
-            setPosonmap();
-            handler.getGameState().boardLogic(posonmap);
         }
+
     }
 
     private int getNextTile(){
@@ -143,32 +149,28 @@ public abstract class Counter extends Entity {
             return 0;
         else
             return posonmap+1;
-
     }
 
-    public boolean isIsinbase() {
-        return isinbase;
+    public boolean isInbase() {
+        return cisinbase;
     }
 
-    public void setIsinbase(boolean isinbase) {
-        if(isinbase){
-            posonmap=-1;
-            this.x=basex;
-            this.y=basey;
-            this.hitbox.x=(int)basex;
-            this.hitbox.y=(int)basey;
-        }
-        else{
+    protected abstract void counterLogic();
 
-            posonmap=handler.getPlayer().getStarting_pos();
-        }
-
-
-        this.isinbase = isinbase;
+    public boolean getHasUltBar(){
+        return this.isUltBar;
     }
 
     public int getPosonmap() {
         return posonmap;
+    }
+
+    public void setMoving(boolean moving){
+        this.moving=moving;
+    }
+
+    public boolean isMoving(){
+        return this.moving;
     }
 
     public void setPosonmap() {

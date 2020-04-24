@@ -10,6 +10,7 @@ import java.awt.image.BufferedImage;
 
 public class Saph extends Counter{
     //wojownik
+    public static final int SWORD_POSY=11;
 
     private static final int ULT_LOAD=30;
 
@@ -21,9 +22,14 @@ public class Saph extends Counter{
     }
 
     @Override
+    protected void counterLogic() {
+
+    }
+
+    @Override
     public void render(Graphics g) {
         g.drawImage(counterColor, (int)x, (int)y,null);
-        g.drawImage(Assets.sword, (int)x, (int)y +11,null);
+        g.drawImage(Assets.sword, (int)x, (int)y +SWORD_POSY,null);
         ultimateBar.render(g);
     }
 

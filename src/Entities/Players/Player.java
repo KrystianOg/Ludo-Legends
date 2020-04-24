@@ -7,7 +7,7 @@ import java.awt.image.BufferedImage;
 
 public abstract class Player {
 
-    public  Counter[] counter;      //zmienic na private / protected
+    protected Counter[] counter;      //zmienic na private / protected
 
     protected int currentlyinbase;
 
@@ -27,6 +27,8 @@ public abstract class Player {
 
         this.starting_pos=starting_pos;
         this.ending_pos=ending_pos;
+
+        this.handler=handler;
 
         counter=new Counter[4];
         counter[0]=null;
@@ -49,9 +51,14 @@ public abstract class Player {
         for(int i=0;i<4;i++){
             if(this.counter[i]==null) {
                 this.counter[i] = counter;
+
                 break;
             }
         }
+    }
+
+    protected boolean counterIsMoving(){
+        return counter[0].isMoving()||counter[1].isMoving()||counter[2].isMoving()||counter[3].isMoving();
     }
 
     public boolean isIsinbase() {

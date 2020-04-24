@@ -17,7 +17,7 @@ public class Venator extends Counter {
     }
 
     @Override
-    public void tick() {
+    protected void counterLogic() {
 
     }
 

@@ -10,14 +10,16 @@ import java.awt.image.BufferedImage;
 public class Lich extends Counter {
     //wskrzesza na 3 rundy, jak dojdzie do kona to zalicza jak nie to dead / zbijable?
 
+    protected final int ULT_LOAD=50;
+
     public Lich(Handler handler, float x, float y, BufferedImage counterColor) {
         super(handler,x, y, counterColor);
-        this.ultBar=true;
-        ultimateBar=new UltimateBar(handler,20);
+
+        ultimateBar=new UltimateBar(handler,ULT_LOAD);
     }
 
     @Override
-    public void tick() {
+    protected void counterLogic() {
 
     }
 
