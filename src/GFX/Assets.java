@@ -5,7 +5,7 @@ import java.awt.image.BufferedImage;
 
 public class Assets {
 
-    public static final int P_WIDTH=41,P_HEIGHT=78,
+    private static final int P_WIDTH=41,P_HEIGHT=78,
                              R_WIDTH=75,R_HEIGHT =75,
                              ARROW_WIDTH=50,ARROW_HEIGHT=50,
                              TILE_WIDTH=90,TILE_HEIGHT=90;
@@ -16,7 +16,9 @@ public class Assets {
     public static BufferedImage slider_front, slider_back;
 
 
-    public static BufferedImage sword,cloak_b,cloak_f,shield,wand;
+    public static BufferedImage sword,cloak_b,cloak_f,shield,wand,medkit,icicle_f,icicle_b,
+                                bow_rb,bow_lb,bow_rf,bow_lf,swan;
+
     public static BufferedImage progressbar_b,progressbar_f;
 
     public static BufferedImage map;
@@ -55,15 +57,30 @@ public class Assets {
 
         //grafiki specjalne postaci
         sword=ImageLoader.loadImage("graphics/Counters/Sword1.png");
+            //
         cloak_b=ImageLoader.loadImage("graphics/Counters/Cloak_Back.png");
         cloak_f=ImageLoader.loadImage("graphics/Counters/Cloak_Front.png");
+            //
         shield=ImageLoader.loadImage("graphics/Counters/Shield.png");
+            //
         wand=ImageLoader.loadImage("graphics/Counters/wand1.png");
+            //
+        medkit=ImageLoader.loadImage("graphics/Counters/medkit1.png");
+            //
+        icicle_f=ImageLoader.loadImage("graphics/Counters/icicle_front.png");
+        icicle_b=ImageLoader.loadImage("graphics/Counters/icicle_back.png");
+            //
+        bow_lb=ImageLoader.loadImage("graphics/Counters/bow_lb.png");
+        bow_lf=ImageLoader.loadImage("graphics/Counters/bow_lf.png");
+        bow_rb=ImageLoader.loadImage("graphics/Counters/bow_rb.png");
+        bow_rf=ImageLoader.loadImage("graphics/Counters/bow_rf.png");
+            //
+        swan=ImageLoader.loadImage("graphics/Counters/swan.png");
+
 
         //progressbar
         progressbar_b=ImageLoader.loadImage("graphics/ProgressBar/Bar_Back.png");   //dodać siatke
         progressbar_f=ImageLoader.loadImage("graphics/ProgressBar/Bar_Front.png");
-
 
         //przyciski menu
         SpriteSheet big_button_templates=new SpriteSheet(ImageLoader.loadImage("graphics/Menu/big_button_template.png"));

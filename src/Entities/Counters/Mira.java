@@ -2,22 +2,22 @@ package Entities.Counters;
 
 import Entities.ui.UltimateBar;
 import GFX.Assets;
-import ludogame.Game;
 import ludogame.Handler;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-public class Saph extends Counter{
-    //wojownik
-    public static final int SWORD_POSY=11;
+public class Mira extends Counter {
+    // moze wskrzesic pionek po naladowaniu ult
 
-    private static final int ULT_LOAD=30;
+    public static final int MEDKIT_POSX=4,MEDKIT_POSY=38;
+    private static final int ULT_LOAD=40;
 
 
-    public Saph(Handler handler, float x, float y, BufferedImage counterColor) {
+    public Mira(Handler handler, float x, float y, BufferedImage counterColor) {
         super(handler,x, y,counterColor);
         this.ultBar=true;
+
         ultimateBar=new UltimateBar(handler,ULT_LOAD);
     }
 
@@ -29,9 +29,7 @@ public class Saph extends Counter{
     @Override
     public void render(Graphics g) {
         g.drawImage(counterColor, (int)x, (int)y,null);
-        g.drawImage(Assets.sword, (int)x, (int)y +SWORD_POSY,null);
+        g.drawImage(Assets.medkit, (int)x+MEDKIT_POSX, (int)y+MEDKIT_POSY,null);
         ultimateBar.render(g);
     }
-
 }
-

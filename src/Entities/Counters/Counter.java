@@ -142,6 +142,9 @@ public abstract class Counter extends Entity {
             }
         }
 
+        //umiejetności specjalne turaj
+        
+        //
     }
 
     private int getNextTile(){

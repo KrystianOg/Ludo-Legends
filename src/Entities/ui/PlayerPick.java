@@ -10,7 +10,8 @@ import java.awt.image.BufferedImage;
 public class PlayerPick extends Entity {
 
     private static final int PLAYER_PICK_WIDTH=90,
-                             PLAYER_PICK_HEIGHT=270;
+                             PLAYER_PICK_HEIGHT=270,
+                             ARROW_WIDTH=50,ARROW_HEIGHT=50;
 
     private final BufferedImage bColor;
     private final BufferedImage arrowUp;
@@ -27,8 +28,8 @@ public class PlayerPick extends Entity {
     public PlayerPick(Handler handler, float x, float y, BufferedImage bColor,BufferedImage arrow) {
         super(handler, x, y, PLAYER_PICK_WIDTH,PLAYER_PICK_HEIGHT);
 
-        this.arrowDownHitbox=new Rectangle((int)x+20,(int)y+190,Assets.ARROW_WIDTH,Assets.ARROW_HEIGHT);
-        this.arrowUpHitbox=new Rectangle((int)x+20,(int)y+30,Assets.ARROW_WIDTH,Assets.ARROW_HEIGHT);
+        this.arrowDownHitbox=new Rectangle((int)x+20,(int)y+190,ARROW_WIDTH,ARROW_HEIGHT);
+        this.arrowUpHitbox=new Rectangle((int)x+20,(int)y+30,ARROW_WIDTH,ARROW_HEIGHT);
         this.bColor=bColor;
         this.arrowDown=arrow;
 
