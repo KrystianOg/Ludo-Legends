@@ -1,7 +1,5 @@
 package display;
 
-import GFX.Assets;
-
 import javax.swing.*;
 import java.awt.*;
 

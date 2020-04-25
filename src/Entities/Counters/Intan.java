@@ -1,9 +1,7 @@
 package Entities.Counters;
 
-import Entities.ui.UltimateBar;
 import GFX.Assets;
 import ludogame.Handler;
-import states.GameState;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -12,7 +10,6 @@ public class Intan extends Counter {
     //2 razy trzeba go zbic zeby przesunal sie do "bazy"
 
     public static final int SHIELD_POSX=-3,SHIELD_POSY=21;
-    private static final boolean ULT=false;
 
     //passive bez paska umiejetnosci
 

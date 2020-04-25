@@ -1,9 +1,11 @@
 package ludogame;
 
 import Entities.Board;
+import Entities.Counters.Counter;
 import Entities.HUD.Dice;
 import Entities.HUD.Timer;
-import Entities.Players.Player;
+import Entities.PositionOnMap;
+import Players.Player;
 import Entities.ui.Tile;
 import states.GameState;
 import states.PrepState;
@@ -11,7 +13,7 @@ import states.SettingState;
 
 public class Handler {
 
-    private Game game;
+    private final Game game;
 
     private GameState gameState;
     private PrepState prepState;
@@ -49,10 +51,6 @@ public class Handler {
         return game;
     }
 
-    public void setGame(Game game) {
-        this.game = game;
-    }
-
     public Dice getDice(){
         return gameState.getDice();
     }
@@ -68,7 +66,7 @@ public class Handler {
     }
 
     public int getTurnOf(){
-        return gameState.getTurnof();
+        return gameState.getTurnOf();
     }
 
     public void setTurnof(){
@@ -115,7 +113,19 @@ public class Handler {
         return gameState.getBoard();
     }
 
-    public Tile getTile(int i){
-        return gameState.getBoard().getTile(i);
+    public Tile getTile(PositionOnMap pos){
+        return gameState.getBoard().getTile(pos);
+    }
+
+    public String getBotNickname(){
+        return gameState.getBotNickname();
+    }
+
+    public void setCounterOnTile(PositionOnMap pos, Counter counter){
+        gameState.getBoard().setCounterOnTile(pos,counter);
+    }
+
+    public void removeCounterFromTile(PositionOnMap pos,Counter counter){
+        gameState.getBoard().removeCounterFromTile(pos,counter);
     }
 }

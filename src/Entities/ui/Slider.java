@@ -5,7 +5,6 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 
 import Entities.Entity;
-import Entities.ui.Button;
 import GFX.Assets;
 import GFX.Text;
 

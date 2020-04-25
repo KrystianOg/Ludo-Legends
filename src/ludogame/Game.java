@@ -174,11 +174,6 @@ public class Game implements Runnable {
         color[3]=new Color(0,190,0);
     }
 
-
-    public State getState(){
-        return State.getState();
-    }
-
     public int getFrameHeight(){
         return this.height;
     }

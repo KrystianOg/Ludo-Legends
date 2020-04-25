@@ -52,7 +52,7 @@ public class Assets {
 
 
         //logo
-        logo=ImageLoader.loadImage("graphics/Maybe_Main_Logo.png");
+        logo=ImageLoader.loadImage("graphics/Main_Logo2.png");
         
 
         //grafiki specjalne postaci

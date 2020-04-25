@@ -13,11 +13,11 @@ public class Albali extends Counter {
     private static final int ULT_LOAD=40;
 
 
-    public Albali(Handler handler, float x, float y, BufferedImage counterColor) {
+    public Albali(Handler handler, float x, float y, BufferedImage counterColor,int barPos) {
         super(handler,x, y,counterColor);
         this.ultBar=true;
 
-        ultimateBar=new UltimateBar(handler,ULT_LOAD);
+        ultimateBar=new UltimateBar(handler,ULT_LOAD,barPos);
     }
 
     @Override
@@ -30,6 +30,5 @@ public class Albali extends Counter {
         g.drawImage(Assets.cloak_b, (int)x+CLOAK_POSX, (int)y+CLOAK_POSY,null);
         g.drawImage(counterColor, (int)x, (int)y,null);
         g.drawImage(Assets.cloak_f, (int)x+CLOAK_POSX, (int)y+CLOAK_POSY,null);
-        ultimateBar.render(g);
     }
 }

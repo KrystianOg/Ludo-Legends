@@ -19,7 +19,6 @@ public class DynamicBackground {
     private double difference;
 
     private static int[] cluePoint;
-    private final int[] follow;
     private final double[] position;
     private final boolean[] right;
 
@@ -37,19 +36,14 @@ public class DynamicBackground {
         cluePoint[0]=(200-this.width+handler.getFrameWidth());
         cluePoint[1]=-200;
 
-        System.out.println(cluePoint[0]+" "+cluePoint[1]);
-
         this.position=new double[2];
         this.position[0]=cluePoint[0]+1;
         this.position[1]=cluePoint[1]-1;
 
-        this.follow=new int[2];
         this.ticks=0;
 
         this.right=new boolean[2];
         this.right[0]=true;
-        this.right[1]=false;
-
     }
 
     public void tick(){
