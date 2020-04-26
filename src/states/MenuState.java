@@ -6,18 +6,20 @@ import GFX.DynamicBackground;
 import ludogame.Handler;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
 public class MenuState extends State{
 
 	private final Button game;
     private final Button settings;
     private final DynamicBackground dynamicBackground;
-
+    private final BufferedImage logo;
     public MenuState(Handler handler){
         super(handler);
         game=new Button(handler,(handler.getFrameWidth()-350)/2,500,350,90, Assets.big_button_template,Assets.game_button);
         settings=new Button(handler,(handler.getFrameWidth()-350)/2,600,350,90, Assets.big_button_template,Assets.settings_button);
-        this.dynamicBackground=new DynamicBackground(handler,790);
+        this.dynamicBackground=new DynamicBackground(handler,handler.getFrameHeight());
+        this.logo=Assets.logo;
     }
 
 
@@ -49,7 +51,7 @@ public class MenuState extends State{
         if(SettingState.DYNAMIC_BACKGROUND)
         dynamicBackground.render(g);
 
-        g.drawImage(Assets.logo, 220, 25, 500, 500, null);
+        g.drawImage(logo, (handler.getFrameWidth()-logo.getWidth())/2, 25,(int)(logo.getWidth()*0.7),(int)(Assets.logo.getHeight()*0.7),null);
 
         game.render(g);
         settings.render(g);

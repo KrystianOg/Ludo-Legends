@@ -1,42 +1,59 @@
 package Entities.ui;
 
 import Entities.Counters.Counter;
+import ludogame.Handler;
+
+import java.util.LinkedList;
+import java.util.List;
 
 public class Tile {
 
-    public static final int TILE_WIDTH=50,
-                            TILE_HEIGHT=50;
+    private final boolean capturable;
+    private final float x,y;
 
-    public boolean capturable;
-    public float x,y;
+    private final Handler handler;
+    private final List<Counter> counter=new LinkedList<>();
 
-    Counter[] counter=new Counter[4];
-
-    public Tile(int x,int y,boolean capturable){
+    public Tile(Handler handler,int x,int y,boolean capturable){
+        this.handler=handler;
         this.x=x;
         this.y=y;
         this.capturable=capturable;
     }
 
-    public void setCounter(Counter counter){
-        if(this.counter[0]==null)
-            this.counter[0]=counter;
-        else if(this.counter[1]==null)
-            this.counter[1]=counter;
-        else if(this.counter[2]==null)
-            this.counter[2]=counter;
-        else if(this.counter[3]==null)
-            this.counter[3]=counter;
-        else{
+    public void setCounterOnTile(Counter counter){
+        if(this.counter.isEmpty())
+            this.counter.add(counter);
+        else if(this.counter.size()==1){
+            if(capturable &&this.counter.get(0).getCounterColor()!=counter.getCounterColor()){
+                this.counter.get(0).resetToBase();
 
-            //counter.setIsinbase(true);
+                this.counter.clear();
+                this.counter.add(counter);
+            }
+            else{
+                this.counter.add(counter);
+            }
+        }
+        else if(this.counter.size()>1&&this.counter.size()<4){
+            this.counter.add(counter);
+        } else if (this.counter.size() == 4) {
+            counter.resetToBase();
         }
 
 
     }
 
-
-    public boolean getCapturable(){
-        return this.capturable;
+    public void removeCounterFromTile(Counter counter){
+            this.counter.remove(counter);
     }
+
+    public float getX(){
+        return this.x;
+    }
+
+    public float getY(){
+        return this.y;
+    }
+
 }

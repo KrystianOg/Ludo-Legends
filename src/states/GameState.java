@@ -1,37 +1,40 @@
 package states;
 import Entities.Board;
 import Entities.Counters.Counter;
-import Entities.Counters.Funi;
-import Entities.Counters.Intan;
-import Entities.Counters.Saph;
 import Entities.HUD.Dice;
-import Entities.Players.Player;
-import Entities.Players.Person;
+import Players.Player;
 import Entities.ui.Tile;
 import Entities.HUD.Timer;
-import GFX.Assets;
 import ludogame.Handler;
 
 import java.awt.*;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
 
 public class GameState extends State{
 
-    private final Player[] player;          //vector
+    private final Player[] player;
+    private final List<Counter> resetingCounter=new LinkedList<>();
+    private final List<Player> winnerTable=new LinkedList<>();
+
     private Board board;
     private Dice dice;
     private Timer timer;
 
+    private int timesRolled=0;
+
+    private final List<String> botNickname=new LinkedList<>();
+
     public static final Color[] color=new Color[4];
 
-    private int turnof;
-
-    private int roll;
+    private int turnOf;
 
     public GameState(Handler handler){
         super(handler);
-
         handler.setGameState(this);
         this.player=new Player[4];
+        setBotNicknames();
     }
 
     public void init(){
@@ -40,8 +43,7 @@ public class GameState extends State{
         dice=new Dice(handler,765,300);
         timer=new Timer(handler,765,300);
 
-        turnof=(int)(Math.random()*4);
-        this.setRoll(6);
+        turnOf=(int)(Math.random()*4);
     }
 
     public void setPlayer(Player player){
@@ -52,34 +54,30 @@ public class GameState extends State{
             }
         }
     }
-
-    public Player getPlayer(int i){
-        return player[i];
-    }
-
-
-    public int getRoll() {
-        return roll;
-    }
-
-    public void setRoll(int roll) {
-        this.roll = roll;
-    }
-
-    public int getTurnof() {
-        return turnof;
-    }
-
+    
     public void setTurnof() {
-        turnof++;
-        if(turnof==4){
-            this.turnof=0;
+
+        player[turnOf].resetList();
+
+        turnOf++;
+        if(turnOf==4){
+            this.turnOf=0;
         }
+
+        timesRolled++;
+
+        System.out.println("BREAK "+timesRolled);
+
+        dice.setRolled(false);
+        timer.resetTimer();
+        player[turnOf].resetRolls();
     }
 
     @Override
     public void tick() {
-        player[turnof].tick();
+        player[turnOf].tick();
+
+        resetCounters();
     }
 
     @Override
@@ -94,16 +92,51 @@ public class GameState extends State{
 
     }
 
-    public Tile getTile(int i){
-        return board.getTile(i);
+    private void renderPlayers(Graphics g){
+        for(int i=0;i<4;i++){
+            player[i].render(g);
+
+            if(i==turnOf)
+                player[i].renderUltBar(g);
+        }
     }
 
-    public void boardLogic(int posonmap){
-        board.boardLogic(posonmap);
+    private void setBotNicknames(){
+
+        botNickname.add("Bot James");
+        botNickname.add("Bot John");
+        botNickname.add("Bot William");
+        botNickname.add("Bot Timothy");
+        botNickname.add("Bot Nicholas");
+        botNickname.add("Bot Stephen");
+        botNickname.add("Bot Nathan");
+
+        botNickname.add("Bot Sarah");
+        botNickname.add("Bot Nancy");
+        botNickname.add("Bot Lisa");
+        botNickname.add("Bot Sandra");
+        botNickname.add("Bot Laura");
+        botNickname.add("Bot Nicole");
+        botNickname.add("Bot Lauren");
+
     }
 
-    public void setCounter(Counter counter,int posonmap){
-        board.setCounter(counter,posonmap);
+    public String getBotNickname(){
+
+        int i=(int)(Math.random()*botNickname.size());
+        String nick=botNickname.get(i);
+        Collections.swap(botNickname,i,botNickname.size()-1);
+        botNickname.remove(botNickname.size()-1);
+
+        return nick;
+    }
+
+    public Player getPlayer(int i){
+        return player[i];
+    }
+
+    public int getTurnOf() {
+        return turnOf;
     }
 
     public Dice getDice(){
@@ -114,13 +147,22 @@ public class GameState extends State{
         return this.timer;
     }
 
-    private void renderPlayers(Graphics g){
-        for(int i=0;i<4;i++){
-            player[i].render(g);
-        }
-    }
-
     public Board getBoard(){
         return this.board;
+    }
+
+    private void resetCounters(){
+        for(int i=0;i<resetingCounter.size();i++){
+            if(resetingCounter.get(i).getReseting())
+                resetingCounter.get(i).tick();
+            else{
+                resetingCounter.remove(i);
+            }
+        }
+
+    }
+
+    public void addToReset(Counter counter){
+        resetingCounter.add(counter);
     }
 }

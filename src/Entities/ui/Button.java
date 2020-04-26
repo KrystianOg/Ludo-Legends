@@ -1,8 +1,8 @@
 package Entities.ui;
 
 import Entities.Entity;
-import GFX.Assets;
 import ludogame.Handler;
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
@@ -11,7 +11,6 @@ public class Button extends Entity {
     private final BufferedImage[] template;
     private final BufferedImage text;
     private final Rectangle hitbox;
-    private final boolean pressed;
     private boolean onhover;
 
     public Button(Handler handler, float x, float y, int width, int height,BufferedImage[] template,BufferedImage text){
@@ -20,7 +19,6 @@ public class Button extends Entity {
         this.hitbox=new Rectangle((int)x,(int)y,width,height);
         this.template= template;
         this.text=text;
-        this.pressed=false;
         this.onhover=false;
     }
 

@@ -11,14 +11,14 @@ public class Mira extends Counter {
     // moze wskrzesic pionek po naladowaniu ult
 
     public static final int MEDKIT_POSX=4,MEDKIT_POSY=38;
-    private static final int ULT_LOAD=40;
+    private final int ULT_LOAD=30;
 
 
-    public Mira(Handler handler, float x, float y, BufferedImage counterColor) {
+    public Mira(Handler handler, float x, float y, BufferedImage counterColor,int barPos) {
         super(handler,x, y,counterColor);
         this.ultBar=true;
 
-        ultimateBar=new UltimateBar(handler,ULT_LOAD);
+        ultimateBar=new UltimateBar(handler,ULT_LOAD,barPos);
     }
 
     @Override
@@ -30,6 +30,5 @@ public class Mira extends Counter {
     public void render(Graphics g) {
         g.drawImage(counterColor, (int)x, (int)y,null);
         g.drawImage(Assets.medkit, (int)x+MEDKIT_POSX, (int)y+MEDKIT_POSY,null);
-        ultimateBar.render(g);
     }
 }

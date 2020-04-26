@@ -1,9 +1,10 @@
 package states;
 
 import Entities.Counters.*;
-import Entities.Players.Blank;
-import Entities.Players.Bot;
-import Entities.Players.Person;
+import Entities.PositionOnMap;
+import Players.Blank;
+import Players.Bot;
+import Players.Person;
 import Entities.ui.Button;
 import Entities.ui.LegendPick;
 import Entities.ui.PlayerPick;
@@ -20,8 +21,8 @@ public class PrepState extends State {
 
     private static final int PLAYER_POSY=230,PLAYER_SHIFT=450;
 
-    private static final int[]  PLAYER_STARTING_POS={1,14,27,40},
-                                PLAYER_ENDING_POS={51,12,25,38};
+    private static final PositionOnMap[]  PLAYER_STARTING_POS={new PositionOnMap(1),new PositionOnMap(14),new PositionOnMap(27),new PositionOnMap(40)},
+                                          PLAYER_ENDING_POS={new PositionOnMap(51),new PositionOnMap(12),new PositionOnMap(25),new PositionOnMap(38)};
 
     private static final int[]  COUNTER_POS_X={166,166,92,92},
                                 COUNTER_POS_Y={88,162,162,88},
@@ -153,45 +154,53 @@ public class PrepState extends State {
         //zobaczyc czy da sie zrobic jak w setstate
 
         int i=0;
+        int barPos=0;
 
             for(int j=0;j<8;j++) {
                 if (legendPick[picking].getCounterTile(j).isChoosen()){
                     switch (j) {
-                        case 0 -> handler.getGameState().getPlayer(picking).setCounter(new Albali(handler, BASE_POS_X[picking]+COUNTER_POS_X[i], BASE_POS_Y[picking]+COUNTER_POS_Y[i], Assets.counter[picking]));
-                        case 1 -> handler.getGameState().getPlayer(picking).setCounter(new Funi(handler, BASE_POS_X[picking]+COUNTER_POS_X[i], BASE_POS_Y[picking]+COUNTER_POS_Y[i], Assets.counter[picking]));
+                        case 0 -> handler.getGameState().getPlayer(picking).setCounter(new Albali(handler, BASE_POS_X[picking]+COUNTER_POS_X[i], BASE_POS_Y[picking]+COUNTER_POS_Y[i], Assets.counter[picking],barPos));
+                        case 1 -> handler.getGameState().getPlayer(picking).setCounter(new Funi(handler, BASE_POS_X[picking]+COUNTER_POS_X[i], BASE_POS_Y[picking]+COUNTER_POS_Y[i], Assets.counter[picking],barPos));
                         case 2 -> handler.getGameState().getPlayer(picking).setCounter(new Intan(handler, BASE_POS_X[picking]+COUNTER_POS_X[i], BASE_POS_Y[picking]+COUNTER_POS_Y[i], Assets.counter[picking]));
-                        case 3 -> handler.getGameState().getPlayer(picking).setCounter(new Mira(handler, BASE_POS_X[picking]+COUNTER_POS_X[i], BASE_POS_Y[picking]+COUNTER_POS_Y[i], Assets.counter[picking]));
-                        case 4 -> handler.getGameState().getPlayer(picking).setCounter(new Polaris(handler, BASE_POS_X[picking]+COUNTER_POS_X[i], BASE_POS_Y[picking]+COUNTER_POS_Y[i], Assets.counter[picking]));
+                        case 3 -> handler.getGameState().getPlayer(picking).setCounter(new Mira(handler, BASE_POS_X[picking]+COUNTER_POS_X[i], BASE_POS_Y[picking]+COUNTER_POS_Y[i], Assets.counter[picking],barPos));
+                        case 4 -> handler.getGameState().getPlayer(picking).setCounter(new Polaris(handler, BASE_POS_X[picking]+COUNTER_POS_X[i], BASE_POS_Y[picking]+COUNTER_POS_Y[i], Assets.counter[picking],barPos));
                         case 5 -> handler.getGameState().getPlayer(picking).setCounter(new Samaya(handler, BASE_POS_X[picking]+COUNTER_POS_X[i], BASE_POS_Y[picking]+COUNTER_POS_Y[i], Assets.counter[picking]));
-                        case 6 -> handler.getGameState().getPlayer(picking).setCounter(new Saph(handler, BASE_POS_X[picking]+COUNTER_POS_X[i], BASE_POS_Y[picking]+COUNTER_POS_Y[i], Assets.counter[picking]));
-                        case 7 -> handler.getGameState().getPlayer(picking).setCounter(new Venator(handler, BASE_POS_X[picking]+COUNTER_POS_X[i], BASE_POS_Y[picking]+COUNTER_POS_Y[i], Assets.counter[picking]));
+                        case 6 -> handler.getGameState().getPlayer(picking).setCounter(new Saph(handler, BASE_POS_X[picking]+COUNTER_POS_X[i], BASE_POS_Y[picking]+COUNTER_POS_Y[i], Assets.counter[picking],barPos));
+                        case 7 -> handler.getGameState().getPlayer(picking).setCounter(new Venator(handler, BASE_POS_X[picking]+COUNTER_POS_X[i], BASE_POS_Y[picking]+COUNTER_POS_Y[i], Assets.counter[picking],barPos));
                     }
                     legendPick[picking].getCounterTile(j).setChoosen();
+
+                    if(handler.getPlayer(picking).getCounter(i).hasUltBar())
+                        barPos++;
+
                     i++;
                 }
             }
         }
 
     private void setBotCounters(){
-        //RNG
+
         Integer[] random={0,1,2,3,4,5,6,7};
         List<Integer> randomList= Arrays.asList(random);
         Collections.shuffle(randomList);
         randomList.toArray(random);
 
-        //
+        int barPos=0;
 
         for(int i=0;i<4;i++){
             switch (random[i]) {
-                case 0 -> handler.getPlayer(picking).setCounter(new Albali(handler, BASE_POS_X[picking]+COUNTER_POS_X[i], BASE_POS_Y[picking]+COUNTER_POS_Y[i], Assets.counter[picking]));
-                case 1 -> handler.getPlayer(picking).setCounter(new Funi(handler, BASE_POS_X[picking]+COUNTER_POS_X[i], BASE_POS_Y[picking]+COUNTER_POS_Y[i], Assets.counter[picking]));
+                case 0 -> handler.getPlayer(picking).setCounter(new Albali(handler, BASE_POS_X[picking]+COUNTER_POS_X[i], BASE_POS_Y[picking]+COUNTER_POS_Y[i], Assets.counter[picking],barPos));
+                case 1 -> handler.getPlayer(picking).setCounter(new Funi(handler, BASE_POS_X[picking]+COUNTER_POS_X[i], BASE_POS_Y[picking]+COUNTER_POS_Y[i], Assets.counter[picking],barPos));
                 case 2 -> handler.getPlayer(picking).setCounter(new Intan(handler, BASE_POS_X[picking]+COUNTER_POS_X[i], BASE_POS_Y[picking]+COUNTER_POS_Y[i], Assets.counter[picking]));
-                case 3 -> handler.getPlayer(picking).setCounter(new Mira(handler, BASE_POS_X[picking]+COUNTER_POS_X[i], BASE_POS_Y[picking]+COUNTER_POS_Y[i], Assets.counter[picking]));
-                case 4 -> handler.getPlayer(picking).setCounter(new Polaris(handler, BASE_POS_X[picking]+COUNTER_POS_X[i], BASE_POS_Y[picking]+COUNTER_POS_Y[i], Assets.counter[picking]));
+                case 3 -> handler.getPlayer(picking).setCounter(new Mira(handler, BASE_POS_X[picking]+COUNTER_POS_X[i], BASE_POS_Y[picking]+COUNTER_POS_Y[i], Assets.counter[picking],barPos));
+                case 4 -> handler.getPlayer(picking).setCounter(new Polaris(handler, BASE_POS_X[picking]+COUNTER_POS_X[i], BASE_POS_Y[picking]+COUNTER_POS_Y[i], Assets.counter[picking],barPos));
                 case 5 -> handler.getPlayer(picking).setCounter(new Samaya(handler, BASE_POS_X[picking]+COUNTER_POS_X[i], BASE_POS_Y[picking]+COUNTER_POS_Y[i], Assets.counter[picking]));
-                case 6 -> handler.getPlayer(picking).setCounter(new Saph(handler, BASE_POS_X[picking]+COUNTER_POS_X[i], BASE_POS_Y[picking]+COUNTER_POS_Y[i], Assets.counter[picking]));
-                case 7 -> handler.getPlayer(picking).setCounter(new Venator(handler,BASE_POS_X[picking]+COUNTER_POS_X[i], BASE_POS_Y[picking]+COUNTER_POS_Y[i], Assets.counter[picking]));
+                case 6 -> handler.getPlayer(picking).setCounter(new Saph(handler, BASE_POS_X[picking]+COUNTER_POS_X[i], BASE_POS_Y[picking]+COUNTER_POS_Y[i], Assets.counter[picking],barPos));
+                case 7 -> handler.getPlayer(picking).setCounter(new Venator(handler,BASE_POS_X[picking]+COUNTER_POS_X[i], BASE_POS_Y[picking]+COUNTER_POS_Y[i], Assets.counter[picking],barPos));
             }
+            if(handler.getPlayer(picking).getCounter(i).hasUltBar())
+                barPos++;
+
         }
     }
 

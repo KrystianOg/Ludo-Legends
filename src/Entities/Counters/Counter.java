@@ -1,8 +1,10 @@
 package Entities.Counters;
 import Entities.Entity;
+import Entities.PositionOnMap;
 import Entities.ui.Tile;
 import Entities.ui.UltimateBar;
 import ludogame.Handler;
+import states.SettingState;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -15,11 +17,17 @@ public abstract class Counter extends Entity {
     //
     protected float basex,basey;
     //
-    protected int posonmap;
+    protected PositionOnMap pos;
     protected double directionx,directiony;
     protected boolean cisinbase;
-    public Rectangle hitbox;
-    protected boolean moving;
+    private final Rectangle hitbox;
+    private boolean moving;
+    private boolean reseting;
+
+    //
+    protected boolean canKill;
+    protected boolean canBeBeaten;
+    private boolean wasBeaten;
     //
 
     //Ultimate bar
@@ -27,25 +35,21 @@ public abstract class Counter extends Entity {
     protected UltimateBar ultimateBar=null;        //zmienic na protected/private
 
     //
-    protected boolean isUltBar;
-
     BufferedImage counterColor;
 
     //animacja
-    private static final int COUNTER_ANIM_TICKS=25;
+    private final int ANIM_TICKS=(int)(0.42* SettingState.FPS);
     private int tickcount=0;
     private int moved=0;
 
     //problem - nienaturalne nakładanie tekstur przy ruchu
 
-
-
     public Counter(Handler handler, float x, float y,BufferedImage counterColor) {
         super(handler,x, y,DEFAULT_WIDTH,DEFAULT_HEIGHT);
 
         this.counterColor=counterColor;
-        this.basex=x;
-        this.basey=y;
+        basex=x;
+        basey=y;
         hitbox=new Rectangle((int)x, (int)y,DEFAULT_WIDTH,DEFAULT_HEIGHT);
         cisinbase=true;
         moving =false;
@@ -56,102 +60,138 @@ public abstract class Counter extends Entity {
             ultimateBar.tick();
 
         if(moving) {
-
             moveLogic();
-
-
-
         }
+
+        if(reseting){
+            resetLogic();
+        }
+
+
     }
 
     private void moveLogic(){
+
         if(cisinbase) {
 
             if (tickcount == 0) {
-                Tile tempTile = handler.getTile(handler.getPlayer(handler.getTurnOf()).getStarting_pos());
+                Tile tempTile = handler.getTile(handler.getPlayer().getStartingPos());
 
-                directionx = (tempTile.x + 4 - this.x) / COUNTER_ANIM_TICKS;
-                directiony = (tempTile.y - 48 - this.y) / COUNTER_ANIM_TICKS;
+                directionx = (tempTile.getX() + 4 - this.x) / ANIM_TICKS;
+                directiony = (tempTile.getY() - 48 - this.y) / ANIM_TICKS;
                 tickcount++;
-            } else if (tickcount > 0 && tickcount < COUNTER_ANIM_TICKS) {
+            } else if (tickcount > 0 && tickcount < ANIM_TICKS) {
                 x += directionx;
                 y += directiony;
-
-
                 tickcount++;
-            } else if (tickcount == COUNTER_ANIM_TICKS) {
-                Tile tempTile = handler.getTile(handler.getPlayer(handler.getTurnOf()).getStarting_pos());
-                x = tempTile.x + 4;
-                y = tempTile.y - 48;
+            } else if (tickcount == ANIM_TICKS) {
+
+                Tile tempTile = handler.getTile(handler.getPlayer().getStartingPos());
+
+                x = tempTile.getX() + 4;
+                y = tempTile.getY() - 48;
                 hitbox.x=(int)x;
                 hitbox.y=(int)y;
-
-
 
                 cisinbase = false;
                 tickcount = 0;
                 moving = false;
-                posonmap = handler.getPlayer(handler.getTurnOf()).getStarting_pos();
+
+                pos=new PositionOnMap(handler.getPlayer().getStartingPos());
+                handler.setCounterOnTile(pos,this);
+
                 handler.getTimer().resetTimer();
                 handler.getDice().setRolled(false);
-                handler.getPlayer(handler.getTurnOf()).setIsinbase(false);
+                handler.getPlayer().setIsinbase(false);
             }
         }
         else{
             if(tickcount==0) {
                 Tile tempTile = handler.getTile(getNextTile());
 
-                directionx = (tempTile.x + 4 - this.x) / COUNTER_ANIM_TICKS;
-                directiony = (tempTile.y - 48 - this.y) / COUNTER_ANIM_TICKS;
+                handler.removeCounterFromTile(pos,this);
+
+                directionx = (tempTile.getX() + 4 - this.x) / ANIM_TICKS;
+                directiony = (tempTile.getY() - 48 - this.y) / ANIM_TICKS;
                 tickcount++;
             }
-            else if(tickcount>0&&tickcount<COUNTER_ANIM_TICKS){
+            else if(tickcount>0&&tickcount<ANIM_TICKS){
                 x += directionx;
                 y += directiony;
                 tickcount++;
             }
-            else if(tickcount==COUNTER_ANIM_TICKS){
+            else if(tickcount==ANIM_TICKS){
 
                 Tile tempTile = handler.getTile(getNextTile());
-                x = tempTile.x + 4;
-                y = tempTile.y - 48;
+                x = tempTile.getX() + 4;
+                y = tempTile.getY() - 48;
 
                 tickcount=0;
 
-                posonmap++;
-                if(posonmap==52)
-                    posonmap=0;
+                pos.setTile(pos.tile+1);
+                if(pos.tile==52)
+                    pos.setTile(0);
 
+                handler.getPlayer().setPoints(1);
                 moved++;
-
-                System.out.println(posonmap);
 
                 if(moved==handler.getRoll()){
                     moving=false;
                     hitbox.x=(int)x;
                     hitbox.y=(int)y;
 
-                    if(handler.getRoll()!=6)
-                    handler.setTurnof();
+                    handler.setCounterOnTile(pos,this);
+
+                    if(handler.getPlayer().getRollsLeft()==0)
+                        handler.setTurnof();
 
                     handler.getDice().setRolled(false);
                     handler.getTimer().resetTimer();
                     moved=0;
-
                 }
             }
         }
 
-        //umiejetności specjalne turaj
-        
+        //umiejetności specjalne tutaj
+        counterLogic();
         //
     }
 
-    private int getNextTile(){
-        if(posonmap==51)
-            return 0;
+    private void resetLogic(){
+        if (tickcount == 0) {
+            directionx = (basex - this.x) / (ANIM_TICKS*2);
+            directiony = (basey - this.y) / (ANIM_TICKS*2);
+            tickcount++;
+        } else if (tickcount > 0 && tickcount < ANIM_TICKS*2) {
+            x += directionx;
+            y += directiony;
+            tickcount++;
+        } else if (tickcount == ANIM_TICKS*2) {
+            x = basex;
+            y = basey;
+            hitbox.x=(int)x;
+            hitbox.y=(int)y;
+
+            cisinbase = true;
+            tickcount = 0;
+            reseting=false;
+            pos = handler.getPlayer().getStartingPos();
+            handler.getTimer().resetTimer();
+            handler.getDice().setRolled(false);
+        }
+    }
+
+    private PositionOnMap getNextTile(){
+        if(pos.tile==51)
+            return new PositionOnMap(0);
+        else if(pos.tile==handler.getPlayer().getEndingPos().tile&&pos.arr==handler.getPlayer().getEndingPos().arr) {
+            pos.arr=handler.getTurnOf()+1;
+            pos.tile=0;
+
+            return new PositionOnMap(handler.getTurnOf() + 1, 0);
+        }
         else
-            return posonmap+1;
+            return new PositionOnMap(pos);
     }
 
     public boolean isInbase() {
@@ -160,31 +200,43 @@ public abstract class Counter extends Entity {
 
     protected abstract void counterLogic();
 
-    public boolean getHasUltBar(){
-        return this.isUltBar;
+    public boolean hasUltBar(){
+        return this.ultBar;
     }
 
-    public int getPosonmap() {
-        return posonmap;
-    }
-
-    public void setMoving(boolean moving){
-        this.moving=moving;
+    public void setMoving(){
+        this.moving=true;
     }
 
     public boolean isMoving(){
         return this.moving;
     }
 
-    public void setPosonmap() {
-        this.x=handler.getGameState().getTile(posonmap).x+5;
-        this.y=handler.getGameState().getTile(posonmap).y-51;
-        hitbox.x=(int)handler.getGameState().getTile(posonmap).x+5;
-        hitbox.y=(int)handler.getGameState().getTile(posonmap).y-51;
-        System.out.println("POS: "+posonmap);
-
-        handler.getPlayer().resetCounterNr();
-        handler.getGameState().setCounter(this,posonmap);
+    public void renderUltBar(Graphics g){
+        if(this.ultimateBar!=null)
+            ultimateBar.render(g);
     }
 
+    public boolean isClicked(){
+        return this.hitbox.contains(handler.getMouseClickX(),handler.getMouseClickY());
+    }
+
+    public void resetToBase(){
+        this.reseting=true;
+        this.moving=false;
+        cisinbase=true;
+        handler.getGameState().addToReset(this);
+    }
+
+    public boolean getMoving(){
+        return this.moving;
+    }
+
+    public boolean getReseting(){
+        return this.reseting;
+    }
+
+    public BufferedImage getCounterColor(){
+        return this.counterColor;
+    }
 }

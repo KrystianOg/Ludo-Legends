@@ -12,10 +12,12 @@ public class Polaris extends Counter {
 
     public static final int ICICLE_POSX=-3,ICICLE_POSY=-2;
 
-    public Polaris(Handler handler, float x, float y,BufferedImage counterColor) {
+    private final int ULT_LOAD=60;
+
+    public Polaris(Handler handler, float x, float y,BufferedImage counterColor,int barPos) {
         super(handler,x, y,counterColor);
         this.ultBar=true;
-        ultimateBar=new UltimateBar(handler,20);
+        ultimateBar=new UltimateBar(handler,ULT_LOAD,barPos);
     }
 
     @Override
@@ -28,6 +30,5 @@ public class Polaris extends Counter {
         //g.drawImage(Assets.icicle_b,(int)x+ICICLE_POSX,(int)y+ICICLE_POSY,null);
         g.drawImage(counterColor, (int)x, (int)y,null);
         g.drawImage(Assets.icicle_f,(int)x+ICICLE_POSX,(int)y+ICICLE_POSY,null);
-        ultimateBar.render(g);
     }
 }

@@ -3,10 +3,8 @@ package Entities.HUD;
 import Entities.Entity;
 import GFX.Assets;
 import ludogame.Handler;
-import states.GameState;
 
 import java.awt.*;
-import java.awt.image.BufferedImage;
 
 public class Dice extends Entity {
 
@@ -48,6 +46,7 @@ public class Dice extends Entity {
             handler.resetMousePOS();
             clicked=true;
             tickcount=0;
+            handler.getPlayer().rollsMinusOne();
         }
         else if(tickcount>=0&&tickcount<DICE_ANIM_TICKS){
             tickcount++;
@@ -58,12 +57,20 @@ public class Dice extends Entity {
             rolled=true;
             clicked=false;
             tickcount=-1;
+
+            if(roll==6)
+                handler.getPlayer().rollsPlusOne();
+
+
+            System.out.println(roll);
         }
 
     }
 
     public void setTickcount(){
-        this.tickcount=0;
+        clicked=true;
+        tickcount=0;
+        handler.getPlayer().rollsMinusOne();
     }
 
     public int getTickCount(){
@@ -77,6 +84,7 @@ public class Dice extends Entity {
     public void botRoll(){
         clicked=true;
         tickcount=0;
+        handler.getPlayer().rollsMinusOne();
     }
 
     @Override
