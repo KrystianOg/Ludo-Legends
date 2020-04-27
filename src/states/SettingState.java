@@ -35,8 +35,6 @@ public class SettingState extends State{
         DICE_ANIM_TIME=10;
         DYNAMIC_BACKGROUND=true;
 
-        handler.setSettingState(this);
-
         slider_fps=new Slider(handler, 100, 100, 17, 29, 200, 25, 144, 60, "FPS");
         button_size=new Slider(handler, 100, 200, 17, 29, 200, 50, 150, 100, "HUD size");
         ultload=new Slider(handler, 100, 300, 17, 29, 200, 0, 400, 100, "Ultimate ability load speed");

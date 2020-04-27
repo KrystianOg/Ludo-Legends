@@ -1,6 +1,7 @@
 package states;
 
 import GFX.DynamicBackground;
+import ludogame.DBConnect;
 import ludogame.Handler;
 
 import java.awt.*;
@@ -15,7 +16,7 @@ import java.awt.*;
 public class HighScoresState extends State{
 
     //private final Button back;
-
+    DBConnect connect;
 
     public HighScoresState(Handler handler) {
         super(handler);
@@ -26,13 +27,15 @@ public class HighScoresState extends State{
 
     public void init(DynamicBackground dynamicBackground){
         System.out.println("\tc:");
+
+        //connect=new DBConnect();    //<-highscores;
     }
 
     @Override
     public void tick() {
         //if(this.)
 
-
+    //metody z bazy danych z komendami
 
 
     }

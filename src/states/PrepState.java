@@ -44,8 +44,6 @@ public class PrepState extends State {
     public PrepState(Handler handler) {
         super(handler);
 
-        handler.setPrepState(this);
-
         apply=new Button(handler,(float)((handler.getFrameWidth()-350)/2),500, Assets.big_button_template,Assets.apply_button);
     }
 

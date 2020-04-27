@@ -69,16 +69,8 @@ public class Handler {
         return gameState.getBotNickname();
     }
 
-    public void setPrepState(PrepState prepState){
-        this.prepState=prepState;
-    }
-
     public void setGameState(GameState gameState) {
         this.gameState = gameState;
-    }
-
-    public void setSettingState(SettingState settingState) {
-        this.settingState = settingState;
     }
 
     public int getTurnOf(){
