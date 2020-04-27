@@ -30,6 +30,7 @@ public class Tile {
 
                 this.counter.clear();
                 this.counter.add(counter);
+                handler.getPlayer().rollsPlusOne();
             }
             else{
                 this.counter.add(counter);

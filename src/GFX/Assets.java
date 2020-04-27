@@ -39,7 +39,8 @@ public class Assets {
                                 defaults_button,
                                 settings_button,
                                 reset_button,
-                                game_button;
+                                game_text,
+                                ranking_text;
 
 
     public static void init(){
@@ -83,14 +84,15 @@ public class Assets {
         progressbar_f=ImageLoader.loadImage("graphics/ProgressBar/Bar_Front.png");
 
         //przyciski menu
-        SpriteSheet big_button_templates=new SpriteSheet(ImageLoader.loadImage("graphics/Menu/big_button_template.png"));
+        SpriteSheet big_button_templates=new SpriteSheet(ImageLoader.loadImage("graphics/Menu/big_button_template_red.png"));
         big_button_template[0]=big_button_templates.crop(0,0,350,90);
         big_button_template[1]=big_button_templates.crop(0,90,350,90);
 
-        game_button=ImageLoader.loadImage("graphics/Menu/game.png");         //dodac siatke
+        game_text=ImageLoader.loadImage("graphics/Menu/game_w.png");         //dodac siatke
         settings_button=ImageLoader.loadImage("graphics/Menu/settings.png");
         apply_button=ImageLoader.loadImage("graphics/Menu/apply.png");
         defaults_button=ImageLoader.loadImage("graphics/Menu/defaults.png");
+        ranking_text=ImageLoader.loadImage("graphics/Menu/ranking.png");
 
         //settings
         slider_front=ImageLoader.loadImage("graphics/Settings/slider_front.png");

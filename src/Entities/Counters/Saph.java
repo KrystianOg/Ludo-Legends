@@ -16,7 +16,9 @@ public class Saph extends Counter{
 
     public Saph(Handler handler, float x, float y, BufferedImage counterColor,int barPos) {
         super(handler,x, y,counterColor);
-        this.ultBar=true;
+        ultBar=true;
+        beatable=true;
+        killable=true;
         ultimateBar=new UltimateBar(handler,ULT_LOAD,barPos);
     }
 

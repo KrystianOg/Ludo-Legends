@@ -30,10 +30,11 @@ public class Game implements Runnable {
 
     //States                        // odpowiada za dzialanie roznych
 
-    public State gamestate;        // funkcji gry (np. gra,menu,ustawienia)
-    public State menustate;
-    public State settingstate;
-    public State prepstate;        //- wybor postaci przed gr�
+    public State gameState;        // funkcji gry (np. gra,menu,ustawienia)
+    public State menuState;
+    public State settingState;
+    public State prepState;        //- wybor postaci przed gr�
+    public State highScoresState;
 
 
     //Input
@@ -60,14 +61,15 @@ public class Game implements Runnable {
         handler=new Handler(this);
         setColors();
 
-        gamestate=new GameState(handler);
-        settingstate=new SettingState(handler);
-        prepstate=new PrepState(handler);
-        menustate=new MenuState(handler);
+        gameState=new GameState(handler);
+        settingState=new SettingState(handler);
+        prepState=new PrepState(handler);
+        menuState=new MenuState(handler);
+        highScoresState=new HighScoresState(handler);
        
 
 
-        State.setState(menustate); //gamestate change
+        State.setState(menuState); //gamestate change
 
     }
 

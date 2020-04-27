@@ -14,6 +14,8 @@ public class Samaya extends Counter {
     public Samaya(Handler handler, float x, float y, BufferedImage counterColor) {
         super(handler,x, y,counterColor);
         this.ultBar=false;
+        killable=false;
+        beatable=false;
         ultimateBar=null;
     }
 

@@ -41,8 +41,8 @@ public class SettingState extends State{
         button_size=new Slider(handler, 100, 200, 17, 29, 200, 50, 150, 100, "HUD size");
         ultload=new Slider(handler, 100, 300, 17, 29, 200, 0, 400, 100, "Ultimate ability load speed");
         dice_anim_time=new Slider(handler, 100, 400, 17, 29, 200, 3, 30, 10, "Dice animation time");
-        back=new Button(handler, handler.getFrameWidth() -100, handler.getFrameHeight() -100, 90, 90, Assets.big_button_template,Assets.defaults_button);
-        reset_all=new Button(handler, 100, 700, 90, 90, Assets.big_button_template,Assets.defaults_button);
+        back=new Button(handler, handler.getFrameWidth() -100, handler.getFrameHeight() -100,(float)0.5,  Assets.big_button_template,Assets.defaults_button);
+        reset_all=new Button(handler, 100, 700, (float)0.5, Assets.big_button_template,Assets.defaults_button);
     }
 
     @Override
@@ -52,7 +52,7 @@ public class SettingState extends State{
     	if(this.back.getHitbox().contains(handler.getMouseClickX(),handler.getMouseClickY())) {
             handler.resetMousePOS();
             setSettings();
-    	    setState(handler.getGame().menustate);
+    	    setState(handler.getGame().menuState);
             System.out.println("FPS: "+SettingState.FPS+"\tBUTTON_SIZE: "+SettingState.BUTTON_SIZE+"\tULTLOAD: "+SettingState.ULT_LOAD);
         }
     	slider_fps.tick();

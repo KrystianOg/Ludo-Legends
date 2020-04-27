@@ -13,8 +13,17 @@ public class Button extends Entity {
     private final Rectangle hitbox;
     private boolean onhover;
 
-    public Button(Handler handler, float x, float y, int width, int height,BufferedImage[] template,BufferedImage text){
-        super(handler,x,y,width,height);
+    public Button(Handler handler, float x, float y,float scale,BufferedImage[] template,BufferedImage text){
+        super(handler,x,y,(int)(text.getWidth()*scale),(int)(text.getHeight()*scale));
+
+        this.hitbox=new Rectangle((int)x,(int)y,width,height);
+        this.template= template;
+        this.text=text;
+        this.onhover=false;
+    }
+
+    public Button(Handler handler, float x, float y,BufferedImage[] template,BufferedImage text){
+        super(handler,x,y,text.getWidth(),text.getHeight());
 
         this.hitbox=new Rectangle((int)x,(int)y,width,height);
         this.template= template;

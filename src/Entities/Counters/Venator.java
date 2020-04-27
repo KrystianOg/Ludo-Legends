@@ -20,6 +20,8 @@ public class Venator extends Counter {
     public Venator(Handler handler, float x, float y, BufferedImage counterColor,int barPos) {
         super(handler,x, y,counterColor);
         this.ultBar=true;
+        beatable=true;
+        killable=true;
         ultimateBar=new UltimateBar(handler,ULT_LOAD,barPos);
     }
 

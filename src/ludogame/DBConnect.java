@@ -35,14 +35,10 @@ public class DBConnect {
             // select 'columns' from 'table' order by 'column' asc/desc limit 10;
 
             // select * from players order by score desc limit 15;
-            //select * from players order by kill desc limit 10;
-
-
-
+            // select * from players order by kill desc limit 10;
 
             try {
                 String query = command;
-                statement.addBatch(query);
                 resultSet= statement.executeQuery(query);
                 System.out.println("Records");
 
@@ -52,7 +48,7 @@ public class DBConnect {
                     int score=resultSet.getInt("score");
                     int kills=resultSet.getInt("kills");
 
-                    System.out.println("Id: "+player_id+" "+nickName+" "+score+" "+kills);
+                    System.out.println("Id: \t"+player_id+"\t"+nickName+"\t\t"+score+"\t\t"+kills);
 
                 }
 
@@ -63,13 +59,72 @@ public class DBConnect {
 
         }
 
-        public void setNewUser(){
+        public void getUser(String nickname){
+
+            String query="SELECT * FROM players WHERE nickname='"+nickname+"'";
+
+            try {
+                resultSet=statement.executeQuery(query);
+
+                boolean exists=false;
+
+                while(resultSet.next()){
+                    exists=true;
+
+                    int player_id=resultSet.getInt("player_id");
+                    String nickName=resultSet.getString("nickname");
+                    int score=resultSet.getInt("score");
+                    int kills=resultSet.getInt("kills");
+
+                    System.out.println("Id: \t"+player_id+"\t"+nickName+"\t\t"+score+"\t\t"+kills);
+                }
+
+                if(!exists)
+                    addNewPlayer(nickname);
 
 
-
-
-
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
         }
 
+        public void addResults(int player_id,int score,int kills){
+            //select player_id from players
 
+            try {
+                String query="SELECT score,kills FROM players WHERE player_id="+player_id;
+
+
+                resultSet= statement.executeQuery(query);
+
+                while(resultSet.next()) {
+                    score += resultSet.getInt("score");
+                    kills += resultSet.getInt("kills");
+                }
+
+                statement.executeUpdate(String.format("UPDATE players SET score=%d, kills=%d WHERE player_id=%d",score,kills,player_id));
+
+
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+        }
+
+        private void addNewPlayer(String nickname){
+
+            String query="SELECT player_id FROM players ORDER BY player_id DESC limit 1";
+
+            try {
+                resultSet=statement.executeQuery(query);
+
+                int player_id=1;
+                while(resultSet.next())
+                    player_id=resultSet.getInt("player_id")+1;
+
+                statement.executeUpdate(String.format("INSERT INTO players(player_id,nickname,score,kills) VALUES (%d, '%s', 0, 0)",player_id,nickname));
+
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+        }
 }

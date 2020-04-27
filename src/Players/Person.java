@@ -7,10 +7,13 @@ import java.awt.image.BufferedImage;
 
 public class Person extends Player {
 
+    //Z BAZY DANYCH
+    private int player_id;
     private String nickname;    //zrobic input dla nicknamow
+    private int score;
+    private int kills;
 
     private final boolean clicked=false;
-
     private int input;
 
     public Person(Handler handler, PositionOnMap startingPos, PositionOnMap endingPos, BufferedImage counterColor) { //zmienic na getter

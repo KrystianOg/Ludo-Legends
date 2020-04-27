@@ -24,18 +24,18 @@ public abstract class Counter extends Entity {
     private boolean moving;
     private boolean reseting;
 
-    //
-    protected boolean canKill;
-    protected boolean canBeBeaten;
-    private boolean wasBeaten;
-    //
 
+    //cos do umiejetnosci
+    protected boolean killable;
+    protected boolean beatable;
+    private final boolean wasBeaten;
     //Ultimate bar
     protected boolean ultBar;
-    protected UltimateBar ultimateBar=null;        //zmienic na protected/private
+    protected UltimateBar ultimateBar=null;
+    //
 
     //
-    BufferedImage counterColor;
+    protected BufferedImage counterColor;
 
     //animacja
     private final int ANIM_TICKS=(int)(0.42* SettingState.FPS);
@@ -51,6 +51,7 @@ public abstract class Counter extends Entity {
         basex=x;
         basey=y;
         hitbox=new Rectangle((int)x, (int)y,DEFAULT_WIDTH,DEFAULT_HEIGHT);
+        wasBeaten=false;
         cisinbase=true;
         moving =false;
     }
@@ -66,7 +67,6 @@ public abstract class Counter extends Entity {
         if(reseting){
             resetLogic();
         }
-
 
     }
 
@@ -191,7 +191,7 @@ public abstract class Counter extends Entity {
             return new PositionOnMap(handler.getTurnOf() + 1, 0);
         }
         else
-            return new PositionOnMap(pos);
+            return new PositionOnMap(pos.arr,pos.tile+1);
     }
 
     public boolean isInbase() {
@@ -210,6 +210,10 @@ public abstract class Counter extends Entity {
 
     public boolean isMoving(){
         return this.moving;
+    }
+
+    public boolean iskillable(){
+        return this.killable;
     }
 
     public void renderUltBar(Graphics g){

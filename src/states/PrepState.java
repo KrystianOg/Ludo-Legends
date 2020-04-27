@@ -46,7 +46,7 @@ public class PrepState extends State {
 
         handler.setPrepState(this);
 
-        apply=new Button(handler,(float)((handler.getFrameWidth()-350)/2),500,350,90, Assets.big_button_template,Assets.apply_button);
+        apply=new Button(handler,(float)((handler.getFrameWidth()-350)/2),500, Assets.big_button_template,Assets.apply_button);
     }
 
     public void init(DynamicBackground dynamicBackground){
@@ -120,7 +120,7 @@ public class PrepState extends State {
             if(picking==4){
                 handler.getGameState().init();
                 resetVariables();
-                setState(handler.getGame().gamestate);
+                setState(handler.getGame().gameState);
             }
         }
 

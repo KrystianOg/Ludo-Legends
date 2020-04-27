@@ -16,7 +16,8 @@ public class Mira extends Counter {
 
     public Mira(Handler handler, float x, float y, BufferedImage counterColor,int barPos) {
         super(handler,x, y,counterColor);
-        this.ultBar=true;
+        ultBar=true;
+
 
         ultimateBar=new UltimateBar(handler,ULT_LOAD,barPos);
     }

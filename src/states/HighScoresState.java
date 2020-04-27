@@ -1,5 +1,6 @@
 package states;
 
+import GFX.DynamicBackground;
 import ludogame.Handler;
 
 import java.awt.*;
@@ -12,12 +13,27 @@ import java.awt.*;
 //może eksportowanie plików na stronę internetową?
 
 public class HighScoresState extends State{
+
+    //private final Button back;
+
+
     public HighScoresState(Handler handler) {
         super(handler);
+
+        //back=new Button(handler,);
+
+    }
+
+    public void init(DynamicBackground dynamicBackground){
+        System.out.println("\tc:");
     }
 
     @Override
     public void tick() {
+        //if(this.)
+
+
+
 
     }
 
@@ -25,4 +41,6 @@ public class HighScoresState extends State{
     public void render(Graphics g) {
 
     }
+
+
 }
