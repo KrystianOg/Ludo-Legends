@@ -15,15 +15,21 @@ public class DBConnect {
 
         public DBConnect() {
 
+            Connection connection=null;
+
             try {
+                Class.forName("com.mysql.jdbc.Driver");
                 connection= DriverManager.getConnection(url, user, password);
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
-            }
-            try {
                 statement=connection.createStatement();
+
+                if(connection!=null)
+                    System.out.println("Successfully connected to MySQL players DB");
+
             } catch (SQLException throwables) {
+                System.out.println("Error occurred while connecting MySQL database");
                 throwables.printStackTrace();
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
             }
         }
 
