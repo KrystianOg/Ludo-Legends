@@ -16,9 +16,11 @@ public class MenuState extends State{
 
     public MenuState(Handler handler){
         super(handler);
-        game=new Button(handler,(handler.getFrameWidth()-350)/2,495,Assets.big_button_template,Assets.game_text);
-        settings=new Button(handler,(handler.getFrameWidth()-350)/2,590, Assets.big_button_template,Assets.settings_button);
-        ranking=new Button(handler,(handler.getFrameWidth()-350)/2,685,Assets.big_button_template,Assets.ranking_text);
+
+        float BUTTON_SCALE=(float)0.8;
+        game=new Button(handler,(handler.getFrameWidth()-350*BUTTON_SCALE)/2,495,BUTTON_SCALE,Assets.big_button_template,Assets.game_text);
+        settings=new Button(handler,(handler.getFrameWidth()-350*BUTTON_SCALE)/2,575, BUTTON_SCALE,Assets.big_button_template,Assets.settings_button);
+        ranking=new Button(handler,(handler.getFrameWidth()-350*BUTTON_SCALE)/2,655,BUTTON_SCALE,Assets.big_button_template,Assets.ranking_text);
         dynamicBackground=new DynamicBackground(handler,handler.getFrameHeight());
         logo=Assets.logo;
     }

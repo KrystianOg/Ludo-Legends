@@ -28,7 +28,8 @@ public class HighScoresState extends State{
     public void init(DynamicBackground dynamicBackground){
         System.out.println("\tc:");
 
-        //connect=new DBConnect();    //<-highscores;
+        connect=new DBConnect();    //<-highscores;
+        connect.getData("score",8);
     }
 
     @Override

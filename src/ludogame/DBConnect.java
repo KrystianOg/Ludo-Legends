@@ -27,7 +27,7 @@ public class DBConnect {
             }
         }
 
-        public void getData(String command){
+        public void getData(String orderBy,int limit){
 
             //some commands:
 
@@ -38,7 +38,8 @@ public class DBConnect {
             // select * from players order by kill desc limit 10;
 
             try {
-                String query = command;
+
+                String query=String.format("SELECT * FROM players ORDER BY %s DESC limit %d",orderBy,limit);
                 resultSet= statement.executeQuery(query);
                 System.out.println("Records");
 
@@ -93,7 +94,6 @@ public class DBConnect {
 
             try {
                 String query="SELECT score,kills FROM players WHERE player_id="+player_id;
-
 
                 resultSet= statement.executeQuery(query);
 
