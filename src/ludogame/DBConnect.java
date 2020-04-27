@@ -15,7 +15,7 @@ public class DBConnect {
 
         public DBConnect() {
 
-            Connection connection=null;
+            connection=null;
 
             try {
                 Class.forName("com.mysql.jdbc.Driver");
