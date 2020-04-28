@@ -98,7 +98,7 @@ public class HighScoresState extends State{
         else
             beatsHover=false;
 
-        if(back.getHitbox().contains(handler.getMouseClickX(),handler.getMouseClickY())){
+        if(back.contains(handler.getMouseClickX(),handler.getMouseClickY())){
             handler.resetMousePOS();
             setState(handler.getGame().menuState);
         }

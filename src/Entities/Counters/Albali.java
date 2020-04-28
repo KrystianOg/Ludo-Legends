@@ -9,6 +9,8 @@ import java.awt.image.BufferedImage;
 
 public class Albali extends Counter {
     //zbija wszystkie ktore minie podczas trwania umiejetnosci;
+    //co ruch sprawdza czy sa pionki
+
     public static final int CLOAK_POSX=-5,CLOAK_POSY=-10;
     private static final int ULT_LOAD=40;
 

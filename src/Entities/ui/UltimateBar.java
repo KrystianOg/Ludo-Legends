@@ -18,9 +18,15 @@ public class UltimateBar extends Entity {
     private float loadPercentage;
 
     public UltimateBar(Handler handler,int ULT_LOAD,int barPos) {
-
         super(handler,(float)765, (float)55+barPos*60, ULTIMATEBAR_WIDTH, ULTIMATEBAR_HEIGHT);
-        this.ULT_LOAD = ULT_LOAD*100/SettingState.ULT_LOAD;
+        if(SettingState.ULT_LOAD==0){
+            loaded=true;
+            loadPercentage=100;
+            this.ULT_LOAD=0;
+        }
+        else {
+            this.ULT_LOAD = ULT_LOAD * 100 / SettingState.ULT_LOAD;
+        }
     }
 
     @Override

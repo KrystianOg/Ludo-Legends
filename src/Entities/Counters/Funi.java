@@ -1,5 +1,6 @@
 package Entities.Counters;
 
+import Entities.ui.Tile;
 import Entities.ui.UltimateBar;
 import GFX.Assets;
 import ludogame.Handler;
@@ -9,13 +10,14 @@ import java.awt.image.BufferedImage;
 
 public class Funi extends Counter{
     //tworzy ogien na randomowych polach
+    //zmienia boolean na tiles pobiera tiles i tworzy grafike
 
     private final int WAND_WIDTH = 30;
     private final int WAND_HEIGHT = 80;
 
     public static final int WAND_POSX=24,WAND_POSY=-3;
-
     private final int ULT_LOAD=46; //zmienic na zdefiniowane w klasie abstrakcyjnej
+    private final Tile[] fireTile=new Tile[4];
 
     public Funi(Handler handler, float x, float y, BufferedImage counterColor,int barPos) {
         super(handler,x, y,counterColor);
@@ -27,6 +29,11 @@ public class Funi extends Counter{
 
     @Override
     protected void counterLogic() {
+
+
+
+
+
     }
 
     @Override

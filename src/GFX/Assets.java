@@ -2,6 +2,7 @@ package GFX;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.nio.Buffer;
 
 public class Assets {
 
@@ -33,7 +34,8 @@ public class Assets {
                                   tile=new BufferedImage[6],
                                   player=new BufferedImage[3],
                                   arrow=new BufferedImage[5],
-                                  dynamicBackground=new BufferedImage[2];
+                                  dynamicBackground=new BufferedImage[2],
+                                  pause_button=new BufferedImage[3];
 
     public static BufferedImage apply_button,
                                 defaults_button,
@@ -41,7 +43,8 @@ public class Assets {
                                 back_button,
                                 reset_button,
                                 game_text,
-                                ranking_text;
+                                ranking_text,
+                                menu;
 
     public static BufferedImage[] cup=new BufferedImage[3];
 
@@ -107,6 +110,12 @@ public class Assets {
         medium_button_template[0]=medium_button_templates.crop(0,0,225,90);
         medium_button_template[1]=medium_button_templates.crop(0,90,225,90);
         reset_button=ImageLoader.loadImage("graphics/Settings/reset.png");
+        menu=ImageLoader.loadImage("graphics/Menu/menu.png");
+
+        SpriteSheet pause_button_sheet=new SpriteSheet(ImageLoader.loadImage("graphics/PreparationState/pauseSheet.png"));
+        pause_button[0]=pause_button_sheet.crop(0,0,70,70);
+        pause_button[1]=pause_button_sheet.crop(0,70,70,70);
+        pause_button[2]=pause_button_sheet.crop(70,0,70,70);
 
         //kostka do gry
         SpriteSheet roll=new SpriteSheet(ImageLoader.loadImage("graphics/Dice/Roll.png"));

@@ -47,8 +47,8 @@ public class Button extends Entity {
 
     }
 
-    public Rectangle getHitbox(){
-        return this.hitbox;
+    public boolean contains(int MouseClick_X,int MouseClickY){
+        return hitbox.contains(MouseClick_X,MouseClickY);
     }
 }
 

@@ -61,7 +61,7 @@ public class Slider extends Entity {
 		}
         else
             this.pressed=false;
-		if(this.reset.getHitbox().contains(handler.getMouseClickX(),handler.getMouseClickY())) {
+		if(this.reset.contains(handler.getMouseClickX(),handler.getMouseClickY())) {
 			positionX=x+((defaultValue-minValue)/minMax *200);
 		    value=(positionX-x)*minMax/200 + minValue;
 		    valueInt=Math.round(value);

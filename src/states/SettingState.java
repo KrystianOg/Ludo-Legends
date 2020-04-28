@@ -47,7 +47,7 @@ public class SettingState extends State{
     public void tick() {
 
         dynamicBackground.tick();
-    	if(this.back.getHitbox().contains(handler.getMouseClickX(),handler.getMouseClickY())) {
+    	if(this.back.contains(handler.getMouseClickX(),handler.getMouseClickY())) {
             handler.resetMousePOS();
             setSettings();
     	    setState(handler.getGame().menuState);
@@ -58,7 +58,7 @@ public class SettingState extends State{
     	ultload.tick();
     	back.tick();
     	dice_anim_time.tick();
-    	if(this.reset_all.getHitbox().contains(handler.getMouseClickX(),handler.getMouseClickY())) {
+    	if(this.reset_all.contains(handler.getMouseClickX(),handler.getMouseClickY())) {
             slider_fps.reset();
             button_size.reset();
             ultload.reset();
