@@ -8,12 +8,8 @@ import java.awt.image.BufferedImage;
 public class Person extends Player {
 
     //Z BAZY DANYCH
-    private int player_id;
-    private String nickname;    //zrobic input dla nicknamow
-    private int score;
-    private int kills;
+    private PlayerData playerData;
 
-    private final boolean clicked=false;
     private int input;
 
     public Person(Handler handler, PositionOnMap startingPos, PositionOnMap endingPos, BufferedImage counterColor) { //zmienic na getter
@@ -72,11 +68,9 @@ public class Person extends Player {
             else if(!isinbase&&handler.getRoll()<6){
                 input=getInput();
 
-                if(input>=0) {
-                    if(!counter[input].isInbase()) {
-                        counter[input].setMoving();
-                        lastRolls.add(handler.getRoll());
-                    }
+                if(input>=0&&!counter[input].isInbase()) {
+                    counter[input].setMoving();
+                    lastRolls.add(handler.getRoll());
                 }
             }
         }

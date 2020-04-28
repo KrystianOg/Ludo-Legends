@@ -1,6 +1,9 @@
 package ludogame;
 
+import Players.PlayerData;
+
 import java.sql.*;
+import java.util.List;
 
 public class DBConnect {
 
@@ -33,37 +36,40 @@ public class DBConnect {
             }
         }
 
-        public void getData(String orderBy,int limit){
+        public void getData(String orderBy, int limit, List<PlayerData> playerData){
 
-            //some commands:
+/**
+            some commands:
 
-            //example//
-            // select 'columns' from 'table' order by 'column' asc/desc limit 10;
+            orderBy: score, kills
+            limit - Integer (ilość pobieranych danych)
 
-            // select * from players order by score desc limit 15;
-            // select * from players order by kill desc limit 10;
+
+             example:
+
+             select 'columns' from 'table' order by 'column' asc/desc limit 10;
+             select * from players order by score desc limit 15;
+             select * from players order by kill desc limit 10;
+*/
 
             try {
 
                 String query=String.format("SELECT * FROM players ORDER BY %s DESC limit %d",orderBy,limit);
                 resultSet= statement.executeQuery(query);
-                System.out.println("Records");
 
                 while(resultSet.next()){
-                    int player_id=resultSet.getInt("player_id");
-                    String nickName=resultSet.getString("nickname");
-                    int score=resultSet.getInt("score");
-                    int kills=resultSet.getInt("kills");
+                    PlayerData temporary=new PlayerData();
+                    temporary.setPlayerId(resultSet.getInt("player_id"));
+                    temporary.setNickname(resultSet.getString("nickname"));
+                    temporary.setScore(resultSet.getInt("score"));
+                    temporary.setKills(resultSet.getInt("kills"));
 
-                    System.out.println("Id: \t"+player_id+"\t"+nickName+"\t\t"+score+"\t\t"+kills);
-
+                    playerData.add(temporary);
                 }
 
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }
-
-
         }
 
         public void getUser(String nickname){

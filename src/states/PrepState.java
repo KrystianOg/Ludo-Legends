@@ -129,7 +129,7 @@ public class PrepState extends State {
     public void render(Graphics g) {
         g.setColor(Color.white);
         g.fillRect(0,0,handler.getFrameWidth(),handler.getFrameHeight());
-        if(SettingState.DYNAMIC_BACKGROUND)
+
         dynamicBackground.render(g);
 
         apply.render(g);

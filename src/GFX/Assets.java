@@ -10,7 +10,8 @@ public class Assets {
                              ARROW_WIDTH=50,ARROW_HEIGHT=50,
                              TILE_WIDTH=90,TILE_HEIGHT=90;
 
-    public static Font Ubuntu28;
+   // public static Font
+    public static Font Ubuntu28,Ubuntu40,Ubuntu34;
 
     public static BufferedImage logo;
     public static BufferedImage slider_front, slider_back;
@@ -25,11 +26,10 @@ public class Assets {
     public static BufferedImage timerFrame;
 
     public static BufferedImage[] big_button_template=new BufferedImage[2],
-                                  reset_button_template=new BufferedImage[2];
+                                  medium_button_template=new BufferedImage[2];
 
     public static BufferedImage[] rollimg =new BufferedImage[6],
                                   counter =new BufferedImage[4],
-                                  back_button =new BufferedImage[2],
                                   tile=new BufferedImage[6],
                                   player=new BufferedImage[3],
                                   arrow=new BufferedImage[5],
@@ -38,15 +38,18 @@ public class Assets {
     public static BufferedImage apply_button,
                                 defaults_button,
                                 settings_button,
+                                back_button,
                                 reset_button,
                                 game_text,
                                 ranking_text;
 
+    public static BufferedImage[] cup=new BufferedImage[3];
 
     public static void init(){
         //czcionka
-    	Ubuntu28=FontLoader.loadfont("fonts/Ubuntu-R.ttf", 28);
-
+    	Ubuntu28=FontLoader.loadFont("fonts/Ubuntu-R.ttf", 28);
+        Ubuntu40=FontLoader.loadFont("fonts/Ubuntu-B.ttf",40);
+        Ubuntu34=FontLoader.loadFont("fonts/Ubuntu-B.ttf",34);
 
         //mapa
         map=ImageLoader.loadImage("graphics/Map.png");
@@ -98,12 +101,11 @@ public class Assets {
         slider_front=ImageLoader.loadImage("graphics/Settings/slider_front.png");
         slider_back=ImageLoader.loadImage("graphics/Settings/slider_back.png");
 
-        back_button[0]=ImageLoader.loadImage("graphics/Settings/back_button.png");
-        back_button[1]=ImageLoader.loadImage("graphics/Settings/back_button_onhover.png");
+        back_button=ImageLoader.loadImage("graphics/Menu/back.png");
 
-        SpriteSheet reset_button_templates=new SpriteSheet(ImageLoader.loadImage("graphics/Settings/reset_button_template.png"));
-        reset_button_template[0]=reset_button_templates.crop(0,0,225,90);
-        reset_button_template[1]=reset_button_templates.crop(0,90,225,90);
+        SpriteSheet medium_button_templates=new SpriteSheet(ImageLoader.loadImage("graphics/Settings/reset_button_template.png"));
+        medium_button_template[0]=medium_button_templates.crop(0,0,225,90);
+        medium_button_template[1]=medium_button_templates.crop(0,90,225,90);
         reset_button=ImageLoader.loadImage("graphics/Settings/reset.png");
 
         //kostka do gry
@@ -149,6 +151,12 @@ public class Assets {
         player[0]=playerSheet.crop(0,0,TILE_WIDTH,TILE_HEIGHT);
         player[1]=playerSheet.crop(0,TILE_HEIGHT,TILE_WIDTH,TILE_HEIGHT);
         player[2]=playerSheet.crop(TILE_WIDTH,0,TILE_WIDTH,TILE_HEIGHT);
+
+        //puchary
+        SpriteSheet smallCupsSheet=new SpriteSheet((ImageLoader.loadImage("graphics/LeaderBoard/cups_sheet.png")));
+        cup[0]=smallCupsSheet.crop(0,0,40,40);
+        cup[1]=smallCupsSheet.crop(40,0,40,40);
+        cup[2]=smallCupsSheet.crop(0,40,40,40);
 
         //dynamic background
         dynamicBackground[0]=ImageLoader.loadImage("graphics/Menu/Background_3.png");

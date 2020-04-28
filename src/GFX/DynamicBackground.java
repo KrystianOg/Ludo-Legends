@@ -48,22 +48,23 @@ public class DynamicBackground {
 
     public void tick(){
 
-        difference=(20/ (double)SettingState.FPS);
+        if(SettingState.DYNAMIC_BACKGROUND) {
+            difference = (20 / (double) SettingState.FPS);
 
-        moveBackgroundLogic(0);
-        moveBackgroundLogic(1);
-        ticks++;
-        if(ticks==2)
-            ticks=0;
+            moveBackgroundLogic(0);
+            moveBackgroundLogic(1);
+            ticks++;
+            if (ticks == 2)
+                ticks = 0;
+        }
     }
 
     public void render(Graphics g){
 
-            g.drawImage(dynamicBackground[0], (int)position[0], 0, width, height, null);
-            g.drawImage(dynamicBackground[1], (int)position[1], 0, width, height, null);
-
-
-
+        if(SettingState.DYNAMIC_BACKGROUND) {
+            g.drawImage(dynamicBackground[0], (int) position[0], 0, width, height, null);
+            g.drawImage(dynamicBackground[1], (int) position[1], 0, width, height, null);
+        }
     }
 
     private void moveBackgroundLogic(int i){
