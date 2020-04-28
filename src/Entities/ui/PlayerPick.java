@@ -68,6 +68,10 @@ public class PlayerPick extends Entity {
                 currentPick=2;
         }
 
+        if(currentPick==1){
+
+        }
+
     }
 
     @Override

@@ -7,6 +7,7 @@ import Entities.HUD.Timer;
 import Entities.PositionOnMap;
 import Players.Player;
 import Entities.ui.Tile;
+import input.KeyboardManager;
 import states.*;
 
 public class Handler {
@@ -121,5 +122,8 @@ public class Handler {
         gameState.getBoard().removeCounterFromTile(pos,counter);
     }
 
+    public KeyboardManager getKeyboardManager(){
+        return this.game.getKeyboardManager();
+    }
 
 }

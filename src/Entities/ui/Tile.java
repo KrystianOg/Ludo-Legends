@@ -9,6 +9,7 @@ import java.util.List;
 public class Tile {
 
     private final boolean capturable;
+    private boolean instantKill;
     private final float x,y;
 
     private final Handler handler;
@@ -41,8 +42,6 @@ public class Tile {
         } else if (this.counter.size() == 4) {
             counter.resetToBase();
         }
-
-
     }
 
     public void removeCounterFromTile(Counter counter){
@@ -55,6 +54,14 @@ public class Tile {
 
     public float getY(){
         return this.y;
+    }
+
+    public void setInstantKill(boolean instantKill){
+        this.instantKill=instantKill;
+    }
+
+    public boolean getInstantKill(){
+        return this.instantKill;
     }
 
 }

@@ -5,6 +5,7 @@ import java.awt.image.BufferStrategy;
 
 import GFX.*;
 import display.*;
+import input.KeyboardManager;
 import input.MouseManager;
 import states.*;
 
@@ -38,24 +39,26 @@ public class Game implements Runnable {
 
 
     //Input
-    private final MouseManager mousemanager;
-
+    private final MouseManager mouseManager;
+    private final KeyboardManager keyboardManager;
 
     public Game(String title,int width,int height){
 
         this.width=width;
         this.height=height;
         this.title=title;
-        mousemanager = new MouseManager();
-
+        mouseManager = new MouseManager();
+        keyboardManager=new KeyboardManager();
     }
 
     private void init() {
         display =new Display(title,width,height);
-        display.getFrame().addMouseListener(mousemanager);
-        display.getCanvas().addMouseListener(mousemanager);
-        display.getFrame().addMouseMotionListener(mousemanager);
-        display.getCanvas().addMouseMotionListener(mousemanager);
+        display.getFrame().addMouseListener(mouseManager);
+        display.getCanvas().addMouseListener(mouseManager);
+        display.getFrame().addMouseMotionListener(mouseManager);
+        display.getCanvas().addMouseMotionListener(mouseManager);
+        display.getFrame().addKeyListener(keyboardManager);
+
         Assets.init();
 
         handler=new Handler(this);
@@ -66,8 +69,6 @@ public class Game implements Runnable {
         prepState=new PrepState(handler);
         menuState=new MenuState(handler);
         highScoresState=new HighScoresState(handler);
-       
-
 
         State.setState(menuState); //gamestate change
 
@@ -141,7 +142,11 @@ public class Game implements Runnable {
     }
 
     public MouseManager getMousemanager(){
-        return mousemanager;
+        return mouseManager;
+    }
+
+    public KeyboardManager getKeyboardManager(){
+        return keyboardManager;
     }
 
     public synchronized void start(){

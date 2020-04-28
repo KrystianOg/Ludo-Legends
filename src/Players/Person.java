@@ -9,11 +9,16 @@ public class Person extends Player {
 
     //Z BAZY DANYCH
     private PlayerData playerData;
+    private final String nickname;
+
+    public static final String[] defaultNickname={ "Player1", "Player2", "Player3", "Player4"};
 
     private int input;
 
-    public Person(Handler handler, PositionOnMap startingPos, PositionOnMap endingPos, BufferedImage counterColor) { //zmienic na getter
+    public Person(Handler handler, PositionOnMap startingPos, PositionOnMap endingPos, BufferedImage counterColor,String nickname) { //zmienic na getter
         super(handler,startingPos,endingPos,counterColor);
+        this.nickname=nickname;
+        System.out.println(nickname);
         input=-1;
     }
 
