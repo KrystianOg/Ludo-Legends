@@ -45,8 +45,8 @@ public class Slider extends Entity {
 	    value=(positionX-x)*minMax/200 + minValue;
 	    valueInt=Math.round(value);
 	    valueString = String.valueOf(valueInt);
-	    
-	    reset=new Button(handler, (int)x*2+ frameWidth, y, (float)0.3, Assets.reset_button_template,Assets.reset_button);
+
+		reset=new Button(handler, (int)x*2+ frameWidth, y, (float)0.3, Assets.medium_button_template,Assets.reset_button);
 	}
 	public Slider(Handler handler, float x, float y, int width, int height, int frameWidth, float minValue, float maxValue, float defaultValue, String title, ArrayList<Integer> szczeble) {
 		super(handler, x, y, width, height);
@@ -66,8 +66,8 @@ public class Slider extends Entity {
 	    value=szczeble.get(((int)positionX-(int)x)*(szczeble.size()-1)/200);
 	    valueInt=Math.round(value);
 	    valueString = String.valueOf(valueInt);
-	    
-	    reset=new Button(handler, (int)x*2+ frameWidth, y, (float)0.3, Assets.reset_button_template,Assets.reset_button);
+
+		reset=new Button(handler, (int)x*2+ frameWidth, y, (float)0.3, Assets.medium_button_template,Assets.reset_button);
 	}
 
 	@Override

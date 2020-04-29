@@ -73,7 +73,11 @@ public class Button extends Entity {
     public Rectangle getHitbox(){
         return this.hitbox;
     }
-    
+
+    public boolean contains(int MouseX,int MouseY){
+        return this.contains(MouseX,MouseY);
+    }
+
     public void reset() {
     	onOff=defaultOnOff;
     	
