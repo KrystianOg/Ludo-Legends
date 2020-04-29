@@ -4,6 +4,7 @@ import Entities.Counters.*;
 import Entities.PositionOnMap;
 import Entities.ui.Pause;
 import Entities.ui.TextField;
+import GFX.Text;
 import Players.Blank;
 import Players.Bot;
 import Players.Person;
@@ -34,7 +35,8 @@ public class PrepState extends State {
                                 BASE_POS_Y={0,450,450,0};
 
     //zoptymalizować
-    Button apply;
+    private final Button apply;
+    private Color redOp;
 
     private PlayerPick[] playerPick;
     private List<Integer> playerI;
@@ -46,6 +48,11 @@ public class PrepState extends State {
 
     private boolean isPaused;
     private final Pause pause;
+
+    //error
+    private boolean nicknameLengthError;
+    private int nicknameLengthErrorTick;
+    private int lengthAlpha=255;
 
     DynamicBackground dynamicBackground;
 
@@ -60,7 +67,10 @@ public class PrepState extends State {
 
         this.dynamicBackground=dynamicBackground;
 
+        redOp=new Color(201,0,1,lengthAlpha);
         typePick=true;
+        nicknameLengthError=false;
+        nicknameLengthErrorTick=0;
         picking =0;
         playerI=new LinkedList<>();
 
@@ -95,8 +105,13 @@ public class PrepState extends State {
                 }
                 nickNamePlaceTick();
 
+                if(nicknameLengthError) {
+                    nicknameLengthErrorTick();
+                }
+
                 if (apply.contains(handler.getMouseClickX(), handler.getMouseClickY())) {
                     handler.resetMousePOS();
+
                     typePick = false;
 
                     for (int i = 0; i < 4; i++) {
@@ -105,6 +120,10 @@ public class PrepState extends State {
                                 handler.getGameState().setPlayer(new Bot(handler, PLAYER_STARTING_POS[i], PLAYER_ENDING_POS[i], Assets.counter[i]));
                                 break;
                             case 1:
+                                if(textField[i].getNickname().length()<4) {
+                                    typePick = true;
+                                    nicknameLengthError=true;
+                                }
                                 handler.getGameState().setPlayer(new Person(handler, PLAYER_STARTING_POS[i], PLAYER_ENDING_POS[i], Assets.counter[i],textField[i].getNickname()));
                                 break;
                             case 2:
@@ -161,6 +180,9 @@ public class PrepState extends State {
         else{
             legendPick[picking].render(g);
         }
+
+        if(nicknameLengthError)
+            Text.drawString(g,"Please choose a nickname at least 4 characters long.",handler.getFrameWidth()/2,130,true,redOp,Assets.Ubuntu34);
 
         pause.render(g);
 
@@ -241,6 +263,24 @@ public class PrepState extends State {
             for(int i=0;i<playerI.size();i++){
                 textField[playerI.get(i)].render(g);
             }
+    }
+
+    private void nicknameLengthErrorTick(){
+        nicknameLengthErrorTick++;
+        if(nicknameLengthErrorTick>=SettingState.FPS*4){
+            redOp=new Color(201,0,1,lengthAlpha-=3);
+
+            if(lengthAlpha<=2){
+                lengthAlpha=255;
+                nicknameLengthErrorTick=0;
+                redOp=new Color(201,0,1,lengthAlpha);
+                nicknameLengthError=false;
+
+            }
+
+        }
+
+
     }
 
 

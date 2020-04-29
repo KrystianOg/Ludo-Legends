@@ -61,11 +61,13 @@ public class HighScoresState extends State{
     }
 
     public void init(DynamicBackground dynamicBackground){
-        System.out.println("\tc:");
         playerData.clear();
         this.dynamicBackground=dynamicBackground;
         connect=new DBConnect();    //<-highscores;
+
+        if(connect.isConnected())
         connect.getData("score",10,playerData);
+
         sortByScore=true;
     }
 

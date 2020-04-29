@@ -11,13 +11,14 @@ public class DBConnect {
         private Connection connection;
         private Statement statement;
         private ResultSet resultSet;
-
+        private boolean connected;
         String url="jdbc:mysql://26.246.252.18:3306/ludo";
         String user="magento";
         String password="";
 
         public DBConnect() {
 
+            connected=false;
             connection=null;
 
             try {
@@ -25,11 +26,13 @@ public class DBConnect {
                 connection= DriverManager.getConnection(url, user, password);
                 statement=connection.createStatement();
 
-                if(connection!=null)
+                if(connection!=null) {
                     System.out.println("Successfully connected to MySQL players DB");
-
+                    connected=true;
+                }
             } catch (SQLException throwables) {
                 System.out.println("Error occurred while connecting MySQL database");
+                connected=false;
                 throwables.printStackTrace();
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
@@ -138,5 +141,9 @@ public class DBConnect {
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }
+        }
+
+        public boolean isConnected(){
+            return connected;
         }
 }

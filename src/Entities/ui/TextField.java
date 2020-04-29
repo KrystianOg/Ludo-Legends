@@ -11,6 +11,7 @@ import java.awt.*;
 public class TextField extends Entity{
 
     private static final int FIELD_WIDTH=200,FIELD_HEIGHT=40;
+    private final String defaultNickname;
     private String nickname;
     private boolean isClicked;
     private final Rectangle hitbox;
@@ -18,6 +19,7 @@ public class TextField extends Entity{
 
     public TextField(Handler handler, float x, float y,Color txtfColor,String nickname) {
         super(handler, x, y, FIELD_WIDTH,FIELD_HEIGHT);
+        this.defaultNickname=nickname;
         this.nickname=nickname;
         isClicked=false;
         this.txtfColor=txtfColor;
@@ -28,6 +30,9 @@ public class TextField extends Entity{
     public void tick() {
 
         if(isClicked){
+
+            if(nickname==defaultNickname)
+                nickname="";
 
             setChar();
             if(handler.getKeyboardManager().getDelete()&&nickname.length()>=1)

@@ -14,20 +14,18 @@ import static states.GameState.color;
 public class Game implements Runnable {
 
     private Display display;        //klasa wyswietlajaca obraz (+canvas)
-    public int width,height;        //szer/wys okna
-    public String title;            //nazwa "gry"
+    private final int width;
+    private final int height;        //szer/wys okna
     private boolean running=false;  //odpowiada za wyjscie z gry
-    private Thread thread;          //
-
-    //Colors
-    public static final Color MENU_GRAY=new Color(41,41,41);
+    private Thread thread;
+    private DBConnect connect;
 
     //FPS
     private BufferStrategy bs;      //-info
 
     private Graphics g;             //grafika
 
-    private Handler handler;
+    private final Handler handler;
 
     //States                        // odpowiada za dzialanie roznych
 
@@ -37,31 +35,34 @@ public class Game implements Runnable {
     public State prepState;        //- wybor postaci przed gr�
     public State highScoresState;
 
-
     //Input
     private final MouseManager mouseManager;
     private final KeyboardManager keyboardManager;
 
-    public Game(String title,int width,int height){
+    public Game(Handler handler,int width,int height){
 
+        this.handler=handler;
         this.width=width;
         this.height=height;
-        this.title=title;
         mouseManager = new MouseManager();
         keyboardManager=new KeyboardManager();
     }
 
     private void init() {
-        display =new Display(title,width,height);
+        display=handler.getDisplay();
+
         display.getFrame().addMouseListener(mouseManager);
         display.getCanvas().addMouseListener(mouseManager);
         display.getFrame().addMouseMotionListener(mouseManager);
         display.getCanvas().addMouseMotionListener(mouseManager);
         display.getFrame().addKeyListener(keyboardManager);
 
-        Assets.init();
+        connect=new DBConnect();
 
-        handler=new Handler(this);
+        Assets.init();
+        //
+        handler.setGame(this);
+        //
         setColors();
 
         gameState=new GameState(handler);
@@ -170,8 +171,6 @@ public class Game implements Runnable {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
-
     }
 
     private void setColors(){
@@ -187,6 +186,18 @@ public class Game implements Runnable {
 
     public int getFrameWidth(){
         return this.width;
+    }
+
+    public DBConnect getDBConnect(){
+        return this.connect;
+    }
+
+    public boolean isRunning(){
+        return this.running;
+    }
+
+    public Display getDisplay(){
+        return this.display;
     }
 
 }
