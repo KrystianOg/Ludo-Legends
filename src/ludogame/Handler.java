@@ -7,17 +7,28 @@ import Entities.HUD.Timer;
 import Entities.PositionOnMap;
 import Players.Player;
 import Entities.ui.Tile;
+import display.Display;
 import input.KeyboardManager;
 import states.*;
 
 public class Handler {
 
-    private final Game game;
+    private  Game game;
 
     private GameState gameState;
 
-    public Handler(Game game){
+    private Display display;
+
+    public Handler(){
+
+    }
+
+    public void setGame(Game game){
         this.game=game;
+    }
+
+    public void setLoadingScreen(LoadingScreen loadingScreen){
+        //this.
     }
 
     public Game getGame() {
@@ -124,6 +135,14 @@ public class Handler {
 
     public KeyboardManager getKeyboardManager(){
         return this.game.getKeyboardManager();
+    }
+
+    public void setDisplay(Display display){
+        this.display=display;
+    }
+
+    public Display getDisplay(){
+        return this.display;
     }
 
 }

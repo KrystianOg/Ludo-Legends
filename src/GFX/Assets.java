@@ -48,19 +48,18 @@ public class Assets {
 
     public static BufferedImage[] cup=new BufferedImage[3];
 
+//Loading Screen
+    public static BufferedImage loadingCircle;
+    public static BufferedImage[] loadingDot=new BufferedImage[4];
+
     public static void init(){
         //czcionka
     	Ubuntu28=FontLoader.loadFont("fonts/Ubuntu-R.ttf", 28);
         Ubuntu40=FontLoader.loadFont("fonts/Ubuntu-B.ttf",40);
-        Ubuntu34=FontLoader.loadFont("fonts/Ubuntu-B.ttf",34);
+
 
         //mapa
         map=ImageLoader.loadImage("graphics/Map.png");
-
-
-        //logo
-        logo=ImageLoader.loadImage("graphics/Main_Logo2.png");
-        
 
         //grafiki specjalne postaci
         sword=ImageLoader.loadImage("graphics/Counters/Sword1.png");
@@ -170,6 +169,20 @@ public class Assets {
         //dynamic background
         dynamicBackground[0]=ImageLoader.loadImage("graphics/Menu/Background_3.png");
         dynamicBackground[1]=ImageLoader.loadImage("graphics/Menu/Background_4.png");
+    }
+
+    public static void initLoadingScreen(){
+        //logo
+        logo=ImageLoader.loadImage("graphics/Main_Logo2.png");
+        loadingCircle=ImageLoader.loadImage("graphics/Menu/loading.png");
+
+        Ubuntu34=FontLoader.loadFont("fonts/Ubuntu-B.ttf",34);
+
+        SpriteSheet loadingDots=new SpriteSheet(ImageLoader.loadImage("graphics/Menu/loadingSheet.png"));
+        loadingDot[0]=loadingDots.crop(20,0,20,20);
+        loadingDot[1]=loadingDots.crop(20,20,20,20);
+        loadingDot[2]=loadingDots.crop(0,20,20,20);
+        loadingDot[3]=loadingDots.crop(0,0,20,20);
     }
 
 
