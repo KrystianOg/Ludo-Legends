@@ -74,7 +74,7 @@ public class LoadingScreen implements Runnable{
         g.setColor(Color.white);
         g.fillRect(0,0,width,height);
 
-        g.drawImage(Assets.loadingDot[value],(width-Assets.loadingDot[value].getWidth()+value*30)/2,(height-Assets.loadingCircle.getHeight())/2+100,null);
+        g.drawImage(Assets.loadingDot[value],(width-Assets.loadingDot[value].getWidth())/2-30+value*20,(height-Assets.loadingCircle.getHeight())/2+100,null);
 
     }
 

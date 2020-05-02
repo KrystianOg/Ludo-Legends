@@ -13,6 +13,7 @@ import Entities.ui.LegendPick;
 import Entities.ui.PlayerPick;
 import GFX.Assets;
 import GFX.DynamicBackground;
+import Players.Player;
 import ludogame.Handler;
 
 import javax.swing.*;
@@ -39,6 +40,7 @@ public class PrepState extends State {
     private Color redOp;
 
     private PlayerPick[] playerPick;
+    private List<Player> player=new LinkedList<>();
     private List<Integer> playerI;
     private final TextField[] textField=new TextField[4];
 
@@ -59,7 +61,7 @@ public class PrepState extends State {
     public PrepState(Handler handler) {
         super(handler);
 
-        apply=new Button(handler,(float)((handler.getFrameWidth()-350)/2),500, Assets.big_button_template,Assets.apply_button);
+        apply=new Button(handler,(float)((handler.getFrameWidth()-350)/2),500,1, Assets.big_button_template,"APPLY",76);
         pause=new Pause(handler,handler.getFrameWidth()-100,30,Assets.pause_button);
     }
 
@@ -111,7 +113,6 @@ public class PrepState extends State {
 
                 if (apply.contains(handler.getMouseClickX(), handler.getMouseClickY())) {
                     handler.resetMousePOS();
-
                     typePick = false;
 
                     for (int i = 0; i < 4; i++) {
@@ -146,7 +147,6 @@ public class PrepState extends State {
                     setBotCounters();
                     picking++;
                 } else if (playerPick[picking].getCurrentPick() == 2) {
-                    handler.getPlayer(picking).setCounters(null);
                     picking++;
                 }
 

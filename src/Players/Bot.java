@@ -1,6 +1,8 @@
 package Players;
 
 import Entities.PositionOnMap;
+import GFX.Assets;
+import GFX.Text;
 import ludogame.Handler;
 
 import java.awt.*;
@@ -19,7 +21,6 @@ public class Bot extends Player {
     public Bot(Handler handler, PositionOnMap startingPos, PositionOnMap endingPos, BufferedImage counterColor) {
         super(handler,startingPos,endingPos,counterColor);
         nickname=handler.getBotNickname();
-        System.out.println(this.nickname);
     }
 
     @Override
@@ -36,12 +37,13 @@ public class Bot extends Player {
     @Override
     public void render(Graphics g) {
 
+        if(counter!=null) {
+             Text.drawString(g, nickname, counter[3].getBaseX() + 60, counter[3].getBaseY() - 15, true, Color.white, Assets.Ubuntu34);
+        }
         for (Entities.Counters.Counter value : counter) value.render(g);
-
     }
 
     private void moveLogic() {
-
 
         //1.wyjscie z bazy
         //2. bicie
@@ -65,9 +67,13 @@ public class Bot extends Player {
                 System.out.println("BREAK AFTER THREE SIXS");
             }
             else if (isinbase && handler.getRoll() != 6) {
+                notSixLogic();
                 handler.setTurnof();
             }
             else if (handler.getRoll() == 6) {
+                notSix.clear();
+                chance.clear();
+
                 input = (int) (Math.random() * 4);
 
                 if (input >= 0) {
@@ -112,6 +118,4 @@ public class Bot extends Player {
 
         return tab.get((int) (Math.random() * tab.size()));
     }
-
-
 }

@@ -47,12 +47,12 @@ public class DBConnect {
             orderBy: score, kills
             limit - Integer (ilość pobieranych danych)
 
-
              example:
 
              select 'columns' from 'table' order by 'column' asc/desc limit 10;
              select * from players order by score desc limit 15;
              select * from players order by kill desc limit 10;
+
 */
 
             try {
@@ -66,6 +66,7 @@ public class DBConnect {
                     temporary.setNickname(resultSet.getString("nickname"));
                     temporary.setScore(resultSet.getInt("score"));
                     temporary.setKills(resultSet.getInt("kills"));
+                    temporary.setWins(resultSet.getInt("wins"));
 
                     playerData.add(temporary);
                 }
@@ -104,20 +105,21 @@ public class DBConnect {
             }
         }
 
-        public void addResults(int player_id,int score,int kills){
+        public void addResults(String nickname,int score,int kills,int wins){
             //select player_id from players
 
             try {
-                String query="SELECT score,kills FROM players WHERE player_id="+player_id;
+                String query="SELECT score,kills FROM players WHERE nickname='"+nickname+"'";
 
                 resultSet= statement.executeQuery(query);
 
                 while(resultSet.next()) {
                     score += resultSet.getInt("score");
                     kills += resultSet.getInt("kills");
+                    wins += resultSet.getInt("wins");
                 }
 
-                statement.executeUpdate(String.format("UPDATE players SET score=%d, kills=%d WHERE player_id=%d",score,kills,player_id));
+                statement.executeUpdate(String.format("UPDATE players SET score=%d, kills=%d WHERE nickname='%s'",score,kills,nickname));
 
 
             } catch (SQLException throwables) {
@@ -136,7 +138,7 @@ public class DBConnect {
                 while(resultSet.next())
                     player_id=resultSet.getInt("player_id")+1;
 
-                statement.executeUpdate(String.format("INSERT INTO players(player_id,nickname,score,kills) VALUES (%d, '%s', 0, 0)",player_id,nickname));
+                statement.executeUpdate(String.format("INSERT INTO players(player_id,nickname,score,kills,wins) VALUES (%d, '%s', 0, 0, 0)",player_id,nickname));
 
             } catch (SQLException throwables) {
                 throwables.printStackTrace();

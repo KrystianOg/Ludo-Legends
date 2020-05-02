@@ -3,8 +3,13 @@ package Entities.HUD;
 import Entities.Entity;
 import GFX.Assets;
 import ludogame.Handler;
+import states.SettingState;
 
 import java.awt.*;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Dice extends Entity {
 
@@ -17,10 +22,11 @@ public class Dice extends Entity {
     private boolean clicked;
     private int roll;
 
+    private List<Integer> type=new LinkedList<>();
+
     //animation
     private int tickcount;
-    private static final int DICE_ANIM_TICKS=27;
-
+    private static final int DICE_ANIM_TICKS=(int)(27* SettingState.FPS/60);
 
     public Dice(Handler handler, int x, int y) {
         super(handler,x, y, DICE_WIDTH, DICE_HEIGHT);
@@ -29,6 +35,13 @@ public class Dice extends Entity {
         clicked=false;
         tickcount=-1;
         roll=6;
+
+        type.add(1);
+        type.add(2);
+        type.add(3);
+        type.add(4);
+        type.add(5);
+        type.add(6);
     }
 
     public boolean isRolled() {
@@ -50,7 +63,7 @@ public class Dice extends Entity {
         }
         else if(tickcount>=0&&tickcount<DICE_ANIM_TICKS){
             tickcount++;
-            if(tickcount%4==0)
+            if(tickcount%(int)(4*SettingState.FPS/60)==0)
                 roll=(int)(Math.random()*6+1);        //  1-6
         }
         else if(tickcount==DICE_ANIM_TICKS){
@@ -58,11 +71,10 @@ public class Dice extends Entity {
             clicked=false;
             tickcount=-1;
 
+                setChanceRoll();
+
             if(roll==6)
                 handler.getPlayer().rollsPlusOne();
-
-
-            System.out.println(roll);
         }
 
     }
@@ -85,6 +97,15 @@ public class Dice extends Entity {
         clicked=true;
         tickcount=0;
         handler.getPlayer().rollsMinusOne();
+    }
+
+    private void setChanceRoll(){
+       type.addAll(handler.getPlayer().getChance());
+       int rand =(int)(Math.random()*type.size());
+
+       roll=type.get(rand);
+       if(type.size()>6)
+       type.subList(6,type.size()).clear();
     }
 
     @Override

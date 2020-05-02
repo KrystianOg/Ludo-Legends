@@ -14,10 +14,15 @@ public abstract class Player {
 
     protected int currentlyinbase;
 
+    protected int beats=0;
     protected int points=0;
+    protected int ultLoad=0;
     protected int rollsLeft=1;
 
     protected List<Integer> lastRolls=new LinkedList<>();
+    protected List<Boolean> notSix=new LinkedList<>();
+    protected List<Integer> chance=new LinkedList<>();
+
 
     protected boolean isinbase;
     protected PositionOnMap startingPos;
@@ -71,6 +76,10 @@ public abstract class Player {
         this.lastRolls.clear();
     }
 
+    public void removeLastMove(){
+        this.lastRolls.remove(lastRolls.size()-1);
+    }
+
     protected boolean counterIsMoving(){
         return counter[0].isMoving()||counter[1].isMoving()||counter[2].isMoving()||counter[3].isMoving();
     }
@@ -96,12 +105,23 @@ public abstract class Player {
 
     public abstract void render(Graphics g);
 
-    public void setPoints(int points){
-        this.points+=points;
+    public void renderInBaseCounters(Graphics g){
+        if(counter!=null){
+            if(counter[3].isInbase())
+                counter[3].render(g);
+            for(int i=0;i<counter.length-1;i++){
+                if(counter[i].isInbase())
+                    counter[i].render(g);
+            }
+        }
     }
 
     public int getPoints(){
         return this.points;
+    }
+
+    public int getUltLoad(){
+        return this.ultLoad;
     }
 
     public Counter getCounter(int i){
@@ -124,5 +144,28 @@ public abstract class Player {
     public void resetRolls(){
         this.rollsLeft=1;
     }
-//
+
+    public List<Integer> getChance(){
+        return this.chance;
+    }
+
+    protected void notSixLogic(){
+        notSix.add(true);
+        if(notSix.size()>4){
+            chance.add(6);
+        }
+    }
+
+    public void addBeat(){
+        this.beats++;
+    }
+
+    public int getBeats(){
+        return this.beats;
+    }
+
+    public void addPoint(){
+        this.points++;
+        this.ultLoad++;
+    }
 }

@@ -26,7 +26,7 @@ import static states.GameState.color;
 public class HighScoresState extends State{
 
     //private final Button back;
-    private static final int LEADERBOARD_WIDTH=715,LEADERBOARD_HEIGHT=625;
+    private static final int LEADERBOARD_WIDTH=825,LEADERBOARD_HEIGHT=625;
     private static int FRAME_X,FRAME_Y;
 
     private final List<PlayerData> playerData;
@@ -36,13 +36,15 @@ public class HighScoresState extends State{
     private final Color grayOp=new Color(38,38,38,180);
     private final Color textColor=new Color(26,26,26,220);
 
-    private boolean sortByScore;
-
     private final Rectangle scoreHitbox;
     private final Rectangle beatsHitbox;
-    private boolean scoreHover,beatsHover;
+    private final Rectangle winsHitbox;
+    private boolean scoreHover,beatsHover,winsHover;
 
     private final Entities.ui.Button back;
+
+    //DB settings
+    private static final int LIMIT=10;
 
     public HighScoresState(Handler handler) {
         super(handler);
@@ -51,24 +53,24 @@ public class HighScoresState extends State{
         FRAME_X=(handler.getFrameWidth()-LEADERBOARD_WIDTH)/2;
         FRAME_Y=(handler.getFrameHeight()-LEADERBOARD_HEIGHT+40)/2+15;
 
-        back=new Button(handler,940,35,(float)0.7,Assets.medium_button_template,Assets.back_button);
+        back=new Button(handler,978,40,(float)0.6,Assets.medium_button_template,"BACK",40);
 
-        scoreHitbox=new Rectangle(FRAME_X+375,45,150,45);
-        beatsHitbox=new Rectangle(FRAME_X+545,45,150,45);
+        scoreHitbox=new Rectangle(FRAME_X+675,45,130,45);
+        beatsHitbox=new Rectangle(FRAME_X+525,45,130,45);
+        winsHitbox=new Rectangle(FRAME_X+375,45,130,45);
 
         scoreHover=false;
         beatsHover=false;
+        winsHover=false;
     }
 
     public void init(DynamicBackground dynamicBackground){
         playerData.clear();
         this.dynamicBackground=dynamicBackground;
-        connect=new DBConnect();    //<-highscores;
+        this.connect=handler.getGame().getConnect();   //<-highscores;
 
         if(connect.isConnected())
-        connect.getData("score",10,playerData);
-
-        sortByScore=true;
+            connect.getData("wins", LIMIT,playerData);
     }
 
     @Override
@@ -76,29 +78,37 @@ public class HighScoresState extends State{
         dynamicBackground.tick();
         back.tick();
 
-        if(scoreHitbox.contains(handler.getHoverX(),handler.getHoverY())){
-            scoreHover=true;
-            if(scoreHitbox.contains(handler.getMouseClickX(),handler.getMouseClickY())&&!sortByScore){
-                handler.resetMousePOS();
-                playerData.clear();
-                connect.getData("score",10,playerData);
-                sortByScore=true;
-            }
-        }
-        else
-            scoreHover=false;
+        if(playerData.size()!=0) {
+            if (scoreHitbox.contains(handler.getHoverX(), handler.getHoverY())) {
+                scoreHover = true;
+                if (scoreHitbox.contains(handler.getMouseClickX(), handler.getMouseClickY())) {
+                    handler.resetMousePOS();
+                    playerData.clear();
+                    connect.getData("score", LIMIT, playerData);
+                }
+            } else
+                scoreHover = false;
 
-        if(beatsHitbox.contains(handler.getHoverX(),handler.getHoverY())){
-            beatsHover=true;
-            if(beatsHitbox.contains(handler.getMouseClickX(),handler.getMouseClickY())&&sortByScore){
-                handler.resetMousePOS();
-                playerData.clear();
-                connect.getData("kills",10,playerData);
-                sortByScore=false;
-            }
+            if (beatsHitbox.contains(handler.getHoverX(), handler.getHoverY())) {
+                beatsHover = true;
+                if (beatsHitbox.contains(handler.getMouseClickX(), handler.getMouseClickY())) {
+                    handler.resetMousePOS();
+                    playerData.clear();
+                    connect.getData("kills", LIMIT, playerData);
+                }
+            } else
+                beatsHover = false;
+
+            if (winsHitbox.contains(handler.getHoverX(), handler.getHoverY())) {
+                winsHover = true;
+                if (winsHitbox.contains(handler.getMouseClickX(), handler.getMouseClickY())) {
+                    handler.resetMousePOS();
+                    playerData.clear();
+                    connect.getData("wins", LIMIT, playerData);
+                }
+            } else
+                winsHover = false;
         }
-        else
-            beatsHover=false;
 
         if(back.contains(handler.getMouseClickX(),handler.getMouseClickY())){
             handler.resetMousePOS();
@@ -119,12 +129,19 @@ public class HighScoresState extends State{
             drawNextPlayer(playerData.get(i),i,g);
         }
 
+        if(playerData.size()==0){
+            Text.drawString(g,"Couldn't connect to database.",handler.getFrameWidth()/2,handler.getFrameHeight()/2,true,Color.red,Assets.Ubuntu40);
+        }
+
         if(scoreHover) {
             g2.setPaint(onHover);
-            g2.fill(new RoundRectangle2D.Double(FRAME_X + 375, 45, 150, 45, 10, 10));
+            g2.fill(new RoundRectangle2D.Double(FRAME_X + 675, 45, 130, 45, 10, 10));
         }else if(beatsHover)  {
             g2.setPaint(onHover);
-            g2.fill(new RoundRectangle2D.Double(FRAME_X+545,45,150,45,10,10));
+            g2.fill(new RoundRectangle2D.Double(FRAME_X+525,45,130,45,10,10));
+        }else if(winsHover){
+            g2.setPaint(onHover);
+            g2.fill(new RoundRectangle2D.Double(FRAME_X + 375, 45, 130, 45, 10, 10));
         }
 
         back.render(g);
@@ -141,18 +158,24 @@ public class HighScoresState extends State{
         g2.fill(new RoundRectangle2D.Double(FRAME_X+20,45,45,45,10,10));
         g2.setPaint(Color.white);
         g2.fill(new RoundRectangle2D.Double(FRAME_X+85,45,270,45,10,10));
-        g2.fill(new RoundRectangle2D.Double(FRAME_X+375,45,150,45,10,10));
-        g2.fill(new RoundRectangle2D.Double(FRAME_X+545,45,150,45,10,10));
+        g2.fill(new RoundRectangle2D.Double(FRAME_X+375,45,130,45,10,10));
+        g2.fill(new RoundRectangle2D.Double(FRAME_X+525,45,130,45,10,10));
+        g2.fill(new RoundRectangle2D.Double(FRAME_X+675,45,130,45,10,10));
 
         Text.drawString(g,"Nickname",FRAME_X+95,82,false,textColor,Assets.Ubuntu40);
-        Text.drawString(g,"Score",FRAME_X+385,82,false,textColor,Assets.Ubuntu40);
-        Text.drawString(g,"Beats",FRAME_X+555,82,false,textColor,Assets.Ubuntu40);
+        Text.drawString(g,"Wins",FRAME_X+385,82,false,textColor,Assets.Ubuntu40);
+        Text.drawString(g,"Beats",FRAME_X+535,82,false,textColor,Assets.Ubuntu40);
+        Text.drawString(g,"Score",FRAME_X+685,82,false,textColor,Assets.Ubuntu40);
+
+
     }
 
     private void fillRoundRec(Graphics g){
         Graphics2D g2=(Graphics2D)g;
         g2.setPaint(grayOp);
-        g2.fill(new RoundRectangle2D.Double(FRAME_X,FRAME_Y,LEADERBOARD_WIDTH,LEADERBOARD_HEIGHT,20,20));
+
+        if(playerData.size()>0)
+        g2.fill(new RoundRectangle2D.Double(FRAME_X,FRAME_Y,LEADERBOARD_WIDTH,playerData.size()*60+30,20,20));
     }
 
     private void drawNextPlayer(PlayerData playerData,int i,Graphics g){
@@ -161,8 +184,9 @@ public class HighScoresState extends State{
         g2.setPaint(Color.white);
         g2.fill(new RoundRectangle2D.Double(FRAME_X+20,FRAME_Y+20+i*60,45,45,10,10));
         g2.fill(new RoundRectangle2D.Double(FRAME_X+85,FRAME_Y+20+i*60,270,45,10,10));
-        g2.fill(new RoundRectangle2D.Double(FRAME_X+375,FRAME_Y+20+i*60,150,45,10,10));
-        g2.fill(new RoundRectangle2D.Double(FRAME_X+545,FRAME_Y+20+i*60,150,45,10,10));
+        g2.fill(new RoundRectangle2D.Double(FRAME_X+375,FRAME_Y+20+i*60,130,45,10,10));
+        g2.fill(new RoundRectangle2D.Double(FRAME_X+525,FRAME_Y+20+i*60,130,45,10,10));
+        g2.fill(new RoundRectangle2D.Double(FRAME_X+675,FRAME_Y+20+i*60,130,45,10,10));
 
         if(i>=0&&i<3){  //puchary
             g.drawImage(Assets.cup[i],FRAME_X+22,FRAME_Y+i*60+22,null);
@@ -172,21 +196,9 @@ public class HighScoresState extends State{
         }
 
         Text.drawString(g,playerData.getNickname(),FRAME_X+95,FRAME_Y+i*60+54,false,textColor,Assets.Ubuntu34);
-        Text.drawString(g,Integer.toString(playerData.getScore()),FRAME_X+385,FRAME_Y+i*60+54,false,textColor,Assets.Ubuntu34);
-        Text.drawString(g,Integer.toString(playerData.getKills()),FRAME_X+555,FRAME_Y+i*60+54,false,textColor,Assets.Ubuntu34);
-    }
-
-    private void getScore()
-    {
-
+        Text.drawString(g,Integer.toString(playerData.getWins()),FRAME_X+385,FRAME_Y+i*60+54,false,textColor,Assets.Ubuntu34);
+        Text.drawString(g,Integer.toString(playerData.getKills()),FRAME_X+535,FRAME_Y+i*60+54,false,textColor,Assets.Ubuntu34);
+        Text.drawString(g,Integer.toString(playerData.getScore()),FRAME_X+685,FRAME_Y+i*60+54,false,textColor,Assets.Ubuntu34);
 
     }
-
-    private void getKills()
-    {
-
-
-    }
-
-
 }

@@ -17,6 +17,9 @@ public class UltimateBar extends Entity {
 
     private float loadPercentage;
 
+    //kwadrat z postacią
+    private boolean characterHover;
+
     public UltimateBar(Handler handler,int ULT_LOAD,int barPos) {
         super(handler,(float)765, (float)55+barPos*60, ULTIMATEBAR_WIDTH, ULTIMATEBAR_HEIGHT);
         if(SettingState.ULT_LOAD==0){
@@ -27,12 +30,13 @@ public class UltimateBar extends Entity {
         else {
             this.ULT_LOAD = ULT_LOAD * 100 / SettingState.ULT_LOAD;
         }
+        characterHover=false;
     }
 
     @Override
     public void tick() {
-        if(handler.getPlayer().getPoints()<ULT_LOAD) {
-            this.loadPercentage = (handler.getPlayer().getPoints() /  (float)ULT_LOAD*100);
+        if(handler.getPlayer().getUltLoad()<ULT_LOAD) {
+            this.loadPercentage = (handler.getPlayer().getUltLoad() /  (float)ULT_LOAD*100);
         }
         else{
             this.loadPercentage=(float)100;

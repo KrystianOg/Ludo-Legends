@@ -10,7 +10,9 @@ import java.awt.image.BufferedImage;
 
 public class MenuState extends State{
 
-	private final Button game,settings,ranking;
+    private final double LOGO_SCALE=0.62;
+
+	private final Button game,settings,ranking,exit;
     private final DynamicBackground dynamicBackground;
     private final BufferedImage logo;
 
@@ -18,9 +20,10 @@ public class MenuState extends State{
         super(handler);
 
         float BUTTON_SCALE=(float)0.8;
-        game=new Button(handler,(handler.getFrameWidth()-350*BUTTON_SCALE)/2,495,BUTTON_SCALE,Assets.big_button_template,Assets.game_text);
-        settings=new Button(handler,(handler.getFrameWidth()-350*BUTTON_SCALE)/2,575, BUTTON_SCALE,Assets.big_button_template,Assets.settings_button);
-        ranking=new Button(handler,(handler.getFrameWidth()-350*BUTTON_SCALE)/2,655,BUTTON_SCALE,Assets.big_button_template,Assets.ranking_text);
+        game=new Button(handler,(handler.getFrameWidth()-350*BUTTON_SCALE)/2,455,BUTTON_SCALE,Assets.big_button_template,"GAME",58);
+        settings=new Button(handler,(handler.getFrameWidth()-350*BUTTON_SCALE)/2,535, BUTTON_SCALE,Assets.big_button_template,"SETTINGS",58);
+        ranking=new Button(handler,(handler.getFrameWidth()-350*BUTTON_SCALE)/2,615,BUTTON_SCALE,Assets.big_button_template,"RANKING",58);
+        exit=new Button(handler,(handler.getFrameWidth()-350*BUTTON_SCALE)/2,695,BUTTON_SCALE,Assets.big_button_template,"EXIT",58);
         dynamicBackground=new DynamicBackground(handler,handler.getFrameHeight());
         logo=Assets.logo;
     }
@@ -45,11 +48,14 @@ public class MenuState extends State{
             handler.getHighScoresState().init(this.dynamicBackground);
             setState(handler.getGame().highScoresState);
 
+        }else if(this.exit.contains(handler.getMouseClickX(),handler.getMouseClickY())){
+            System.exit(0);
         }
 
     	game.tick();
     	settings.tick();
     	ranking.tick();
+    	exit.tick();
     }
 
     @Override
@@ -59,10 +65,11 @@ public class MenuState extends State{
 
         dynamicBackground.render(g);
 
-        g.drawImage(logo, (handler.getFrameWidth()-(int)(logo.getWidth()*0.7))/2, 25,(int)(logo.getWidth()*0.7),(int)(Assets.logo.getHeight()*0.7),null);
+        g.drawImage(logo, (handler.getFrameWidth()-(int)(logo.getWidth()*LOGO_SCALE))/2, 25,(int)(logo.getWidth()*LOGO_SCALE),(int)(Assets.logo.getHeight()*LOGO_SCALE),null);
 
         game.render(g);
         settings.render(g);
         ranking.render(g);
+        exit.render(g);
     }
 }

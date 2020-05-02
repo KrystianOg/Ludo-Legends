@@ -1,9 +1,13 @@
 package Players;
 import Entities.PositionOnMap;
+import GFX.Assets;
+import GFX.Text;
 import ludogame.Handler;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.LinkedList;
+import java.util.List;
 
 public class Person extends Player {
 
@@ -18,7 +22,6 @@ public class Person extends Player {
     public Person(Handler handler, PositionOnMap startingPos, PositionOnMap endingPos, BufferedImage counterColor,String nickname) { //zmienic na getter
         super(handler,startingPos,endingPos,counterColor);
         this.nickname=nickname;
-        System.out.println(nickname);
         input=-1;
     }
 
@@ -35,7 +38,8 @@ public class Person extends Player {
 
     @Override
     public void render(Graphics g) {
-
+        if(counter!=null)
+            Text.drawString(g,nickname,counter[3].getBaseX()+60,counter[3].getBaseY()-15,true,Color.white, Assets.Ubuntu34);
         for (Entities.Counters.Counter value : counter) value.render(g);
 
     }
@@ -59,9 +63,13 @@ public class Person extends Player {
                 System.out.println("BREAK AFTER THREE SIXS");
             }
             else if(isinbase&&handler.getRoll()!=6) {
+                notSixLogic();
                 handler.setTurnof();
             }
             else if(handler.getRoll()==6) {
+                notSix.clear();
+                chance.clear();
+
                 input=getInput();
 
                 if(input>=0) {
@@ -94,4 +102,7 @@ public class Person extends Player {
         else
             return -1;
     }
+
+
+
 }

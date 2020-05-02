@@ -98,9 +98,9 @@ public class Board extends Entity {
         map[1]=new Tile[5];
         map[1][0]=new Tile(handler,x*7,y*2,false);
         map[1][1]=new Tile(handler,x*7,y*3,false);
-        map[1][2]=new Tile(handler,x*7,y*3,false);
-        map[1][3]=new Tile(handler,x*7,y*4,false);
-        map[1][4]=new Tile(handler,x*7,y*5,false);
+        map[1][2]=new Tile(handler,x*7,y*4,false);
+        map[1][3]=new Tile(handler,x*7,y*5,false);
+        map[1][4]=new Tile(handler,x*7,y*6,false);
 
         map[2]=new Tile[5];
         map[2][0]=new Tile(handler,x*13,y*8,false);

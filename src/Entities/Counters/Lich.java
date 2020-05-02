@@ -23,6 +23,11 @@ public class Lich extends Counter {
     }
 
     @Override
+    public boolean ifStepped() {
+        return true;
+    }
+
+    @Override
     public void render(Graphics g) {
         g.drawImage(counterColor, (int)x, (int)y,null);
     }

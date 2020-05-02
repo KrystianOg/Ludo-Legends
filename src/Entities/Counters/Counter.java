@@ -14,20 +14,22 @@ public abstract class Counter extends Entity {
     public static final int DEFAULT_WIDTH=41,
                             DEFAULT_HEIGHT=78;
 
+    protected double SCALE;
+
     //
     protected float basex,basey;
     //
     protected PositionOnMap pos;
     protected double directionx,directiony;
     protected boolean cisinbase;
-    private final Rectangle hitbox;
+    protected final Rectangle hitbox;
     private boolean moving;
     private boolean reseting;
 
 
     //cos do umiejetnosci
     protected boolean killable;
-    protected boolean beatable;
+    protected boolean canKill;
     private final boolean wasBeaten;
     //Ultimate bar
     protected boolean ultBar;
@@ -38,7 +40,7 @@ public abstract class Counter extends Entity {
     protected BufferedImage counterColor;
 
     //animacja
-    private final int ANIM_TICKS=(int)(0.42* SettingState.FPS);
+    private final int ANIM_TICKS=(int)(0.37* SettingState.FPS);
     private int tickcount=0;
     private int moved=0;
 
@@ -53,6 +55,7 @@ public abstract class Counter extends Entity {
         hitbox=new Rectangle((int)x, (int)y,DEFAULT_WIDTH,DEFAULT_HEIGHT);
         wasBeaten=false;
         cisinbase=true;
+        SCALE=1;
         moving =false;
     }
 
@@ -103,13 +106,14 @@ public abstract class Counter extends Entity {
                 handler.getTimer().resetTimer();
                 handler.getDice().setRolled(false);
                 handler.getPlayer().setIsinbase(false);
-            }
+                handler.getGameState().setRenderOrder();            }
         }
         else{
             if(tickcount==0) {
                 Tile tempTile = handler.getTile(getNextTile());
 
                 handler.removeCounterFromTile(pos,this);
+                renderBig();
 
                 directionx = (tempTile.getX() + 4 - this.x) / ANIM_TICKS;
                 directiony = (tempTile.getY() - 48 - this.y) / ANIM_TICKS;
@@ -128,12 +132,19 @@ public abstract class Counter extends Entity {
 
                 tickcount=0;
 
+                handler.removeCounterFromTile(pos,this);
+
                 pos.setTile(pos.tile+1);
                 if(pos.tile==52)
                     pos.setTile(0);
 
-                handler.getPlayer().setPoints(1);
+                handler.getPlayer().addPoint();
                 moved++;
+
+                if(moved!=handler.getRoll())
+                handler.setCounterOnTile(pos,this);
+
+                handler.getGameState().setRenderOrder();
 
                 if(moved==handler.getRoll()){
                     moving=false;
@@ -141,6 +152,8 @@ public abstract class Counter extends Entity {
                     hitbox.y=(int)y;
 
                     handler.setCounterOnTile(pos,this);
+
+                    handler.getGameState().setRenderOrder();
 
                     if(handler.getPlayer().getRollsLeft()==0)
                         handler.setTurnof();
@@ -162,6 +175,10 @@ public abstract class Counter extends Entity {
             directionx = (basex - this.x) / (ANIM_TICKS*2);
             directiony = (basey - this.y) / (ANIM_TICKS*2);
             tickcount++;
+            renderBig();
+
+            cisinbase = true;
+            handler.getGameState().setRenderOrder();
         } else if (tickcount > 0 && tickcount < ANIM_TICKS*2) {
             x += directionx;
             y += directiony;
@@ -172,7 +189,6 @@ public abstract class Counter extends Entity {
             hitbox.x=(int)x;
             hitbox.y=(int)y;
 
-            cisinbase = true;
             tickcount = 0;
             reseting=false;
             pos = handler.getPlayer().getStartingPos();
@@ -184,7 +200,7 @@ public abstract class Counter extends Entity {
     private PositionOnMap getNextTile(){
         if(pos.tile==51)
             return new PositionOnMap(0);
-        else if(pos.tile==handler.getPlayer().getEndingPos().tile&&pos.arr==handler.getPlayer().getEndingPos().arr) {
+        else if(pos==handler.getPlayer().getEndingPos()) {
             pos.arr=handler.getTurnOf()+1;
             pos.tile=0;
 
@@ -200,6 +216,10 @@ public abstract class Counter extends Entity {
 
     protected abstract void counterLogic();
 
+
+    //true jeśli wraca do bazy, false jeśli nie
+    public abstract boolean ifStepped();
+
     public boolean hasUltBar(){
         return this.ultBar;
     }
@@ -212,7 +232,7 @@ public abstract class Counter extends Entity {
         return this.moving;
     }
 
-    public boolean iskillable(){
+    public boolean isKillable(){
         return this.killable;
     }
 
@@ -243,4 +263,42 @@ public abstract class Counter extends Entity {
     public BufferedImage getCounterColor(){
         return this.counterColor;
     }
+
+    public int getBaseX(){
+        return (int)this.basex;
+    }
+
+    public int getBaseY(){
+        return (int)this.basey;
+    }
+
+    public boolean canKill(){
+        return this.canKill;
+    }
+
+    public void renderSmall(int shiftX,int shiftY){
+        if(SCALE==1) {
+            SCALE = 0.65;
+            this.hitbox.setSize((int)(hitbox.width*SCALE),(int)(hitbox.height*SCALE));
+        }
+        x=shiftX;
+        y=shiftY;
+
+        this.hitbox.setLocation((int)x,(int)y);
+    }
+
+    public void renderBig(float x,float y){
+        SCALE=1;
+        this.hitbox.setSize(DEFAULT_WIDTH,DEFAULT_HEIGHT);
+        this.x=x;
+        this.y=y;
+
+        this.hitbox.setLocation((int)x,(int)y);
+    }
+
+    public void renderBig(){
+        SCALE=1;
+        this.hitbox.setSize(DEFAULT_WIDTH,DEFAULT_HEIGHT);
+    }
+
 }

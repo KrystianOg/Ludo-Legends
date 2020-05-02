@@ -8,6 +8,8 @@ import ludogame.Handler;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
+import static GFX.Assets.wand;
+
 public class Funi extends Counter{
     //tworzy ogien na randomowych polach
     //zmienia boolean na tiles pobiera tiles i tworzy grafike
@@ -23,7 +25,7 @@ public class Funi extends Counter{
         super(handler,x, y,counterColor);
         ultBar=true;
         killable=true;
-        beatable=true;
+        canKill=true;
         ultimateBar=new UltimateBar(handler,ULT_LOAD,barPos);
     }
 
@@ -37,10 +39,16 @@ public class Funi extends Counter{
     }
 
     @Override
+    public boolean ifStepped() {
+        return true;
+    }
+
+    @Override
     public void render(Graphics g) {
 
-        g.drawImage(counterColor, (int)x, (int)y,null);
-        g.drawImage(Assets.wand,(int)x+WAND_POSX,(int)y-WAND_POSY, WAND_WIDTH, WAND_HEIGHT,null);
+        g.drawImage(counterColor, (int)x, (int)y,hitbox.width,hitbox.height,null);
+
+        g.drawImage(wand,(int)x+(int)(WAND_POSX*SCALE),(int)y-(int)(WAND_POSY*SCALE), (int)(WAND_WIDTH*SCALE), (int)(WAND_HEIGHT*SCALE),null);
     }
 }
 

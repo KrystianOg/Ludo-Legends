@@ -2,9 +2,11 @@ package states;
 import Entities.Board;
 import Entities.Counters.Counter;
 import Entities.HUD.Dice;
+import Entities.PositionOnMap;
 import Players.Player;
 import Entities.ui.Tile;
 import Entities.HUD.Timer;
+import Players.PlayerData;
 import ludogame.Handler;
 
 import java.awt.*;
@@ -16,18 +18,16 @@ public class GameState extends State{
 
     private final Player[] player;
     private final List<Counter> resetingCounter=new LinkedList<>();
-    private final List<Player> winnerTable=new LinkedList<>();
+    private final List<PlayerData> winnerTable=new LinkedList<>();
+    private final List<String> botNickname=new LinkedList<>();
+    private List<Counter> renderOrder=new LinkedList<>();
+    public static final Color[] color=new Color[4];
 
     private Board board;
     private Dice dice;
     private Timer timer;
 
     private int timesRolled=0;
-
-    private final List<String> botNickname=new LinkedList<>();
-
-    public static final Color[] color=new Color[4];
-
     private int turnOf;
 
     public GameState(Handler handler){
@@ -39,7 +39,7 @@ public class GameState extends State{
 
     public void init(){
 
-        board=new Board(handler,0,0,750,790);   //z�e liczby-zmienic
+        board=new Board(handler,0,0,750,790);   //zle liczby-zmienic
         dice=new Dice(handler,765,300);
         timer=new Timer(handler,765,300);
 
@@ -66,7 +66,7 @@ public class GameState extends State{
 
         timesRolled++;
 
-        System.out.println("BREAK "+timesRolled);
+        //System.out.println("BREAK "+timesRolled);
 
         dice.setRolled(false);
         timer.resetTimer();
@@ -76,7 +76,6 @@ public class GameState extends State{
     @Override
     public void tick() {
         player[turnOf].tick();
-
         resetCounters();
     }
 
@@ -90,15 +89,6 @@ public class GameState extends State{
         board.render(g);
         renderPlayers(g);
 
-    }
-
-    private void renderPlayers(Graphics g){
-        for(int i=0;i<4;i++){
-            player[i].render(g);
-
-            if(i==turnOf)
-                player[i].renderUltBar(g);
-        }
     }
 
     private void setBotNicknames(){
@@ -164,5 +154,80 @@ public class GameState extends State{
 
     public void addToReset(Counter counter){
         resetingCounter.add(counter);
+    }
+
+    private void renderPlayers(Graphics g){
+
+        for(int i=0;i<renderOrder.size();i++){
+            renderOrder.get(i).render(g);
+        }
+
+        for(int i=0;i<player.length;i++){
+            player[i].renderInBaseCounters(g);
+        }
+
+        player[turnOf].renderUltBar(g);
+    }
+
+    public void setRenderOrder(){
+
+        renderOrder.clear();
+        if(handler.getTile(new PositionOnMap(51)).getCounterListLength()>0){
+            for(int j=0;j<handler.getTile(new PositionOnMap(51)).getCounterListLength();j++){
+                renderOrder.add( handler.getTile(new PositionOnMap(51)).getCounter(j));
+            }
+        }
+        for(int i=0;i<13;i++){
+            if(handler.getTile(new PositionOnMap(i)).getCounterListLength()>0){
+                for(int j=0;j<handler.getTile(new PositionOnMap(i)).getCounterListLength();j++){
+                    renderOrder.add(handler.getTile(new PositionOnMap(i)).getCounter(j));
+                }
+            }
+            if(handler.getTile(new PositionOnMap(50-i)).getCounterListLength()>0){
+                for(int j=0;j<handler.getTile(new PositionOnMap(50-i)).getCounterListLength();j++){
+                    renderOrder.add(handler.getTile(new PositionOnMap(50-i)).getCounter(j));
+                }
+            }
+        }
+
+        for(int i=0;i<5;i++){
+            if(handler.getTile(new PositionOnMap(1,i)).getCounterListLength()>0){
+                for(int j=0;j<handler.getTile(new PositionOnMap(1,i)).getCounterListLength();j++){
+                    renderOrder.add(handler.getTile(new PositionOnMap(1,i)).getCounter(j));
+                }
+            }
+            if(handler.getTile(new PositionOnMap(2,i)).getCounterListLength()>0){
+                for(int j=0;j<handler.getTile(new PositionOnMap(1,i)).getCounterListLength();j++){
+                    renderOrder.add(handler.getTile(new PositionOnMap(2,i)).getCounter(j));
+                }
+            }
+            if(handler.getTile(new PositionOnMap(3,i)).getCounterListLength()>0){
+                for(int j=0;j<handler.getTile(new PositionOnMap(1,i)).getCounterListLength();j++){
+                    renderOrder.add(handler.getTile(new PositionOnMap(3,i)).getCounter(j));
+                }
+            }
+            if(handler.getTile(new PositionOnMap(4,4-i)).getCounterListLength()>0){
+                for(int j=0;j<handler.getTile(new PositionOnMap(4,4-i)).getCounterListLength();j++){
+                    renderOrder.add(handler.getTile(new PositionOnMap(4,4-i)).getCounter(j));
+                }
+            }
+        }
+        for(int i=13;i<25;i++){
+            if(handler.getTile(new PositionOnMap(i)).getCounterListLength()>0){
+                for(int j=0;j<handler.getTile(new PositionOnMap(i)).getCounterListLength();j++){
+                    renderOrder.add(handler.getTile(new PositionOnMap(i)).getCounter(j));
+                }
+            }
+            if(handler.getTile(new PositionOnMap(50-i)).getCounterListLength()>0){
+                for(int j=0;j<handler.getTile(new PositionOnMap(50-i)).getCounterListLength();j++){
+                    renderOrder.add(handler.getTile(new PositionOnMap(50-i)).getCounter(j));
+                }
+            }
+        }
+        if(handler.getTile(new PositionOnMap(25)).getCounterListLength()>0){
+            for(int j=0;j<handler.getTile(new PositionOnMap(25)).getCounterListLength();j++){
+                renderOrder.add( handler.getTile(new PositionOnMap(25)).getCounter(j));
+            }
+        }
     }
 }

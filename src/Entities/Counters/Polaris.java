@@ -7,6 +7,8 @@ import ludogame.Handler;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
+import static GFX.Assets.icicle_f;
+
 public class Polaris extends Counter {
     // zamraza losowego przeciwnika co runde, (czas trwania 2-3tury)
 
@@ -17,7 +19,7 @@ public class Polaris extends Counter {
     public Polaris(Handler handler, float x, float y,BufferedImage counterColor,int barPos) {
         super(handler,x, y,counterColor);
         ultBar=true;
-        beatable=true;
+        canKill=true;
         killable=true;
         ultimateBar=new UltimateBar(handler,ULT_LOAD,barPos);
     }
@@ -28,9 +30,13 @@ public class Polaris extends Counter {
     }
 
     @Override
+    public boolean ifStepped() {
+        return true;
+    }
+
+    @Override
     public void render(Graphics g) {
-        //g.drawImage(Assets.icicle_b,(int)x+ICICLE_POSX,(int)y+ICICLE_POSY,null);
-        g.drawImage(counterColor, (int)x, (int)y,null);
-        g.drawImage(Assets.icicle_f,(int)x+ICICLE_POSX,(int)y+ICICLE_POSY,null);
+        g.drawImage(counterColor, (int)x, (int)y,hitbox.width,hitbox.height,null);
+        g.drawImage(icicle_f,(int)x+(int)(ICICLE_POSX*SCALE),(int)y+(int)(ICICLE_POSY*SCALE),(int)(icicle_f.getWidth()*SCALE),(int)(icicle_f.getHeight()*SCALE),null);
     }
 }

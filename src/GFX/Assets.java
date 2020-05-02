@@ -12,7 +12,7 @@ public class Assets {
                              TILE_WIDTH=90,TILE_HEIGHT=90;
 
    // public static Font
-    public static Font Ubuntu28,Ubuntu40,Ubuntu34;
+    public static Font Ubuntu28,Ubuntu40,Ubuntu34,Ubuntu58,Ubuntu18,Ubuntu76;
 
     public static BufferedImage logo;
     public static BufferedImage slider_front, slider_back;
@@ -27,7 +27,8 @@ public class Assets {
     public static BufferedImage timerFrame;
 
     public static BufferedImage[] big_button_template=new BufferedImage[2],
-                                  medium_button_template=new BufferedImage[2];
+                                  medium_button_template=new BufferedImage[2],
+                                  onOff_button_template=new BufferedImage[2];
 
     public static BufferedImage[] rollimg =new BufferedImage[6],
                                   counter =new BufferedImage[4],
@@ -35,7 +36,8 @@ public class Assets {
                                   player=new BufferedImage[3],
                                   arrow=new BufferedImage[5],
                                   dynamicBackground=new BufferedImage[2],
-                                  pause_button=new BufferedImage[3];
+                                  pause_button=new BufferedImage[3],
+                                  switchB=new BufferedImage[2];
 
     public static BufferedImage apply_button,
                                 defaults_button,
@@ -54,8 +56,11 @@ public class Assets {
 
     public static void init(){
         //czcionka
+        Ubuntu18=FontLoader.loadFont("fonts/Ubuntu-B.ttf",18);
     	Ubuntu28=FontLoader.loadFont("fonts/Ubuntu-R.ttf", 28);
         Ubuntu40=FontLoader.loadFont("fonts/Ubuntu-B.ttf",40);
+        Ubuntu58=FontLoader.loadFont("fonts/Ubuntu-B.ttf",58);
+        Ubuntu76=FontLoader.loadFont("fonts/Ubuntu-B.ttf",76);
 
 
         //mapa
@@ -93,28 +98,27 @@ public class Assets {
         big_button_template[0]=big_button_templates.crop(0,0,350,90);
         big_button_template[1]=big_button_templates.crop(0,90,350,90);
 
-        game_text=ImageLoader.loadImage("graphics/Menu/game_w.png");         //dodac siatke
-        settings_button=ImageLoader.loadImage("graphics/Menu/settings.png");
-        apply_button=ImageLoader.loadImage("graphics/Menu/apply.png");
-        defaults_button=ImageLoader.loadImage("graphics/Menu/defaults.png");
-        ranking_text=ImageLoader.loadImage("graphics/Menu/ranking.png");
+        //dodac siatke
 
         //settings
         slider_front=ImageLoader.loadImage("graphics/Settings/slider_front.png");
         slider_back=ImageLoader.loadImage("graphics/Settings/slider_back.png");
 
-        back_button=ImageLoader.loadImage("graphics/Menu/back.png");
-
         SpriteSheet medium_button_templates=new SpriteSheet(ImageLoader.loadImage("graphics/Settings/reset_button_template.png"));
         medium_button_template[0]=medium_button_templates.crop(0,0,225,90);
         medium_button_template[1]=medium_button_templates.crop(0,90,225,90);
-        reset_button=ImageLoader.loadImage("graphics/Settings/reset.png");
-        menu=ImageLoader.loadImage("graphics/Menu/menu.png");
 
         SpriteSheet pause_button_sheet=new SpriteSheet(ImageLoader.loadImage("graphics/PreparationState/pauseSheet.png"));
         pause_button[0]=pause_button_sheet.crop(0,0,70,70);
         pause_button[1]=pause_button_sheet.crop(0,70,70,70);
         pause_button[2]=pause_button_sheet.crop(70,0,70,70);
+        SpriteSheet onOff_template=new SpriteSheet(ImageLoader.loadImage("graphics/Settings/on_off_button_template.png"));
+        onOff_button_template[0]=onOff_template.crop(0,0,100,50);
+        onOff_button_template[1]=onOff_template.crop(0,50,100,50);
+        SpriteSheet onOff_text=new SpriteSheet(ImageLoader.loadImage("graphics/Settings/on_off.png"));
+        switchB[0]=onOff_text.crop(0,50,100,50);
+        switchB[1]=onOff_text.crop(0,0,100,50);
+
 
         //kostka do gry
         SpriteSheet roll=new SpriteSheet(ImageLoader.loadImage("graphics/Dice/Roll.png"));

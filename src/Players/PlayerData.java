@@ -6,9 +6,18 @@ public class PlayerData {
     private String nickname;
     private int score;
     private int kills;
+    private int wins;
 
     public PlayerData(){
 
+    }
+
+    public int getWins() {
+        return wins;
+    }
+
+    public void setWins(int wins) {
+        this.wins = wins;
     }
 
     public void setPlayerId(int playerId) {
