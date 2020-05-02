@@ -22,11 +22,11 @@ public class Dice extends Entity {
     private boolean clicked;
     private int roll;
 
-    private List<Integer> type=new LinkedList<>();
+    private final List<Integer> type=new LinkedList<>();
 
     //animation
     private int tickcount;
-    private static final int DICE_ANIM_TICKS=(int)(27* SettingState.FPS/60);
+    private static final int DICE_ANIM_TICKS= 27* SettingState.FPS/60;
 
     public Dice(Handler handler, int x, int y) {
         super(handler,x, y, DICE_WIDTH, DICE_HEIGHT);
@@ -63,7 +63,7 @@ public class Dice extends Entity {
         }
         else if(tickcount>=0&&tickcount<DICE_ANIM_TICKS){
             tickcount++;
-            if(tickcount%(int)(4*SettingState.FPS/60)==0)
+            if(tickcount%(4*SettingState.FPS/60)==0)
                 roll=(int)(Math.random()*6+1);        //  1-6
         }
         else if(tickcount==DICE_ANIM_TICKS){

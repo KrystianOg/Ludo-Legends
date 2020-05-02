@@ -46,15 +46,11 @@ public class DynamicBackground {
         this.right[0]=true;
     }
 
-<<<<<<< Updated upstream
-    public void tick(){
 
-        if(SettingState.DYNAMIC_BACKGROUND) {
-=======
     public void tick() {
 
         if (SettingState.DYNAMIC_BACKGROUND) {
->>>>>>> Stashed changes
+
             difference = (20 / (double) SettingState.FPS);
 
             moveBackgroundLogic(0);
@@ -66,10 +62,7 @@ public class DynamicBackground {
     }
 
     public void render(Graphics g){
-<<<<<<< Updated upstream
 
-=======
->>>>>>> Stashed changes
         if(SettingState.DYNAMIC_BACKGROUND) {
             g.drawImage(dynamicBackground[0], (int) position[0], 0, width, height, null);
             g.drawImage(dynamicBackground[1], (int) position[1], 0, width, height, null);
@@ -94,8 +87,5 @@ public class DynamicBackground {
     private void changeDirection(int i){
         right[i]= !right[i];
     }
-<<<<<<< Updated upstream
 
-=======
->>>>>>> Stashed changes
 }

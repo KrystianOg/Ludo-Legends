@@ -32,26 +32,18 @@ public class Button extends Entity {
         font.put(58,Assets.Ubuntu58);
         font.put(76,Assets.Ubuntu76);
 
-<<<<<<< Updated upstream
-=======
-
-        this.fontSize=fontSize;
-
->>>>>>> Stashed changes
         this.hitbox=new Rectangle((int)x,(int)y,width,height);
         this.template= template;
         this.text=text;
         this.onhover=false;
+        this.fontSize=fontSize;
     }
 
     @Override
     public void tick() {
-<<<<<<< Updated upstream
-        this.onhover= this.hitbox.contains(handler.getGame().getMousemanager().getHoverX(), handler.getGame().getMousemanager().getHoverY());
-=======
-    if (onOff==false)
+
         this.onhover= this.hitbox.contains(handler.getHoverX(), handler.getHoverY());
->>>>>>> Stashed changes
+
     }
 
     @Override
@@ -62,18 +54,9 @@ public class Button extends Entity {
 
         if(onhover)
             g.drawImage(template[1],(int)x,(int)y, width, height,null);
-<<<<<<< Updated upstream
-=======
 
->>>>>>> Stashed changes
 
     }
-
-    public boolean contains(int MouseClick_X,int MouseClickY){
-        return hitbox.contains(MouseClick_X,MouseClickY);
-    }
-<<<<<<< Updated upstream
-=======
 
     public boolean contains(int MouseX,int MouseY){
         return this.hitbox.contains(MouseX,MouseY);
@@ -91,6 +74,6 @@ public class Button extends Entity {
 		this.onOff = onOff;
 	}
     
->>>>>>> Stashed changes
+
 }
 

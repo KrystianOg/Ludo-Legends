@@ -16,7 +16,8 @@ public class Slider extends Entity {
 
 	public static final int SLIDER_WIDTH=700;
 
-	private static int WIDTH=17,HEIGHT=29;
+	private static final int WIDTH=17;
+	private static final int HEIGHT=29;
 
 	private final Rectangle hitbox;
     private boolean pressed;
@@ -28,11 +29,8 @@ public class Slider extends Entity {
 	private final float minMax;
     private float value;
 	private final String title;
-<<<<<<< Updated upstream
-=======
-	
 	private int[] szczeble;
->>>>>>> Stashed changes
+
     
 	public Slider(Handler handler, float x, float y, int frameWidth, float minValue, float maxValue, float defaultValue, String title) {
 		super(handler, x, y, WIDTH, HEIGHT);
@@ -45,20 +43,13 @@ public class Slider extends Entity {
 		this.defaultValue=defaultValue;
 		this.title=title;
 		minMax=maxValue-minValue;
-<<<<<<< Updated upstream
-	    positionX=x+((defaultValue-minValue)/minMax *200);
-	    value=(positionX-x)*minMax/200 + minValue;
-	    valueInt=Math.round(value);
-	    valueString = String.valueOf(valueInt);
-	    
-	    reset=new Button(handler, (int)x*2+ frameWidth, y, (float)0.3, Assets.medium_button_template,Assets.reset_button);
-=======
+
 	    positionX=x+300+((defaultValue-minValue)/minMax *200);
 	    value=defaultValue;
 
 		reset=new Button(handler, (int)x*2+ frameWidth+170, y, (float)0.3, Assets.medium_button_template,"RESET",18);
 	}
-	public Slider(Handler handler, float x, float y, int frameWidth, float minValue, float maxValue, float defaultValue, String title, int szczeble[]) {
+	public Slider(Handler handler, float x, float y, int frameWidth, float minValue, float maxValue, float defaultValue, String title, int[] szczeble) {
 		super(handler, x, y, WIDTH, HEIGHT);
 		
 		this.szczeble=szczeble;
@@ -76,7 +67,7 @@ public class Slider extends Entity {
 	    value=defaultValue;
 
 		reset=new Button(handler, (int)x*2+ frameWidth+170, y, (float)0.3, Assets.medium_button_template,"RESET",18);
->>>>>>> Stashed changes
+
 	}
 
 	@Override
@@ -84,23 +75,7 @@ public class Slider extends Entity {
 		
 		if(this.hitbox.contains(handler.getHoverX(),handler.getHoverY()) && handler.getGame().getMousemanager().isLeftPressed()) {
             this.pressed=true;
-<<<<<<< Updated upstream
-            positionX=handler.getHoverX();
-            value=(positionX-x)*minMax/200 + minValue;
 
-            valueInt=Math.round(value);
-    	    valueString = String.valueOf(valueInt);
-            
-
-		}
-        else
-            this.pressed=false;
-		if(this.reset.contains(handler.getMouseClickX(),handler.getMouseClickY())) {
-			positionX=x+((defaultValue-minValue)/minMax *200);
-		    value=(positionX-x)*minMax/200 + minValue;
-		    valueInt=Math.round(value);
-		    valueString = String.valueOf(valueInt);
-=======
             if (szczeble==null){
             	positionX=handler.getHoverX();
             	value=(positionX-x-300)*minMax/200 + minValue;
@@ -124,9 +99,9 @@ public class Slider extends Entity {
 		}
         else
             this.pressed=false;
-		if(this.reset.getHitbox().contains(handler.getMouseClickX(),handler.getMouseClickY())) {
+		if(this.reset.contains(handler.getMouseClickX(),handler.getMouseClickY())) {
 			reset();
->>>>>>> Stashed changes
+
 		}
         reset.tick();
 		
@@ -151,13 +126,7 @@ public class Slider extends Entity {
 	}
 
 	public void reset() {
-<<<<<<< Updated upstream
-		positionX=x+((defaultValue-minValue)/minMax *200);
-	    value=(positionX-x)*minMax/200 + minValue;
-	    valueInt=Math.round(value);
-	    valueString = String.valueOf(valueInt);
 
-=======
 		if (szczeble==null) {
 		positionX=x+300+((defaultValue-minValue)/minMax *200);
 	    value=defaultValue;
@@ -169,6 +138,6 @@ public class Slider extends Entity {
     			}
         	value=szczeble[((int)positionX-(int)x)*szczeble.length/200];
 		}
->>>>>>> Stashed changes
+
 	}
 }
