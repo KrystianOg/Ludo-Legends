@@ -6,8 +6,6 @@ import ludogame.Handler;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.util.LinkedList;
-import java.util.List;
 
 public class Person extends Player {
 
@@ -40,7 +38,7 @@ public class Person extends Player {
     public void render(Graphics g) {
         if(counter!=null)
             Text.drawString(g,nickname,counter[3].getBaseX()+60,counter[3].getBaseY()-15,true,Color.white, Assets.Ubuntu34);
-        for (Entities.Counters.Counter value : counter) value.render(g);
+        //for (Entities.Counters.Counter value : counter) value.render(g);
 
     }
 

@@ -13,7 +13,7 @@ public class Tile {
     private final float x,y;
 
     private final int[] shiftX={-2,50-(int)(Counter.DEFAULT_WIDTH*0.65),-2,50-(int)(Counter.DEFAULT_WIDTH*0.65)};
-    private final int[] shiftY={8,8,21,21};
+    private final int[] shiftY={8,8,36,36};
 
     private final Handler handler;
     private final List<Counter> counter=new LinkedList<>();
@@ -46,13 +46,13 @@ public class Tile {
             else{
                 this.counter.add(counter);
                 for(int i=0;i<this.counter.size();i++)
-                    this.counter.get(i).renderSmall((int)x+shiftX[i],(int)x+shiftY[i]);
+                    this.counter.get(i).renderSmall(x+shiftX[i],y+shiftY[i]);
             }
         }
         else if(this.counter.size()>1&&this.counter.size()<4){
             this.counter.add(counter);
             for(int i=0;i<this.counter.size();i++)
-                this.counter.get(i).renderSmall((int)x+shiftX[i],(int)y+shiftY[i]);
+                this.counter.get(i).renderSmall(x+shiftX[i],y+shiftY[i]);
         } else if (this.counter.size() == 4) {
             counter.resetToBase();
         }
@@ -64,10 +64,10 @@ public class Tile {
                 return;
 
             if(this.counter.size()==1) {
-                this.counter.get(0).renderBig(this.x + 4, this.y - 48);
+                this.counter.get(0).renderBig(x + 4, y - 48);
             }else{
                 for(int i=0;i<this.counter.size();i++){
-                    this.counter.get(i).renderSmall(shiftX[i],shiftY[i]);
+                    this.counter.get(i).renderSmall(x+shiftX[i],y+shiftY[i]);
                 }
 
             }

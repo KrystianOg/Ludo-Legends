@@ -9,7 +9,9 @@ import Entities.HUD.Timer;
 import Players.PlayerData;
 import ludogame.Handler;
 
+import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -20,7 +22,7 @@ public class GameState extends State{
     private final List<Counter> resetingCounter=new LinkedList<>();
     private final List<PlayerData> winnerTable=new LinkedList<>();
     private final List<String> botNickname=new LinkedList<>();
-    private List<Counter> renderOrder=new LinkedList<>();
+    private final List<Counter> renderOrder=new LinkedList<>();
     public static final Color[] color=new Color[4];
 
     private Board board;
@@ -229,5 +231,14 @@ public class GameState extends State{
                 renderOrder.add( handler.getTile(new PositionOnMap(25)).getCounter(j));
             }
         }
+    }
+
+    public Player getPlayerByColor(BufferedImage counterColor){
+        for(int i=0;i<4;i++){
+            if(player[i].getCounter(0).getCounterColor()==counterColor)
+                return player[i];
+        }
+
+        return null;
     }
 }

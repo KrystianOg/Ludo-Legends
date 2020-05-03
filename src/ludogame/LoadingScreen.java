@@ -5,6 +5,7 @@ import display.Display;
 
 import java.awt.*;
 import java.awt.image.BufferStrategy;
+import java.io.IOException;
 
 public class LoadingScreen implements Runnable{
         //info
@@ -36,7 +37,8 @@ public class LoadingScreen implements Runnable{
     }
 
     private void init(){
-        Assets.initLoadingScreen();
+            Assets.initLoadingScreen();
+
     }
 
     private void tick(){
@@ -74,7 +76,10 @@ public class LoadingScreen implements Runnable{
         g.setColor(Color.white);
         g.fillRect(0,0,width,height);
 
-        g.drawImage(Assets.loadingDot[value],(width-Assets.loadingDot[value].getWidth())/2-30+value*20,(height-Assets.loadingCircle.getHeight())/2+100,null);
+        double scale=0.25;
+
+        g.drawImage(Assets.logo,(width-(int)(Assets.logo.getWidth()*scale))/2,200,(int)(Assets.logo.getWidth()*scale),(int)(Assets.logo.getHeight()*scale),null);
+        g.drawImage(Assets.loadingDot[value],(width-Assets.loadingDot[value].getWidth())/2-30+value*20,400,null);
 
     }
 

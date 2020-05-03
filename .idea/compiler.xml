@@ -5,7 +5,7 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="Git_Ludo_Legends_2.0" options="--add-exports jdk.internal.vm.ci/jdk.vm.ci.sparc=ALL-UNNAMED" />
+      <module name="Git_Ludo_Legends_2.0" options="--add-exports jdk.internal.vm.ci/jdk.vm.ci.sparc=ALL-UNNAMED --add-exports java.xml/jdk.xml.internal=ALL-UNNAMED" />
     </option>
   </component>
 </project>

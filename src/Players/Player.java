@@ -1,6 +1,7 @@
 package Players;
 import Entities.Counters.Counter;
 import Entities.PositionOnMap;
+import GFX.Text;
 import ludogame.Handler;
 
 import java.awt.*;
@@ -17,6 +18,8 @@ public abstract class Player {
     protected int beats=0;
     protected int points=0;
     protected int ultLoad=0;
+    protected int deaths=0;
+
     protected int rollsLeft=1;
 
     protected List<Integer> lastRolls=new LinkedList<>();
@@ -106,6 +109,8 @@ public abstract class Player {
     public abstract void render(Graphics g);
 
     public void renderInBaseCounters(Graphics g){
+        render(g);
+
         if(counter!=null){
             if(counter[3].isInbase())
                 counter[3].render(g);
@@ -167,5 +172,13 @@ public abstract class Player {
     public void addPoint(){
         this.points++;
         this.ultLoad++;
+    }
+
+    public void addDeath(){
+        this.deaths++;
+    }
+
+    public int getDeaths(){
+        return this.deaths;
     }
 }

@@ -40,7 +40,7 @@ public class Bot extends Player {
         if(counter!=null) {
              Text.drawString(g, nickname, counter[3].getBaseX() + 60, counter[3].getBaseY() - 15, true, Color.white, Assets.Ubuntu34);
         }
-        for (Entities.Counters.Counter value : counter) value.render(g);
+        //for (Entities.Counters.Counter value : counter) value.render(g);
     }
 
     private void moveLogic() {

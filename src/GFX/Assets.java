@@ -1,8 +1,9 @@
 package GFX;
 
+import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.nio.Buffer;
+import java.io.*;
 
 public class Assets {
 
@@ -11,7 +12,6 @@ public class Assets {
                              ARROW_WIDTH=50,ARROW_HEIGHT=50,
                              TILE_WIDTH=90,TILE_HEIGHT=90;
 
-   // public static Font
     public static Font Ubuntu28,Ubuntu40,Ubuntu34,Ubuntu58,Ubuntu18,Ubuntu76;
 
     public static BufferedImage logo;
@@ -39,100 +39,90 @@ public class Assets {
                                   pause_button=new BufferedImage[3],
                                   switchB=new BufferedImage[2];
 
-    public static BufferedImage apply_button,
-                                defaults_button,
-                                settings_button,
-                                back_button,
-                                reset_button,
-                                game_text,
-                                ranking_text,
-                                menu;
-
     public static BufferedImage[] cup=new BufferedImage[3];
 
 //Loading Screen
-    public static BufferedImage loadingCircle;
     public static BufferedImage[] loadingDot=new BufferedImage[4];
 
     public static void init(){
-        //czcionka
-        Ubuntu18=FontLoader.loadFont("fonts/Ubuntu-B.ttf",18);
-    	Ubuntu28=FontLoader.loadFont("fonts/Ubuntu-R.ttf", 28);
-        Ubuntu40=FontLoader.loadFont("fonts/Ubuntu-B.ttf",40);
-        Ubuntu58=FontLoader.loadFont("fonts/Ubuntu-B.ttf",58);
-        Ubuntu76=FontLoader.loadFont("fonts/Ubuntu-B.ttf",76);
+        //\czcionka
+        Ubuntu18=FontLoader.loadFont("/fonts/Ubuntu-B.ttf",18);
+    	Ubuntu28=FontLoader.loadFont("/fonts/Ubuntu-R.ttf", 28);
+        Ubuntu40=FontLoader.loadFont("/fonts/Ubuntu-B.ttf",40);
+        Ubuntu58=FontLoader.loadFont("/fonts/Ubuntu-B.ttf",58);
+        Ubuntu76=FontLoader.loadFont("/fonts/Ubuntu-B.ttf",76);
 
 
         //mapa
-        map=ImageLoader.loadImage("graphics/Map.png");
+        map=loadImage("/graphics/Map.png");
 
         //grafiki specjalne postaci
-        sword=ImageLoader.loadImage("graphics/Counters/Sword1.png");
+        sword=loadImage("/graphics/Counters/Sword1.png");
             //
-        cloak_b=ImageLoader.loadImage("graphics/Counters/Cloak_Back.png");
-        cloak_f=ImageLoader.loadImage("graphics/Counters/Cloak_Front.png");
-            //
-        shield=ImageLoader.loadImage("graphics/Counters/Shield.png");
-            //
-        wand=ImageLoader.loadImage("graphics/Counters/wand1.png");
-            //
-        medkit=ImageLoader.loadImage("graphics/Counters/medkit1.png");
-            //
-        icicle_f=ImageLoader.loadImage("graphics/Counters/icicle_front.png");
-        icicle_b=ImageLoader.loadImage("graphics/Counters/icicle_back.png");
-            //
-        bow_lb=ImageLoader.loadImage("graphics/Counters/bow_lb.png");
-        bow_lf=ImageLoader.loadImage("graphics/Counters/bow_lf.png");
-        bow_rb=ImageLoader.loadImage("graphics/Counters/bow_rb.png");
-        bow_rf=ImageLoader.loadImage("graphics/Counters/bow_rf.png");
-            //
-        swan=ImageLoader.loadImage("graphics/Counters/swan.png");
+        cloak_b=loadImage("/graphics/Counters/Cloak_Back.png");
+        cloak_f=loadImage("/graphics/Counters/Cloak_Front.png");
+
+        shield=loadImage("/graphics/Counters/Shield.png");
+
+        wand=loadImage("/graphics/Counters/wand1.png");
+
+        medkit=loadImage("/graphics/Counters/medkit1.png");
+
+        icicle_f=loadImage("/graphics/Counters/icicle_front.png");
+        icicle_b=loadImage("/graphics/Counters/icicle_back.png");
+
+        bow_lb=loadImage("/graphics/Counters/bow_lb.png");
+        bow_lf=loadImage("/graphics/Counters/bow_lf.png");
+        bow_rb=loadImage("/graphics/Counters/bow_rb.png");
+        bow_rf=loadImage("/graphics/Counters/bow_rf.png");
+
+        swan=loadImage("/graphics/Counters/swan.png");
 
 
         //progressbar
-        progressbar_b=ImageLoader.loadImage("graphics/ProgressBar/Bar_Back.png");   //dodać siatke
-        progressbar_f=ImageLoader.loadImage("graphics/ProgressBar/Bar_Front.png");
+        progressbar_b=loadImage("/graphics/ProgressBar/Bar_Back.png");   //dodać siatke
+        progressbar_f=loadImage("/graphics/ProgressBar/Bar_Front.png");
 
         //przyciski menu
-        SpriteSheet big_button_templates=new SpriteSheet(ImageLoader.loadImage("graphics/Menu/big_button_template_red.png"));
+        SpriteSheet big_button_templates=new SpriteSheet(loadImage("/graphics/Menu/big_button_template_red.png"));
         big_button_template[0]=big_button_templates.crop(0,0,350,90);
         big_button_template[1]=big_button_templates.crop(0,90,350,90);
 
         //dodac siatke
 
         //settings
-        slider_front=ImageLoader.loadImage("graphics/Settings/slider_front.png");
-        slider_back=ImageLoader.loadImage("graphics/Settings/slider_back.png");
+        slider_front=loadImage("/graphics/Settings/slider_front.png");
+        slider_back=loadImage("/graphics/Settings/slider_back.png");
 
-        SpriteSheet medium_button_templates=new SpriteSheet(ImageLoader.loadImage("graphics/Settings/reset_button_template.png"));
+        SpriteSheet medium_button_templates=new SpriteSheet(loadImage("/graphics/Settings/reset_button_template.png"));
         medium_button_template[0]=medium_button_templates.crop(0,0,225,90);
         medium_button_template[1]=medium_button_templates.crop(0,90,225,90);
 
-        SpriteSheet pause_button_sheet=new SpriteSheet(ImageLoader.loadImage("graphics/PreparationState/pauseSheet.png"));
+        SpriteSheet pause_button_sheet=new SpriteSheet(loadImage("/graphics/PreparationState/pauseSheet.png"));
         pause_button[0]=pause_button_sheet.crop(0,0,70,70);
         pause_button[1]=pause_button_sheet.crop(0,70,70,70);
         pause_button[2]=pause_button_sheet.crop(70,0,70,70);
-        SpriteSheet onOff_template=new SpriteSheet(ImageLoader.loadImage("graphics/Settings/on_off_button_template.png"));
+        SpriteSheet onOff_template=new SpriteSheet(loadImage("/graphics/Settings/on_off_button_template.png"));
         onOff_button_template[0]=onOff_template.crop(0,0,100,50);
         onOff_button_template[1]=onOff_template.crop(0,50,100,50);
-        SpriteSheet onOff_text=new SpriteSheet(ImageLoader.loadImage("graphics/Settings/on_off.png"));
+        SpriteSheet onOff_text=new SpriteSheet(loadImage("/graphics/Settings/on_off.png"));
         switchB[0]=onOff_text.crop(0,50,100,50);
         switchB[1]=onOff_text.crop(0,0,100,50);
 
 
         //kostka do gry
-        SpriteSheet roll=new SpriteSheet(ImageLoader.loadImage("graphics/Dice/Roll.png"));
+        SpriteSheet roll=new SpriteSheet(loadImage("/graphics/Dice/Roll.png"));
         rollimg[0]=roll.crop(0,0,R_WIDTH,R_HEIGHT);
         rollimg[1]=roll.crop(R_WIDTH,0,R_WIDTH,R_HEIGHT);
         rollimg[2]=roll.crop(R_WIDTH*2,0,R_WIDTH,R_HEIGHT);
         rollimg[3]=roll.crop(0,R_HEIGHT,R_WIDTH,R_HEIGHT);
         rollimg[4]=roll.crop(R_WIDTH,R_HEIGHT,R_WIDTH,R_HEIGHT);
         rollimg[5]=roll.crop(R_WIDTH*2,R_HEIGHT,R_WIDTH,R_HEIGHT);
-        timerFrame=ImageLoader.loadImage("graphics/Dice/Timer.png");
+        timerFrame=loadImage("/graphics/Dice/Timer.png");
 
 
         //kolory pionkow
-        SpriteSheet counters=new SpriteSheet(ImageLoader.loadImage("graphics/Counters/Pionki.png"));
+        SpriteSheet counters=new SpriteSheet(loadImage("/graphics/Counters/Pionki.png"));
         counter[0]=counters.crop(P_WIDTH,0,P_WIDTH,P_HEIGHT);
         counter[1]=counters.crop(P_WIDTH,P_HEIGHT,P_WIDTH,P_HEIGHT);
         counter[2]=counters.crop(0,P_HEIGHT,P_WIDTH,P_HEIGHT);
@@ -140,7 +130,7 @@ public class Assets {
 
 
         //kolory tła wyboru
-        SpriteSheet tileSheet=new SpriteSheet(ImageLoader.loadImage("graphics/PreparationState/tileSheet.png"));
+        SpriteSheet tileSheet=new SpriteSheet(loadImage("/graphics/PreparationState/tileSheet.png"));
         tile[0]=tileSheet.crop(TILE_WIDTH,0,TILE_WIDTH,TILE_HEIGHT);
         tile[1]=tileSheet.crop(TILE_WIDTH,TILE_HEIGHT,TILE_WIDTH,TILE_HEIGHT);
         tile[2]=tileSheet.crop(0,TILE_HEIGHT,TILE_WIDTH,TILE_HEIGHT);
@@ -150,7 +140,7 @@ public class Assets {
 
 
         //strzałki przy wyborze
-        SpriteSheet arrowSheet=new SpriteSheet(ImageLoader.loadImage("graphics/PreparationState/arrowSheet.png"));
+        SpriteSheet arrowSheet=new SpriteSheet(loadImage("/graphics/PreparationState/arrowSheet.png"));
         arrow[0]=arrowSheet.crop(ARROW_WIDTH,0,ARROW_WIDTH,ARROW_HEIGHT);
         arrow[1]=arrowSheet.crop(ARROW_WIDTH,ARROW_HEIGHT,ARROW_WIDTH,ARROW_HEIGHT);
         arrow[2]=arrowSheet.crop(0,ARROW_HEIGHT,ARROW_WIDTH,ARROW_HEIGHT);
@@ -158,31 +148,30 @@ public class Assets {
         arrow[4]=arrowSheet.crop(ARROW_WIDTH*2,0,ARROW_WIDTH,ARROW_HEIGHT);
 
 
-        //typy graczy
-        SpriteSheet playerSheet=new SpriteSheet(ImageLoader.loadImage("graphics/PreparationState/playerSheet.png"));
+       //typy graczy
+        SpriteSheet playerSheet=new SpriteSheet(loadImage("/graphics/PreparationState/playerSheet.png"));
         player[0]=playerSheet.crop(0,0,TILE_WIDTH,TILE_HEIGHT);
         player[1]=playerSheet.crop(0,TILE_HEIGHT,TILE_WIDTH,TILE_HEIGHT);
         player[2]=playerSheet.crop(TILE_WIDTH,0,TILE_WIDTH,TILE_HEIGHT);
 
         //puchary
-        SpriteSheet smallCupsSheet=new SpriteSheet((ImageLoader.loadImage("graphics/LeaderBoard/cups_sheet.png")));
+        SpriteSheet smallCupsSheet=new SpriteSheet((loadImage("/graphics/LeaderBoard/cups_sheet.png")));
         cup[0]=smallCupsSheet.crop(0,0,40,40);
         cup[1]=smallCupsSheet.crop(40,0,40,40);
         cup[2]=smallCupsSheet.crop(0,40,40,40);
 
         //dynamic background
-        dynamicBackground[0]=ImageLoader.loadImage("graphics/Menu/Background_3.png");
-        dynamicBackground[1]=ImageLoader.loadImage("graphics/Menu/Background_4.png");
+        dynamicBackground[0]=loadImage("/graphics/Menu/Background_3.png");
+        dynamicBackground[1]=loadImage("/graphics/Menu/Background_4.png");
     }
 
     public static void initLoadingScreen(){
         //logo
-        logo=ImageLoader.loadImage("graphics/Main_Logo2.png");
-        loadingCircle=ImageLoader.loadImage("graphics/Menu/loading.png");
+        logo=loadImage("/graphics/Main_Logo2.png");
 
-        Ubuntu34=FontLoader.loadFont("fonts/Ubuntu-B.ttf",34);
+        Ubuntu34=FontLoader.loadFont("/fonts/Ubuntu-B.ttf",34);
 
-        SpriteSheet loadingDots=new SpriteSheet(ImageLoader.loadImage("graphics/Menu/loadingSheet.png"));
+        SpriteSheet loadingDots=new SpriteSheet(loadImage("/graphics/Menu/loadingSheet.png"));
         loadingDot[0]=loadingDots.crop(20,0,20,20);
         loadingDot[1]=loadingDots.crop(20,20,20,20);
         loadingDot[2]=loadingDots.crop(0,20,20,20);
@@ -204,10 +193,21 @@ public class Assets {
         return rotated;
     }
 
-    //metoda zmieniająca przezroczystość grafik     na wyjsciu gotowy obraz
-    public static BufferedImage opacity(BufferedImage image,float opacity){       //np opacity 0.5
+    public static BufferedImage loadImage(String path) {
 
-        return image;       //czy coś tam typu BufferedImage
+        try {
+
+            InputStream stream= Assets.class.getResourceAsStream(path);
+
+            return ImageIO.read(stream);
+
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+            System.exit(1);
+        }
+
+        return null;
     }
 
 

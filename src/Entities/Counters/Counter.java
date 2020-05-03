@@ -30,7 +30,7 @@ public abstract class Counter extends Entity {
     //cos do umiejetnosci
     protected boolean killable;
     protected boolean canKill;
-    private final boolean wasBeaten;
+    private boolean wasBeaten;
     //Ultimate bar
     protected boolean ultBar;
     protected UltimateBar ultimateBar=null;
@@ -177,6 +177,8 @@ public abstract class Counter extends Entity {
             tickcount++;
             renderBig();
 
+            handler.getGameState().getPlayerByColor(this.counterColor).addDeath();
+            System.out.println(handler.getGameState().getPlayerByColor(this.counterColor).getDeaths());
             cisinbase = true;
             handler.getGameState().setRenderOrder();
         } else if (tickcount > 0 && tickcount < ANIM_TICKS*2) {
@@ -189,6 +191,7 @@ public abstract class Counter extends Entity {
             hitbox.x=(int)x;
             hitbox.y=(int)y;
 
+            wasBeaten=true;
             tickcount = 0;
             reseting=false;
             pos = handler.getPlayer().getStartingPos();
@@ -276,13 +279,13 @@ public abstract class Counter extends Entity {
         return this.canKill;
     }
 
-    public void renderSmall(int shiftX,int shiftY){
+    public void renderSmall(float shiftX,float shiftY){
         if(SCALE==1) {
             SCALE = 0.65;
             this.hitbox.setSize((int)(hitbox.width*SCALE),(int)(hitbox.height*SCALE));
         }
-        x=shiftX;
-        y=shiftY;
+        x=shiftX+4;
+        y=shiftY-48;
 
         this.hitbox.setLocation((int)x,(int)y);
     }
