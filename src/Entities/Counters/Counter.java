@@ -20,9 +20,11 @@ public abstract class Counter extends Entity {
     private final float basey;
     //
     protected PositionOnMap pos;
-    private double directionx,directiony;
-    protected boolean cisinbase;
-    protected Rectangle hitbox;
+
+    protected double directionx,directiony;
+    protected boolean cisinbase, cfinished;
+    protected final Rectangle hitbox;
+
     private boolean moving;
     private boolean reseting;
     private boolean won;
@@ -48,7 +50,7 @@ public abstract class Counter extends Entity {
     private int tickcount=0;
     protected int moved=0;
 
-    //problem - nienaturalne nakładanie tekstur przy ruchu
+    //problem - nienaturalne nak�adanie tekstur przy ruchu
 
     public Counter(Handler handler, float x, float y,BufferedImage counterColor) {
         super(handler,x, y,DEFAULT_WIDTH,DEFAULT_HEIGHT);
@@ -59,6 +61,7 @@ public abstract class Counter extends Entity {
         hitbox=new Rectangle((int)x, (int)y,DEFAULT_WIDTH,DEFAULT_HEIGHT);
         beaten=false;
         cisinbase=true;
+        cfinished=false;
         SCALE=1;
         moving =false;
         won=false;
@@ -175,6 +178,7 @@ public abstract class Counter extends Entity {
         }
         else {
 
+
             handler.setTurnof();
             handler.getPlayer().setRollsLeft(1);
             moving=false;
@@ -206,7 +210,10 @@ public abstract class Counter extends Entity {
             hitbox.x=(int)x;
             hitbox.y=(int)y;
 
-            beaten=true;
+
+            wasBeaten=true;
+            cfinished=false;
+
             tickcount = 0;
             reseting=false;
             pos = handler.getPlayer().getStartingPos();
@@ -234,8 +241,17 @@ public abstract class Counter extends Entity {
         return cisinbase;
     }
 
+    public boolean didCFinish() {
+        return cfinished;
+    }
+    
+    public void cfinished() {
+    	this.moving=false;
+    	cfinished=true;
+    }
+    
     protected abstract void counterLogic();
-
+  
     //true jeśli wraca do bazy, false jeśli nie
     public abstract boolean ifStepped();
 

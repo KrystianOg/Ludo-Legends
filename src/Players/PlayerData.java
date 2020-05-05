@@ -12,6 +12,13 @@ public class PlayerData {
 
     }
 
+    public PlayerData(String nickname, int score, int kills, int wins){
+    	this.nickname=nickname;
+    	this.score=score;
+    	this.kills=kills;
+    	this.wins=wins;
+    }
+    
     public int getWins() {
         return wins;
     }

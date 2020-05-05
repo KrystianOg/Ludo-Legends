@@ -15,6 +15,8 @@ public abstract class Player {
 
     protected Counter[] counter;      //zmienic na private / protected
 
+    protected final String nickname;
+
     protected int beats=0;
     protected int points=0;
     protected int ultLoad=0;
@@ -28,6 +30,7 @@ public abstract class Player {
     protected List<Integer> chance=new LinkedList<>();
     protected List<Tile> fireTile =new LinkedList<>();
     protected int resetFireWhileTurn=0;
+
 
     protected boolean isinbase;
     protected boolean won;
@@ -54,6 +57,7 @@ public abstract class Player {
         isinbase=true;
         won=false;
         this.counterColor=counterColor;
+        nickname ="";
     }
 
     public void setCounters(Counter[] counters){
@@ -204,6 +208,13 @@ public abstract class Player {
     public int getDeaths(){
         return this.deaths;
     }
+
+
+    public PlayerData getPlayerData() {
+    	PlayerData dane = new PlayerData(nickname, score, kills, wins);
+    	return dane;
+    }
+}
 
     public void setFireTiles(Tile[] fireTile){
         this.fireTile.addAll(Arrays.asList(fireTile));
