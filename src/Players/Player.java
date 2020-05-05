@@ -13,8 +13,12 @@ public abstract class Player {
 
     protected Counter[] counter;      //zmienic na private / protected
 
-    protected int currentlyinbase;
+    protected int currentlyinbase, currentlyfinished;
 
+    private int score;
+    private int kills;
+    private int wins;
+    protected final String nickname;
     protected int beats=0;
     protected int points=0;
     protected int ultLoad=0;
@@ -27,7 +31,7 @@ public abstract class Player {
     protected List<Integer> chance=new LinkedList<>();
 
 
-    protected boolean isinbase;
+    protected boolean isinbase, finished;
     protected PositionOnMap startingPos;
     protected PositionOnMap endingPos;
 
@@ -49,7 +53,8 @@ public abstract class Player {
 
         this.isinbase=true;
         this.counterColor=counterColor;
-
+        this.finished=false;
+        nickname ="";
         currentlyinbase=4;
     }
 
@@ -180,5 +185,18 @@ public abstract class Player {
 
     public int getDeaths(){
         return this.deaths;
+    }
+    
+    public void setFinished(boolean finished) {
+        this.finished = finished;
+    }
+    
+    public boolean didFinish () {
+    	return finished;
+    }
+
+    public PlayerData getPlayerData() {
+    	PlayerData dane = new PlayerData(nickname, score, kills, wins);
+    	return dane;
     }
 }

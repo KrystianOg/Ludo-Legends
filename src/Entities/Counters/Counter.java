@@ -21,7 +21,7 @@ public abstract class Counter extends Entity {
     //
     protected PositionOnMap pos;
     protected double directionx,directiony;
-    protected boolean cisinbase;
+    protected boolean cisinbase, cfinished;
     protected final Rectangle hitbox;
     private boolean moving;
     private boolean reseting;
@@ -44,7 +44,7 @@ public abstract class Counter extends Entity {
     private int tickcount=0;
     private int moved=0;
 
-    //problem - nienaturalne nak≈Çadanie tekstur przy ruchu
+    //problem - nienaturalne nak≥adanie tekstur przy ruchu
 
     public Counter(Handler handler, float x, float y,BufferedImage counterColor) {
         super(handler,x, y,DEFAULT_WIDTH,DEFAULT_HEIGHT);
@@ -55,6 +55,7 @@ public abstract class Counter extends Entity {
         hitbox=new Rectangle((int)x, (int)y,DEFAULT_WIDTH,DEFAULT_HEIGHT);
         wasBeaten=false;
         cisinbase=true;
+        cfinished=false;
         SCALE=1;
         moving =false;
     }
@@ -165,7 +166,7 @@ public abstract class Counter extends Entity {
             }
         }
 
-        //umiejetno≈õci specjalne tutaj
+        //umiejetnoúci specjalne tutaj
         counterLogic();
         //
     }
@@ -192,6 +193,7 @@ public abstract class Counter extends Entity {
             hitbox.y=(int)y;
 
             wasBeaten=true;
+            cfinished=false;
             tickcount = 0;
             reseting=false;
             pos = handler.getPlayer().getStartingPos();
@@ -217,10 +219,19 @@ public abstract class Counter extends Entity {
         return cisinbase;
     }
 
+    public boolean didCFinish() {
+        return cfinished;
+    }
+    
+    public void cfinished() {
+    	this.moving=false;
+    	cfinished=true;
+    }
+    
     protected abstract void counterLogic();
 
 
-    //true je≈õli wraca do bazy, false je≈õli nie
+    //true jeúli wraca do bazy, false jeúli nie
     public abstract boolean ifStepped();
 
     public boolean hasUltBar(){
