@@ -97,6 +97,7 @@ public class GameState extends State{
 
                 resetCounters();
 
+
                 if(player[0].getWon()&&player[1].getWon()&&player[2].getWon()&&player[3].getWon()) {
                     endGame=true;
                     System.out.println("ENDING SCREEN");
