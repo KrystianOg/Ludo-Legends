@@ -12,9 +12,12 @@ public class DBConnect {
         private Statement statement;
         private ResultSet resultSet;
         private boolean connected;
-        String url="jdbc:mysql://26.246.252.18:3306/ludo";
-        String user="magento";
-        String password="";
+
+        private final String url="jdbc:mysql://26.246.252.18:3306/ludo";
+        private final String user="magenta";
+        private final String password="";
+
+        private final String connectionString=url+"?user="+user+"&password="+password+"&useUnicode=true&characterEncoding=UTF-8";
 
         public DBConnect() {
 
@@ -22,19 +25,25 @@ public class DBConnect {
             connection=null;
 
             try {
-                Class.forName("com.mysql.cj.jdbc.Driver");
-                connection= DriverManager.getConnection(url, user, password);
+                Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
+                connection= DriverManager.getConnection(connectionString);
                 statement=connection.createStatement();
 
                 if(connection!=null) {
                     System.out.println("Successfully connected to MySQL players DB");
                     connected=true;
                 }
-            } catch (SQLException throwables) {
+            } catch (SQLException e) {
                 System.out.println("Error occurred while connecting MySQL database");
+                System.out.println("Could not connect to the database "+e.getMessage());
                 connected=false;
-                throwables.printStackTrace();
             } catch (ClassNotFoundException e) {
+                System.out.println("Could not find the database driver "+e.getMessage());
+            } catch (IllegalAccessException e) {
+                System.out.println("Error: "+e.getMessage());
+                e.printStackTrace();
+            } catch (InstantiationException e) {
+                System.out.println("Error: "+e.getMessage());
                 e.printStackTrace();
             }
         }

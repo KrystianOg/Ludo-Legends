@@ -1,11 +1,13 @@
 package Players;
 import Entities.Counters.Counter;
+import Entities.Counters.Funi;
 import Entities.PositionOnMap;
-import GFX.Text;
+import Entities.ui.Tile;
 import ludogame.Handler;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -13,23 +15,25 @@ public abstract class Player {
 
     protected Counter[] counter;      //zmienic na private / protected
 
-    protected int currentlyinbase;
-
     protected int beats=0;
     protected int points=0;
     protected int ultLoad=0;
     protected int deaths=0;
 
     protected int rollsLeft=1;
+    protected boolean clicked=false;
 
     protected List<Integer> lastRolls=new LinkedList<>();
     protected List<Boolean> notSix=new LinkedList<>();
     protected List<Integer> chance=new LinkedList<>();
-
+    protected List<Tile> fireTile =new LinkedList<>();
+    protected int resetFireWhileTurn=0;
 
     protected boolean isinbase;
-    protected PositionOnMap startingPos;
-    protected PositionOnMap endingPos;
+    protected boolean won;
+
+    protected final PositionOnMap startingPos;
+    protected final PositionOnMap endingPos;
 
     protected Handler handler;
     protected BufferedImage counterColor;
@@ -47,10 +51,9 @@ public abstract class Player {
         counter[2]=null;
         counter[3]=null;
 
-        this.isinbase=true;
+        isinbase=true;
+        won=false;
         this.counterColor=counterColor;
-
-        currentlyinbase=4;
     }
 
     public void setCounters(Counter[] counters){
@@ -72,6 +75,13 @@ public abstract class Player {
                 if (value.hasUltBar())
                     value.renderUltBar(g);
             }
+        }
+    }
+
+    public void clearUltBarLoad(){
+        for(int i=0;i<4;i++){
+            if(counter[i].getUltimateBar()!=null)
+            counter[i].getUltimateBar().setUltUsed();
         }
     }
 
@@ -104,20 +114,30 @@ public abstract class Player {
         return this.endingPos;
     }
 
+    public void resetUltLoad(){
+        this.ultLoad=0;
+    }
+
     public abstract void tick();
 
     public abstract void render(Graphics g);
+
+    public void setBotClicked(){
+        this.clicked=false;
+    }
 
     public void renderInBaseCounters(Graphics g){
         render(g);
 
         if(counter!=null){
-            if(counter[3].isInbase())
+            if(counter[3].isInbase()||counter[3].isMoving())
                 counter[3].render(g);
             for(int i=0;i<counter.length-1;i++){
-                if(counter[i].isInbase())
+                if(counter[i].isInbase()||counter[i].isMoving())
                     counter[i].render(g);
             }
+
+
         }
     }
 
@@ -132,7 +152,6 @@ public abstract class Player {
     public Counter getCounter(int i){
         return this.counter[i];
     }
-//
 
     public int getRollsLeft(){
         return this.rollsLeft;
@@ -174,11 +193,43 @@ public abstract class Player {
         this.ultLoad++;
     }
 
+    public boolean isThird(){
+        return lastRolls.size() == 2 && lastRolls.get(0) == 6 && lastRolls.get(1) == 6;
+    }
+
     public void addDeath(){
         this.deaths++;
     }
 
     public int getDeaths(){
         return this.deaths;
+    }
+
+    public void setFireTiles(Tile[] fireTile){
+        this.fireTile.addAll(Arrays.asList(fireTile));
+
+        resetFireWhileTurn=handler.getGameState().getRound()+ Funi.FIRE_ROUNDS;
+    }
+
+    public void renderFire(Graphics g){
+        if(fireTile.size()>0)
+            for (Tile tile : fireTile) {
+                tile.renderFire(g);
+            }
+    }
+
+    protected void resetFire(){
+        for (Tile tile : fireTile) {
+            tile.setInstantKill(false);
+        }
+        fireTile.clear();
+    }
+
+    public void setRollsLeft(int i){
+        this.rollsLeft=i;
+    }
+
+    public boolean getWon(){
+        return this.won;
     }
 }

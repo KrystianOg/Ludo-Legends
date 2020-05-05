@@ -36,7 +36,10 @@ public class MenuState extends State{
         if(this.game.contains(handler.getMouseClickX(),handler.getMouseClickY())) {
             handler.resetMousePOS();
             handler.getPrepState().init(this.dynamicBackground);
-            setState(handler.getGame().prepState);
+            if(!handler.getGameState().isInGame())
+                setState(handler.getGame().prepState);
+            else
+                setState(handler.getGame().gameState);
         }
         else if(this.settings.contains(handler.getMouseClickX(),handler.getMouseClickY())) {
             handler.resetMousePOS();

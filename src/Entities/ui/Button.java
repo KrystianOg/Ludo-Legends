@@ -19,8 +19,6 @@ public class Button extends Entity {
 
     private Map<Integer,Font> font=new HashMap<Integer,Font>();
 
-    private boolean defaultOnOff;
-    private boolean onOff;
     private int fontSize;
 
     public Button(Handler handler, float x, float y,double scale,BufferedImage[] template,String text,int fontSize){
@@ -61,19 +59,6 @@ public class Button extends Entity {
     public boolean contains(int MouseX,int MouseY){
         return this.hitbox.contains(MouseX,MouseY);
     }
-
-    public void reset() {
-    	onOff=defaultOnOff;
-    }
-
-	public boolean getOnOff() {
-		return onOff;
-	}
-
-	public void setOnOff(boolean onOff) {
-		this.onOff = onOff;
-	}
-    
 
 }
 

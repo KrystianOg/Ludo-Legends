@@ -52,6 +52,10 @@ public class Dice extends Entity {
         return roll;
     }
 
+    public void setRoll(int roll){
+        this.roll=roll;
+    }
+
     @Override
     public void tick() {
 
@@ -65,13 +69,19 @@ public class Dice extends Entity {
             tickcount++;
             if(tickcount%(4*SettingState.FPS/60)==0)
                 roll=(int)(Math.random()*6+1);        //  1-6
+
         }
         else if(tickcount==DICE_ANIM_TICKS){
             rolled=true;
             clicked=false;
             tickcount=-1;
 
-                setChanceRoll();
+            setChanceRoll();
+
+            if(handler.getPlayer().isThird()&&roll==6){
+                handler.getPlayer().setRollsLeft(1);
+                handler.setTurnof();
+            }
 
             if(roll==6)
                 handler.getPlayer().rollsPlusOne();

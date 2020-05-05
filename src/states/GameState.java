@@ -3,6 +3,8 @@ import Entities.Board;
 import Entities.Counters.Counter;
 import Entities.HUD.Dice;
 import Entities.PositionOnMap;
+import Entities.ui.Pause;
+import GFX.Assets;
 import Players.Player;
 import Entities.ui.Tile;
 import Entities.HUD.Timer;
@@ -12,6 +14,7 @@ import ludogame.Handler;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -23,24 +26,34 @@ public class GameState extends State{
     private final List<PlayerData> winnerTable=new LinkedList<>();
     private final List<String> botNickname=new LinkedList<>();
     private final List<Counter> renderOrder=new LinkedList<>();
+
+
     public static final Color[] color=new Color[4];
 
     private Board board;
     private Dice dice;
     private Timer timer;
+    private final Pause pause;
+    private boolean inGame;
+    private boolean endGame;
 
-    private int timesRolled=0;
+
+    private int round=0;
     private int turnOf;
 
     public GameState(Handler handler){
         super(handler);
         handler.setGameState(this);
+        inGame=false;
+        endGame=false;
         this.player=new Player[4];
         setBotNicknames();
+        pause=new Pause(handler,handler.getFrameWidth()-100,30, Assets.pause_button);
     }
 
     public void init(){
 
+        inGame=true;
         board=new Board(handler,0,0,750,790);   //zle liczby-zmienic
         dice=new Dice(handler,765,300);
         timer=new Timer(handler,765,300);
@@ -64,11 +77,8 @@ public class GameState extends State{
         turnOf++;
         if(turnOf==4){
             this.turnOf=0;
+            round++;
         }
-
-        timesRolled++;
-
-        //System.out.println("BREAK "+timesRolled);
 
         dice.setRolled(false);
         timer.resetTimer();
@@ -77,8 +87,28 @@ public class GameState extends State{
 
     @Override
     public void tick() {
-        player[turnOf].tick();
-        resetCounters();
+
+        if(!pause.getClicked()) {
+            if(!endGame) {
+                if (!player[turnOf].getWon())
+                    player[turnOf].tick();
+                else
+                    setTurnof();
+
+                resetCounters();
+
+                if(player[0].getWon()&&player[1].getWon()&&player[2].getWon()&&player[3].getWon()) {
+                    endGame=true;
+                    System.out.println("ENDING SCREEN");
+                }
+
+            }
+            else{
+                //endgame.tick
+
+            }
+        }
+        pause.tick();
     }
 
     @Override
@@ -89,8 +119,14 @@ public class GameState extends State{
         dice.render(g);
 
         board.render(g);
+
+        for(int i=0;i<player.length;i++){
+            player[i].renderFire(g);
+        }
+
         renderPlayers(g);
 
+        pause.render(g);
     }
 
     private void setBotNicknames(){
@@ -143,6 +179,10 @@ public class GameState extends State{
         return this.board;
     }
 
+    public int getRound(){
+        return this.round;
+    }
+
     private void resetCounters(){
         for(int i=0;i<resetingCounter.size();i++){
             if(resetingCounter.get(i).getReseting())
@@ -151,7 +191,6 @@ public class GameState extends State{
                 resetingCounter.remove(i);
             }
         }
-
     }
 
     public void addToReset(Counter counter){
@@ -192,27 +231,28 @@ public class GameState extends State{
             }
         }
 
-        for(int i=0;i<5;i++){
+        for(int i=0;i<6;i++){
             if(handler.getTile(new PositionOnMap(1,i)).getCounterListLength()>0){
                 for(int j=0;j<handler.getTile(new PositionOnMap(1,i)).getCounterListLength();j++){
                     renderOrder.add(handler.getTile(new PositionOnMap(1,i)).getCounter(j));
                 }
             }
             if(handler.getTile(new PositionOnMap(2,i)).getCounterListLength()>0){
-                for(int j=0;j<handler.getTile(new PositionOnMap(1,i)).getCounterListLength();j++){
+                for(int j=0;j<handler.getTile(new PositionOnMap(2,i)).getCounterListLength();j++){
                     renderOrder.add(handler.getTile(new PositionOnMap(2,i)).getCounter(j));
                 }
             }
-            if(handler.getTile(new PositionOnMap(3,i)).getCounterListLength()>0){
-                for(int j=0;j<handler.getTile(new PositionOnMap(1,i)).getCounterListLength();j++){
-                    renderOrder.add(handler.getTile(new PositionOnMap(3,i)).getCounter(j));
+            if(handler.getTile(new PositionOnMap(4,i)).getCounterListLength()>0){
+                for(int j=0;j<handler.getTile(new PositionOnMap(4,i)).getCounterListLength();j++){
+                    renderOrder.add(handler.getTile(new PositionOnMap(4,i)).getCounter(j));
                 }
             }
-            if(handler.getTile(new PositionOnMap(4,4-i)).getCounterListLength()>0){
-                for(int j=0;j<handler.getTile(new PositionOnMap(4,4-i)).getCounterListLength();j++){
-                    renderOrder.add(handler.getTile(new PositionOnMap(4,4-i)).getCounter(j));
+            if(handler.getTile(new PositionOnMap(3,5-i)).getCounterListLength()>0){
+                for(int j=0;j<handler.getTile(new PositionOnMap(3,5-i)).getCounterListLength();j++){
+                    renderOrder.add(handler.getTile(new PositionOnMap(3,5-i)).getCounter(j));
                 }
             }
+
         }
         for(int i=13;i<25;i++){
             if(handler.getTile(new PositionOnMap(i)).getCounterListLength()>0){
@@ -241,4 +281,14 @@ public class GameState extends State{
 
         return null;
     }
+
+    public void setInGame(boolean inGame){
+        this.inGame=inGame;
+    }
+
+    public boolean isInGame(){
+        return this.inGame;
+    }
+
+
 }
