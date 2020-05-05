@@ -19,12 +19,13 @@ public class Intan extends Counter {
 
     public Intan(Handler handler, float x, float y, BufferedImage counterColor) {
         super(handler,x, y,counterColor);
-        this.ultBar=false;
-
+        //spec
+        ultBar=false;
         hasShield=true;
-
         canKill=true;
         killable=true;
+        vulnerable=true;
+        //
     }
 
     @Override

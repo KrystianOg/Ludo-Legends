@@ -10,7 +10,6 @@ import java.awt.image.BufferedImage;
 public class Person extends Player {
 
     //Z BAZY DANYCH
-    private PlayerData playerData;
     private final String nickname;
 
     public static final String[] defaultNickname={ "Player1", "Player2", "Player3", "Player4"};
@@ -27,15 +26,26 @@ public class Person extends Player {
     public void tick() {
         setInBase();
 
-        if(!counterIsMoving())
+        if(counter[0].getWon()&&counter[1].getWon()&&counter[2].getWon()&&counter[3].getWon()) {
+            won = true;
+            handler.setTurnof();
+        }
+
+        if(!counterIsMoving()) {
+           if(resetFireWhileTurn==handler.getGameState().getRound())
+               resetFire();
+
             moveLogic();
+        }
 
         for (Entities.Counters.Counter value : counter){ value.tick(); }
+
 
     }
 
     @Override
     public void render(Graphics g) {
+
         if(counter!=null)
             Text.drawString(g,nickname,counter[3].getBaseX()+60,counter[3].getBaseY()-15,true,Color.white, Assets.Ubuntu34);
         //for (Entities.Counters.Counter value : counter) value.render(g);
@@ -44,11 +54,7 @@ public class Person extends Player {
 
     private void moveLogic(){
 
-        //z kolejnymi rzutami wieksza szansa na wyrzucenie 6
-
         //timer dla ruchu
-        //if()
-
 
         if(!handler.getDice().isRolled()) {
             handler.getDice().tick();
@@ -56,11 +62,7 @@ public class Person extends Player {
         }
 
         else{
-            if(lastRolls.size()==3&&lastRolls.get(2)==6){
-                handler.setTurnof();
-                System.out.println("BREAK AFTER THREE SIXS");
-            }
-            else if(isinbase&&handler.getRoll()!=6) {
+            if(isinbase&&handler.getRoll()!=6) {
                 notSixLogic();
                 handler.setTurnof();
             }
@@ -71,7 +73,7 @@ public class Person extends Player {
                 input=getInput();
 
                 if(input>=0) {
-                    counter[input].setMoving();
+                    counter[input].setMoving(true);
                     lastRolls.add(handler.getRoll());
                 }
 
@@ -80,7 +82,7 @@ public class Person extends Player {
                 input=getInput();
 
                 if(input>=0&&!counter[input].isInbase()) {
-                    counter[input].setMoving();
+                    counter[input].setMoving(true);
                     lastRolls.add(handler.getRoll());
                 }
             }
@@ -89,18 +91,17 @@ public class Person extends Player {
     }
 
     private int getInput() {
-        if(counter[0].isClicked())
+        if(counter[0].isClicked()&&!counter[0].getWon())
             return 0;
-        else if(counter[1].isClicked())
+        else if(counter[1].isClicked()&&!counter[1].getWon())
             return 1;
-        else if(counter[2].isClicked())
+        else if(counter[2].isClicked()&&!counter[2].getWon())
             return 2;
-        else if(counter[3].isClicked())
+        else if(counter[3].isClicked()&&!counter[3].getWon())
             return 3;
         else
             return -1;
     }
-
 
 
 }

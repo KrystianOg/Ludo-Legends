@@ -1,10 +1,12 @@
 package Entities.Counters;
 
-import Entities.ui.UltimateBar;
+import Entities.HUD.UltimateBar;
 import ludogame.Handler;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.LinkedList;
+import java.util.List;
 
 import static GFX.Assets.medkit;
 
@@ -16,17 +18,33 @@ public class Mira extends Counter {
 
     public Mira(Handler handler, float x, float y, BufferedImage counterColor,int barPos) {
         super(handler,x, y,counterColor);
+        //
         ultBar=true;
-
         killable=true;
         canKill=true;
+        vulnerable=true;
+        //
+        ultimateBar=new UltimateBar(handler,this,ULT_LOAD,barPos);
 
-        ultimateBar=new UltimateBar(handler,ULT_LOAD,barPos);
+        ultimateBar.loadCounterImage(medkit,MEDKIT_POSX,MEDKIT_POSY);
     }
 
     @Override
     protected void counterLogic() {
+        if(ultimateAbility){
+            List<Counter> beatenCounters=new LinkedList<>();
+            for(int i=0;i<4;i++){
+                if(handler.getPlayer().getCounter(i).isBeaten()&&handler.getPlayer().getCounter(i).isInbase())
+                    beatenCounters.add(handler.getPlayer().getCounter(i));
+            }
 
+            int i=(int)(Math.random()*beatenCounters.size());
+
+            if(beatenCounters.size()>0)
+                beatenCounters.get(i).setMoving(true);
+
+            ultimateAbility=false;
+        }
     }
 
     @Override

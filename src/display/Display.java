@@ -1,7 +1,9 @@
 package display;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
 
 public class Display {
 
@@ -26,7 +28,13 @@ public class Display {
         frame.setSize(width,height);
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setIconImage(Toolkit.getDefaultToolkit().getImage("graphics/Main_Logo.png"));
+        try {
+            Image img=ImageIO.read(getClass().getResourceAsStream("/graphics/Main_Logo.png"));
+            frame.setIconImage(img);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        //frame.setIconImage(Toolkit.getDefaultToolkit().getImage("/graphics/Main_Logo.png"));
         frame.setResizable(false);
         frame.getContentPane().setBackground(Color.white);
         frame.setLocationRelativeTo(null);

@@ -19,9 +19,10 @@ public class Assets {
 
 
     public static BufferedImage sword,cloak_b,cloak_f,shield,wand,medkit,icicle_f,icicle_b,
-                                bow_rb,bow_lb,bow_rf,bow_lf,swan;
+                                bow_rb,bow_lb,bow_rf,bow_lf,swan,arrowV;
 
-    public static BufferedImage progressbar_b,progressbar_f;
+    public static BufferedImage progressbar_b,progressbar_f,square;
+    public static BufferedImage[] bar_loaded=new BufferedImage[3];
 
     public static BufferedImage map;
     public static BufferedImage timerFrame;
@@ -37,7 +38,10 @@ public class Assets {
                                   arrow=new BufferedImage[5],
                                   dynamicBackground=new BufferedImage[2],
                                   pause_button=new BufferedImage[3],
-                                  switchB=new BufferedImage[2];
+                                  switchB=new BufferedImage[2],
+                                  fire=new BufferedImage[3],
+                                  armor_f=new BufferedImage[2],
+                                  armor_b=new BufferedImage[2];
 
     public static BufferedImage[] cup=new BufferedImage[3];
 
@@ -78,17 +82,33 @@ public class Assets {
 
         swan=loadImage("/graphics/Counters/swan.png");
 
+        arrowV=loadImage("/graphics/Counters/arrow.png");
+
+        SpriteSheet armorSheet=new SpriteSheet(loadImage("/graphics/Counters/armor_blue.png"));
+        armor_f[0]=armorSheet.crop(0,0,62,50);
+        armor_f[1]=armorSheet.crop(62,0,62,50);
+        armor_b[0]=armorSheet.crop(0,50,62,30);
+        armor_b[1]=armorSheet.crop(62,50,62,30);
+
 
         //progressbar
         progressbar_b=loadImage("/graphics/ProgressBar/Bar_Back.png");   //dodać siatke
         progressbar_f=loadImage("/graphics/ProgressBar/Bar_Front.png");
+        SpriteSheet barLoaded=new SpriteSheet(loadImage("/graphics/ProgressBar/Bar_Loaded.png"));
+        bar_loaded[0]=barLoaded.crop(0,0,16,16);
+        bar_loaded[1]=barLoaded.crop(16,0,13,13);
+        bar_loaded[2]=barLoaded.crop(0,16,8,8);
+        square=loadImage("/graphics/ProgressBar/square.png");
 
         //przyciski menu
         SpriteSheet big_button_templates=new SpriteSheet(loadImage("/graphics/Menu/big_button_template_red.png"));
         big_button_template[0]=big_button_templates.crop(0,0,350,90);
         big_button_template[1]=big_button_templates.crop(0,90,350,90);
 
-        //dodac siatke
+        SpriteSheet fireSheet=new SpriteSheet(loadImage("/graphics/Counters/fire.png"));
+        fire[0]=fireSheet.crop(0,0,100,120);
+        fire[1]=fireSheet.crop(0,120,100,120);
+        fire[2]=fireSheet.crop(100,0,100,120);
 
         //settings
         slider_front=loadImage("/graphics/Settings/slider_front.png");
@@ -177,7 +197,6 @@ public class Assets {
         loadingDot[2]=loadingDots.crop(0,20,20,20);
         loadingDot[3]=loadingDots.crop(0,0,20,20);
     }
-
 
     //metoda obrotu grafik
     public static BufferedImage rotate(BufferedImage bimg, double angle) { //obrót BufferedImage

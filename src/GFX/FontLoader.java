@@ -6,8 +6,6 @@ import java.io.*;
 
 public class FontLoader {
 
-
-
 	public static Font loadFont(String path, float size) {
 		try {
 
@@ -21,7 +19,5 @@ public class FontLoader {
 		}
 		return null;
 	}
-
-
 
 }

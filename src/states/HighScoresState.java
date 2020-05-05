@@ -53,7 +53,7 @@ public class HighScoresState extends State{
         FRAME_X=(handler.getFrameWidth()-LEADERBOARD_WIDTH)/2;
         FRAME_Y=(handler.getFrameHeight()-LEADERBOARD_HEIGHT+40)/2+15;
 
-        back=new Button(handler,978,40,(float)0.6,Assets.medium_button_template,"BACK",40);
+        back=new Button(handler,handler.getFrameWidth()-150,40,(float)0.6,Assets.medium_button_template,"BACK",40);
 
         scoreHitbox=new Rectangle(FRAME_X+675,45,130,45);
         beatsHitbox=new Rectangle(FRAME_X+525,45,130,45);
@@ -122,8 +122,10 @@ public class HighScoresState extends State{
 
         dynamicBackground.render(g);
 
-        drawHead(g);
-        fillRoundRec(g);
+        if(playerData.size()!=0) {
+            drawHead(g);
+            fillRoundRec(g);
+        }
 
         for(int i=0;i<playerData.size();i++){
             drawNextPlayer(playerData.get(i),i,g);

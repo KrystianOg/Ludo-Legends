@@ -1,8 +1,10 @@
 package Entities.ui;
 
 import Entities.Counters.Counter;
+import GFX.Assets;
 import ludogame.Handler;
 
+import java.awt.*;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -12,22 +14,28 @@ public class Tile {
     private boolean instantKill;
     private final float x,y;
 
-    private final int[] shiftX={-2,50-(int)(Counter.DEFAULT_WIDTH*0.65),-2,50-(int)(Counter.DEFAULT_WIDTH*0.65)};
+    private final int[] shiftX={-6,44-(int)(Counter.DEFAULT_WIDTH*0.65),-6,44-(int)(Counter.DEFAULT_WIDTH*0.65)};
     private final int[] shiftY={8,8,36,36};
 
     private final Handler handler;
     private final List<Counter> counter=new LinkedList<>();
+
+    private int ticks=0,i=0;
 
     public Tile(Handler handler,int x,int y,boolean capturable){
         this.handler=handler;
         this.x=x;
         this.y=y;
         this.capturable=capturable;
+        instantKill=false;
     }
 
     public void setCounterOnTile(Counter counter){
 
-        if(this.counter.isEmpty())
+        if(instantKill&&counter.isVulnerable()){
+            counter.resetToBase();
+        }
+        else if(this.counter.isEmpty())
             this.counter.add(counter);
         else if(this.counter.size()==1){
 
@@ -73,6 +81,18 @@ public class Tile {
             }
     }
 
+    public void renderFire(Graphics g){
+        ticks++;
+        if(ticks==10){
+            i++;
+            if(i==Assets.fire.length)
+                i=0;
+            ticks=0;
+        }
+
+        g.drawImage(Assets.fire[i],(int)x,(int)y-20,50,60,null);
+    }
+
     public float getX(){
         return this.x;
     }
@@ -95,6 +115,17 @@ public class Tile {
 
     public Counter getCounter(int i){
         return this.counter.get(i);
+    }
+
+    public boolean isCapturable(){
+        return this.capturable;
+    }
+
+    public void killAll(){
+        for(int i=0;i<counter.size();i++){
+            counter.get(i).resetToBase();
+        }
+        counter.clear();
     }
 
 

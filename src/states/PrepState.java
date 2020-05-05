@@ -27,10 +27,10 @@ public class PrepState extends State {
 
     private static final int PLAYER_POSY=230,PLAYER_SHIFT=450;
 
-    private static final PositionOnMap[]  PLAYER_STARTING_POS={new PositionOnMap(1),new PositionOnMap(14),new PositionOnMap(27),new PositionOnMap(40)},
+    private final PositionOnMap[]  PLAYER_STARTING_POS={new PositionOnMap(1),new PositionOnMap(14),new PositionOnMap(27),new PositionOnMap(40)},
                                           PLAYER_ENDING_POS={new PositionOnMap(51),new PositionOnMap(12),new PositionOnMap(25),new PositionOnMap(38)};
 
-    private static final int[]  COUNTER_POS_X={166,166,92,92},
+    private final int[]  COUNTER_POS_X={166,166,92,92},
                                 COUNTER_POS_Y={88,162,162,88},
                                 BASE_POS_X={450,450,0,0},
                                 BASE_POS_Y={0,450,450,0};
@@ -40,7 +40,7 @@ public class PrepState extends State {
     private Color redOp;
 
     private PlayerPick[] playerPick;
-    private List<Player> player=new LinkedList<>();
+    private final List<Player> player=new LinkedList<>();
     private List<Integer> playerI;
     private final TextField[] textField=new TextField[4];
 
@@ -48,7 +48,6 @@ public class PrepState extends State {
     private boolean typePick;
     private LegendPick[] legendPick;
 
-    private boolean isPaused;
     private final Pause pause;
 
     //error
@@ -113,24 +112,28 @@ public class PrepState extends State {
 
                 if (apply.contains(handler.getMouseClickX(), handler.getMouseClickY())) {
                     handler.resetMousePOS();
-                    typePick = false;
 
-                    for (int i = 0; i < 4; i++) {
-                        switch (playerPick[i].getCurrentPick()) {
-                            case 0:
-                                handler.getGameState().setPlayer(new Bot(handler, PLAYER_STARTING_POS[i], PLAYER_ENDING_POS[i], Assets.counter[i]));
-                                break;
-                            case 1:
-                                if(textField[i].getNickname().length()<4) {
-                                    typePick = true;
-                                    nicknameLengthError=true;
-                                }
-                                handler.getGameState().setPlayer(new Person(handler, PLAYER_STARTING_POS[i], PLAYER_ENDING_POS[i], Assets.counter[i],textField[i].getNickname()));
-                                break;
-                            case 2:
-                                handler.getGameState().setPlayer(new Blank(handler, PLAYER_STARTING_POS[i], PLAYER_ENDING_POS[i], Assets.counter[i]));
-                                break;
+                    if(properPick()){
+                        for (int i = 0; i < 4; i++) {
+                            switch (playerPick[i].getCurrentPick()) {
+                                case 0:
+                                    handler.getGameState().setPlayer(new Bot(handler, PLAYER_STARTING_POS[i], PLAYER_ENDING_POS[i], Assets.counter[i]));
+                                    break;
+                                case 1:
+                                    handler.getGameState().setPlayer(new Person(handler, PLAYER_STARTING_POS[i], PLAYER_ENDING_POS[i], Assets.counter[i],textField[i].getNickname()));
+                                    break;
+                                case 2:
+                                    handler.getGameState().setPlayer(new Blank(handler, PLAYER_STARTING_POS[i], PLAYER_ENDING_POS[i], Assets.counter[i]));
+                                    break;
+                            }
                         }
+
+                        typePick=false;
+                    }else{
+                        nicknameLengthErrorTick=0;
+                        lengthAlpha=255;
+                        redOp=new Color(201,0,1,255);
+                        nicknameLengthError=true;
                     }
                 }
 
@@ -283,5 +286,14 @@ public class PrepState extends State {
 
     }
 
+    private boolean properPick(){
+        for(int i=0;i<4;i++){
+            if(playerPick[i].getCurrentPick()==1){
+                if(textField[i].getNickname().length()<4)
+                    return false;
+            }
+        }
+        return true;
+    }
 
 }

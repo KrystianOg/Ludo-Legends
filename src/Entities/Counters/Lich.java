@@ -1,6 +1,6 @@
 package Entities.Counters;
 
-import Entities.ui.UltimateBar;
+import Entities.HUD.UltimateBar;
 import ludogame.Handler;
 
 import java.awt.*;
@@ -14,7 +14,7 @@ public class Lich extends Counter {
     public Lich(Handler handler, float x, float y, BufferedImage counterColor,int barPos) {
         super(handler,x, y, counterColor);
 
-        ultimateBar=new UltimateBar(handler,ULT_LOAD,barPos);
+        ultimateBar=new UltimateBar(handler,this,ULT_LOAD,barPos);
     }
 
     @Override

@@ -27,10 +27,6 @@ public class Handler {
         this.game=game;
     }
 
-    public void setLoadingScreen(LoadingScreen loadingScreen){
-        //this.
-    }
-
     public Game getGame() {
         return game;
     }
@@ -67,10 +63,6 @@ public class Handler {
 
     public Timer getTimer(){
         return gameState.getTimer();
-    }
-
-    public Board getBoard(){
-        return gameState.getBoard();
     }
 
     public Tile getTile(PositionOnMap pos){

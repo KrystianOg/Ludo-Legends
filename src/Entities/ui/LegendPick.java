@@ -32,7 +32,7 @@ public class LegendPick extends Entity {
         counterTile[1]=new CounterTile(handler,x+CounterTile.COUNTER_TILE_WIDTH+ SPACING,y+0, Funi.WAND_POSX,Funi.WAND_POSY, counter,Assets.wand);
         counterTile[2]=new CounterTile(handler,x+(CounterTile.COUNTER_TILE_WIDTH+ SPACING)*2,y+0, Intan.SHIELD_POSX,Intan.SHIELD_POSY,counter,Assets.shield);
         counterTile[3]=new CounterTile(handler,x+(CounterTile.COUNTER_TILE_WIDTH+ SPACING)*3,y+0,Mira.MEDKIT_POSX,Mira.MEDKIT_POSY,counter,Assets.medkit);
-        counterTile[4]=new CounterTile(handler,x+0,y+CounterTile.COUNTER_TILE_HEIGHT+ SPACING, Polaris.ICICLE_POSX,Polaris.ICICLE_POSY,counter,Assets.icicle_f);
+        counterTile[4]=new CounterTile(handler,x+0,y+CounterTile.COUNTER_TILE_HEIGHT+ SPACING, Polaris.ARMORF_X,Polaris.ARMORF_Y,counter,Assets.armor_f[0]);
         counterTile[5]=new CounterTile(handler,x+CounterTile.COUNTER_TILE_WIDTH+ SPACING,y+CounterTile.COUNTER_TILE_HEIGHT+ SPACING,Samaya.SWAN_X,Samaya.SWAN_Y,counter,Assets.swan);
         counterTile[6]=new CounterTile(handler,x+(CounterTile.COUNTER_TILE_WIDTH+ SPACING)*2,y+CounterTile.COUNTER_TILE_HEIGHT+ SPACING,0, Saph.SWORD_POSY,counter,Assets.sword);
         counterTile[7]=new CounterTile(handler,x+(CounterTile.COUNTER_TILE_WIDTH+ SPACING)*3,y+CounterTile.COUNTER_TILE_HEIGHT+ SPACING,Venator.BOWR_FX,Venator.BOWR_FY,counter,Assets.bow_rf);
