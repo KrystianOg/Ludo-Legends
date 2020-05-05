@@ -13,7 +13,7 @@ public class DBConnect {
         private ResultSet resultSet;
         private boolean connected;
         String url="jdbc:mysql://26.246.252.18:3306/ludo";
-        String user="magento";
+        String user="magenta";
         String password="";
 
         public DBConnect() {
