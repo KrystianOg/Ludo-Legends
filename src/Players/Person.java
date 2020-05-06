@@ -28,6 +28,7 @@ public class Person extends Player {
 
         if(counter[0].getWon()&&counter[1].getWon()&&counter[2].getWon()&&counter[3].getWon()) {
             won = true;
+            handler.getGameState().setPlayerData(getPlayerData());
             handler.setTurnof();
         }
 

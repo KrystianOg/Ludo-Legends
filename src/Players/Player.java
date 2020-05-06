@@ -211,10 +211,10 @@ public abstract class Player {
 
 
     public PlayerData getPlayerData() {
-    	PlayerData dane = new PlayerData(nickname, score, kills, wins);
+    	PlayerData dane = new PlayerData(nickname, points, beats);
     	return dane;
     }
-}
+
 
     public void setFireTiles(Tile[] fireTile){
         this.fireTile.addAll(Arrays.asList(fireTile));

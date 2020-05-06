@@ -14,7 +14,7 @@ public class Albali extends Counter {
 
     public static final int CLOAK_POSX=-5,CLOAK_POSY=-10;
     private final int ULT_LOAD=40;
-    private final int ROUNDS_AFFECTED=2;
+    private final int ROUNDS_AFFECTED=3;
     private int uses=ROUNDS_AFFECTED;
     private boolean first=true;
     private int resetOn;
@@ -50,10 +50,6 @@ public class Albali extends Counter {
                 first=false;
             }
         }
-    }
-
-    public void resetCloak(){
-
     }
 
     @Override

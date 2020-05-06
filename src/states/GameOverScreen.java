@@ -24,10 +24,8 @@ public class GameOverScreen {
     private static final int LEADERBOARD_WIDTH=715,LEADERBOARD_HEIGHT=625;
     private static int FRAME_X,FRAME_Y;
 
-    private final List<PlayerData> playerData;
-    private DBConnect connect;
+    private List<PlayerData> playerData;
 
-    private Player[] player;
     private final Handler handler;
     private final Button menu;
 
@@ -36,20 +34,15 @@ public class GameOverScreen {
     private final Color grayOp=new Color(38,38,38,180);
     private final Color textColor=new Color(26,26,26,220);
 
-    private boolean sortByScore;
+    private final boolean sortByScore;
 
     public GameOverScreen(Handler handler) {
         playerData=new LinkedList<>();
-        this.player=new Player[4];
-        player[0]=handler.getGameState().getPlayer(0);
-        player[1]=handler.getGameState().getPlayer(1);
-        player[2]=handler.getGameState().getPlayer(2);
-        player[3]=handler.getGameState().getPlayer(3);
         FRAME_X=(handler.getFrameWidth()-LEADERBOARD_WIDTH)/2;
         FRAME_Y=(handler.getFrameHeight()-LEADERBOARD_HEIGHT+40)/2+15;
         
         this.handler=handler;
-        menu=new Button(handler,(handler.getFrameWidth()-225)/2,400,1, Assets.medium_button_template,"MENU",58);
+        menu=new Button(handler,handler.getFrameWidth()-225,200,1, Assets.medium_button_template,"MENU",58);
 
         sortByScore=true;
     }
@@ -59,15 +52,27 @@ public class GameOverScreen {
     		menu.tick();
             if(menu.contains(handler.getMouseClickX(),handler.getMouseClickY())){
                 handler.resetMousePOS();
-
+                handler.getGameState().clear();
                 State.setState(handler.getGame().menuState);
             }
 
     	}
     }
     
-    public void init() {
-    	
+    public void init(List<PlayerData> playerData) {
+    	this.playerData=playerData;
+
+    	DBConnect connect=new DBConnect();
+
+    	if(connect.isConnected()) {
+            for (int i = 0; i < playerData.size(); i++) {
+                if (i == 0)
+                    connect.addResults(playerData.get(i));
+                else
+                    connect.addResults(playerData.get(i));
+            }
+        }
+
     }
     
     public void render(Graphics g) {

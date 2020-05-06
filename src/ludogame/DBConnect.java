@@ -13,7 +13,7 @@ public class DBConnect {
         private ResultSet resultSet;
         private boolean connected;
 
-        private final String url="jdbc:mysql://26.246.252.18:3306/ludo";
+        private final String url="jdbc:mysql://2001:0:284a:364:28fc:6cac:dae1:c8d8:3306/ludo";
         private final String user="magenta";
         private final String password="";
 
@@ -26,7 +26,7 @@ public class DBConnect {
 
             try {
                 Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
-                connection= DriverManager.getConnection(connectionString);
+                connection= DriverManager.getConnection(url,user,password);
                 statement=connection.createStatement();
 
                 if(connection!=null) {
@@ -50,7 +50,7 @@ public class DBConnect {
 
         public void getData(String orderBy, int limit, List<PlayerData> playerData){
 
-/**
+        /**
             some commands:
 
             orderBy: score, kills
@@ -62,7 +62,7 @@ public class DBConnect {
              select * from players order by score desc limit 15;
              select * from players order by kill desc limit 10;
 
-*/
+        */
 
             try {
 
@@ -114,13 +114,22 @@ public class DBConnect {
             }
         }
 
-        public void addResults(String nickname,int score,int kills,int wins){
+        public void addResults(PlayerData playerData){
             //select player_id from players
 
+            int score;
+            int kills;
+            int wins;
             try {
-                String query="SELECT score,kills FROM players WHERE nickname='"+nickname+"'";
+                String query="SELECT score,kills,wins FROM players WHERE nickname='"+playerData.getNickname()+"'";
 
                 resultSet= statement.executeQuery(query);
+                if(!resultSet.next())
+                    addNewPlayer(playerData.getNickname());
+
+                score=playerData.getScore();
+                kills=playerData.getKills();
+                wins=playerData.getWins();
 
                 while(resultSet.next()) {
                     score += resultSet.getInt("score");
@@ -128,8 +137,7 @@ public class DBConnect {
                     wins += resultSet.getInt("wins");
                 }
 
-                statement.executeUpdate(String.format("UPDATE players SET score=%d, kills=%d WHERE nickname='%s'",score,kills,nickname));
-
+                statement.executeUpdate(String.format("UPDATE players SET score=%d, kills=%d, wins=%d WHERE nickname='%s'",score,kills,wins,playerData.getNickname()));
 
             } catch (SQLException throwables) {
                 throwables.printStackTrace();

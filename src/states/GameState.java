@@ -30,21 +30,15 @@ public class GameState extends State{
 
 
     public static final Color[] color=new Color[4];
-
-    private DBConnect connect;
-    private GameOverScreen gameoverscreen;
+    private GameOverScreen gameOverScreen;
     private Board board;
     private Dice dice;
     private Timer timer;
     private final Pause pause;
     private boolean inGame;
     private boolean endGame;
-
-
     private int round=0;
     private int turnOf;
-    
-    private boolean gameover=true;
 
     public GameState(Handler handler){
         super(handler);
@@ -64,7 +58,7 @@ public class GameState extends State{
         timer=new Timer(handler,765,300);
 
         turnOf=(int)(Math.random()*4);
-        gameoverscreen = new GameOverScreen(handler);
+        gameOverScreen = new GameOverScreen(handler);
     }
 
     public void setPlayer(Player player){
@@ -77,7 +71,6 @@ public class GameState extends State{
     }
     
     public void setTurnof() {
-    	if(!gameover) {
         player[turnOf].resetList();
 
         turnOf++;
@@ -89,19 +82,7 @@ public class GameState extends State{
         dice.setRolled(false);
         timer.resetTimer();
         player[turnOf].resetRolls();
-        
-        if(player[0].didFinish() && player[1].didFinish() && player[3].didFinish() && player[4].didFinish()) {
-        	gameoverscreen.gameover();
-        	gameover=true;
-        	connect=new DBConnect();
-            if(connect.isConnected()) {
-            	for (int i=0;i<4;i++)
-            	if (player[i].getClass().getName()=="Players.Person")
-            	connect.addResults(player[i].getPlayerData().getNickname(), player[i].getPlayerData().getScore(), player[i].getPlayerData().getKills(), player[i].getPlayerData().getWins());
-            }
-}
     }
-    	}
 
     @Override
     public void tick() {
@@ -119,15 +100,17 @@ public class GameState extends State{
 
                 if(player[0].getWon()&&player[1].getWon()&&player[2].getWon()&&player[3].getWon()) {
                     endGame=true;
+                    gameOverScreen.init(winnerTable);
                     System.out.println("ENDING SCREEN");
                 }
 
             }
             else{
-                //endgame.tick
+                gameOverScreen.tick();
 
             }
         }
+        if(!endGame)
         pause.tick();
     }
 
@@ -140,14 +123,16 @@ public class GameState extends State{
 
         board.render(g);
 
-        for(int i=0;i<player.length;i++){
-            player[i].renderFire(g);
+        for (Player value : player) {
+            value.renderFire(g);
         }
 
         renderPlayers(g);
 
-        gameoverscreen.render(g);
+        if(endGame)
+        gameOverScreen.render(g);
 
+        if(!endGame)
         pause.render(g);
 
     }
@@ -222,12 +207,12 @@ public class GameState extends State{
 
     private void renderPlayers(Graphics g){
 
-        for(int i=0;i<renderOrder.size();i++){
-            renderOrder.get(i).render(g);
+        for (Counter counter : renderOrder) {
+            counter.render(g);
         }
 
-        for(int i=0;i<player.length;i++){
-            player[i].renderInBaseCounters(g);
+        for (Player value : player) {
+            value.renderInBaseCounters(g);
         }
 
         player[turnOf].renderUltBar(g);
@@ -298,19 +283,31 @@ public class GameState extends State{
 
     public Player getPlayerByColor(BufferedImage counterColor){
         for(int i=0;i<4;i++){
-            if(player[i].getCounter(0).getCounterColor()==counterColor)
-                return player[i];
+            if(player[i].getCounter(0)!=null) {
+                if (player[i].getCounter(0).getCounterColor() == counterColor)
+                    return player[i];
+            }
         }
 
         return null;
     }
 
-    public void setInGame(boolean inGame){
-        this.inGame=inGame;
-    }
-
     public boolean isInGame(){
         return this.inGame;
+    }
+
+    public void setPlayerData(PlayerData playerData){
+        this.winnerTable.add(playerData);
+    }
+
+    public void clear(){
+        endGame=false;
+        inGame=false;
+        resetingCounter.clear();
+        winnerTable.clear();
+        botNickname.clear();
+        renderOrder.clear();
+        round=0;
     }
 
 

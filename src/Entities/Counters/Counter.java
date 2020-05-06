@@ -28,7 +28,6 @@ public abstract class Counter extends Entity {
     private boolean moving;
     private boolean reseting;
     private boolean won;
-    private int toWin;
     private PositionOnMap bufferedPosition;
 
     //cos do umiejetnosci
@@ -211,7 +210,7 @@ public abstract class Counter extends Entity {
             hitbox.y=(int)y;
 
 
-            wasBeaten=true;
+            beaten=true;
             cfinished=false;
 
             tickcount = 0;
@@ -230,6 +229,7 @@ public abstract class Counter extends Entity {
             return new PositionOnMap(0);
         else if(pos.arr>0&&pos.tile==5){
             won=true;
+            ultimateAbility=false;
             System.out.println("WON");
             return new PositionOnMap(pos.arr,pos.tile);
         }
