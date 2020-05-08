@@ -1,6 +1,7 @@
 package ludogame;
 
 
+import GFX.Assets;
 import GFX.DynamicBackground;
 
 import display.Display;
@@ -89,13 +90,12 @@ public class LoadingScreen implements Runnable{
         long now;
         long lastTime=System.nanoTime();
 
-        long timer=0;
-        int ticks=0;
+
 
         while(running){
             now=System.nanoTime();
             delta+=(now-lastTime)/timePerTick;
-            timer+=now-lastTime;
+
             lastTime=now;
 
             if(delta>=1) {
@@ -103,7 +103,6 @@ public class LoadingScreen implements Runnable{
                     tick();
                     render();
                 }
-                ticks++;
                 delta--;
             }
         }

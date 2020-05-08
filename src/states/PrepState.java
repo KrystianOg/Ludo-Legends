@@ -165,7 +165,6 @@ public class PrepState extends State {
         }
         else{
             legendPick[picking].render(g);
-            Text.drawString(g,"Please choose 4 characters.",handler.getFrameWidth()/2,130,true,redOp,Assets.Ubuntu34);
             info.render(g);
         }
 
