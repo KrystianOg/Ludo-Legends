@@ -8,12 +8,14 @@ import GFX.DynamicBackground;
 import ludogame.Handler;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 public class SettingState extends State{
 
     //SETTINGS
     public static int FPS,BUTTON_SIZE,ULT_LOAD,DICE_ANIM_TIME;
     public static boolean FPS_COUNTER,DYNAMIC_BACKGROUND;
+
 	private final Slider sliderFps;
     private final Slider buttonSize;
     private final Slider ultLoad;
@@ -25,6 +27,7 @@ public class SettingState extends State{
     private final Slider diceAnimTime;
 
     private DynamicBackground dynamicBackground;
+
 
     public SettingState(Handler handler){
         super(handler);
@@ -82,6 +85,7 @@ public class SettingState extends State{
 
     	defaults.tick();
 
+
     }
 
     @Override
@@ -89,6 +93,7 @@ public class SettingState extends State{
 
     	g.setColor(Color.white);
         g.fillRect(0,0,handler.getFrameWidth(),handler.getFrameHeight());
+        if(SettingState.DYNAMIC_BACKGROUND)
         dynamicBackground.render(g);
 
         sliderFps.render(g);
@@ -96,11 +101,13 @@ public class SettingState extends State{
         ultLoad.render(g);
         back.render(g);
 
+
         defaults.render(g);
         diceAnimTime.render(g);
         dynamicBackgroundSwitch.render(g);
         fpsCounterSwitch.render(g);
         apply.render(g);
+
 
 
     }

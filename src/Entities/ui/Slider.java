@@ -3,6 +3,7 @@ package Entities.ui;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
+import java.util.ArrayList;
 
 import Entities.Entity;
 import GFX.Assets;
@@ -29,7 +30,9 @@ public class Slider extends Entity {
 	private final float minMax;
     private float value;
 	private final String title;
+
 	private int[] szczeble;
+
 
     
 	public Slider(Handler handler, float x, float y, int frameWidth, float minValue, float maxValue, float defaultValue, String title) {
@@ -44,6 +47,7 @@ public class Slider extends Entity {
 		this.title=title;
 		minMax=maxValue-minValue;
 
+
 	    positionX=x+300+((defaultValue-minValue)/minMax *200);
 	    value=defaultValue;
 
@@ -51,7 +55,7 @@ public class Slider extends Entity {
 	}
 	public Slider(Handler handler, float x, float y, int frameWidth, float minValue, float maxValue, float defaultValue, String title, int[] szczeble) {
 		super(handler, x, y, WIDTH, HEIGHT);
-		
+
 		this.szczeble=szczeble;
 		this.hitbox=new Rectangle((int)x+300,(int)y, frameWidth, height);
 		this.pressed=false;
@@ -75,6 +79,7 @@ public class Slider extends Entity {
 		
 		if(this.hitbox.contains(handler.getHoverX(),handler.getHoverY()) && handler.getGame().getMousemanager().isLeftPressed()) {
             this.pressed=true;
+
 
             if (szczeble==null){
             	positionX=handler.getHoverX();
@@ -138,6 +143,7 @@ public class Slider extends Entity {
     			}
         	value=szczeble[((int)positionX-(int)x)*szczeble.length/200];
 		}
+
 
 	}
 }

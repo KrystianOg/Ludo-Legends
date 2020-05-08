@@ -1,6 +1,7 @@
 package ludogame;
 
-import GFX.Assets;
+
+import GFX.DynamicBackground;
 
 import display.Display;
 import java.awt.*;

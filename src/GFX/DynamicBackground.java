@@ -21,6 +21,7 @@ public class DynamicBackground {
     private static int[] cluePoint;
     private final double[] position;
     private final boolean[] right;
+    private boolean onOff = true;
 
     //wiecej logiki dodac jakies rng
 
@@ -47,6 +48,7 @@ public class DynamicBackground {
     }
 
 
+
     public void tick() {
 
         if (SettingState.DYNAMIC_BACKGROUND) {
@@ -59,14 +61,16 @@ public class DynamicBackground {
             if (ticks == 2)
                 ticks = 0;
         }
+
     }
 
     public void render(Graphics g){
 
-        if(SettingState.DYNAMIC_BACKGROUND) {
-            g.drawImage(dynamicBackground[0], (int) position[0], 0, width, height, null);
-            g.drawImage(dynamicBackground[1], (int) position[1], 0, width, height, null);
-        }
+            g.drawImage(dynamicBackground[0], (int)position[0], 0, width, height, null);
+            g.drawImage(dynamicBackground[1], (int)position[1], 0, width, height, null);
+
+
+
     }
 
     private void moveBackgroundLogic(int i){
@@ -87,5 +91,13 @@ public class DynamicBackground {
     private void changeDirection(int i){
         right[i]= !right[i];
     }
+
+	public boolean isOnOff() {
+		return onOff;
+	}
+
+	public void setOnOff(boolean onOff) {
+		this.onOff = onOff;
+	}
 
 }

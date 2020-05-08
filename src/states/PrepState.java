@@ -8,6 +8,7 @@ import Players.Blank;
 import Players.Bot;
 import Players.Person;
 import Entities.ui.Button;
+import Entities.ui.Info;
 import Entities.ui.LegendPick;
 import Entities.ui.PlayerPick;
 import GFX.Assets;
@@ -49,6 +50,7 @@ public class PrepState extends State {
     private LegendPick[] legendPick;
 
     private final Pause pause;
+    private final Info info;
 
     //error
 
@@ -59,6 +61,7 @@ public class PrepState extends State {
 
         apply=new Button(handler,(float)((handler.getFrameWidth()-350)/2),500,1, Assets.big_button_template,"APPLY",76);
         pause=new Pause(handler,handler.getFrameWidth()-100,30,Assets.pause_button);
+        info=new Info(handler,handler.getFrameWidth()-100,110,Assets.info_button);
     }
 
     public void init(DynamicBackground dynamicBackground){
@@ -90,7 +93,7 @@ public class PrepState extends State {
 
         dynamicBackground.tick();
 
-        if(!pause.getClicked()) {
+        if(!pause.getClicked() && !info.getClicked()) {
             if (typePick) {
                 playerPick[0].tick();
                 playerPick[1].tick();
@@ -104,14 +107,16 @@ public class PrepState extends State {
                 }
                 nickNamePlaceTick();
 
+
                 if (apply.contains(handler.getMouseClickX(), handler.getMouseClickY())) {
                     handler.resetMousePOS();
                     checkPick();
+
                 }
 
             } else {
-
-                legendPick[picking].tick();
+    	
+            	legendPick[picking].tick();
 
                 if (playerPick[picking].getCurrentPick() == 1 && legendPick[picking].getchoosen() == 4 && apply.contains(handler.getMouseClickX(), handler.getMouseClickY())) {
                     handler.resetMousePOS();
@@ -126,17 +131,21 @@ public class PrepState extends State {
                 }
 
                 if (picking == 4) {
-                    handler.getGameState().init();
+                	handler.getGameState().init();
                     resetVariables();
                     setState(handler.getGame().gameState);
                 }
+            	
             }
-
             apply.tick();
+
 
             errorsTick();
 
+
         }
+        if (!typePick)
+        	info.tick();
         pause.tick();
     }
 
@@ -156,6 +165,8 @@ public class PrepState extends State {
         }
         else{
             legendPick[picking].render(g);
+            Text.drawString(g,"Please choose 4 characters.",handler.getFrameWidth()/2,130,true,redOp,Assets.Ubuntu34);
+            info.render(g);
         }
 
         renderErrors(g);
@@ -273,6 +284,7 @@ public class PrepState extends State {
                         break;
                 }
             }
+
             typePick=false;
         }
     }
@@ -291,4 +303,5 @@ public class PrepState extends State {
         }
         nullPlayersError.render(g);
     }
+
 }
