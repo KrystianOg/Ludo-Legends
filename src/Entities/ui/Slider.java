@@ -31,8 +31,6 @@ public class Slider extends Entity {
     private float value;
 	private final String title;
 
-	ArrayList<Integer> szczeble = new ArrayList<Integer>();
-
 	private int[] szczeble;
 
 
@@ -57,7 +55,7 @@ public class Slider extends Entity {
 	}
 	public Slider(Handler handler, float x, float y, int frameWidth, float minValue, float maxValue, float defaultValue, String title, int[] szczeble) {
 		super(handler, x, y, WIDTH, HEIGHT);
-		
+
 		this.szczeble=szczeble;
 		this.hitbox=new Rectangle((int)x+300,(int)y, frameWidth, height);
 		this.pressed=false;

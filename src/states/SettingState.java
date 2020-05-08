@@ -58,7 +58,7 @@ public class SettingState extends State{
     public void tick() {
 
         dynamicBackground.tick();
-    	if(this.back.getHitbox().contains(handler.getMouseClickX(),handler.getMouseClickY())) {
+    	if(this.back.contains(handler.getMouseClickX(),handler.getMouseClickY())) {
             handler.resetMousePOS();
             setSettings();
     	    setState(handler.getGame().menuState);
