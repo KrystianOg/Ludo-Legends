@@ -5,17 +5,15 @@ import Entities.HUD.Dice;
 import Entities.PositionOnMap;
 import Entities.ui.Pause;
 import GFX.Assets;
+import Players.Bot;
 import Players.Player;
-import Entities.ui.Tile;
 import Entities.HUD.Timer;
 import Players.PlayerData;
-import ludogame.DBConnect;
+import display.GameOverScreen;
 import ludogame.Handler;
 
-import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -25,7 +23,6 @@ public class GameState extends State{
     private final Player[] player;
     private final List<Counter> resetingCounter=new LinkedList<>();
     private final List<PlayerData> winnerTable=new LinkedList<>();
-    private final List<String> botNickname=new LinkedList<>();
     private final List<Counter> renderOrder=new LinkedList<>();
 
 
@@ -46,7 +43,7 @@ public class GameState extends State{
         inGame=false;
         endGame=false;
         this.player=new Player[4];
-        setBotNicknames();
+        Bot.setBotNicknames();
         pause=new Pause(handler,handler.getFrameWidth()-100,30, Assets.pause_button);
     }
 
@@ -87,7 +84,6 @@ public class GameState extends State{
     @Override
     public void tick() {
 
-
         if(!pause.getClicked()) {
             if(!endGame) {
                 if (!player[turnOf].getWon())
@@ -97,11 +93,9 @@ public class GameState extends State{
 
                 resetCounters();
 
-
                 if(player[0].getWon()&&player[1].getWon()&&player[2].getWon()&&player[3].getWon()) {
                     endGame=true;
                     gameOverScreen.init(winnerTable);
-                    System.out.println("ENDING SCREEN");
                 }
 
             }
@@ -135,36 +129,6 @@ public class GameState extends State{
         if(!endGame)
         pause.render(g);
 
-    }
-
-    private void setBotNicknames(){
-
-        botNickname.add("Bot James");
-        botNickname.add("Bot John");
-        botNickname.add("Bot William");
-        botNickname.add("Bot Timothy");
-        botNickname.add("Bot Nicholas");
-        botNickname.add("Bot Stephen");
-        botNickname.add("Bot Nathan");
-
-        botNickname.add("Bot Sarah");
-        botNickname.add("Bot Nancy");
-        botNickname.add("Bot Lisa");
-        botNickname.add("Bot Sandra");
-        botNickname.add("Bot Laura");
-        botNickname.add("Bot Nicole");
-        botNickname.add("Bot Lauren");
-
-    }
-
-    public String getBotNickname(){
-
-        int i=(int)(Math.random()*botNickname.size());
-        String nick=botNickname.get(i);
-        Collections.swap(botNickname,i,botNickname.size()-1);
-        botNickname.remove(botNickname.size()-1);
-
-        return nick;
     }
 
     public Player getPlayer(int i){
@@ -305,7 +269,6 @@ public class GameState extends State{
         inGame=false;
         resetingCounter.clear();
         winnerTable.clear();
-        botNickname.clear();
         renderOrder.clear();
         round=0;
     }

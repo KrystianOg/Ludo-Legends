@@ -1,0 +1,215 @@
+@startuml
+
+title __STATES's Class Diagram__\n
+
+  namespace states {
+    class display.GameOverScreen {
+        {static} - FRAME_X : int
+        {static} - FRAME_Y : int
+        {static} - LEADERBOARD_HEIGHT : int
+        {static} - LEADERBOARD_WIDTH : int
+        - blackOp : Color
+        - grayOp : Color
+        - onHover : Color
+        - playerData : List<PlayerData>
+        - sortByScore : boolean
+        - textColor : Color
+        + GameOverScreen()
+        + init()
+        + render()
+        + tick()
+        - drawHead()
+        - drawNextPlayer()
+        - fillRoundRec()
+    }
+  }
+  
+
+  namespace states {
+    class states.GameState {
+        {static} + color : Color[]
+        - botNickname : List<String>
+        - endGame : boolean
+        - inGame : boolean
+        - player : Player[]
+        - renderOrder : List<Counter>
+        - resetingCounter : List<Counter>
+        - round : int
+        - turnOf : int
+        - winnerTable : List<PlayerData>
+        + GameState()
+        + addToReset()
+        + clear()
+        + getBoard()
+        + getBotNickname()
+        + getDice()
+        + getPlayer()
+        + getPlayerByColor()
+        + getRound()
+        + getTimer()
+        + getTurnOf()
+        + init()
+        + isInGame()
+        + render()
+        + setPlayer()
+        + setPlayerData()
+        + setRenderOrder()
+        + setTurnof()
+        + tick()
+        - renderPlayers()
+        - resetCounters()
+        - setBotNicknames()
+    }
+  }
+  
+
+  namespace states {
+    class states.HighScoresState {
+        {static} - FRAME_X : int
+        {static} - FRAME_Y : int
+        {static} - LEADERBOARD_HEIGHT : int
+        {static} - LEADERBOARD_WIDTH : int
+        {static} - LIMIT : int
+        - beatsHitbox : Rectangle
+        - beatsHover : boolean
+        - grayOp : Color
+        - onHover : Color
+        - playerData : List<PlayerData>
+        - scoreHitbox : Rectangle
+        - scoreHover : boolean
+        - textColor : Color
+        - winsHitbox : Rectangle
+        - winsHover : boolean
+        + HighScoresState()
+        + init()
+        + render()
+        + tick()
+        - drawHead()
+        - drawNextPlayer()
+        - fillRoundRec()
+    }
+  }
+  
+
+  namespace states {
+    class states.MenuState {
+        - LOGO_SCALE : double
+        - logo : BufferedImage
+        + MenuState()
+        + render()
+        + tick()
+    }
+  }
+  
+
+  namespace states {
+    class states.PrepState {
+        - BASE_POS_X : int[]
+        - BASE_POS_Y : int[]
+        - COUNTER_POS_X : int[]
+        - COUNTER_POS_Y : int[]
+        - PLAYER_ENDING_POS : PositionOnMap[]
+        {static} - PLAYER_POSY : int
+        {static} - PLAYER_SHIFT : int
+        - PLAYER_STARTING_POS : PositionOnMap[]
+        - legendPick : LegendPick[]
+        - lengthAlpha : int
+        - nicknameLengthError : boolean
+        - nicknameLengthErrorTick : int
+        - picking : int
+        - player : List<Player>
+        - playerI : List<Integer>
+        - playerPick : PlayerPick[]
+        - redOp : Color
+        - textField : TextField[]
+        - typePick : boolean
+        + PrepState()
+        + init()
+        + render()
+        + resetVariables()
+        + tick()
+        - nickNamePlaceRender()
+        - nickNamePlaceTick()
+        - nicknameLengthErrorTick()
+        - properPick()
+        - savePersonCounters()
+        - setBotCounters()
+        - setCountertypes()
+    }
+  }
+  
+
+  namespace states {
+    class states.SettingState {
+        {static} + BUTTON_SIZE : int
+        {static} + DICE_ANIM_TIME : int
+        {static} + DYNAMIC_BACKGROUND : boolean
+        {static} + FPS : int
+        {static} + FPS_COUNTER : boolean
+        {static} + ULT_LOAD : int
+        + SettingState()
+        + render()
+        + resetAll()
+        + setDynamicBackground()
+        + setSettings()
+        + tick()
+    }
+  }
+  
+
+  namespace states {
+    abstract class states.State {
+        {static} - currentstate : State
+        + State()
+        {static} + getState()
+        {abstract} + render()
+        {static} + setState()
+        {abstract} + tick()
+    }
+  }
+  
+
+  display.GameOverScreen o-- ludogame.Handler : handler
+  display.GameOverScreen o-- Entities.ui.Button : menu
+  states.GameState -up-|> states.State
+  states.GameState o-- Entities.Board : board
+  states.GameState o-- Entities.HUD.Dice : dice
+  states.GameState o-- display.GameOverScreen : gameOverScreen
+  states.GameState o-- Entities.ui.Pause : pause
+  states.GameState o-- Entities.HUD.Timer : timer
+  states.HighScoresState -up-|> states.State
+  states.HighScoresState o-- Entities.ui.Button : back
+  states.HighScoresState o-- ludogame.DBConnect : connect
+  states.HighScoresState o-- GFX.DynamicBackground : dynamicBackground
+  states.MenuState -up-|> states.State
+  states.MenuState o-- GFX.DynamicBackground : dynamicBackground
+  states.MenuState o-- Entities.ui.Button : exit
+  states.MenuState o-- Entities.ui.Button : game
+  states.MenuState o-- Entities.ui.Button : ranking
+  states.MenuState o-- Entities.ui.Button : settings
+  states.PrepState -up-|> states.State
+  states.PrepState o-- GFX.DynamicBackground : dynamicBackground
+  states.PrepState o-- Entities.ui.Button : apply
+  states.PrepState o-- Entities.ui.Pause : pause
+  states.SettingState -up-|> states.State
+  states.SettingState o-- Entities.ui.Button : apply
+  states.SettingState o-- Entities.ui.Button : back
+  states.SettingState o-- Entities.ui.Slider : buttonSize
+  states.SettingState o-- Entities.ui.Button : defaults
+  states.SettingState o-- Entities.ui.Slider : diceAnimTime
+  states.SettingState o-- GFX.DynamicBackground : dynamicBackground
+  states.SettingState o-- Entities.ui.Switch : dynamicBackgroundSwitch
+  states.SettingState o-- Entities.ui.Switch : fpsCounterSwitch
+  states.SettingState o-- Entities.ui.Slider : sliderFps
+  states.SettingState o-- Entities.ui.Slider : ultLoad
+  states.State o-- ludogame.Handler : handler
+
+
+right footer
+
+
+PlantUML diagram generated by SketchIt! (https://bitbucket.org/pmesmeur/sketch.it)
+For more information about this tool, please contact philippe.mesmeur@gmail.com
+endfooter
+
+@enduml

@@ -1,6 +1,7 @@
 package ludogame;
 
 import GFX.Assets;
+import GFX.DynamicBackground;
 import display.Display;
 
 import java.awt.*;
@@ -24,21 +25,21 @@ public class LoadingScreen implements Runnable{
     private int value=0;
     private int tick=0;
 
+    private boolean doRender;
 
     public LoadingScreen(Handler handler,String title,int width,int height){
         this.handler =handler;
         this.width=width;
         this.height=height;
 
+        handler.setLoadingScreen(this);
+        doRender=true;
         display=new Display(title,width,height);
         handler.setDisplay(display);
-
-
     }
 
     private void init(){
             Assets.initLoadingScreen();
-
     }
 
     private void tick(){
@@ -48,9 +49,6 @@ public class LoadingScreen implements Runnable{
             if(value==4)
                 value=0;
         }
-
-        if(handler.getGame()!=null)
-            running=false;
     }
 
     private void render(){
@@ -102,8 +100,10 @@ public class LoadingScreen implements Runnable{
             lastTime=now;
 
             if(delta>=1) {
-                tick();
-                render();
+                if(doRender) {
+                    tick();
+                    render();
+                }
                 ticks++;
                 delta--;
             }
@@ -133,4 +133,10 @@ public class LoadingScreen implements Runnable{
         }
     }
 
+    public void setRender(boolean render){
+        this.doRender=render;
+    }
+    public boolean getRender(){
+        return this.doRender;
+    }
 }

@@ -106,35 +106,11 @@ public class PrepState extends State {
                 }
                 nickNamePlaceTick();
 
-                if(nicknameLengthError) {
-                    nicknameLengthErrorTick();
-                }
+                nicknameLengthErrorTick();
 
                 if (apply.contains(handler.getMouseClickX(), handler.getMouseClickY())) {
                     handler.resetMousePOS();
-
-                    if(properPick()){
-                        for (int i = 0; i < 4; i++) {
-                            switch (playerPick[i].getCurrentPick()) {
-                                case 0:
-                                    handler.getGameState().setPlayer(new Bot(handler, PLAYER_STARTING_POS[i], PLAYER_ENDING_POS[i], Assets.counter[i]));
-                                    break;
-                                case 1:
-                                    handler.getGameState().setPlayer(new Person(handler, PLAYER_STARTING_POS[i], PLAYER_ENDING_POS[i], Assets.counter[i],textField[i].getNickname()));
-                                    break;
-                                case 2:
-                                    handler.getGameState().setPlayer(new Blank(handler, PLAYER_STARTING_POS[i], PLAYER_ENDING_POS[i], Assets.counter[i]));
-                                    break;
-                            }
-                        }
-
-                        typePick=false;
-                    }else{
-                        nicknameLengthErrorTick=0;
-                        lengthAlpha=255;
-                        redOp=new Color(201,0,1,255);
-                        nicknameLengthError=true;
-                    }
+                    checkPick();
                 }
 
             } else {
@@ -269,21 +245,22 @@ public class PrepState extends State {
     }
 
     private void nicknameLengthErrorTick(){
-        nicknameLengthErrorTick++;
-        if(nicknameLengthErrorTick>=SettingState.FPS*4){
-            redOp=new Color(201,0,1,lengthAlpha-=3);
+        if(nicknameLengthError) {
+            nicknameLengthErrorTick++;
+            if (nicknameLengthErrorTick >= SettingState.FPS * 4) {
+                redOp = new Color(201, 0, 1, lengthAlpha -= 3);
 
-            if(lengthAlpha<=2){
-                lengthAlpha=255;
-                nicknameLengthErrorTick=0;
-                redOp=new Color(201,0,1,lengthAlpha);
-                nicknameLengthError=false;
+                if (lengthAlpha <= 2) {
+                    lengthAlpha = 255;
+                    nicknameLengthErrorTick = 0;
+                    redOp = new Color(201, 0, 1, lengthAlpha);
+                    nicknameLengthError = false;
+
+                }
 
             }
 
         }
-
-
     }
 
     private boolean properPick(){
@@ -294,6 +271,32 @@ public class PrepState extends State {
             }
         }
         return true;
+    }
+
+    private void checkPick(){
+        if(properPick()){
+            for (int i = 0; i < 4; i++) {
+                switch (playerPick[i].getCurrentPick()) {
+                    case 0:
+                        handler.getGameState().setPlayer(new Bot(handler, PLAYER_STARTING_POS[i], PLAYER_ENDING_POS[i], Assets.counter[i]));
+                        break;
+                    case 1:
+                        handler.getGameState().setPlayer(new Person(handler, PLAYER_STARTING_POS[i], PLAYER_ENDING_POS[i], Assets.counter[i],textField[i].getNickname()));
+                        break;
+                    case 2:
+                        handler.getGameState().setPlayer(new Blank(handler, PLAYER_STARTING_POS[i], PLAYER_ENDING_POS[i], Assets.counter[i]));
+                        break;
+                }
+            }
+
+            typePick=false;
+        }else{
+            nicknameLengthErrorTick=0;
+            lengthAlpha=255;
+            redOp=new Color(201,0,1,255);
+            nicknameLengthError=true;
+        }
+
     }
 
 }

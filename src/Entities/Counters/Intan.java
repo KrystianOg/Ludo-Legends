@@ -43,8 +43,6 @@ public class Intan extends Counter {
             hasShield=true;
             return true;
         }
-
-
     }
 
     @Override

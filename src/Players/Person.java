@@ -10,8 +10,6 @@ import java.awt.image.BufferedImage;
 public class Person extends Player {
 
     //Z BAZY DANYCH
-    private final String nickname;
-
     public static final String[] defaultNickname={ "Player1", "Player2", "Player3", "Player4"};
 
     private int input;
@@ -19,6 +17,7 @@ public class Person extends Player {
     public Person(Handler handler, PositionOnMap startingPos, PositionOnMap endingPos, BufferedImage counterColor,String nickname) { //zmienic na getter
         super(handler,startingPos,endingPos,counterColor);
         this.nickname=nickname;
+        this.isPlayer=true;
         input=-1;
     }
 
@@ -48,7 +47,7 @@ public class Person extends Player {
     public void render(Graphics g) {
 
         if(counter!=null)
-            Text.drawString(g,nickname,counter[3].getBaseX()+60,counter[3].getBaseY()-15,true,Color.white, Assets.Ubuntu34);
+            Text.drawString(g,this.nickname,counter[3].getBaseX()+60,counter[3].getBaseY()-15,true,Color.white, Assets.Ubuntu34);
         //for (Entities.Counters.Counter value : counter) value.render(g);
 
     }
@@ -63,7 +62,7 @@ public class Person extends Player {
         }
 
         else{
-            if(isinbase&&handler.getRoll()!=6) {
+            if(inBaseOrWon()&&handler.getRoll()!=6) {
                 notSixLogic();
                 handler.setTurnof();
             }
@@ -104,5 +103,12 @@ public class Person extends Player {
             return -1;
     }
 
+    private boolean inBaseOrWon(){
+        for(int i=0;i<4;i++){
+            if(!counter[i].isInbase()&&!counter[i].getWon())
+                return false;
+        }
+        return true;
+    }
 
 }

@@ -39,6 +39,7 @@ public abstract class Counter extends Entity {
     protected boolean ultBar;
     protected UltimateBar ultimateBar=null;
     protected boolean ultimateAbility=false;
+
     //
 
     //
@@ -46,6 +47,7 @@ public abstract class Counter extends Entity {
 
     //animacja
     protected int ANIM_TICKS=(int)(0.37* SettingState.FPS);
+    //protected int ANIM_TICKS=4;
     private int tickcount=0;
     protected int moved=0;
 
@@ -223,6 +225,8 @@ public abstract class Counter extends Entity {
 
     protected PositionOnMap getNextPosition(){
         if(pos.arr==handler.getPlayer().getEndingPos().arr&&pos.tile==handler.getPlayer().getEndingPos().tile) {
+            if(ultBar)
+                this.ultimateBar.setCanBeLoaded(false);
             return new PositionOnMap(handler.getTurnOf() + 1, 0);
         }
         else if(pos.tile==51)
@@ -239,15 +243,6 @@ public abstract class Counter extends Entity {
 
     public boolean isInbase() {
         return cisinbase;
-    }
-
-    public boolean didCFinish() {
-        return cfinished;
-    }
-    
-    public void cfinished() {
-    	this.moving=false;
-    	cfinished=true;
     }
     
     protected abstract void counterLogic();
@@ -322,6 +317,7 @@ public abstract class Counter extends Entity {
     public void setUltimateAbility(boolean ult){
         this.ultimateAbility=ult;
     }
+
 
 
     public boolean isBeaten(){

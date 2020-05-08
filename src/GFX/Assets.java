@@ -73,7 +73,6 @@ public class Assets {
         medkit=loadImage("/graphics/Counters/medkit1.png");
 
         icicle_f=loadImage("/graphics/Counters/icicle_front.png");
-        icicle_b=loadImage("/graphics/Counters/icicle_back.png");
 
         bow_lb=loadImage("/graphics/Counters/bow_lb.png");
         bow_lf=loadImage("/graphics/Counters/bow_lf.png");
@@ -183,11 +182,13 @@ public class Assets {
         //dynamic background
         dynamicBackground[0]=loadImage("/graphics/Menu/Background_3.png");
         dynamicBackground[1]=loadImage("/graphics/Menu/Background_4.png");
+
     }
 
     public static void initLoadingScreen(){
         //logo
         logo=loadImage("/graphics/Main_Logo2.png");
+
 
         Ubuntu34=FontLoader.loadFont("/fonts/Ubuntu-B.ttf",34);
 

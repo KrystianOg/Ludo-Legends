@@ -25,8 +25,6 @@ public class Game implements Runnable {
 
     private final Handler handler;
 
-    private DBConnect connect;
-
     //States                        // odpowiada za dzialanie roznych
 
     public State gameState;        // funkcji gry (np. gra,menu,ustawienia)
@@ -53,8 +51,6 @@ public class Game implements Runnable {
     private void init() {
         display=handler.getDisplay();
 
-        connect=new DBConnect();
-
         display.getFrame().addMouseListener(mouseManager);
         display.getCanvas().addMouseListener(mouseManager);
         display.getFrame().addMouseMotionListener(mouseManager);
@@ -75,6 +71,7 @@ public class Game implements Runnable {
 
         State.setState(menuState); //gamestate change
 
+        handler.getLoadingScreen().setRender(false);
     }
 
     private void tick(){
@@ -124,6 +121,8 @@ public class Game implements Runnable {
 
             if(delta>=1) {
                 tick();
+
+                if(!handler.getLoadingScreen().getRender())
                 render();
 
                 fps= (int) Math.round(SettingState.FPS/delta);
@@ -190,10 +189,6 @@ public class Game implements Runnable {
 
     public Display getDisplay(){
         return this.display;
-    }
-
-    public DBConnect getConnect(){
-        return this.connect;
     }
 
 }

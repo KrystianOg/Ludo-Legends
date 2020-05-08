@@ -67,8 +67,8 @@ public class HighScoresState extends State{
     public void init(DynamicBackground dynamicBackground){
         playerData.clear();
         this.dynamicBackground=dynamicBackground;
-        this.connect=handler.getGame().getConnect();   //<-highscores;
-
+        connect=new DBConnect(handler); //<-highscores;
+        
         if(connect.isConnected())
             connect.getData("wins", LIMIT,playerData);
     }
@@ -112,6 +112,7 @@ public class HighScoresState extends State{
 
         if(back.contains(handler.getMouseClickX(),handler.getMouseClickY())){
             handler.resetMousePOS();
+            connect.close();
             setState(handler.getGame().menuState);
         }
     }
@@ -168,8 +169,6 @@ public class HighScoresState extends State{
         Text.drawString(g,"Wins",FRAME_X+385,82,false,textColor,Assets.Ubuntu40);
         Text.drawString(g,"Beats",FRAME_X+535,82,false,textColor,Assets.Ubuntu40);
         Text.drawString(g,"Score",FRAME_X+685,82,false,textColor,Assets.Ubuntu40);
-
-
     }
 
     private void fillRoundRec(Graphics g){

@@ -15,7 +15,7 @@ public abstract class Player {
 
     protected Counter[] counter;      //zmienic na private / protected
 
-    protected final String nickname;
+    protected String nickname;
 
     protected int beats=0;
     protected int points=0;
@@ -30,7 +30,7 @@ public abstract class Player {
     protected List<Integer> chance=new LinkedList<>();
     protected List<Tile> fireTile =new LinkedList<>();
     protected int resetFireWhileTurn=0;
-
+    protected boolean isPlayer;
 
     protected boolean isinbase;
     protected boolean won;
@@ -140,8 +140,6 @@ public abstract class Player {
                 if(counter[i].isInbase()||counter[i].isMoving())
                     counter[i].render(g);
             }
-
-
         }
     }
 
@@ -211,7 +209,7 @@ public abstract class Player {
 
 
     public PlayerData getPlayerData() {
-    	PlayerData dane = new PlayerData(nickname, points, beats);
+    	PlayerData dane = new PlayerData(nickname, points, beats,isPlayer);
     	return dane;
     }
 
