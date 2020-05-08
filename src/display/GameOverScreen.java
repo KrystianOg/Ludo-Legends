@@ -3,9 +3,11 @@ package display;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+
 import java.awt.Rectangle;
 import java.awt.geom.RoundRectangle2D;
 import java.awt.image.BufferedImage;
+
 import java.util.LinkedList;
 import java.util.List;
 
@@ -14,6 +16,7 @@ import GFX.Assets;
 import GFX.DynamicBackground;
 import GFX.Text;
 import Players.Player;
+
 import Players.PlayerData;
 import ludogame.DBConnect;
 import ludogame.Handler;

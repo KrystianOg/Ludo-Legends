@@ -4,7 +4,6 @@ import Entities.Counters.*;
 import Entities.PositionOnMap;
 import Entities.ui.Pause;
 import Entities.ui.TextField;
-import GFX.Text;
 import Players.Blank;
 import Players.Bot;
 import Players.Person;
@@ -17,7 +16,6 @@ import GFX.DynamicBackground;
 import Players.Player;
 import ludogame.Handler;
 
-import javax.swing.*;
 import java.awt.*;
 import java.util.Arrays;
 import java.util.Collections;
@@ -38,7 +36,9 @@ public class PrepState extends State {
 
     //zoptymalizować
     private final Button apply;
-    private Color redOp;
+    private Error nicknameLengthError;
+    private Error nullPlayersError;
+    //
 
     private PlayerPick[] playerPick;
     private final List<Player> player=new LinkedList<>();
@@ -53,9 +53,6 @@ public class PrepState extends State {
     private final Info info;
 
     //error
-    private boolean nicknameLengthError;
-    private int nicknameLengthErrorTick;
-    private int lengthAlpha=255;
 
     DynamicBackground dynamicBackground;
 
@@ -71,10 +68,8 @@ public class PrepState extends State {
 
         this.dynamicBackground=dynamicBackground;
 
-        redOp=new Color(201,0,1,lengthAlpha);
         typePick=true;
-        nicknameLengthError=false;
-        nicknameLengthErrorTick=0;
+
         picking =0;
         playerI=new LinkedList<>();
 
@@ -88,6 +83,9 @@ public class PrepState extends State {
 
         for(int i=0;i<textField.length;i++)
             textField[i]=new TextField(handler,780,(handler.getFrameHeight()-60*4)/2+i*60-20,GameState.color[i],Person.defaultNickname[i]);
+
+        nicknameLengthError=new Error(handler.getFrameWidth()/2,130,"Please choose a nickname at least 4 characters long.");
+        nullPlayersError=new Error(handler.getFrameWidth()/2,130,"Please choose at least one player other than blank.");
     }
 
     @Override
@@ -109,11 +107,9 @@ public class PrepState extends State {
                 }
                 nickNamePlaceTick();
 
-                nicknameLengthErrorTick();
 
                 if (apply.contains(handler.getMouseClickX(), handler.getMouseClickY())) {
                     handler.resetMousePOS();
-
                     checkPick();
 
                 }
@@ -142,6 +138,11 @@ public class PrepState extends State {
             	
             }
             apply.tick();
+
+
+            errorsTick();
+
+
         }
         if (!typePick)
         	info.tick();
@@ -168,8 +169,7 @@ public class PrepState extends State {
             info.render(g);
         }
 
-        if(nicknameLengthError)
-            Text.drawString(g,"Please choose a nickname at least 4 characters long.",handler.getFrameWidth()/2,130,true,redOp,Assets.Ubuntu34);
+        renderErrors(g);
 
         pause.render(g);
 
@@ -252,32 +252,19 @@ public class PrepState extends State {
             }
     }
 
-    private void nicknameLengthErrorTick(){
-        if(nicknameLengthError) {
-            nicknameLengthErrorTick++;
-            if (nicknameLengthErrorTick >= SettingState.FPS * 4) {
-                redOp = new Color(201, 0, 1, lengthAlpha -= 3);
-
-                if (lengthAlpha <= 2) {
-                    lengthAlpha = 255;
-                    nicknameLengthErrorTick = 0;
-                    redOp = new Color(201, 0, 1, lengthAlpha);
-                    nicknameLengthError = false;
-
-                }
-
-
-            }
-        }
-
-    }
-
     private boolean properPick(){
         for(int i=0;i<4;i++){
             if(playerPick[i].getCurrentPick()==1){
-                if(textField[i].getNickname().length()<4)
+                if(textField[i].getNickname().length()<4) {
+                    nicknameLengthError.setOccured();
                     return false;
+                }
             }
+        }
+
+        if(playerPick[0].getCurrentPick()==2&&playerPick[1].getCurrentPick()==2&&playerPick[2].getCurrentPick()==2&&playerPick[3].getCurrentPick()==2) {
+            nullPlayersError.setOccured();
+            return false;
         }
         return true;
     }
@@ -299,14 +286,22 @@ public class PrepState extends State {
             }
 
             typePick=false;
-        }else{
-            nicknameLengthErrorTick=0;
-            lengthAlpha=255;
-            redOp=new Color(201,0,1,255);
-            nicknameLengthError=true;
         }
-
     }
 
+    private void errorsTick(){
+        nicknameLengthError.tick();
+        nullPlayersError.tick();
+    }
+
+    private void renderErrors(Graphics g){
+        nicknameLengthError.render(g);
+
+        if(nicknameLengthError.getOccured()){
+            nullPlayersError.setX(nicknameLengthError.getX());
+            nullPlayersError.setY(nicknameLengthError.getY());
+        }
+        nullPlayersError.render(g);
+    }
 
 }

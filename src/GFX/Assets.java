@@ -204,6 +204,7 @@ public class Assets {
         //logo
         logo=loadImage("/graphics/Main_Logo2.png");
 
+
         Ubuntu34=FontLoader.loadFont("/fonts/Ubuntu-B.ttf",34);
 
         SpriteSheet loadingDots=new SpriteSheet(loadImage("/graphics/Menu/loadingSheet.png"));

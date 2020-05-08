@@ -51,8 +51,6 @@ public abstract class Counter extends Entity {
     private int tickcount=0;
     protected int moved=0;
 
-    //problem - nienaturalne nak�adanie tekstur przy ruchu
-
     public Counter(Handler handler, float x, float y,BufferedImage counterColor) {
         super(handler,x, y,DEFAULT_WIDTH,DEFAULT_HEIGHT);
 
@@ -178,7 +176,6 @@ public abstract class Counter extends Entity {
             }
         }
         else {
-
 
             handler.setTurnof();
             handler.getPlayer().setRollsLeft(1);
@@ -317,8 +314,6 @@ public abstract class Counter extends Entity {
     public void setUltimateAbility(boolean ult){
         this.ultimateAbility=ult;
     }
-
-
 
     public boolean isBeaten(){
         return this.beaten;

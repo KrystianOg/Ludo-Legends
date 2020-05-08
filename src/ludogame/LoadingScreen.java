@@ -1,12 +1,11 @@
 package ludogame;
 
-import GFX.Assets;
-import GFX.DynamicBackground;
-import display.Display;
 
+import GFX.DynamicBackground;
+
+import display.Display;
 import java.awt.*;
 import java.awt.image.BufferStrategy;
-import java.io.IOException;
 
 public class LoadingScreen implements Runnable{
         //info
