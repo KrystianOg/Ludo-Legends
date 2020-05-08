@@ -19,6 +19,7 @@ public class UltimateBar extends Entity {
     private final int ULT_LOAD;
 
     private float loadPercentage;
+    private boolean canBeLoaded;
 
     //kwadrat z postacią
     private boolean characterHover;
@@ -38,6 +39,7 @@ public class UltimateBar extends Entity {
         this.counterColor=counter.getCounterColor();
         this.counter=counter;
         loaded=false;
+        canBeLoaded=true;
 
         if(SettingState.ULT_LOAD==0){
             loaded=true;
@@ -64,7 +66,7 @@ public class UltimateBar extends Entity {
         if(square.contains(handler.getMouseClickX(),handler.getMouseClickY())){
             handler.resetMousePOS();
 
-            if(loaded&&!counter.isInbase()&&!counter.getWon()) {
+            if(loaded&&!counter.isInbase()&&canBeLoaded) {
                 counter.useUltimateAbility();
                 handler.getPlayer().resetUltLoad();
                 handler.getPlayer().clearUltBarLoad();
@@ -157,6 +159,10 @@ public class UltimateBar extends Entity {
 
     public boolean isLoaded(){
         return this.loaded;
+    }
+
+    public void setCanBeLoaded(boolean canBeLoaded){
+        this.canBeLoaded=canBeLoaded;
     }
 
     public void setUltUsed(){

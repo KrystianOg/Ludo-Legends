@@ -13,14 +13,15 @@ public class DBConnect {
         private ResultSet resultSet;
         private boolean connected;
 
-        private final String url="jdbc:mysql://2001:0:284a:364:28fc:6cac:dae1:c8d8:3306/ludo";
-        private final String user="magenta";
-        private final String password="";
+        private final String url="jdbc:mysql://remotemysql.com:3306/e6FpSaeFOi";
+        private final String user="e6FpSaeFOi";
+        private final String password="u1fHS7jJTy";
 
-        private final String connectionString=url+"?user="+user+"&password="+password+"&useUnicode=true&characterEncoding=UTF-8";
+        //private final String connectionString=url+"?user="+user+"&password="+password+"&useUnicode=true&characterEncoding=UTF-8";
 
-        public DBConnect() {
+        public DBConnect(Handler handler) {
 
+            handler.getLoadingScreen().setRender(true);
             connected=false;
             connection=null;
 
@@ -46,6 +47,7 @@ public class DBConnect {
                 System.out.println("Error: "+e.getMessage());
                 e.printStackTrace();
             }
+            handler.getLoadingScreen().setRender(false);
         }
 
         public void getData(String orderBy, int limit, List<PlayerData> playerData){
@@ -114,7 +116,7 @@ public class DBConnect {
             }
         }
 
-        public void addResults(PlayerData playerData){
+        public void addResults(PlayerData playerData,int won){
             //select player_id from players
 
             int score;
@@ -124,14 +126,15 @@ public class DBConnect {
                 String query="SELECT score,kills,wins FROM players WHERE nickname='"+playerData.getNickname()+"'";
 
                 resultSet= statement.executeQuery(query);
-                if(!resultSet.next())
+
+                if(resultSet==null)
                     addNewPlayer(playerData.getNickname());
 
                 score=playerData.getScore();
                 kills=playerData.getKills();
-                wins=playerData.getWins();
+                wins=won;
 
-                while(resultSet.next()) {
+                if(resultSet.next()) {
                     score += resultSet.getInt("score");
                     kills += resultSet.getInt("kills");
                     wins += resultSet.getInt("wins");
@@ -141,7 +144,16 @@ public class DBConnect {
 
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
+            } finally {
+                if(resultSet!=null) {
+                    try {
+                        resultSet.close();
+                    } catch (SQLException throwables) {
+                        throwables.printStackTrace();
+                    }
+                }
             }
+
         }
 
         private void addNewPlayer(String nickname){
@@ -164,5 +176,19 @@ public class DBConnect {
 
         public boolean isConnected(){
             return connected;
+        }
+
+        public void close(){
+            connected=false;
+            try {
+                resultSet.close();
+                connection.close();
+                this.finalize();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            } catch (Throwable throwable) {
+                throwable.printStackTrace();
+            }
+
         }
 }

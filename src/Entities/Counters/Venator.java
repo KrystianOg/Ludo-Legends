@@ -65,9 +65,4 @@ public class Venator extends Counter {
             g.drawImage(bow_lf,(int)x+(int)(BOWL_FX*SCALE),(int)y+(int)(BOWL_FY*SCALE),(int)(bow_lf.getWidth()*SCALE),(int)(bow_lf.getHeight()*SCALE),null);
     }
 
-    private void arrowTick(){
-
-
-
-    }
 }

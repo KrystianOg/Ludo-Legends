@@ -31,7 +31,8 @@ public class MenuState extends State{
     @Override
     public void tick() {
 
-        dynamicBackground.tick();
+        if(dynamicBackground!=null)
+            dynamicBackground.tick();
 
         if(this.game.contains(handler.getMouseClickX(),handler.getMouseClickY())) {
             handler.resetMousePOS();
@@ -66,7 +67,8 @@ public class MenuState extends State{
     	g.setColor(Color.white);
         g.fillRect(0,0,handler.getFrameWidth(),handler.getFrameHeight());
 
-        dynamicBackground.render(g);
+        if(dynamicBackground!=null)
+            dynamicBackground.render(g);
 
         g.drawImage(logo, (handler.getFrameWidth()-(int)(logo.getWidth()*LOGO_SCALE))/2, 25,(int)(logo.getWidth()*LOGO_SCALE),(int)(Assets.logo.getHeight()*LOGO_SCALE),null);
 

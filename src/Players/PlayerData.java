@@ -7,6 +7,7 @@ public class PlayerData {
     private int score;
     private int kills;
     private int wins;
+    private boolean player;
 
     public PlayerData(){
 
@@ -19,7 +20,8 @@ public class PlayerData {
     	this.wins=wins;
     }
 
-    public PlayerData(String nickname, int score, int kills){
+    public PlayerData(String nickname, int score, int kills,boolean player){
+        this.player=player;
         this.nickname=nickname;
         this.score=score;
         this.kills=kills;
@@ -66,5 +68,8 @@ public class PlayerData {
         return kills;
     }
 
+    public boolean isPlayer(){
+        return this.player;
+    }
 
 }

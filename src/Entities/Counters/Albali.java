@@ -39,6 +39,7 @@ public class Albali extends Counter {
             killable=true;
             uses=ROUNDS_AFFECTED;
             first=true;
+
             ultimateAbility=false;
         }
         else if(ultimateAbility){

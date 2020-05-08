@@ -8,19 +8,20 @@ import ludogame.Handler;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
 
 public class Bot extends Player {
 
-    private final String nickname;
-
     private int input=-1;
+    private static final List<String> botNickname=new LinkedList<>();
 
     public Bot(Handler handler, PositionOnMap startingPos, PositionOnMap endingPos, BufferedImage counterColor) {
         super(handler,startingPos,endingPos,counterColor);
-        nickname=handler.getBotNickname();
+        this.isPlayer=false;
+        this.nickname=getBotNickname();
     }
 
     @Override
@@ -151,4 +152,33 @@ public class Bot extends Player {
             return -1;
     }
 
+    public static void setBotNicknames(){
+
+        botNickname.add("Bot James");
+        botNickname.add("Bot John");
+        botNickname.add("Bot William");
+        botNickname.add("Bot Timothy");
+        botNickname.add("Bot Nicholas");
+        botNickname.add("Bot Stephen");
+        botNickname.add("Bot Nathan");
+
+        botNickname.add("Bot Sarah");
+        botNickname.add("Bot Nancy");
+        botNickname.add("Bot Lisa");
+        botNickname.add("Bot Sandra");
+        botNickname.add("Bot Laura");
+        botNickname.add("Bot Nicole");
+        botNickname.add("Bot Lauren");
+
+    }
+
+    private static String getBotNickname(){
+
+        int i=(int)(Math.random()*botNickname.size());
+        String nick=botNickname.get(i);
+        Collections.swap(botNickname,i,botNickname.size()-1);
+        botNickname.remove(botNickname.size()-1);
+
+        return nick;
+    }
 }
