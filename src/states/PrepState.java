@@ -9,10 +9,12 @@ import Players.Blank;
 import Players.Bot;
 import Players.Person;
 import Entities.ui.Button;
+import Entities.ui.Info;
 import Entities.ui.LegendPick;
 import Entities.ui.PlayerPick;
 import GFX.Assets;
 import GFX.DynamicBackground;
+import Players.Player;
 import ludogame.Handler;
 
 import javax.swing.*;
@@ -26,10 +28,10 @@ public class PrepState extends State {
 
     private static final int PLAYER_POSY=230,PLAYER_SHIFT=450;
 
-    private static final PositionOnMap[]  PLAYER_STARTING_POS={new PositionOnMap(1),new PositionOnMap(14),new PositionOnMap(27),new PositionOnMap(40)},
+    private final PositionOnMap[]  PLAYER_STARTING_POS={new PositionOnMap(1),new PositionOnMap(14),new PositionOnMap(27),new PositionOnMap(40)},
                                           PLAYER_ENDING_POS={new PositionOnMap(51),new PositionOnMap(12),new PositionOnMap(25),new PositionOnMap(38)};
 
-    private static final int[]  COUNTER_POS_X={166,166,92,92},
+    private final int[]  COUNTER_POS_X={166,166,92,92},
                                 COUNTER_POS_Y={88,162,162,88},
                                 BASE_POS_X={450,450,0,0},
                                 BASE_POS_Y={0,450,450,0};
@@ -39,6 +41,7 @@ public class PrepState extends State {
     private Color redOp;
 
     private PlayerPick[] playerPick;
+    private final List<Player> player=new LinkedList<>();
     private List<Integer> playerI;
     private final TextField[] textField=new TextField[4];
 
@@ -46,8 +49,8 @@ public class PrepState extends State {
     private boolean typePick;
     private LegendPick[] legendPick;
 
-    private boolean isPaused;
     private final Pause pause;
+    private final Info info;
 
     //error
     private boolean nicknameLengthError;
@@ -59,8 +62,9 @@ public class PrepState extends State {
     public PrepState(Handler handler) {
         super(handler);
 
-        apply=new Button(handler,(float)((handler.getFrameWidth()-350)/2),500, Assets.big_button_template,Assets.apply_button);
+        apply=new Button(handler,(float)((handler.getFrameWidth()-350)/2),500,1, Assets.big_button_template,"APPLY",76);
         pause=new Pause(handler,handler.getFrameWidth()-100,30,Assets.pause_button);
+        info=new Info(handler,handler.getFrameWidth()-100,110,Assets.info_button);
     }
 
     public void init(DynamicBackground dynamicBackground){
@@ -91,7 +95,7 @@ public class PrepState extends State {
 
         dynamicBackground.tick();
 
-        if(!pause.getClicked()) {
+        if(!pause.getClicked() && !info.getClicked()) {
             if (typePick) {
                 playerPick[0].tick();
                 playerPick[1].tick();
@@ -112,30 +116,33 @@ public class PrepState extends State {
                 if (apply.contains(handler.getMouseClickX(), handler.getMouseClickY())) {
                     handler.resetMousePOS();
 
-                    typePick = false;
-
-                    for (int i = 0; i < 4; i++) {
-                        switch (playerPick[i].getCurrentPick()) {
-                            case 0:
-                                handler.getGameState().setPlayer(new Bot(handler, PLAYER_STARTING_POS[i], PLAYER_ENDING_POS[i], Assets.counter[i]));
-                                break;
-                            case 1:
-                                if(textField[i].getNickname().length()<4) {
-                                    typePick = true;
-                                    nicknameLengthError=true;
-                                }
-                                handler.getGameState().setPlayer(new Person(handler, PLAYER_STARTING_POS[i], PLAYER_ENDING_POS[i], Assets.counter[i],textField[i].getNickname()));
-                                break;
-                            case 2:
-                                handler.getGameState().setPlayer(new Blank(handler, PLAYER_STARTING_POS[i], PLAYER_ENDING_POS[i], Assets.counter[i]));
-                                break;
+                    if(properPick()){
+                        for (int i = 0; i < 4; i++) {
+                            switch (playerPick[i].getCurrentPick()) {
+                                case 0:
+                                    handler.getGameState().setPlayer(new Bot(handler, PLAYER_STARTING_POS[i], PLAYER_ENDING_POS[i], Assets.counter[i]));
+                                    break;
+                                case 1:
+                                    handler.getGameState().setPlayer(new Person(handler, PLAYER_STARTING_POS[i], PLAYER_ENDING_POS[i], Assets.counter[i],textField[i].getNickname()));
+                                    break;
+                                case 2:
+                                    handler.getGameState().setPlayer(new Blank(handler, PLAYER_STARTING_POS[i], PLAYER_ENDING_POS[i], Assets.counter[i]));
+                                    break;
+                            }
                         }
+
+                        typePick=false;
+                    }else{
+                        nicknameLengthErrorTick=0;
+                        lengthAlpha=255;
+                        redOp=new Color(201,0,1,255);
+                        nicknameLengthError=true;
                     }
                 }
 
             } else {
-
-                legendPick[picking].tick();
+    	
+            	legendPick[picking].tick();
 
                 if (playerPick[picking].getCurrentPick() == 1 && legendPick[picking].getchoosen() == 4 && apply.contains(handler.getMouseClickX(), handler.getMouseClickY())) {
                     handler.resetMousePOS();
@@ -146,20 +153,20 @@ public class PrepState extends State {
                     setBotCounters();
                     picking++;
                 } else if (playerPick[picking].getCurrentPick() == 2) {
-                    handler.getPlayer(picking).setCounters(null);
                     picking++;
                 }
 
                 if (picking == 4) {
-                    handler.getGameState().init();
+                	handler.getGameState().init();
                     resetVariables();
                     setState(handler.getGame().gameState);
                 }
+            	
             }
-
             apply.tick();
-
         }
+        if (!typePick)
+        	info.tick();
         pause.tick();
     }
 
@@ -179,6 +186,8 @@ public class PrepState extends State {
         }
         else{
             legendPick[picking].render(g);
+            Text.drawString(g,"Please choose 4 characters.",handler.getFrameWidth()/2,130,true,redOp,Assets.Ubuntu34);
+            info.render(g);
         }
 
         if(nicknameLengthError)
@@ -275,13 +284,17 @@ public class PrepState extends State {
                 nicknameLengthErrorTick=0;
                 redOp=new Color(201,0,1,lengthAlpha);
                 nicknameLengthError=false;
-
             }
-
         }
-
-
     }
 
-
+    private boolean properPick(){
+        for(int i=0;i<4;i++){
+            if(playerPick[i].getCurrentPick()==1){
+                if(textField[i].getNickname().length()<4)
+                    return false;
+            }
+        }
+        return true;
+    }
 }
