@@ -1,0 +1,81 @@
+Index: src/Entities/ui/Button.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package Entities.ui;\r\n\r\nimport Entities.Entity;\r\nimport ludogame.Handler;\r\n\r\nimport java.awt.*;\r\nimport java.awt.image.BufferedImage;\r\n\r\npublic class Button extends Entity {\r\n\r\n    private final BufferedImage[] template;\r\n    private final BufferedImage text;\r\n    private final Rectangle hitbox;\r\n    private boolean onhover;\r\n    private int onOff, defaultOnOff;\r\n\r\n    public Button(Handler handler, float x, float y,float scale,BufferedImage[] template,BufferedImage text){\r\n        super(handler,x,y,(int)(text.getWidth()*scale),(int)(text.getHeight()*scale));\r\n\r\n        this.hitbox=new Rectangle((int)x,(int)y,width,height);\r\n        this.template= template;\r\n        this.text=text;\r\n        this.onhover=false;\r\n    }\r\n\r\n    public Button(Handler handler, float x, float y,BufferedImage[] template,BufferedImage text){\r\n        super(handler,x,y,text.getWidth(),text.getHeight());\r\n\r\n        this.hitbox=new Rectangle((int)x,(int)y,width,height);\r\n        this.template= template;\r\n        this.text=text;\r\n        this.onhover=false;\r\n    }\r\n    \r\n    public Button(Handler handler, float x, float y,float scale,BufferedImage[] template,BufferedImage text, int onOff){\r\n    \tsuper(handler,x,y,(int)(text.getWidth()*scale),(int)(text.getHeight()*scale));\r\n\r\n        this.hitbox=new Rectangle((int)x,(int)y,width,height);\r\n        this.template= template;\r\n        this.text=text;\r\n        this.onOff=onOff;\r\n        this.defaultOnOff=onOff;\r\n\r\n    }\r\n\r\n    @Override\r\n    public void tick() {\r\n    if (onOff==0)\r\n        this.onhover= this.hitbox.contains(handler.getGame().getMousemanager().getHoverX(), handler.getGame().getMousemanager().getHoverY());\r\n    \r\n    }\r\n\r\n    @Override\r\n    public void render(Graphics g) {\r\n    \tif(onOff==0) {\r\n        g.drawImage(template[0],(int)x,(int)y,width,height,null);\r\n        g.drawImage(text,(int)x,(int)y,width,height,null);\r\n\r\n        if(onhover)\r\n            g.drawImage(template[1],(int)x,(int)y, width, height,null);\r\n    \t}\r\n    \telse if (onOff==1) {\r\n    \t\tg.drawImage(template[0],(int)x,(int)y,width,height,null);\r\n    \t\tg.drawImage(text,(int)x,(int)y,width,height,null);\r\n    \t}\r\n    \telse if (onOff==2){\r\n    \t\tg.drawImage(template[1],(int)x,(int)y,width,height,null);\r\n    \t\tg.drawImage(text,(int)x,(int)y,width,height,null);\r\n    \t}\r\n\r\n    }\r\n\r\n    public Rectangle getHitbox(){\r\n        return this.hitbox;\r\n    }\r\n\r\n    public boolean contains(int MouseX,int MouseY){\r\n        return this.contains(MouseX,MouseY);\r\n    }\r\n\r\n    public void reset() {\r\n    \tonOff=defaultOnOff;\r\n    \t\r\n    }\r\n\r\n\tpublic int getOnOff() {\r\n\t\treturn onOff;\r\n\t}\r\n\r\n\tpublic void setOnOff(int onOff) {\r\n\t\tthis.onOff = onOff;\r\n\t}\r\n    \r\n}\r\n\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/Entities/ui/Button.java	(revision 6eea23c141276369a061c567ea06d48da80d4eac)
++++ src/Entities/ui/Button.java	(date 1588159452474)
+@@ -11,7 +11,7 @@
+     private final BufferedImage[] template;
+     private final BufferedImage text;
+     private final Rectangle hitbox;
+-    private boolean onhover;
++    private boolean onHover;
+     private int onOff, defaultOnOff;
+ 
+     public Button(Handler handler, float x, float y,float scale,BufferedImage[] template,BufferedImage text){
+@@ -20,7 +20,7 @@
+         this.hitbox=new Rectangle((int)x,(int)y,width,height);
+         this.template= template;
+         this.text=text;
+-        this.onhover=false;
++        this.onHover=false;
+     }
+ 
+     public Button(Handler handler, float x, float y,BufferedImage[] template,BufferedImage text){
+@@ -29,7 +29,7 @@
+         this.hitbox=new Rectangle((int)x,(int)y,width,height);
+         this.template= template;
+         this.text=text;
+-        this.onhover=false;
++        this.onHover=false;
+     }
+     
+     public Button(Handler handler, float x, float y,float scale,BufferedImage[] template,BufferedImage text, int onOff){
+@@ -46,7 +46,7 @@
+     @Override
+     public void tick() {
+     if (onOff==0)
+-        this.onhover= this.hitbox.contains(handler.getGame().getMousemanager().getHoverX(), handler.getGame().getMousemanager().getHoverY());
++        this.onHover= this.hitbox.contains(handler.getGame().getMousemanager().getHoverX(), handler.getGame().getMousemanager().getHoverY());
+     
+     }
+ 
+@@ -56,7 +56,7 @@
+         g.drawImage(template[0],(int)x,(int)y,width,height,null);
+         g.drawImage(text,(int)x,(int)y,width,height,null);
+ 
+-        if(onhover)
++        if(onHover)
+             g.drawImage(template[1],(int)x,(int)y, width, height,null);
+     	}
+     	else if (onOff==1) {
+Index: src/states/SettingState.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package states;\r\n\r\nimport Entities.ui.Button;\r\nimport Entities.ui.Slider;\r\nimport GFX.Assets;\r\nimport GFX.DynamicBackground;\r\nimport ludogame.Game;\r\nimport ludogame.Handler;\r\n\r\nimport java.awt.*;\r\nimport java.util.ArrayList;\r\n\r\npublic class SettingState extends State{\r\n\r\n    //SETTINGS\r\n    public static int FPS,BUTTON_SIZE,ULT_LOAD,DICE_ANIM_TIME;\r\n    public static boolean FPS_COUNTER,DYNAMIC_BACKGROUND;\r\n    \r\n    private int m;\r\n\tprivate final Slider slider_fps;\r\n    private final Slider button_size;\r\n    private final Slider ultload;\r\n\tprivate final Button back;\r\n    private final Button reset_all;\r\n    private final Button dynamic_background;\r\n    private final Slider dice_anim_time;\r\n\r\n\r\n    DynamicBackground dynamicBackground;//time in seconds\r\n\r\n    public SettingState(Handler handler){\r\n        super(handler);\r\n\r\n        //default values\r\n        FPS=60;                //ilość FPS\r\n        BUTTON_SIZE=100;       //wartość procentowa\r\n        ULT_LOAD=100;           //wartość procentowa\r\n        FPS_COUNTER=false;\r\n        DICE_ANIM_TIME=10;\r\n        DYNAMIC_BACKGROUND=true;\r\n        \r\n        ArrayList<Integer> szczebleFPS = new ArrayList<Integer>();\r\n        szczebleFPS.add(25);\r\n        szczebleFPS.add(50);\r\n        szczebleFPS.add(60);\r\n        szczebleFPS.add(100);\r\n        szczebleFPS.add(120);\r\n        szczebleFPS.add(144);\r\n        slider_fps=new Slider(handler, 100, 100, 17, 29, 200, 25, 144, 60, \"FPS\", szczebleFPS);\r\n        button_size=new Slider(handler, 100, 200, 17, 29, 200, 50, 150, 100, \"HUD size\");\r\n        ultload=new Slider(handler, 100, 300, 17, 29, 200, 0, 400, 100, \"Ultimate ability load speed\");\r\n        dice_anim_time=new Slider(handler, 100, 400, 17, 29, 200, 3, 30, 10, \"Dice animation time\");\r\n        back=new Button(handler, handler.getFrameWidth() -100, handler.getFrameHeight() -100,(float)0.5,  Assets.big_button_template,Assets.defaults_button);\r\n        dynamic_background=new Button(handler, 100, 500,(float)0.5, Assets.big_button_template,Assets.defaults_button, 1);\r\n        reset_all=new Button(handler, 100, 700, (float)0.5, Assets.big_button_template,Assets.defaults_button);\r\n    }\r\n\r\n    @Override\r\n    public void tick() {\r\n\r\n        dynamicBackground.tick();\r\n    \tif(this.back.getHitbox().contains(handler.getMouseClickX(),handler.getMouseClickY())) {\r\n            handler.resetMousePOS();\r\n            setSettings();\r\n    \t    setState(handler.getGame().menuState);\r\n            System.out.println(\"FPS: \"+SettingState.FPS+\"\\tBUTTON_SIZE: \"+SettingState.BUTTON_SIZE+\"\\tULTLOAD: \"+SettingState.ULT_LOAD);\r\n        }\r\n    \tslider_fps.tick();\r\n    \tbutton_size.tick();\r\n    \tultload.tick();\r\n    \tback.tick();\r\n    \tdice_anim_time.tick();\r\n    \tdynamic_background.tick();\r\n    \tif(this.dynamic_background.getHitbox().contains(handler.getHoverX(),handler.getHoverY()) && handler.getGame().getMousemanager().isLeftPressed()) {\r\n            if (m==0)\r\n            \tif (dynamic_background.getOnOff()==1) {\r\n            \t\tdynamic_background.setOnOff(2);\r\n            \t\tdynamicBackground.setOnOff(false);\r\n            \t\tm++;\r\n            \t}\r\n            \telse if (dynamic_background.getOnOff()==2) {\r\n            \t\tdynamic_background.setOnOff(1);\r\n            \t\tdynamicBackground.setOnOff(true);\r\n            \t\tm++;\r\n            \t}   \r\n    \t}\r\n    \t if (!handler.getGame().getMousemanager().isLeftPressed()) {\r\n         \tm=0;\r\n         }\r\n    \tif(this.reset_all.getHitbox().contains(handler.getMouseClickX(),handler.getMouseClickY())) {\r\n            slider_fps.reset();\r\n            button_size.reset();\r\n            ultload.reset();\r\n            dice_anim_time.reset();\r\n            dynamic_background.reset();\r\n    \t}\r\n    \treset_all.tick();\r\n    \tif(dynamic_background.getOnOff()==1 && !dynamicBackground.isOnOff()) {\r\n    \t\tdynamicBackground.setOnOff(true);\r\n    \t}\r\n    \tif(dynamic_background.getOnOff()==2 && dynamicBackground.isOnOff()) {\r\n    \t\tdynamicBackground.setOnOff(false);\r\n    \t}\r\n    }\r\n\r\n    @Override\r\n    public void render(Graphics g) {\r\n\r\n    \tg.setColor(Color.white);\r\n        g.fillRect(0,0,handler.getFrameWidth(),handler.getFrameHeight());\r\n        if(SettingState.DYNAMIC_BACKGROUND)\r\n        dynamicBackground.render(g);\r\n        slider_fps.render(g);\r\n        button_size.render(g);\r\n        ultload.render(g);\r\n        back.render(g);\r\n        reset_all.render(g);\r\n        dice_anim_time.render(g);\r\n        dynamic_background.render(g);\r\n    }\r\n\r\n    public void setDynamicBackground(DynamicBackground dynamicBackground){\r\n        this.dynamicBackground=dynamicBackground;\r\n    }\r\n\r\n    public void setSettings(){\r\n        SettingState.FPS=this.slider_fps.getValueInt();\r\n        SettingState.BUTTON_SIZE=this.button_size.getValueInt();\r\n        SettingState.ULT_LOAD=this.ultload.getValueInt();\r\n        SettingState.DICE_ANIM_TIME=this.dice_anim_time.getValueInt();\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/states/SettingState.java	(revision 6eea23c141276369a061c567ea06d48da80d4eac)
++++ src/states/SettingState.java	(date 1588159020390)
+@@ -38,7 +38,7 @@
+         FPS_COUNTER=false;
+         DICE_ANIM_TIME=10;
+         DYNAMIC_BACKGROUND=true;
+-        
++        //int szczebleFPS[]={25,30,50,60,75,120,144}
+         ArrayList<Integer> szczebleFPS = new ArrayList<Integer>();
+         szczebleFPS.add(25);
+         szczebleFPS.add(50);
+@@ -59,7 +59,7 @@
+     public void tick() {
+ 
+         dynamicBackground.tick();
+-    	if(this.back.getHitbox().contains(handler.getMouseClickX(),handler.getMouseClickY())) {
++    	if(this.back.contains(handler.getMouseClickX(),handler.getMouseClickY())) {
+             handler.resetMousePOS();
+             setSettings();
+     	    setState(handler.getGame().menuState);

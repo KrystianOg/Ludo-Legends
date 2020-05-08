@@ -6,9 +6,34 @@ public class PlayerData {
     private String nickname;
     private int score;
     private int kills;
+    private int wins;
+    private boolean player;
 
     public PlayerData(){
 
+    }
+
+    public PlayerData(String nickname, int score, int kills, int wins){
+    	this.nickname=nickname;
+    	this.score=score;
+    	this.kills=kills;
+    	this.wins=wins;
+    }
+
+    public PlayerData(String nickname, int score, int kills,boolean player){
+        this.player=player;
+        this.nickname=nickname;
+        this.score=score;
+        this.kills=kills;
+        this.wins=0;
+    }
+    
+    public int getWins() {
+        return wins;
+    }
+
+    public void setWins(int wins) {
+        this.wins = wins;
     }
 
     public void setPlayerId(int playerId) {
@@ -42,4 +67,9 @@ public class PlayerData {
     public int getKills() {
         return kills;
     }
+
+    public boolean isPlayer(){
+        return this.player;
+    }
+
 }

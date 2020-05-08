@@ -17,6 +17,8 @@ public class Handler {
 
     private GameState gameState;
 
+    private LoadingScreen loadingScreen;
+
     private Display display;
 
     public Handler(){
@@ -28,7 +30,7 @@ public class Handler {
     }
 
     public void setLoadingScreen(LoadingScreen loadingScreen){
-        //this.
+        this.loadingScreen=loadingScreen;
     }
 
     public Game getGame() {
@@ -41,6 +43,10 @@ public class Handler {
 
     public PrepState getPrepState(){
         return (PrepState)game.prepState;
+    }
+
+    public MenuState getMenuState(){
+        return (MenuState)game.menuState;
     }
 
     public SettingState getSettingState() {
@@ -69,16 +75,8 @@ public class Handler {
         return gameState.getTimer();
     }
 
-    public Board getBoard(){
-        return gameState.getBoard();
-    }
-
     public Tile getTile(PositionOnMap pos){
         return gameState.getBoard().getTile(pos);
-    }
-
-    public String getBotNickname(){
-        return gameState.getBotNickname();
     }
 
     public void setGameState(GameState gameState) {
@@ -145,4 +143,7 @@ public class Handler {
         return this.display;
     }
 
+    public LoadingScreen getLoadingScreen(){
+        return this.loadingScreen;
+    }
 }

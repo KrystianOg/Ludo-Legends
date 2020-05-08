@@ -14,6 +14,7 @@ public class Assets {
 
     public static Font Ubuntu28,Ubuntu40,Ubuntu34,Ubuntu58,Ubuntu18,Ubuntu76,Ubuntu12;
 
+
     public static BufferedImage logo;
     public static BufferedImage slider_front, slider_back;
 
@@ -38,7 +39,9 @@ public class Assets {
                                   arrow=new BufferedImage[5],
                                   dynamicBackground=new BufferedImage[2],
                                   pause_button=new BufferedImage[3],
+
                                   info_button=new BufferedImage[3],
+
                                   switchB=new BufferedImage[2],
                                   fire=new BufferedImage[3],
                                   armor_f=new BufferedImage[2],
@@ -52,7 +55,9 @@ public class Assets {
     public static void init(){
         //\czcionka
         Ubuntu18=FontLoader.loadFont("/fonts/Ubuntu-B.ttf",18);
+
         Ubuntu12=FontLoader.loadFont("/fonts/Ubuntu-R.ttf",12);
+
     	Ubuntu28=FontLoader.loadFont("/fonts/Ubuntu-R.ttf", 28);
         Ubuntu40=FontLoader.loadFont("/fonts/Ubuntu-B.ttf",40);
         Ubuntu58=FontLoader.loadFont("/fonts/Ubuntu-B.ttf",58);
@@ -75,7 +80,6 @@ public class Assets {
         medkit=loadImage("/graphics/Counters/medkit1.png");
 
         icicle_f=loadImage("/graphics/Counters/icicle_front.png");
-        icicle_b=loadImage("/graphics/Counters/icicle_back.png");
 
         bow_lb=loadImage("/graphics/Counters/bow_lb.png");
         bow_lf=loadImage("/graphics/Counters/bow_lf.png");
@@ -124,12 +128,14 @@ public class Assets {
         pause_button[0]=pause_button_sheet.crop(0,0,70,70);
         pause_button[1]=pause_button_sheet.crop(0,70,70,70);
         pause_button[2]=pause_button_sheet.crop(70,0,70,70);
+
         
         SpriteSheet info_button_sheet=new SpriteSheet(loadImage("/graphics/PreparationState/infoSheet.png"));
         info_button[0]=info_button_sheet.crop(0,0,70,70);
         info_button[1]=info_button_sheet.crop(0,70,70,70);
         info_button[2]=info_button_sheet.crop(70,0,70,70);       
         
+
         SpriteSheet onOff_template=new SpriteSheet(loadImage("/graphics/Settings/on_off_button_template.png"));
         onOff_button_template[0]=onOff_template.crop(0,0,100,50);
         onOff_button_template[1]=onOff_template.crop(0,50,100,50);
@@ -191,6 +197,7 @@ public class Assets {
         //dynamic background
         dynamicBackground[0]=loadImage("/graphics/Menu/Background_3.png");
         dynamicBackground[1]=loadImage("/graphics/Menu/Background_4.png");
+
     }
 
     public static void initLoadingScreen(){

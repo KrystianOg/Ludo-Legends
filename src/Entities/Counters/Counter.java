@@ -2,7 +2,7 @@ package Entities.Counters;
 import Entities.Entity;
 import Entities.PositionOnMap;
 import Entities.ui.Tile;
-import Entities.ui.UltimateBar;
+import Entities.HUD.UltimateBar;
 import ludogame.Handler;
 import states.SettingState;
 
@@ -14,35 +14,44 @@ public abstract class Counter extends Entity {
     public static final int DEFAULT_WIDTH=41,
                             DEFAULT_HEIGHT=78;
 
+    protected double SCALE;
     //
-    protected float basex,basey;
+    private final float basex;
+    private final float basey;
     //
     protected PositionOnMap pos;
+
     protected double directionx,directiony;
-    protected boolean cisinbase;
-    private final Rectangle hitbox;
+    protected boolean cisinbase, cfinished;
+    protected final Rectangle hitbox;
+
     private boolean moving;
     private boolean reseting;
-
+    private boolean won;
+    private PositionOnMap bufferedPosition;
 
     //cos do umiejetnosci
-    protected boolean killable;
-    protected boolean beatable;
-    private final boolean wasBeaten;
+    protected boolean killable;     //czy może być zbity
+    protected boolean canKill;      //czy może zbijąć
+    private boolean beaten;         //czy był zbity - do odrodzenia
+    protected boolean vulnerable;   //czy ogień go zbija
     //Ultimate bar
     protected boolean ultBar;
     protected UltimateBar ultimateBar=null;
+    protected boolean ultimateAbility=false;
+
     //
 
     //
     protected BufferedImage counterColor;
 
     //animacja
-    private final int ANIM_TICKS=(int)(0.42* SettingState.FPS);
+    protected int ANIM_TICKS=(int)(0.37* SettingState.FPS);
+    //protected int ANIM_TICKS=4;
     private int tickcount=0;
-    private int moved=0;
+    protected int moved=0;
 
-    //problem - nienaturalne nakładanie tekstur przy ruchu
+    //problem - nienaturalne nak�adanie tekstur przy ruchu
 
     public Counter(Handler handler, float x, float y,BufferedImage counterColor) {
         super(handler,x, y,DEFAULT_WIDTH,DEFAULT_HEIGHT);
@@ -51,9 +60,12 @@ public abstract class Counter extends Entity {
         basex=x;
         basey=y;
         hitbox=new Rectangle((int)x, (int)y,DEFAULT_WIDTH,DEFAULT_HEIGHT);
-        wasBeaten=false;
+        beaten=false;
         cisinbase=true;
+        cfinished=false;
+        SCALE=1;
         moving =false;
+        won=false;
     }
 
     public void tick(){
@@ -67,101 +79,128 @@ public abstract class Counter extends Entity {
         if(reseting){
             resetLogic();
         }
-
     }
 
     private void moveLogic(){
 
-        if(cisinbase) {
+        if(!won) {
+            if (cisinbase) {
 
-            if (tickcount == 0) {
-                Tile tempTile = handler.getTile(handler.getPlayer().getStartingPos());
+                if (tickcount == 0) {
+                    Tile tempTile = handler.getTile(handler.getPlayer().getStartingPos());
 
-                directionx = (tempTile.getX() + 4 - this.x) / ANIM_TICKS;
-                directiony = (tempTile.getY() - 48 - this.y) / ANIM_TICKS;
-                tickcount++;
-            } else if (tickcount > 0 && tickcount < ANIM_TICKS) {
-                x += directionx;
-                y += directiony;
-                tickcount++;
-            } else if (tickcount == ANIM_TICKS) {
+                    directionx = (tempTile.getX() + 4 - x) / ANIM_TICKS;
+                    directiony = (tempTile.getY() - 48 - y) / ANIM_TICKS;
+                    tickcount++;
+                } else if (tickcount > 0 && tickcount < ANIM_TICKS) {
+                    x += directionx;
+                    y += directiony;
+                    tickcount++;
+                } else if (tickcount == ANIM_TICKS) {
 
-                Tile tempTile = handler.getTile(handler.getPlayer().getStartingPos());
+                    Tile tempTile = handler.getTile(handler.getPlayer().getStartingPos());
 
-                x = tempTile.getX() + 4;
-                y = tempTile.getY() - 48;
-                hitbox.x=(int)x;
-                hitbox.y=(int)y;
+                    x = tempTile.getX() + 4;
+                    y = tempTile.getY() - 48;
+                    hitbox.x = (int) x;
+                    hitbox.y = (int) y;
 
-                cisinbase = false;
-                tickcount = 0;
-                moving = false;
+                    cisinbase = false;
+                    tickcount = 0;
+                    moving = false;
 
-                pos=new PositionOnMap(handler.getPlayer().getStartingPos());
-                handler.setCounterOnTile(pos,this);
+                    pos = new PositionOnMap(handler.getPlayer().getStartingPos());
 
-                handler.getTimer().resetTimer();
-                handler.getDice().setRolled(false);
-                handler.getPlayer().setIsinbase(false);
-            }
-        }
-        else{
-            if(tickcount==0) {
-                Tile tempTile = handler.getTile(getNextTile());
-
-                handler.removeCounterFromTile(pos,this);
-
-                directionx = (tempTile.getX() + 4 - this.x) / ANIM_TICKS;
-                directiony = (tempTile.getY() - 48 - this.y) / ANIM_TICKS;
-                tickcount++;
-            }
-            else if(tickcount>0&&tickcount<ANIM_TICKS){
-                x += directionx;
-                y += directiony;
-                tickcount++;
-            }
-            else if(tickcount==ANIM_TICKS){
-
-                Tile tempTile = handler.getTile(getNextTile());
-                x = tempTile.getX() + 4;
-                y = tempTile.getY() - 48;
-
-                tickcount=0;
-
-                pos.setTile(pos.tile+1);
-                if(pos.tile==52)
-                    pos.setTile(0);
-
-                handler.getPlayer().setPoints(1);
-                moved++;
-
-                if(moved==handler.getRoll()){
-                    moving=false;
-                    hitbox.x=(int)x;
-                    hitbox.y=(int)y;
-
-                    handler.setCounterOnTile(pos,this);
-
-                    if(handler.getPlayer().getRollsLeft()==0)
-                        handler.setTurnof();
-
-                    handler.getDice().setRolled(false);
+                    bufferedPosition = getNextPosition();
+                    handler.setCounterOnTile(pos, this);
                     handler.getTimer().resetTimer();
-                    moved=0;
+                    handler.getDice().setRolled(false);
+                    handler.getPlayer().setIsinbase(false);
+                    handler.getGameState().setRenderOrder();
+                }
+            } else {
+                if (tickcount == 0) {
+                    handler.removeCounterFromTile(pos, this);
+
+                    if (ultimateAbility)
+                        counterLogic();
+
+                    renderBig();
+
+                    directionx = (handler.getTile(bufferedPosition).getX() + 4 - x) / ANIM_TICKS;
+                    directiony = (handler.getTile(bufferedPosition).getY() - 48 - y) / ANIM_TICKS;
+                    tickcount++;
+                } else if (tickcount > 0 && tickcount < ANIM_TICKS) {
+                    x += directionx;
+                    y += directiony;
+                    tickcount++;
+                } else if (tickcount == ANIM_TICKS) {
+
+                    x = handler.getTile(bufferedPosition).getX() + 4;
+                    y = handler.getTile(bufferedPosition).getY() - 48;
+
+                    tickcount = 0;
+
+                    handler.removeCounterFromTile(pos, this);
+
+                    pos = bufferedPosition;
+
+                    handler.getPlayer().addPoint();
+                    moved++;
+
+                    bufferedPosition = getNextPosition();
+
+                    if ((moved != handler.getRoll())&&!won)
+                        handler.setCounterOnTile(pos, this);
+
+                    handler.getGameState().setRenderOrder();
+
+
+
+                    if ((moved == handler.getRoll())||won) {
+                        moving = false;
+
+                        hitbox.x = (int) x;
+                        hitbox.y = (int) y;
+
+                        handler.setCounterOnTile(pos, this);
+
+                        handler.getGameState().setRenderOrder();
+
+                        if (handler.getPlayer().getRollsLeft() == 0)
+                            handler.setTurnof();
+
+                        handler.getDice().setRolled(false);
+                        handler.getTimer().resetTimer();
+                        moved = 0;
+                    }
                 }
             }
         }
+        else {
 
-        //umiejetności specjalne tutaj
-        counterLogic();
-        //
+
+            handler.setTurnof();
+            handler.getPlayer().setRollsLeft(1);
+            moving=false;
+            handler.getDice().setRolled(false);
+            handler.getTimer().resetTimer();
+            if(handler.getPlayer().getClass().getName()=="Players.Bot")
+                handler.getPlayer().setBotClicked();
+        }
     }
 
     private void resetLogic(){
         if (tickcount == 0) {
-            directionx = (basex - this.x) / (ANIM_TICKS*2);
-            directiony = (basey - this.y) / (ANIM_TICKS*2);
+            directionx = (basex - x) / (ANIM_TICKS*2);
+            directiony = (basey - y) / (ANIM_TICKS*2);
             tickcount++;
+            renderBig();
+
+            handler.getGameState().getPlayerByColor(counterColor).addDeath();
+            System.out.println(handler.getGameState().getPlayerByColor(counterColor).getDeaths());
+            cisinbase = true;
+            handler.getGameState().setRenderOrder();
         } else if (tickcount > 0 && tickcount < ANIM_TICKS*2) {
             x += directionx;
             y += directiony;
@@ -172,7 +211,10 @@ public abstract class Counter extends Entity {
             hitbox.x=(int)x;
             hitbox.y=(int)y;
 
-            cisinbase = true;
+
+            beaten=true;
+            cfinished=false;
+
             tickcount = 0;
             reseting=false;
             pos = handler.getPlayer().getStartingPos();
@@ -181,14 +223,19 @@ public abstract class Counter extends Entity {
         }
     }
 
-    private PositionOnMap getNextTile(){
-        if(pos.tile==51)
-            return new PositionOnMap(0);
-        else if(pos.tile==handler.getPlayer().getEndingPos().tile&&pos.arr==handler.getPlayer().getEndingPos().arr) {
-            pos.arr=handler.getTurnOf()+1;
-            pos.tile=0;
-
+    protected PositionOnMap getNextPosition(){
+        if(pos.arr==handler.getPlayer().getEndingPos().arr&&pos.tile==handler.getPlayer().getEndingPos().tile) {
+            if(ultBar)
+                this.ultimateBar.setCanBeLoaded(false);
             return new PositionOnMap(handler.getTurnOf() + 1, 0);
+        }
+        else if(pos.tile==51)
+            return new PositionOnMap(0);
+        else if(pos.arr>0&&pos.tile==5){
+            won=true;
+            ultimateAbility=false;
+            System.out.println("WON");
+            return new PositionOnMap(pos.arr,pos.tile);
         }
         else
             return new PositionOnMap(pos.arr,pos.tile+1);
@@ -197,27 +244,34 @@ public abstract class Counter extends Entity {
     public boolean isInbase() {
         return cisinbase;
     }
-
+    
     protected abstract void counterLogic();
+  
+    //true jeśli wraca do bazy, false jeśli nie
+    public abstract boolean ifStepped();
 
     public boolean hasUltBar(){
         return this.ultBar;
     }
 
-    public void setMoving(){
-        this.moving=true;
+    public boolean isVulnerable(){
+        return this.vulnerable;
+    }
+
+    public void setMoving(boolean moving){
+        this.moving=moving;
     }
 
     public boolean isMoving(){
         return this.moving;
     }
 
-    public boolean iskillable(){
+    public boolean isKillable(){
         return this.killable;
     }
 
     public void renderUltBar(Graphics g){
-        if(this.ultimateBar!=null)
+        if(ultimateBar!=null)
             ultimateBar.render(g);
     }
 
@@ -226,8 +280,8 @@ public abstract class Counter extends Entity {
     }
 
     public void resetToBase(){
-        this.reseting=true;
-        this.moving=false;
+        reseting=true;
+        moving=false;
         cisinbase=true;
         handler.getGameState().addToReset(this);
     }
@@ -243,4 +297,64 @@ public abstract class Counter extends Entity {
     public BufferedImage getCounterColor(){
         return this.counterColor;
     }
+
+    public int getBaseX(){
+        return (int)this.basex;
+    }
+
+    public int getBaseY(){
+        return (int)this.basey;
+    }
+
+    public boolean canKill(){
+        return this.canKill;
+    }
+
+    public void useUltimateAbility(){
+        this.ultimateAbility=true;
+    }
+
+    public void setUltimateAbility(boolean ult){
+        this.ultimateAbility=ult;
+    }
+
+
+
+    public boolean isBeaten(){
+        return this.beaten;
+    }
+
+    public void renderSmall(float shiftX,float shiftY){
+        if(SCALE==1) {
+            SCALE = 0.65;
+            hitbox.setSize((int)(hitbox.width*SCALE),(int)(hitbox.height*SCALE));
+        }
+        x=shiftX+4;
+        y=shiftY-48;
+
+        hitbox.setLocation((int)x,(int)y);
+    }
+
+    public void renderBig(float x,float y){
+        SCALE=1;
+        hitbox.setSize(DEFAULT_WIDTH,DEFAULT_HEIGHT);
+        this.x=x;
+        this.y=y;
+
+        hitbox.setLocation((int)x,(int)y);
+    }
+
+    public void renderBig(){
+        SCALE=1;
+        hitbox.setSize(DEFAULT_WIDTH,DEFAULT_HEIGHT);
+    }
+
+    public UltimateBar getUltimateBar(){
+        return this.ultimateBar;
+    }
+
+    public boolean getWon(){
+        return this.won;
+    }
+
 }

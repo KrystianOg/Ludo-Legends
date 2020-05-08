@@ -1,0 +1,458 @@
+@startuml
+
+title __GIT_LUDO_LEGENDS_2.0's Class Diagram__\n
+
+  namespace Entities {
+    class Entities.Board {
+    }
+  }
+  
+
+  namespace Entities {
+    namespace Counters {
+      class Entities.Counters.Albali {
+      }
+    }
+  }
+  
+
+  namespace Entities {
+    namespace Counters {
+      abstract class Entities.Counters.Counter {
+      }
+    }
+  }
+  
+
+  namespace Entities {
+    namespace Counters {
+      class Entities.Counters.Funi {
+      }
+    }
+  }
+  
+
+  namespace Entities {
+    namespace Counters {
+      class Entities.Counters.Intan {
+      }
+    }
+  }
+  
+
+  namespace Entities {
+    namespace Counters {
+      class Entities.Counters.Lich {
+      }
+    }
+  }
+  
+
+  namespace Entities {
+    namespace Counters {
+      class Entities.Counters.Mira {
+      }
+    }
+  }
+  
+
+  namespace Entities {
+    namespace Counters {
+      class Entities.Counters.Polaris {
+      }
+    }
+  }
+  
+
+  namespace Entities {
+    namespace Counters {
+      class Entities.Counters.Samaya {
+      }
+    }
+  }
+  
+
+  namespace Entities {
+    namespace Counters {
+      class Entities.Counters.Saph {
+      }
+    }
+  }
+  
+
+  namespace Entities {
+    namespace Counters {
+      class Entities.Counters.Venator {
+      }
+    }
+  }
+  
+
+  namespace Entities {
+    abstract class Entities.Entity {
+    }
+  }
+  
+
+  namespace Entities {
+    namespace HUD {
+      class Entities.HUD.BarParticle {
+      }
+    }
+  }
+  
+
+  namespace Entities {
+    namespace HUD {
+      class Entities.HUD.Dice {
+      }
+    }
+  }
+  
+
+  namespace Entities {
+    namespace HUD {
+      class Entities.HUD.Timer {
+      }
+    }
+  }
+  
+
+  namespace Entities {
+    namespace HUD {
+      class Entities.HUD.UltimateBar {
+      }
+    }
+  }
+  
+
+  namespace Entities {
+    class Entities.PositionOnMap {
+    }
+  }
+  
+
+  namespace Entities {
+    namespace ui {
+      class Entities.ui.Button {
+      }
+    }
+  }
+  
+
+  namespace Entities {
+    namespace ui {
+      class Entities.ui.CounterTile {
+      }
+    }
+  }
+  
+
+  namespace Entities {
+    namespace ui {
+      class Entities.ui.LegendPick {
+      }
+    }
+  }
+  
+
+  namespace Entities {
+    namespace ui {
+      class Entities.ui.Pause {
+      }
+    }
+  }
+  
+
+  namespace Entities {
+    namespace ui {
+      class Entities.ui.PlayerPick {
+      }
+    }
+  }
+  
+
+  namespace Entities {
+    namespace ui {
+      class Entities.ui.Slider {
+      }
+    }
+  }
+  
+
+  namespace Entities {
+    namespace ui {
+      class Entities.ui.Switch {
+      }
+    }
+  }
+  
+
+  namespace Entities {
+    namespace ui {
+      class Entities.ui.TextField {
+      }
+    }
+  }
+  
+
+  namespace Entities {
+    namespace ui {
+      class Entities.ui.Tile {
+      }
+    }
+  }
+  
+
+  namespace GFX {
+    class GFX.Assets {
+    }
+  }
+  
+
+  namespace GFX {
+    class GFX.DynamicBackground {
+    }
+  }
+  
+
+  namespace GFX {
+    class GFX.FontLoader {
+    }
+  }
+  
+
+  namespace GFX {
+    class GFX.SpriteSheet {
+    }
+  }
+  
+
+  namespace GFX {
+    class GFX.Text {
+    }
+  }
+  
+
+  namespace Players {
+    class Players.Blank {
+    }
+  }
+  
+
+  namespace Players {
+    class Players.Bot {
+    }
+  }
+  
+
+  namespace Players {
+    class Players.Person {
+    }
+  }
+  
+
+  namespace Players {
+    abstract class Players.Player {
+    }
+  }
+  
+
+  namespace Players {
+    class Players.PlayerData {
+    }
+  }
+  
+
+  namespace display {
+    class display.Display {
+    }
+  }
+  
+
+  namespace input {
+    class input.KeyboardManager {
+    }
+  }
+  
+
+  namespace input {
+    class input.MouseManager {
+    }
+  }
+  
+
+  namespace ludogame {
+    class ludogame.DBConnect {
+    }
+  }
+  
+
+  namespace ludogame {
+    class ludogame.Game {
+    }
+  }
+  
+
+  namespace ludogame {
+    class ludogame.Handler {
+    }
+  }
+  
+
+  namespace ludogame {
+    class ludogame.Launcher {
+    }
+  }
+  
+
+  namespace ludogame {
+    class ludogame.LoadingScreen {
+    }
+  }
+  
+
+  namespace states {
+    class display.GameOverScreen {
+    }
+  }
+  
+
+  namespace states {
+    class states.GameState {
+    }
+  }
+  
+
+  namespace states {
+    class states.HighScoresState {
+    }
+  }
+  
+
+  namespace states {
+    class states.MenuState {
+    }
+  }
+  
+
+  namespace states {
+    class states.PrepState {
+    }
+  }
+  
+
+  namespace states {
+    class states.SettingState {
+    }
+  }
+  
+
+  namespace states {
+    abstract class states.State {
+    }
+  }
+  
+
+  Entities.Board -up-|> Entities.Entity
+  Entities.Counters.Albali -up-|> Entities.Counters.Counter
+  Entities.Counters.Counter -up-|> Entities.Entity
+  Entities.Counters.Counter o-- Entities.PositionOnMap : pos
+  Entities.Counters.Counter o-- Entities.HUD.UltimateBar : ultimateBar
+  Entities.Counters.Counter o-- Entities.PositionOnMap : bufferedPosition
+  Entities.Counters.Funi -up-|> Entities.Counters.Counter
+  Entities.Counters.Intan -up-|> Entities.Counters.Counter
+  Entities.Counters.Lich -up-|> Entities.Counters.Counter
+  Entities.Counters.Mira -up-|> Entities.Counters.Counter
+  Entities.Counters.Polaris -up-|> Entities.Counters.Counter
+  Entities.Counters.Samaya -up-|> Entities.Counters.Counter
+  Entities.Counters.Saph -up-|> Entities.Counters.Counter
+  Entities.Counters.Venator -up-|> Entities.Counters.Counter
+  Entities.Entity o-- ludogame.Handler : handler
+  Entities.HUD.BarParticle -up-|> Entities.Entity
+  Entities.HUD.Dice -up-|> Entities.Entity
+  Entities.HUD.Timer -up-|> Entities.Entity
+  Entities.HUD.UltimateBar -up-|> Entities.Entity
+  Entities.HUD.UltimateBar o-- Entities.Counters.Counter : counter
+  Entities.ui.Button -up-|> Entities.Entity
+  Entities.ui.CounterTile -up-|> Entities.Entity
+  Entities.ui.LegendPick -up-|> Entities.Entity
+  Entities.ui.Pause -up-|> Entities.Entity
+  Entities.ui.Pause o-- ludogame.Handler : handler
+  Entities.ui.Pause o-- Entities.ui.Button : menu
+  Entities.ui.PlayerPick -up-|> Entities.Entity
+  Entities.ui.Slider -up-|> Entities.Entity
+  Entities.ui.Slider o-- Entities.ui.Button : reset
+  Entities.ui.Switch -up-|> Entities.Entity
+  Entities.ui.TextField -up-|> Entities.Entity
+  Entities.ui.Tile o-- ludogame.Handler : handler
+  Players.Blank -up-|> Players.Player
+  Players.Bot -up-|> Players.Player
+  Players.Person -up-|> Players.Player
+  Players.Player o-- Entities.PositionOnMap : endingPos
+  Players.Player o-- ludogame.Handler : handler
+  Players.Player o-- Entities.PositionOnMap : startingPos
+  input.KeyboardManager .up.|> java.awt.event.KeyListener
+  input.MouseManager .up.|> java.awt.event.MouseListener
+  input.MouseManager .up.|> java.awt.event.MouseMotionListener
+  ludogame.Game .up.|> java.lang.Runnable
+  ludogame.Game o-- states.State : gameState
+  ludogame.Game o-- states.State : highScoresState
+  ludogame.Game o-- states.State : menuState
+  ludogame.Game o-- states.State : prepState
+  ludogame.Game o-- states.State : settingState
+  ludogame.Game o-- display.Display : display
+  ludogame.Game o-- ludogame.Handler : handler
+  ludogame.Game o-- input.KeyboardManager : keyboardManager
+  ludogame.Game o-- input.MouseManager : mouseManager
+  ludogame.Handler o-- display.Display : display
+  ludogame.Handler o-- ludogame.Game : game
+  ludogame.Handler o-- states.GameState : gameState
+  ludogame.Handler o-- ludogame.LoadingScreen : loadingScreen
+  ludogame.LoadingScreen .up.|> java.lang.Runnable
+  ludogame.LoadingScreen o-- display.Display : display
+  ludogame.LoadingScreen o-- ludogame.Handler : handler
+  display.GameOverScreen o-- ludogame.Handler : handler
+  display.GameOverScreen o-- Entities.ui.Button : menu
+  states.GameState -up-|> states.State
+  states.GameState o-- Entities.Board : board
+  states.GameState o-- Entities.HUD.Dice : dice
+  states.GameState o-- display.GameOverScreen : gameOverScreen
+  states.GameState o-- Entities.ui.Pause : pause
+  states.GameState o-- Entities.HUD.Timer : timer
+  states.HighScoresState -up-|> states.State
+  states.HighScoresState o-- Entities.ui.Button : back
+  states.HighScoresState o-- ludogame.DBConnect : connect
+  states.HighScoresState o-- GFX.DynamicBackground : dynamicBackground
+  states.MenuState -up-|> states.State
+  states.MenuState o-- GFX.DynamicBackground : dynamicBackground
+  states.MenuState o-- Entities.ui.Button : exit
+  states.MenuState o-- Entities.ui.Button : game
+  states.MenuState o-- Entities.ui.Button : ranking
+  states.MenuState o-- Entities.ui.Button : settings
+  states.PrepState -up-|> states.State
+  states.PrepState o-- GFX.DynamicBackground : dynamicBackground
+  states.PrepState o-- Entities.ui.Button : apply
+  states.PrepState o-- Entities.ui.Pause : pause
+  states.SettingState -up-|> states.State
+  states.SettingState o-- Entities.ui.Button : apply
+  states.SettingState o-- Entities.ui.Button : back
+  states.SettingState o-- Entities.ui.Slider : buttonSize
+  states.SettingState o-- Entities.ui.Button : defaults
+  states.SettingState o-- Entities.ui.Slider : diceAnimTime
+  states.SettingState o-- GFX.DynamicBackground : dynamicBackground
+  states.SettingState o-- Entities.ui.Switch : dynamicBackgroundSwitch
+  states.SettingState o-- Entities.ui.Switch : fpsCounterSwitch
+  states.SettingState o-- Entities.ui.Slider : sliderFps
+  states.SettingState o-- Entities.ui.Slider : ultLoad
+  states.State o-- ludogame.Handler : handler
+
+
+right footer
+
+
+PlantUML diagram generated by SketchIt! (https://bitbucket.org/pmesmeur/sketch.it)
+For more information about this tool, please contact philippe.mesmeur@gmail.com
+endfooter
+
+@enduml

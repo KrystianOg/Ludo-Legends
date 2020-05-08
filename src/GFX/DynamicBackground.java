@@ -47,16 +47,21 @@ public class DynamicBackground {
         this.right[0]=true;
     }
 
-    public void tick(){
-    	if (onOff) {
-        difference=(20/ (double)SettingState.FPS);
 
-        moveBackgroundLogic(0);
-        moveBackgroundLogic(1);
-        ticks++;
-        if(ticks==2)
-            ticks=0;
-    	}
+
+    public void tick() {
+
+        if (SettingState.DYNAMIC_BACKGROUND) {
+
+            difference = (20 / (double) SettingState.FPS);
+
+            moveBackgroundLogic(0);
+            moveBackgroundLogic(1);
+            ticks++;
+            if (ticks == 2)
+                ticks = 0;
+        }
+
     }
 
     public void render(Graphics g){

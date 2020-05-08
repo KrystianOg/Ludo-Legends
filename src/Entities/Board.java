@@ -11,7 +11,7 @@ import java.util.Map;
 
 public class Board extends Entity {
 
-    Tile[][] map=new Tile[9][];
+    private final Tile[][] map=new Tile[9][];
 
     public Board(Handler handler, float x, float y, int width, int height) {
         super(handler,x, y, width, height);
@@ -95,59 +95,38 @@ public class Board extends Entity {
         map[0][50]=new Tile(handler,x*6,y*1,true);
         map[0][51]=new Tile(handler,x*7,y*1,true);
 
-        map[1]=new Tile[5];
+        map[1]=new Tile[6];
         map[1][0]=new Tile(handler,x*7,y*2,false);
         map[1][1]=new Tile(handler,x*7,y*3,false);
-        map[1][2]=new Tile(handler,x*7,y*3,false);
-        map[1][3]=new Tile(handler,x*7,y*4,false);
-        map[1][4]=new Tile(handler,x*7,y*5,false);
+        map[1][2]=new Tile(handler,x*7,y*4,false);
+        map[1][3]=new Tile(handler,x*7,y*5,false);
+        map[1][4]=new Tile(handler,x*7,y*6,false);
+        map[1][5]=new Tile(handler,x*7,y*7+5,false);
 
-        map[2]=new Tile[5];
+        map[2]=new Tile[6];
         map[2][0]=new Tile(handler,x*13,y*8,false);
         map[2][1]=new Tile(handler,x*12,y*8,false);
         map[2][2]=new Tile(handler,x*11,y*8,false);
         map[2][3]=new Tile(handler,x*10,y*8,false);
         map[2][4]=new Tile(handler,x*9,y*8,false);
+        map[2][5]=new Tile(handler,x*8-5,y*8,false);
 
-        map[3]=new Tile[5];
+        map[3]=new Tile[6];
         map[3][0]=new Tile(handler,x*7,y*14,false);
         map[3][1]=new Tile(handler,x*7,y*13,false);
         map[3][2]=new Tile(handler,x*7,y*12,false);
         map[3][3]=new Tile(handler,x*7,y*11,false);
         map[3][4]=new Tile(handler,x*7,y*10,false);
+        map[3][5]=new Tile(handler,x*7,y*9-5,false);
 
-        map[4]=new Tile[5];
+        map[4]=new Tile[6];
         map[4][0]=new Tile(handler,x*1,y*8,false);
         map[4][1]=new Tile(handler,x*2,y*8,false);
         map[4][2]=new Tile(handler,x*3,y*8,false);
         map[4][3]=new Tile(handler,x*4,y*8,false);
         map[4][4]=new Tile(handler,x*5,y*8,false);
+        map[4][5]=new Tile(handler,x*6+5,y*8,false);
 
-
-        //koncowe //chyba wystarczy 1 tablica zamiast 4
-        map[5]=new Tile[4];
-        map[5][0]=new Tile(handler,400,50,true);
-        map[5][1]=new Tile(handler,400,50,true);
-        map[5][2]=new Tile(handler,400,50,true);
-        map[5][3]=new Tile(handler,400,50,true);
-
-        map[6]=new Tile[4];
-        map[6][0]=new Tile(handler,400,50,true);
-        map[6][1]=new Tile(handler,400,50,true);
-        map[6][2]=new Tile(handler,400,50,true);
-        map[6][3]=new Tile(handler,400,50,true);
-
-        map[7]=new Tile[4];
-        map[7][0]=new Tile(handler,400,50,true);
-        map[7][1]=new Tile(handler,400,50,true);
-        map[7][2]=new Tile(handler,400,50,true);
-        map[7][3]=new Tile(handler,400,50,true);
-
-        map[8]=new Tile[4];
-        map[8][0]=new Tile(handler,400,50,true);
-        map[8][1]=new Tile(handler,400,50,true);
-        map[8][2]=new Tile(handler,400,50,true);
-        map[8][3]=new Tile(handler,400,50,true);
     }
 
     public void setCounterOnTile(PositionOnMap pos,Counter counter){

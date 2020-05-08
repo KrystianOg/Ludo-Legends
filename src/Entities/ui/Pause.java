@@ -25,7 +25,7 @@ public class Pause extends Entity {
         this.handler=handler;
         this.button=button;
         hitbox=new Rectangle((int)x,(int)y,width,height);
-        menu=new Button(handler,(handler.getFrameWidth()-225)/2,400,1, Assets.medium_button_template,Assets.menu);
+        menu=new Button(handler,(handler.getFrameWidth()-225)/2,400,1, Assets.medium_button_template,"MENU",58);
         clicked=false;
     }
 

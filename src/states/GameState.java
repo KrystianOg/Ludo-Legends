@@ -2,12 +2,18 @@ package states;
 import Entities.Board;
 import Entities.Counters.Counter;
 import Entities.HUD.Dice;
+import Entities.PositionOnMap;
+import Entities.ui.Pause;
+import GFX.Assets;
+import Players.Bot;
 import Players.Player;
-import Entities.ui.Tile;
 import Entities.HUD.Timer;
+import Players.PlayerData;
+import display.GameOverScreen;
 import ludogame.Handler;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -16,34 +22,40 @@ public class GameState extends State{
 
     private final Player[] player;
     private final List<Counter> resetingCounter=new LinkedList<>();
-    private final List<Player> winnerTable=new LinkedList<>();
+    private final List<PlayerData> winnerTable=new LinkedList<>();
+    private final List<Counter> renderOrder=new LinkedList<>();
 
+
+    public static final Color[] color=new Color[4];
+    private GameOverScreen gameOverScreen;
     private Board board;
     private Dice dice;
     private Timer timer;
-
-    private int timesRolled=0;
-
-    private final List<String> botNickname=new LinkedList<>();
-
-    public static final Color[] color=new Color[4];
-
+    private final Pause pause;
+    private boolean inGame;
+    private boolean endGame;
+    private int round=0;
     private int turnOf;
 
     public GameState(Handler handler){
         super(handler);
         handler.setGameState(this);
+        inGame=false;
+        endGame=false;
         this.player=new Player[4];
-        setBotNicknames();
+        Bot.setBotNicknames();
+        pause=new Pause(handler,handler.getFrameWidth()-100,30, Assets.pause_button);
     }
 
     public void init(){
 
-        board=new Board(handler,0,0,750,790);   //z�e liczby-zmienic
+        inGame=true;
+        board=new Board(handler,0,0,750,790);   //zle liczby-zmienic
         dice=new Dice(handler,765,300);
         timer=new Timer(handler,765,300);
 
         turnOf=(int)(Math.random()*4);
+        gameOverScreen = new GameOverScreen(handler);
     }
 
     public void setPlayer(Player player){
@@ -56,17 +68,13 @@ public class GameState extends State{
     }
     
     public void setTurnof() {
-
         player[turnOf].resetList();
 
         turnOf++;
         if(turnOf==4){
             this.turnOf=0;
+            round++;
         }
-
-        timesRolled++;
-
-        System.out.println("BREAK "+timesRolled);
 
         dice.setRolled(false);
         timer.resetTimer();
@@ -75,9 +83,29 @@ public class GameState extends State{
 
     @Override
     public void tick() {
-        player[turnOf].tick();
 
-        resetCounters();
+        if(!pause.getClicked()) {
+            if(!endGame) {
+                if (!player[turnOf].getWon())
+                    player[turnOf].tick();
+                else
+                    setTurnof();
+
+                resetCounters();
+
+                if(player[0].getWon()&&player[1].getWon()&&player[2].getWon()&&player[3].getWon()) {
+                    endGame=true;
+                    gameOverScreen.init(winnerTable);
+                }
+
+            }
+            else{
+                gameOverScreen.tick();
+
+            }
+        }
+        if(!endGame)
+        pause.tick();
     }
 
     @Override
@@ -88,47 +116,19 @@ public class GameState extends State{
         dice.render(g);
 
         board.render(g);
+
+        for (Player value : player) {
+            value.renderFire(g);
+        }
+
         renderPlayers(g);
 
-    }
+        if(endGame)
+        gameOverScreen.render(g);
 
-    private void renderPlayers(Graphics g){
-        for(int i=0;i<4;i++){
-            player[i].render(g);
+        if(!endGame)
+        pause.render(g);
 
-            if(i==turnOf)
-                player[i].renderUltBar(g);
-        }
-    }
-
-    private void setBotNicknames(){
-
-        botNickname.add("Bot James");
-        botNickname.add("Bot John");
-        botNickname.add("Bot William");
-        botNickname.add("Bot Timothy");
-        botNickname.add("Bot Nicholas");
-        botNickname.add("Bot Stephen");
-        botNickname.add("Bot Nathan");
-
-        botNickname.add("Bot Sarah");
-        botNickname.add("Bot Nancy");
-        botNickname.add("Bot Lisa");
-        botNickname.add("Bot Sandra");
-        botNickname.add("Bot Laura");
-        botNickname.add("Bot Nicole");
-        botNickname.add("Bot Lauren");
-
-    }
-
-    public String getBotNickname(){
-
-        int i=(int)(Math.random()*botNickname.size());
-        String nick=botNickname.get(i);
-        Collections.swap(botNickname,i,botNickname.size()-1);
-        botNickname.remove(botNickname.size()-1);
-
-        return nick;
     }
 
     public Player getPlayer(int i){
@@ -151,6 +151,10 @@ public class GameState extends State{
         return this.board;
     }
 
+    public int getRound(){
+        return this.round;
+    }
+
     private void resetCounters(){
         for(int i=0;i<resetingCounter.size();i++){
             if(resetingCounter.get(i).getReseting())
@@ -159,10 +163,115 @@ public class GameState extends State{
                 resetingCounter.remove(i);
             }
         }
-
     }
 
     public void addToReset(Counter counter){
         resetingCounter.add(counter);
     }
+
+    private void renderPlayers(Graphics g){
+
+        for (Counter counter : renderOrder) {
+            counter.render(g);
+        }
+
+        for (Player value : player) {
+            value.renderInBaseCounters(g);
+        }
+
+        player[turnOf].renderUltBar(g);
+    }
+
+    public void setRenderOrder(){
+
+        renderOrder.clear();
+        if(handler.getTile(new PositionOnMap(51)).getCounterListLength()>0){
+            for(int j=0;j<handler.getTile(new PositionOnMap(51)).getCounterListLength();j++){
+                renderOrder.add( handler.getTile(new PositionOnMap(51)).getCounter(j));
+            }
+        }
+        for(int i=0;i<13;i++){
+            if(handler.getTile(new PositionOnMap(i)).getCounterListLength()>0){
+                for(int j=0;j<handler.getTile(new PositionOnMap(i)).getCounterListLength();j++){
+                    renderOrder.add(handler.getTile(new PositionOnMap(i)).getCounter(j));
+                }
+            }
+            if(handler.getTile(new PositionOnMap(50-i)).getCounterListLength()>0){
+                for(int j=0;j<handler.getTile(new PositionOnMap(50-i)).getCounterListLength();j++){
+                    renderOrder.add(handler.getTile(new PositionOnMap(50-i)).getCounter(j));
+                }
+            }
+        }
+
+        for(int i=0;i<6;i++){
+            if(handler.getTile(new PositionOnMap(1,i)).getCounterListLength()>0){
+                for(int j=0;j<handler.getTile(new PositionOnMap(1,i)).getCounterListLength();j++){
+                    renderOrder.add(handler.getTile(new PositionOnMap(1,i)).getCounter(j));
+                }
+            }
+            if(handler.getTile(new PositionOnMap(2,i)).getCounterListLength()>0){
+                for(int j=0;j<handler.getTile(new PositionOnMap(2,i)).getCounterListLength();j++){
+                    renderOrder.add(handler.getTile(new PositionOnMap(2,i)).getCounter(j));
+                }
+            }
+            if(handler.getTile(new PositionOnMap(4,i)).getCounterListLength()>0){
+                for(int j=0;j<handler.getTile(new PositionOnMap(4,i)).getCounterListLength();j++){
+                    renderOrder.add(handler.getTile(new PositionOnMap(4,i)).getCounter(j));
+                }
+            }
+            if(handler.getTile(new PositionOnMap(3,5-i)).getCounterListLength()>0){
+                for(int j=0;j<handler.getTile(new PositionOnMap(3,5-i)).getCounterListLength();j++){
+                    renderOrder.add(handler.getTile(new PositionOnMap(3,5-i)).getCounter(j));
+                }
+            }
+
+        }
+        for(int i=13;i<25;i++){
+            if(handler.getTile(new PositionOnMap(i)).getCounterListLength()>0){
+                for(int j=0;j<handler.getTile(new PositionOnMap(i)).getCounterListLength();j++){
+                    renderOrder.add(handler.getTile(new PositionOnMap(i)).getCounter(j));
+                }
+            }
+            if(handler.getTile(new PositionOnMap(50-i)).getCounterListLength()>0){
+                for(int j=0;j<handler.getTile(new PositionOnMap(50-i)).getCounterListLength();j++){
+                    renderOrder.add(handler.getTile(new PositionOnMap(50-i)).getCounter(j));
+                }
+            }
+        }
+        if(handler.getTile(new PositionOnMap(25)).getCounterListLength()>0){
+            for(int j=0;j<handler.getTile(new PositionOnMap(25)).getCounterListLength();j++){
+                renderOrder.add( handler.getTile(new PositionOnMap(25)).getCounter(j));
+            }
+        }
+    }
+
+    public Player getPlayerByColor(BufferedImage counterColor){
+        for(int i=0;i<4;i++){
+            if(player[i].getCounter(0)!=null) {
+                if (player[i].getCounter(0).getCounterColor() == counterColor)
+                    return player[i];
+            }
+        }
+
+        return null;
+    }
+
+    public boolean isInGame(){
+        return this.inGame;
+    }
+
+    public void setPlayerData(PlayerData playerData){
+        this.winnerTable.add(playerData);
+    }
+
+    public void clear(){
+        endGame=false;
+        inGame=false;
+        resetingCounter.clear();
+        winnerTable.clear();
+        renderOrder.clear();
+        round=0;
+    }
+
+
 }

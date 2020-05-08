@@ -1,10 +1,12 @@
 package ludogame;
 
 import GFX.Assets;
+import GFX.DynamicBackground;
 import display.Display;
 
 import java.awt.*;
 import java.awt.image.BufferStrategy;
+import java.io.IOException;
 
 public class LoadingScreen implements Runnable{
         //info
@@ -23,20 +25,21 @@ public class LoadingScreen implements Runnable{
     private int value=0;
     private int tick=0;
 
+    private boolean doRender;
 
     public LoadingScreen(Handler handler,String title,int width,int height){
         this.handler =handler;
         this.width=width;
         this.height=height;
 
+        handler.setLoadingScreen(this);
+        doRender=true;
         display=new Display(title,width,height);
         handler.setDisplay(display);
-
-
     }
 
     private void init(){
-        Assets.initLoadingScreen();
+            Assets.initLoadingScreen();
     }
 
     private void tick(){
@@ -46,9 +49,6 @@ public class LoadingScreen implements Runnable{
             if(value==4)
                 value=0;
         }
-
-        if(handler.getGame()!=null)
-            running=false;
     }
 
     private void render(){
@@ -74,7 +74,10 @@ public class LoadingScreen implements Runnable{
         g.setColor(Color.white);
         g.fillRect(0,0,width,height);
 
-        g.drawImage(Assets.loadingDot[value],(width-Assets.loadingDot[value].getWidth()+value*30)/2,(height-Assets.loadingCircle.getHeight())/2+100,null);
+        double scale=0.25;
+
+        g.drawImage(Assets.logo,(width-(int)(Assets.logo.getWidth()*scale))/2,200,(int)(Assets.logo.getWidth()*scale),(int)(Assets.logo.getHeight()*scale),null);
+        g.drawImage(Assets.loadingDot[value],(width-Assets.loadingDot[value].getWidth())/2-30+value*20,400,null);
 
     }
 
@@ -97,8 +100,10 @@ public class LoadingScreen implements Runnable{
             lastTime=now;
 
             if(delta>=1) {
-                tick();
-                render();
+                if(doRender) {
+                    tick();
+                    render();
+                }
                 ticks++;
                 delta--;
             }
@@ -128,4 +133,10 @@ public class LoadingScreen implements Runnable{
         }
     }
 
+    public void setRender(boolean render){
+        this.doRender=render;
+    }
+    public boolean getRender(){
+        return this.doRender;
+    }
 }

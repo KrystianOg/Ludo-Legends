@@ -18,11 +18,9 @@ public class Game implements Runnable {
     private final int height;        //szer/wys okna
     private boolean running=false;  //odpowiada za wyjscie z gry
     private Thread thread;
-    private DBConnect connect;
 
     //FPS
     private BufferStrategy bs;      //-info
-
     private Graphics g;             //grafika
 
     private final Handler handler;
@@ -38,6 +36,8 @@ public class Game implements Runnable {
     //Input
     private final MouseManager mouseManager;
     private final KeyboardManager keyboardManager;
+    //FPS COUNTER
+    private int fps;
 
     public Game(Handler handler,int width,int height){
 
@@ -57,8 +57,6 @@ public class Game implements Runnable {
         display.getCanvas().addMouseMotionListener(mouseManager);
         display.getFrame().addKeyListener(keyboardManager);
 
-        connect=new DBConnect();
-
         Assets.init();
         //
         handler.setGame(this);
@@ -73,6 +71,7 @@ public class Game implements Runnable {
 
         State.setState(menuState); //gamestate change
 
+        handler.getLoadingScreen().setRender(false);
     }
 
     private void tick(){
@@ -97,6 +96,8 @@ public class Game implements Runnable {
         if(State.getState()!=null)
             State.getState().render(g);
 
+        if(State.getState()!=null&&SettingState.FPS_COUNTER)
+            Text.drawString(g,Integer.toString(fps),width-60,30,false,new Color(0,179,0),Assets.Ubuntu34);
 
         //
         bs.show();
@@ -113,30 +114,24 @@ public class Game implements Runnable {
         long now;
         long lastTime=System.nanoTime();
 
-        long timer=0;
-        int ticks=0;
-
         while(running){
             now=System.nanoTime();
             delta+=(now-lastTime)/timePerTick;
-            timer+=now-lastTime;
             lastTime=now;
 
             if(delta>=1) {
                 tick();
+
+                if(!handler.getLoadingScreen().getRender())
                 render();
-                ticks++;
-                delta--;
+
+                fps= (int) Math.round(SettingState.FPS/delta);
+
+                delta=0;
                 timePerTick=1000000000/SettingState.FPS;
             }
 
-
-            if(SettingState.FPS_COUNTER)        //fps counter
-            if(timer>=1000000000){
-                System.out.println("FPS: "+ticks);
-                ticks=0;
-                timer=0;
-            }
+            //fps counter
 
         }
         stop();
@@ -186,10 +181,6 @@ public class Game implements Runnable {
 
     public int getFrameWidth(){
         return this.width;
-    }
-
-    public DBConnect getDBConnect(){
-        return this.connect;
     }
 
     public boolean isRunning(){

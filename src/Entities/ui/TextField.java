@@ -10,7 +10,7 @@ import java.awt.*;
 
 public class TextField extends Entity{
 
-    private static final int FIELD_WIDTH=200,FIELD_HEIGHT=40;
+    private static final int FIELD_WIDTH=240,FIELD_HEIGHT=40;
     private final String defaultNickname;
     private String nickname;
     private boolean isClicked;
@@ -44,11 +44,11 @@ public class TextField extends Entity{
     @Override
     public void render(Graphics g) {
         g.setColor(txtfColor);
-        g.fillRect((int)x+7,(int)y+7,186,26);
-        g.drawImage(Assets.progressbar_f,(int)x,(int)y,null);
+        g.fillRect((int)x+7,(int)y+7,FIELD_WIDTH-14,FIELD_HEIGHT-14);
+        g.drawImage(Assets.progressbar_f,(int)x,(int)y,width,height,null);
 
         if(nickname!=null)
-        Text.drawString(g,nickname,(int)x+13,(int)y+28,false,Color.BLACK,Assets.Ubuntu28);
+        Text.drawString(g,nickname,(int)x+13,(int)y+28,false,Color.black,Assets.Ubuntu28);
     }
 
     public boolean contains(int MouseX,int MouseY){
