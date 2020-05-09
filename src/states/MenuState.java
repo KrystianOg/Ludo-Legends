@@ -3,18 +3,21 @@ package states;
 import GFX.Assets;
 import Entities.ui.Button;
 import GFX.DynamicBackground;
+import ludogame.DBConnect;
 import ludogame.Handler;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
+import static GFX.Assets.logo;
+
 public class MenuState extends State{
 
-    private final double LOGO_SCALE=0.62;
-
-	private final Button game,settings,ranking,exit;
+    private final Button game,settings,ranking,exit;
     private final DynamicBackground dynamicBackground;
-    private final BufferedImage logo;
+    private DBConnect connect;
+    private int idleTimer;
+    public static int MAX_IDLE_TIME=100*SettingState.FPS;
 
     public MenuState(Handler handler){
         super(handler);
@@ -25,7 +28,6 @@ public class MenuState extends State{
         ranking=new Button(handler,(handler.getFrameWidth()-350*BUTTON_SCALE)/2,615,BUTTON_SCALE,Assets.big_button_template,"RANKING",58);
         exit=new Button(handler,(handler.getFrameWidth()-350*BUTTON_SCALE)/2,695,BUTTON_SCALE,Assets.big_button_template,"EXIT",58);
         dynamicBackground=new DynamicBackground(handler,handler.getFrameHeight());
-        logo=Assets.logo;
     }
 
     @Override
@@ -49,7 +51,7 @@ public class MenuState extends State{
         }
         else if(this.ranking.contains(handler.getMouseClickX(),handler.getMouseClickY())){
             handler.resetMousePOS();
-            handler.getHighScoresState().init(this.dynamicBackground);
+            handler.getHighScoresState().init(this.dynamicBackground,connect);
             setState(handler.getGame().highScoresState);
 
         }else if(this.exit.contains(handler.getMouseClickX(),handler.getMouseClickY())){
@@ -60,6 +62,8 @@ public class MenuState extends State{
     	settings.tick();
     	ranking.tick();
     	exit.tick();
+    	//idle();
+
     }
 
     @Override
@@ -71,11 +75,27 @@ public class MenuState extends State{
             dynamicBackground.render(g);
 
 
-        g.drawImage(logo, (handler.getFrameWidth()-(int)(logo.getWidth()*LOGO_SCALE))/2, 25,(int)(logo.getWidth()*LOGO_SCALE),(int)(Assets.logo.getHeight()*LOGO_SCALE),null);
+        double LOGO_SCALE = 0.62;
+        g.drawImage(logo, (handler.getFrameWidth()-(int)(logo.getWidth()* LOGO_SCALE))/2, 25,(int)(logo.getWidth()* LOGO_SCALE),(int)(logo.getHeight()* LOGO_SCALE),null);
 
         game.render(g);
         settings.render(g);
         ranking.render(g);
         exit.render(g);
     }
+
+    public void setConnection(DBConnect connect){
+        this.connect=connect;
+    }
+
+    private void idle(){
+        idleTimer++;
+
+        if(idleTimer>=MAX_IDLE_TIME){
+            idleTimer=0;
+            connect.close();
+            connect=handler.getLoadingScreen().getConnection();
+        }
+    }
+
 }

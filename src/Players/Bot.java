@@ -15,7 +15,7 @@ import java.util.List;
 
 public class Bot extends Player {
 
-    private int input=-1;
+    private final int input=-1;
     private static final List<String> botNickname=new LinkedList<>();
 
     public Bot(Handler handler, PositionOnMap startingPos, PositionOnMap endingPos, BufferedImage counterColor) {
@@ -61,7 +61,6 @@ public class Bot extends Player {
         //3.ochrona
         //4.rng ruchu
 
-
         if(!clicked){
             handler.getDice().botRoll();
             clicked=true;
@@ -72,6 +71,9 @@ public class Bot extends Player {
             handler.getTimer().tick();
         }
         else{
+
+            autoPick();
+            /*
             lastRolls.add(handler.getRoll());
             if(lastRolls.size()==3&&lastRolls.get(2)==6&&lastRolls.get(1)==6&&lastRolls.get(0)==6){
                 handler.setTurnof();
@@ -85,13 +87,13 @@ public class Bot extends Player {
                 notSix.clear();
                 chance.clear();
 
-                input = (int) (Math.random() * 4);
+                input = getInBaseInput(counter);
 
                 if (input >= 0) {
                     counter[input].setMoving(true);
                 }
             } else if (!isinbase && handler.getRoll() < 6) {
-                input = getOutsideBaseInput();
+                input = getOutsideBaseInput(counter);
 
                 if(input==-1)
                     handler.setTurnof();
@@ -101,7 +103,7 @@ public class Bot extends Player {
                         counter[input].setMoving(true);
                     }
                 }
-            }
+            }*/
 
             clicked=false;
         }
@@ -109,7 +111,7 @@ public class Bot extends Player {
         useUltimateAbility();
     }
 
-    private int getInBaseInput() {
+    public static int getInBaseInput(Counter[] counter) {
 
         List<Integer> tab=new LinkedList<>();
 
@@ -117,6 +119,9 @@ public class Bot extends Player {
             if(counter[i].isInbase())
                 tab.add(i);
         }
+
+        if(tab.size()==0)
+            return getOutsideBaseInput(counter);
 
         return tab.get((int) (Math.random() * tab.size()));
     }
@@ -133,12 +138,11 @@ public class Bot extends Player {
         if(ultimate.size()>0) {
             int i = (int) (Math.random() * ultimate.size());
             ultimate.get(i).setUltimateAbility(true);
-            clearUltBarLoad();
-            resetUltLoad();
+            substractUltLoad(ultimate.get(i).getUltimateBar().getUltLoad());
         }
     }
 
-    private int getOutsideBaseInput(){
+    public static int getOutsideBaseInput(Counter[] counter){
         List <Integer> tab=new LinkedList<>();
 
         for(int i=0;i<4;i++){

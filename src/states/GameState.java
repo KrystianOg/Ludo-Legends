@@ -91,6 +91,7 @@ public class GameState extends State{
                 else
                     setTurnof();
 
+                handler.resetMousePOS();
                 resetCounters();
 
                 if(player[0].getWon()&&player[1].getWon()&&player[2].getWon()&&player[3].getWon()) {

@@ -31,7 +31,8 @@ public class Info extends Entity {
 
     private final Color blackOp=new Color(0,0,0,190);
     
-    private int counterTileWidth = 485, counterTileHeight=175;
+    private final int counterTileWidth = 485;
+    private final int counterTileHeight=175;
     
     private boolean hoover;
     private boolean clicked;
@@ -61,8 +62,8 @@ public class Info extends Entity {
 
         if(clicked){
 
-            }
         }
+    }
 
     @Override
     public void render(Graphics g) {

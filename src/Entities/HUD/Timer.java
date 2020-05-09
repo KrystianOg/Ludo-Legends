@@ -2,6 +2,7 @@ package Entities.HUD;
 
 import Entities.Entity;
 import GFX.Assets;
+import Players.Person;
 import ludogame.Handler;
 import states.GameState;
 
@@ -22,19 +23,22 @@ public class Timer extends Entity {
         this.time=FPS*DICE_ANIM_TIME;
     }
 
-    private void setcurrentTime(){
-        if(handler.getDice().getTickCount()<0)
-        this.currentTime++;
-
-        if(currentTime==time){
-            handler.getDice().setTickcount();
-            currentTime=0;
-        }
-    }
-
     @Override
     public void tick() {
-        setcurrentTime();
+        if (!handler.getDice().isClicked())
+            currentTime++;
+
+        if (currentTime == time) {
+
+            if(!handler.getDice().isRolled())
+                handler.getDice().setTickcount();
+
+            if (handler.getDice().isRolled()) {
+                handler.getPlayer().autoPick();
+                handler.getDice().setRolled(false);
+            }
+            currentTime = 0;
+        }
     }
 
     @Override

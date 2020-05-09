@@ -112,7 +112,11 @@ public abstract class Counter extends Entity {
                     bufferedPosition = getNextPosition();
                     handler.setCounterOnTile(pos, this);
                     handler.getTimer().resetTimer();
+                    System.out.println(handler.getPlayer().getRollsLeft());
                     handler.getDice().setRolled(false);
+
+                    if(handler.getPlayer().getRollsLeft()==0)
+                        handler.getPlayer().setRollsLeft(1);
                     handler.getPlayer().setIsinbase(false);
                     handler.getGameState().setRenderOrder();
                 }
@@ -144,6 +148,7 @@ public abstract class Counter extends Entity {
                     pos = bufferedPosition;
 
                     handler.getPlayer().addPoint();
+
                     moved++;
 
                     bufferedPosition = getNextPosition();
@@ -152,8 +157,6 @@ public abstract class Counter extends Entity {
                         handler.setCounterOnTile(pos, this);
 
                     handler.getGameState().setRenderOrder();
-
-
 
                     if ((moved == handler.getRoll())||won) {
                         moving = false;
@@ -164,13 +167,10 @@ public abstract class Counter extends Entity {
                         handler.setCounterOnTile(pos, this);
 
                         handler.getGameState().setRenderOrder();
-
+                        moved = 0;
                         if (handler.getPlayer().getRollsLeft() == 0)
                             handler.setTurnof();
 
-                        handler.getDice().setRolled(false);
-                        handler.getTimer().resetTimer();
-                        moved = 0;
                     }
                 }
             }

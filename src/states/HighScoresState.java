@@ -64,11 +64,11 @@ public class HighScoresState extends State{
         winsHover=false;
     }
 
-    public void init(DynamicBackground dynamicBackground){
+    public void init(DynamicBackground dynamicBackground,DBConnect connect){
         playerData.clear();
         this.dynamicBackground=dynamicBackground;
-        connect=new DBConnect(handler); //<-highscores;
-        
+        this.connect=connect;
+
         if(connect.isConnected())
             connect.getData("wins", LIMIT,playerData);
     }

@@ -2,6 +2,7 @@ package Entities.HUD;
 
 import Entities.Entity;
 import GFX.Assets;
+import GFX.Text;
 import ludogame.Handler;
 import states.SettingState;
 
@@ -44,18 +45,6 @@ public class Dice extends Entity {
         type.add(6);
     }
 
-    public boolean isRolled() {
-        return rolled;
-    }
-
-    public int getRoll(){
-        return roll;
-    }
-
-    public void setRoll(int roll){
-        this.roll=roll;
-    }
-
     @Override
     public void tick() {
 
@@ -74,19 +63,46 @@ public class Dice extends Entity {
         else if(tickcount==DICE_ANIM_TICKS){
             rolled=true;
             clicked=false;
+            handler.getTimer().resetTimer();
             tickcount=-1;
 
             setChanceRoll();
+
+            if(roll==6)
+                handler.getPlayer().rollsPlusOne();
 
             if(handler.getPlayer().isThird()&&roll==6){
                 handler.getPlayer().setRollsLeft(1);
                 handler.setTurnof();
             }
-
-            if(roll==6)
-                handler.getPlayer().rollsPlusOne();
         }
 
+    }
+
+    @Override
+    public void render(Graphics g) {
+        g.drawImage(Assets.rollimg[roll-1],(int)x,(int)y,null);
+
+        if(!rolled)
+            Text.drawString(g,"Roll",(int)x+37,(int)y+100,true,Color.black,Assets.Ubuntu34);
+        else
+            Text.drawString(g,"Pick",(int)x+37,(int)y+100,true,Color.BLACK,Assets.Ubuntu34);
+    }
+
+    public boolean isClicked(){
+        return this.clicked;
+    }
+
+    public boolean isRolled() {
+        return rolled;
+    }
+
+    public int getRoll(){
+        return roll;
+    }
+
+    public void setRoll(int roll){
+        this.roll=roll;
     }
 
     public void setTickcount(){
@@ -101,6 +117,10 @@ public class Dice extends Entity {
 
     public void setRolled(boolean rolled){
         this.rolled=rolled;
+    }
+
+    public boolean getClicked(){
+        return this.clicked;
     }
 
     public void botRoll(){
@@ -118,8 +138,5 @@ public class Dice extends Entity {
        type.subList(6,type.size()).clear();
     }
 
-    @Override
-    public void render(Graphics g) {
-        g.drawImage(Assets.rollimg[roll-1],(int)x,(int)y,null);
-    }
+
 }

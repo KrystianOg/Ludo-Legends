@@ -181,8 +181,10 @@ public class DBConnect {
         public void close(){
             connected=false;
             try {
-                resultSet.close();
-                connection.close();
+                if(!resultSet.isClosed())
+                    resultSet.close();
+                if(!connection.isClosed())
+                    connection.close();
                 this.finalize();
             } catch (SQLException throwables) {
                 throwables.printStackTrace();

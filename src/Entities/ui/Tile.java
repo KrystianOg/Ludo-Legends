@@ -34,6 +34,7 @@ public class Tile {
 
         if(instantKill&&counter.isVulnerable()){
             counter.resetToBase();
+            handler.getPlayer().rollsMinusOne();
         }
         else if(this.counter.isEmpty())
             this.counter.add(counter);

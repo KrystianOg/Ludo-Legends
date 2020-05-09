@@ -21,11 +21,11 @@ import ludogame.Handler;
 
 public class InfoTile extends Entity{
 	
-	private int x;
-	private int y;
-	private int width;
-	private int height;
-	private int counter;
+	private final int x;
+	private final int y;
+	private final int width;
+	private final int height;
+	private final int counter;
 	
     private final CounterTile[] counterTile;
     
@@ -39,7 +39,6 @@ public class InfoTile extends Entity{
 		this.height=height;
 		this.counter=counter;
 
-		
         counterTile=new CounterTile[8];
         counterTile[0]=new CounterTile(handler,x+10,y+10,Albali.CLOAK_POSX,Albali.CLOAK_POSY,Assets.counter[0],Assets.cloak_f,Assets.cloak_b);
         counterTile[1]=new CounterTile(handler,x+10,y+10, Funi.WAND_POSX,Funi.WAND_POSY, Assets.counter[0],Assets.wand);

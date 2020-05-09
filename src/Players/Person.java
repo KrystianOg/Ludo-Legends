@@ -55,10 +55,10 @@ public class Person extends Player {
     private void moveLogic(){
 
         //timer dla ruchu
+        handler.getTimer().tick();
 
         if(!handler.getDice().isRolled()) {
             handler.getDice().tick();
-            handler.getTimer().tick();
         }
 
         else{

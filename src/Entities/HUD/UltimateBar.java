@@ -68,8 +68,7 @@ public class UltimateBar extends Entity {
 
             if(loaded&&!counter.isInbase()&&canBeLoaded) {
                 counter.useUltimateAbility();
-                handler.getPlayer().resetUltLoad();
-                handler.getPlayer().clearUltBarLoad();
+                handler.getPlayer().substractUltLoad(ULT_LOAD);
             }
         }
 
@@ -163,6 +162,10 @@ public class UltimateBar extends Entity {
 
     public void setCanBeLoaded(boolean canBeLoaded){
         this.canBeLoaded=canBeLoaded;
+    }
+
+    public int getUltLoad(){
+        return this.ULT_LOAD;
     }
 
     public void setUltUsed(){

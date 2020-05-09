@@ -2,18 +2,14 @@ package states;
 
 import Entities.Counters.*;
 import Entities.PositionOnMap;
-import Entities.ui.Pause;
+import Entities.ui.Button;
 import Entities.ui.TextField;
+import Entities.ui.*;
+import GFX.Assets;
+import GFX.DynamicBackground;
 import Players.Blank;
 import Players.Bot;
 import Players.Person;
-import Entities.ui.Button;
-import Entities.ui.Info;
-import Entities.ui.LegendPick;
-import Entities.ui.PlayerPick;
-import GFX.Assets;
-import GFX.DynamicBackground;
-import Players.Player;
 import ludogame.Handler;
 
 import java.awt.*;
@@ -24,7 +20,7 @@ import java.util.List;
 
 public class PrepState extends State {
 
-    private static final int PLAYER_POSY=230,PLAYER_SHIFT=450;
+    private static final int PLAYER_POSY=230;
 
     private final PositionOnMap[]  PLAYER_STARTING_POS={new PositionOnMap(1),new PositionOnMap(14),new PositionOnMap(27),new PositionOnMap(40)},
                                           PLAYER_ENDING_POS={new PositionOnMap(51),new PositionOnMap(12),new PositionOnMap(25),new PositionOnMap(38)};
@@ -41,7 +37,6 @@ public class PrepState extends State {
     //
 
     private PlayerPick[] playerPick;
-    private final List<Player> player=new LinkedList<>();
     private List<Integer> playerI;
     private final TextField[] textField=new TextField[4];
 
@@ -146,6 +141,7 @@ public class PrepState extends State {
         }
         if (!typePick)
         	info.tick();
+
         pause.tick();
     }
 
@@ -225,7 +221,6 @@ public class PrepState extends State {
             case 6 : handler.getPlayer(picking).setCounter(new Saph(handler, BASE_POS_X[picking]+COUNTER_POS_X[i], BASE_POS_Y[picking]+COUNTER_POS_Y[i], Assets.counter[picking],barPos));break;
             case 7 : handler.getPlayer(picking).setCounter(new Venator(handler,BASE_POS_X[picking]+COUNTER_POS_X[i], BASE_POS_Y[picking]+COUNTER_POS_Y[i], Assets.counter[picking],barPos));break;
         }
-
     }
 
     private void nickNamePlaceTick(){
@@ -234,20 +229,18 @@ public class PrepState extends State {
 
             if(textField[playerI.get(i)].contains(handler.getMouseClickX(),handler.getMouseClickY())){
                 handler.resetMousePOS();
-                for(int j=0;j<textField.length;j++)
-                    textField[j].setClicked(false);
+                for (TextField field : textField) field.setClicked(false);
                 textField[playerI.get(i)].setClicked(true);
             }
 
             textField[playerI.get(i)].tick();
         }
-
     }
 
     private void nickNamePlaceRender(Graphics g){
-        if(playerI.size()>=0)
-            for(int i=0;i<playerI.size();i++){
-                textField[playerI.get(i)].render(g);
+        if(playerI.size()>0)
+            for (Integer integer : playerI) {
+                textField[integer].render(g);
             }
     }
 
@@ -283,7 +276,6 @@ public class PrepState extends State {
                         break;
                 }
             }
-
             typePick=false;
         }
     }
