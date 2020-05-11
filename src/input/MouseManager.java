@@ -3,13 +3,17 @@ package input;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.awt.event.MouseWheelEvent;
+import java.awt.event.MouseWheelListener;
 
-public class MouseManager implements MouseListener, MouseMotionListener { //poprawić + usunac gettery i settery
+public class MouseManager implements MouseListener, MouseMotionListener, MouseWheelListener { //poprawić + usunac gettery i settery
 
     private int x,y;
     private boolean leftPressed, rightPressed;
 
     private int hoverx,hovery;
+    
+    private int wheel;
 
     public MouseManager (){
         this.x=-1;
@@ -79,6 +83,11 @@ public class MouseManager implements MouseListener, MouseMotionListener { //popr
         this.hoverx=e.getX();
         this.hovery=e.getY();
 	}
+	
+	public void mouseWheelMoved(MouseWheelEvent e) {
+		wheel+=e.getWheelRotation();
+
+	}
 
     public int getHoverX(){
         return this.hoverx;
@@ -94,5 +103,13 @@ public class MouseManager implements MouseListener, MouseMotionListener { //popr
     public int getY(){
         return this.y;
     }
+
+	public int getWheel() {
+		return wheel;
+	}
+
+	public void setWheel(int wheel) {
+		this.wheel = wheel;
+	}
 
 }
