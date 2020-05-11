@@ -64,11 +64,11 @@ public class HighScoresState extends State{
         winsHover=false;
     }
 
-    public void init(DynamicBackground dynamicBackground){
+    public void init(DynamicBackground dynamicBackground,DBConnect connect){
         playerData.clear();
         this.dynamicBackground=dynamicBackground;
-        connect=new DBConnect(handler); //<-highscores;
-        
+        this.connect=connect;
+
         if(connect.isConnected())
             connect.getData("wins", LIMIT,playerData);
     }
@@ -112,7 +112,6 @@ public class HighScoresState extends State{
 
         if(back.contains(handler.getMouseClickX(),handler.getMouseClickY())){
             handler.resetMousePOS();
-            connect.close();
             setState(handler.getGame().menuState);
         }
     }

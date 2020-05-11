@@ -1,4 +1,4 @@
-package Entities;
+package Players;
 
 public class PositionOnMap {
     public int arr;

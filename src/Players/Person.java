@@ -1,5 +1,4 @@
 package Players;
-import Entities.PositionOnMap;
 import GFX.Assets;
 import GFX.Text;
 import ludogame.Handler;
@@ -27,6 +26,7 @@ public class Person extends Player {
 
         if(counter[0].getWon()&&counter[1].getWon()&&counter[2].getWon()&&counter[3].getWon()) {
             won = true;
+            resetFire();
             handler.getGameState().setPlayerData(getPlayerData());
             handler.setTurnof();
         }
@@ -46,19 +46,17 @@ public class Person extends Player {
     @Override
     public void render(Graphics g) {
 
-        if(counter!=null)
+        if(counter[0]!=null)
             Text.drawString(g,this.nickname,counter[3].getBaseX()+60,counter[3].getBaseY()-15,true,Color.white, Assets.Ubuntu34);
-        //for (Entities.Counters.Counter value : counter) value.render(g);
-
     }
 
     private void moveLogic(){
 
         //timer dla ruchu
+        handler.getTimer().tick();
 
         if(!handler.getDice().isRolled()) {
             handler.getDice().tick();
-            handler.getTimer().tick();
         }
 
         else{

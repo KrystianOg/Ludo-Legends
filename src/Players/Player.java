@@ -1,7 +1,6 @@
 package Players;
 import Entities.Counters.Counter;
 import Entities.Counters.Funi;
-import Entities.PositionOnMap;
 import Entities.ui.Tile;
 import ludogame.Handler;
 
@@ -74,7 +73,7 @@ public abstract class Player {
     }
 
     public void renderUltBar(Graphics g){
-        if(counter!=null) {
+        if(counter[0]!=null) {
             for (Counter value : counter) {
                 if (value.hasUltBar())
                     value.renderUltBar(g);
@@ -82,10 +81,36 @@ public abstract class Player {
         }
     }
 
-    public void clearUltBarLoad(){
-        for(int i=0;i<4;i++){
-            if(counter[i].getUltimateBar()!=null)
-            counter[i].getUltimateBar().setUltUsed();
+    public void autoPick(){
+        lastRolls.add(handler.getRoll());
+        if(lastRolls.size()==3&&lastRolls.get(2)==6&&lastRolls.get(1)==6&&lastRolls.get(0)==6){
+            handler.setTurnof();
+            System.out.println("BREAK AFTER THREE SIXES");
+        }
+        else if (isinbase && handler.getRoll() != 6) {
+            notSixLogic();
+            handler.setTurnof();
+        }
+        else if (handler.getRoll() == 6) {
+            notSix.clear();
+            chance.clear();
+
+            int input = Bot.getInBaseInput(counter);
+
+            if (input >= 0) {
+                counter[input].setMoving(true);
+            }
+        } else if (!isinbase && (handler.getRoll() < 6||handler.getRoll()>6)) {
+            int input = Bot.getOutsideBaseInput(counter);
+
+            if(input==-1)
+                handler.setTurnof();
+
+            if (input >= 0) {
+                if (!counter[input].isInbase()) {
+                    counter[input].setMoving(true);
+                }
+            }
         }
     }
 
@@ -118,8 +143,11 @@ public abstract class Player {
         return this.endingPos;
     }
 
-    public void resetUltLoad(){
-        this.ultLoad=0;
+    public void substractUltLoad(int ultLoad){
+        this.ultLoad-=ultLoad;
+        
+        if(this.ultLoad<0)
+            this.ultLoad=0;
     }
 
     public abstract void tick();
@@ -133,7 +161,7 @@ public abstract class Player {
     public void renderInBaseCounters(Graphics g){
         render(g);
 
-        if(counter!=null){
+        if(counter[0]!=null){
             if(counter[3].isInbase()||counter[3].isMoving())
                 counter[3].render(g);
             for(int i=0;i<counter.length-1;i++){
@@ -192,6 +220,7 @@ public abstract class Player {
 
     public void addPoint(){
         this.points++;
+        if(ultLoad<=150)
         this.ultLoad++;
     }
 
@@ -206,7 +235,6 @@ public abstract class Player {
     public int getDeaths(){
         return this.deaths;
     }
-
 
     public PlayerData getPlayerData() {
     	PlayerData dane = new PlayerData(nickname, points, beats,isPlayer);

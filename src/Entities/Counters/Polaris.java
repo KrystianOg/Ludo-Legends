@@ -22,7 +22,7 @@ public class Polaris extends Counter {
     private boolean first;
     //private final int ULT_LOAD=60;
 
-    public Polaris(Handler handler, float x, float y,BufferedImage counterColor,int barPos) {
+    public Polaris(Handler handler, float x, float y,BufferedImage counterColor) {
         super(handler,x, y,counterColor);
         ANIM_TICKS=(int)(0.57* SettingState.FPS);
 

@@ -24,6 +24,7 @@ public class Game implements Runnable {
     private Graphics g;             //grafika
 
     private final Handler handler;
+    private DBConnect connect;
 
     //States                        // odpowiada za dzialanie roznych
 
@@ -60,6 +61,9 @@ public class Game implements Runnable {
         Assets.init();
         //
         handler.setGame(this);
+        handler.getLoadingScreen().setRender(true);
+        connect=new DBConnect(handler);
+        handler.getLoadingScreen().setRender(false);
         //
         setColors();
 
@@ -72,6 +76,9 @@ public class Game implements Runnable {
         State.setState(menuState); //gamestate change
 
         handler.getLoadingScreen().setRender(false);
+
+        handler.getLoadingScreen().setConnection(connect);
+        handler.getMenuState().setConnection(connect);
     }
 
     private void tick(){

@@ -2,12 +2,14 @@ package Entities.HUD;
 
 import Entities.Entity;
 import GFX.Assets;
+import GFX.Text;
 import ludogame.Handler;
 import states.SettingState;
 
 import java.awt.*;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -20,28 +22,88 @@ public class Dice extends Entity {
 
     private boolean rolled;
     private boolean clicked;
-    private int roll;
+    private int roll,rollImg;
+    private final int minus;
 
     private final List<Integer> type=new LinkedList<>();
+    private final int dimensions;
 
     //animation
     private int tickcount;
     private static final int DICE_ANIM_TICKS= 27* SettingState.FPS/60;
 
-    public Dice(Handler handler, int x, int y) {
+    public Dice(Handler handler, int x, int y,int dimensions,int minus) {
         super(handler,x, y, DICE_WIDTH, DICE_HEIGHT);
         hitbox=new Rectangle(x,y,DICE_WIDTH,DICE_HEIGHT);
         rolled=false;
         clicked=false;
         tickcount=-1;
-        roll=6;
+        this.minus=minus;
+        this.dimensions=dimensions;
+        roll=dimensions;
+        rollImg=dimensions;
 
-        type.add(1);
-        type.add(2);
-        type.add(3);
-        type.add(4);
-        type.add(5);
-        type.add(6);
+        for(int i=1;i<=dimensions;i++)
+            type.add(i);
+    }
+
+    @Override
+    public void tick() {
+
+        if(this.hitbox.contains(handler.getMouseClickX(),handler.getMouseClickY())&&!rolled&&!clicked){
+            handler.resetMousePOS();
+            clicked=true;
+            tickcount=0;
+            setChanceRoll();
+            handler.getPlayer().rollsMinusOne();
+        }
+        else if(tickcount>=0&&tickcount<DICE_ANIM_TICKS){
+            tickcount++;
+            if(tickcount%(4*SettingState.FPS/60)==0)
+                rollImg= (int) (Math.random() * dimensions + 1)+minus;
+        }
+        else if(tickcount==DICE_ANIM_TICKS){
+            rolled=true;
+            clicked=false;
+            handler.getTimer().resetTimer();
+            tickcount=-1;
+
+            rollImg=roll;
+
+            if(roll==6)
+                handler.getPlayer().rollsPlusOne();
+
+            if(handler.getPlayer().isThird()&&roll==6){
+                handler.getPlayer().setRollsLeft(1);
+                handler.setTurnof();
+            }
+        }
+
+    }
+
+    @Override
+    public void render(Graphics g) {
+
+        if(rollImg>6)
+            rollImg=6;
+
+        if(rollImg>0)
+            g.drawImage(Assets.rollimg[rollImg - 1], (int) x, (int) y, null);
+        else
+            g.drawImage(Assets.minusrollimg[-rollImg], (int) x, (int) y, null);
+
+        if(!rolled)
+            Text.drawString(g,"Roll",(int)x+37,(int)y+100,true,Color.black,Assets.Ubuntu34);
+        else
+            Text.drawString(g,"Pick",(int)x+37,(int)y+100,true,Color.BLACK,Assets.Ubuntu34);
+    }
+
+    public void addSpecial(int i){
+       this.roll+=i;
+    }
+
+    public boolean isClicked(){
+        return this.clicked;
     }
 
     public boolean isRolled() {
@@ -56,42 +118,10 @@ public class Dice extends Entity {
         this.roll=roll;
     }
 
-    @Override
-    public void tick() {
-
-        if(this.hitbox.contains(handler.getMouseClickX(),handler.getMouseClickY())&&!rolled&&!clicked){
-            handler.resetMousePOS();
-            clicked=true;
-            tickcount=0;
-            handler.getPlayer().rollsMinusOne();
-        }
-        else if(tickcount>=0&&tickcount<DICE_ANIM_TICKS){
-            tickcount++;
-            if(tickcount%(4*SettingState.FPS/60)==0)
-                roll=(int)(Math.random()*6+1);        //  1-6
-
-        }
-        else if(tickcount==DICE_ANIM_TICKS){
-            rolled=true;
-            clicked=false;
-            tickcount=-1;
-
-            setChanceRoll();
-
-            if(handler.getPlayer().isThird()&&roll==6){
-                handler.getPlayer().setRollsLeft(1);
-                handler.setTurnof();
-            }
-
-            if(roll==6)
-                handler.getPlayer().rollsPlusOne();
-        }
-
-    }
-
     public void setTickcount(){
         clicked=true;
         tickcount=0;
+        setChanceRoll();
         handler.getPlayer().rollsMinusOne();
     }
 
@@ -103,9 +133,14 @@ public class Dice extends Entity {
         this.rolled=rolled;
     }
 
+    public boolean getClicked(){
+        return this.clicked;
+    }
+
     public void botRoll(){
         clicked=true;
         tickcount=0;
+        setChanceRoll();
         handler.getPlayer().rollsMinusOne();
     }
 
@@ -113,13 +148,10 @@ public class Dice extends Entity {
        type.addAll(handler.getPlayer().getChance());
        int rand =(int)(Math.random()*type.size());
 
-       roll=type.get(rand);
+       roll=type.get(rand)+minus;
        if(type.size()>6)
        type.subList(6,type.size()).clear();
     }
 
-    @Override
-    public void render(Graphics g) {
-        g.drawImage(Assets.rollimg[roll-1],(int)x,(int)y,null);
-    }
+
 }

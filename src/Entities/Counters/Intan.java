@@ -9,7 +9,10 @@ import java.awt.image.BufferedImage;
 import static GFX.Assets.shield;
 
 public class Intan extends Counter {
-    //2 razy trzeba go zbic zeby przesunal sie do "bazy"
+    /*
+    +SPELL: Gives a shield to an ally
+    -Can't shield himself
+     */
 
     public static final int SHIELD_POSX=-3,SHIELD_POSY=21;
 

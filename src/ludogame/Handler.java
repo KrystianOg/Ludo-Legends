@@ -1,10 +1,9 @@
 package ludogame;
 
-import Entities.Board;
 import Entities.Counters.Counter;
 import Entities.HUD.Dice;
 import Entities.HUD.Timer;
-import Entities.PositionOnMap;
+import Players.PositionOnMap;
 import Players.Player;
 import Entities.ui.Tile;
 import display.Display;

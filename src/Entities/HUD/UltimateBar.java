@@ -63,22 +63,23 @@ public class UltimateBar extends Entity {
 
         characterHover= square.contains(handler.getHoverX(), handler.getHoverY());
 
-        if(square.contains(handler.getMouseClickX(),handler.getMouseClickY())){
+        if(characterHover){
             handler.resetMousePOS();
 
             if(loaded&&!counter.isInbase()&&canBeLoaded) {
                 counter.useUltimateAbility();
-                handler.getPlayer().resetUltLoad();
-                handler.getPlayer().clearUltBarLoad();
+                handler.getPlayer().substractUltLoad(ULT_LOAD);
+                loaded=false;
             }
         }
 
         if(handler.getPlayer().getUltLoad()<ULT_LOAD) {
-            this.loadPercentage = (handler.getPlayer().getUltLoad() /  (float)ULT_LOAD*100);
+            loadPercentage = (handler.getPlayer().getUltLoad() /  (float)ULT_LOAD*100);
+            loaded=false;
         }
         else{
-            this.loadPercentage=(float)100;
-            this.loaded=true;
+            loadPercentage=100;
+            loaded=true;
         }
 
         if(loaded)
@@ -89,9 +90,9 @@ public class UltimateBar extends Entity {
     public void render(Graphics g) {
         if(characterHover) {
             if(loaded&&!counter.isInbase()&&!counter.getWon())
-                g.setColor(new Color(0, 190, 0, 110));
+                g.setColor(new Color(0, 190, 0, 130));
             else
-                g.setColor(new Color(201,0,1,110));
+                g.setColor(new Color(201,0,1,130));
 
             g.fillRect(square.x + 2, square.y + 2, square.width - 4, square.height - 4);
         }
@@ -163,6 +164,10 @@ public class UltimateBar extends Entity {
 
     public void setCanBeLoaded(boolean canBeLoaded){
         this.canBeLoaded=canBeLoaded;
+    }
+
+    public int getUltLoad(){
+        return this.ULT_LOAD;
     }
 
     public void setUltUsed(){

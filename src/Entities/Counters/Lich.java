@@ -7,7 +7,11 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class Lich extends Counter {
-    //wskrzesza na 3 rundy, jak dojdzie do kona to zalicza jak nie to dead / zbijable?
+
+    /*
+    +SPELL: On Ally: pushes 5 squares forward
+	On foe:  pulls 5 squares back
+     */
 
     protected final int ULT_LOAD=52;
 

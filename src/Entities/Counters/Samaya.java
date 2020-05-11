@@ -9,7 +9,12 @@ import java.awt.image.BufferedImage;
 import static GFX.Assets.swan;
 
 public class Samaya extends Counter {
-    //passive, nie zbija ale jej tez nie das sie zbic
+    /*
+
+     */
+
+
+
 
     public static final int SWAN_X=5,SWAN_Y=26;
 
@@ -20,7 +25,7 @@ public class Samaya extends Counter {
         ultBar=false;
         killable=false;
         canKill=false;
-        vulnerable=false;
+        vulnerable=true;
         //
         ultimateBar=null;
     }

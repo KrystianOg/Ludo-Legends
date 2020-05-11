@@ -31,7 +31,7 @@ public class Mira extends Counter {
 
     @Override
     protected void counterLogic() {
-        if(ultimateAbility){
+
             List<Counter> beatenCounters=new LinkedList<>();
             for(int i=0;i<4;i++){
                 if(handler.getPlayer().getCounter(i).isBeaten()&&handler.getPlayer().getCounter(i).isInbase())
@@ -44,7 +44,6 @@ public class Mira extends Counter {
                 beatenCounters.get(i).setMoving(true);
 
             ultimateAbility=false;
-        }
     }
 
     @Override
@@ -56,5 +55,7 @@ public class Mira extends Counter {
     public void render(Graphics g) {
         g.drawImage(counterColor, (int)x, (int)y,hitbox.width,hitbox.height,null);
         g.drawImage(medkit, (int)x+(int)(MEDKIT_POSX*SCALE), (int)y+(int)(MEDKIT_POSY*SCALE),(int)(medkit.getWidth()*SCALE),(int)(medkit.getHeight()*SCALE),null);
+
+
     }
 }

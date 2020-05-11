@@ -19,8 +19,8 @@ public class Assets {
     public static BufferedImage slider_front, slider_back;
 
 
-    public static BufferedImage sword,cloak_b,cloak_f,shield,wand,medkit,icicle_f,icicle_b,
-                                bow_rb,bow_lb,bow_rf,bow_lf,swan,arrowV;
+    public static BufferedImage sword,cloak_b,cloak_f,shield,wand,medkit,icicle_f,
+                                bow_rb,bow_lb,bow_rf,bow_lf,swan,arrowV,wingsf,wingsb;
 
     public static BufferedImage progressbar_b,progressbar_f,square;
     public static BufferedImage[] bar_loaded=new BufferedImage[3];
@@ -33,6 +33,7 @@ public class Assets {
                                   onOff_button_template=new BufferedImage[2];
 
     public static BufferedImage[] rollimg =new BufferedImage[6],
+                                  minusrollimg=new BufferedImage[7],
                                   counter =new BufferedImage[4],
                                   tile=new BufferedImage[6],
                                   player=new BufferedImage[3],
@@ -89,6 +90,9 @@ public class Assets {
         swan=loadImage("/graphics/Counters/swan.png");
 
         arrowV=loadImage("/graphics/Counters/arrow.png");
+
+        wingsb=loadImage("/graphics/Counters/wingsb.png");
+        wingsf=loadImage("/graphics/Counters/wingsf.png");
 
         SpriteSheet armorSheet=new SpriteSheet(loadImage("/graphics/Counters/armor_blue.png"));
         armor_f[0]=armorSheet.crop(0,0,62,50);
@@ -153,6 +157,15 @@ public class Assets {
         rollimg[4]=roll.crop(R_WIDTH,R_HEIGHT,R_WIDTH,R_HEIGHT);
         rollimg[5]=roll.crop(R_WIDTH*2,R_HEIGHT,R_WIDTH,R_HEIGHT);
         timerFrame=loadImage("/graphics/Dice/Timer.png");
+
+        SpriteSheet minusrollSheet=new SpriteSheet(loadImage("/graphics/Dice/MinusRoll.png"));
+        minusrollimg[0]=loadImage("/graphics/Dice/Zero.png");
+        minusrollimg[1]=minusrollSheet.crop(0,0,R_WIDTH,R_HEIGHT);
+        minusrollimg[2]=minusrollSheet.crop(R_WIDTH,0,R_WIDTH,R_HEIGHT);
+        minusrollimg[3]=minusrollSheet.crop(R_WIDTH*2,0,R_WIDTH,R_HEIGHT);
+        minusrollimg[4]=minusrollSheet.crop(0,R_HEIGHT,R_WIDTH,R_HEIGHT);
+        minusrollimg[5]=minusrollSheet.crop(R_WIDTH,R_HEIGHT,R_WIDTH,R_HEIGHT);
+        minusrollimg[6]=minusrollSheet.crop(R_WIDTH*2,R_HEIGHT,R_WIDTH,R_HEIGHT);
 
 
         //kolory pionkow

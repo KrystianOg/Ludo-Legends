@@ -127,7 +127,7 @@ title __GIT_LUDO_LEGENDS_2.0's Class Diagram__\n
   
 
   namespace Entities {
-    class Entities.PositionOnMap {
+    class Players.PositionOnMap {
     }
   }
   
@@ -313,7 +313,7 @@ title __GIT_LUDO_LEGENDS_2.0's Class Diagram__\n
   
 
   namespace states {
-    class display.GameOverScreen {
+    class states.GameOverScreen {
     }
   }
   
@@ -357,9 +357,9 @@ title __GIT_LUDO_LEGENDS_2.0's Class Diagram__\n
   Entities.Board -up-|> Entities.Entity
   Entities.Counters.Albali -up-|> Entities.Counters.Counter
   Entities.Counters.Counter -up-|> Entities.Entity
-  Entities.Counters.Counter o-- Entities.PositionOnMap : pos
+  Entities.Counters.Counter o-- Players.PositionOnMap : pos
   Entities.Counters.Counter o-- Entities.HUD.UltimateBar : ultimateBar
-  Entities.Counters.Counter o-- Entities.PositionOnMap : bufferedPosition
+  Entities.Counters.Counter o-- Players.PositionOnMap : bufferedPosition
   Entities.Counters.Funi -up-|> Entities.Counters.Counter
   Entities.Counters.Intan -up-|> Entities.Counters.Counter
   Entities.Counters.Lich -up-|> Entities.Counters.Counter
@@ -389,9 +389,9 @@ title __GIT_LUDO_LEGENDS_2.0's Class Diagram__\n
   Players.Blank -up-|> Players.Player
   Players.Bot -up-|> Players.Player
   Players.Person -up-|> Players.Player
-  Players.Player o-- Entities.PositionOnMap : endingPos
+  Players.Player o-- Players.PositionOnMap : endingPos
   Players.Player o-- ludogame.Handler : handler
-  Players.Player o-- Entities.PositionOnMap : startingPos
+  Players.Player o-- Players.PositionOnMap : startingPos
   input.KeyboardManager .up.|> java.awt.event.KeyListener
   input.MouseManager .up.|> java.awt.event.MouseListener
   input.MouseManager .up.|> java.awt.event.MouseMotionListener
@@ -412,12 +412,12 @@ title __GIT_LUDO_LEGENDS_2.0's Class Diagram__\n
   ludogame.LoadingScreen .up.|> java.lang.Runnable
   ludogame.LoadingScreen o-- display.Display : display
   ludogame.LoadingScreen o-- ludogame.Handler : handler
-  display.GameOverScreen o-- ludogame.Handler : handler
-  display.GameOverScreen o-- Entities.ui.Button : menu
+  states.GameOverScreen o-- ludogame.Handler : handler
+  states.GameOverScreen o-- Entities.ui.Button : menu
   states.GameState -up-|> states.State
   states.GameState o-- Entities.Board : board
   states.GameState o-- Entities.HUD.Dice : dice
-  states.GameState o-- display.GameOverScreen : gameOverScreen
+  states.GameState o-- states.GameOverScreen : gameOverScreen
   states.GameState o-- Entities.ui.Pause : pause
   states.GameState o-- Entities.HUD.Timer : timer
   states.HighScoresState -up-|> states.State

@@ -28,9 +28,6 @@ public class DynamicBackground {
     public DynamicBackground(Handler handler, int height){
         this.height=height;
         this.width=Assets.dynamicBackground[0].getWidth()*height/ Assets.dynamicBackground[0].getHeight();
-
-        System.out.println(this.width+" "+ this.height);
-
         this.dynamicBackground=Assets.dynamicBackground;
 
         cluePoint=new int[2];

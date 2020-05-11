@@ -2,19 +2,17 @@ package states;
 import Entities.Board;
 import Entities.Counters.Counter;
 import Entities.HUD.Dice;
-import Entities.PositionOnMap;
+import Players.PositionOnMap;
 import Entities.ui.Pause;
 import GFX.Assets;
 import Players.Bot;
 import Players.Player;
 import Entities.HUD.Timer;
 import Players.PlayerData;
-import display.GameOverScreen;
 import ludogame.Handler;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -51,9 +49,8 @@ public class GameState extends State{
 
         inGame=true;
         board=new Board(handler,0,0,750,790);   //zle liczby-zmienic
-        dice=new Dice(handler,765,300);
-        timer=new Timer(handler,765,300);
-
+        dice=new Dice(handler,790, 300,6,0);
+        timer=new Timer(handler,790,300);
         turnOf=(int)(Math.random()*4);
         gameOverScreen = new GameOverScreen(handler);
     }
@@ -104,8 +101,11 @@ public class GameState extends State{
 
             }
         }
-        if(!endGame)
-        pause.tick();
+        if(!endGame) {
+            pause.tick();
+            handler.resetMousePOS();
+        }
+
     }
 
     @Override
@@ -114,6 +114,7 @@ public class GameState extends State{
         g.setColor(Color.BLACK);
         timer.render(g);
         dice.render(g);
+
 
         board.render(g);
 
@@ -124,10 +125,9 @@ public class GameState extends State{
         renderPlayers(g);
 
         if(endGame)
-        gameOverScreen.render(g);
-
-        if(!endGame)
-        pause.render(g);
+            gameOverScreen.render(g);
+        else
+            pause.render(g);
 
     }
 

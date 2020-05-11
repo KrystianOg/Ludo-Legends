@@ -3,11 +3,10 @@ package Entities;
 import Entities.Counters.Counter;
 import Entities.ui.Tile;
 import GFX.Assets;
+import Players.PositionOnMap;
 import ludogame.Handler;
 
 import java.awt.*;
-import java.util.HashMap;
-import java.util.Map;
 
 public class Board extends Entity {
 
@@ -37,8 +36,6 @@ public class Board extends Entity {
     private void setMap(){
 
         int x=50, y=50;
-
-        Map<Integer,Tile> map1=new HashMap<>();
 
         map[0]=new Tile[52];
 
@@ -133,7 +130,7 @@ public class Board extends Entity {
         map[pos.arr][pos.tile].setCounterOnTile(counter);
     }
 
-    public void removeCounterFromTile(PositionOnMap pos,Counter counter){
+    public void removeCounterFromTile(PositionOnMap pos, Counter counter){
         map[pos.arr][pos.tile].removeCounterFromTile(counter);
     }
 

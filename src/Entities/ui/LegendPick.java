@@ -7,6 +7,12 @@ import ludogame.Handler;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.LinkedList;
+import java.util.List;
+
+import static Entities.ui.CounterTile.COUNTER_TILE_HEIGHT;
+import static Entities.ui.CounterTile.COUNTER_TILE_WIDTH;
+import static GFX.Assets.*;
 
 public class LegendPick extends Entity {
 
@@ -15,8 +21,9 @@ public class LegendPick extends Entity {
                             LEGEND_WINDOW_Y=280;
 
     public static final double SCALING=0.75;
+    private final int SPACING=10;
 
-    private final CounterTile[] counterTile;
+    private final List<CounterTile> counterTile=new LinkedList<>();
 
     private int choosen;
 
@@ -25,17 +32,17 @@ public class LegendPick extends Entity {
         super(handler,(handler.getFrameWidth()-LEGEND_WINDOW_W)/2,LEGEND_WINDOW_Y,LEGEND_WINDOW_W,LEGEND_WINDOW_H);
 
         this.choosen=0;
-        counterTile=new CounterTile[8];
 
-        int SPACING = 10;
-        counterTile[0]=new CounterTile(handler,x+0,y+0,Albali.CLOAK_POSX,Albali.CLOAK_POSY,counter,Assets.cloak_f,Assets.cloak_b);
-        counterTile[1]=new CounterTile(handler,x+CounterTile.COUNTER_TILE_WIDTH+ SPACING,y+0, Funi.WAND_POSX,Funi.WAND_POSY, counter,Assets.wand);
-        counterTile[2]=new CounterTile(handler,x+(CounterTile.COUNTER_TILE_WIDTH+ SPACING)*2,y+0, Intan.SHIELD_POSX,Intan.SHIELD_POSY,counter,Assets.shield);
-        counterTile[3]=new CounterTile(handler,x+(CounterTile.COUNTER_TILE_WIDTH+ SPACING)*3,y+0,Mira.MEDKIT_POSX,Mira.MEDKIT_POSY,counter,Assets.medkit);
-        counterTile[4]=new CounterTile(handler,x+0,y+CounterTile.COUNTER_TILE_HEIGHT+ SPACING, Polaris.ARMORF_X,Polaris.ARMORF_Y,counter,Assets.armor_f[0]);
-        counterTile[5]=new CounterTile(handler,x+CounterTile.COUNTER_TILE_WIDTH+ SPACING,y+CounterTile.COUNTER_TILE_HEIGHT+ SPACING,Samaya.SWAN_X,Samaya.SWAN_Y,counter,Assets.swan);
-        counterTile[6]=new CounterTile(handler,x+(CounterTile.COUNTER_TILE_WIDTH+ SPACING)*2,y+CounterTile.COUNTER_TILE_HEIGHT+ SPACING,0, Saph.SWORD_POSY,counter,Assets.sword);
-        counterTile[7]=new CounterTile(handler,x+(CounterTile.COUNTER_TILE_WIDTH+ SPACING)*3,y+CounterTile.COUNTER_TILE_HEIGHT+ SPACING,Venator.BOWR_FX,Venator.BOWR_FY,counter,Assets.bow_rf);
+        counterTile.add(new CounterTile(handler,x+0,y+0,Albali.CLOAK_POSX,Albali.CLOAK_POSY,counter,cloak_f,cloak_b));
+        counterTile.add(new CounterTile(handler,x+ COUNTER_TILE_WIDTH+ SPACING,y+0, Funi.WAND_POSX,Funi.WAND_POSY, counter,wand));
+        counterTile.add(new CounterTile(handler,x+(COUNTER_TILE_WIDTH+ SPACING)*2,y+0, Intan.SHIELD_POSX,Intan.SHIELD_POSY,counter,shield));
+        counterTile.add(new CounterTile(handler,x+(COUNTER_TILE_WIDTH+ SPACING)*3,y+0,Mira.MEDKIT_POSX,Mira.MEDKIT_POSY,counter,medkit));
+        counterTile.add(new CounterTile(handler,x+0,y+ COUNTER_TILE_HEIGHT+ SPACING, Polaris.ARMORF_X,Polaris.ARMORF_Y,counter,armor_f[0]));
+        counterTile.add(new CounterTile(handler,x+ COUNTER_TILE_WIDTH+ SPACING,y+ COUNTER_TILE_HEIGHT+ SPACING,Samaya.SWAN_X,Samaya.SWAN_Y,counter,swan));
+        counterTile.add(new CounterTile(handler,x+(COUNTER_TILE_WIDTH+ SPACING)*2,y+COUNTER_TILE_HEIGHT+ SPACING,0, Saph.SWORD_POSY,counter,sword));
+        //counterTile.add(new CounterTile(handler,x+(COUNTER_TILE_WIDTH+ SPACING)*3,y+ COUNTER_TILE_HEIGHT+ SPACING,Aggitarius.BOWR_FX,Aggitarius.BOWR_FY,counter,bow_rf));
+        counterTile.add(new CounterTile(handler,x+(COUNTER_TILE_WIDTH+ SPACING)*3,y+ COUNTER_TILE_HEIGHT+ SPACING,Altair.WINGSF_POSX,Altair.WINGSF_POSY,counter,wingsf,wingsb));
+        //counterTile.add(new CounterTile(handler,x+(COUNTER_TILE_WIDTH+SPACING),y+(COUNTER_TILE_HEIGHT+SPACING)*2,Altair.WINGSF_POSX,Altair.WINGSF_POSY,counter,wingsf,wingsb));
 
     }
 
@@ -52,23 +59,20 @@ public class LegendPick extends Entity {
     @Override
     public void render(Graphics g) {
 
-
-        counterTile[0].render(g);
-        counterTile[1].render(g);
-        counterTile[2].render(g);
-        counterTile[3].render(g);
-        counterTile[4].render(g);
-        counterTile[5].render(g);
-        counterTile[6].render(g);
-        counterTile[7].render(g);
+        for(int i=0;i<counterTile.size();i++)
+            counterTile.get(i).render(g);
 
     }
 
     public CounterTile getCounterTile(int i){
-        return this.counterTile[i];
+        return this.counterTile.get(i);
     }
 
     public int getchoosen(){
         return choosen;
+    }
+
+    public int getCounterTileSize(){
+        return this.counterTile.size();
     }
 }

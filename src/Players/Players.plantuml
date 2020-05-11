@@ -129,9 +129,9 @@ title __PLAYERS's Class Diagram__\n
   Players.Blank -up-|> Players.Player
   Players.Bot -up-|> Players.Player
   Players.Person -up-|> Players.Player
-  Players.Player o-- Entities.PositionOnMap : endingPos
+  Players.Player o-- Players.PositionOnMap : endingPos
   Players.Player o-- ludogame.Handler : handler
-  Players.Player o-- Entities.PositionOnMap : startingPos
+  Players.Player o-- Players.PositionOnMap : startingPos
 
 
 right footer

@@ -34,6 +34,10 @@ public class Tile {
 
         if(instantKill&&counter.isVulnerable()){
             counter.resetToBase();
+
+            if(handler.getPlayer().getRollsLeft()==0)
+                handler.setTurnof();
+
         }
         else if(this.counter.isEmpty())
             this.counter.add(counter);
@@ -44,6 +48,7 @@ public class Tile {
             }
             else if(capturable &&this.counter.get(0).getCounterColor()!=counter.getCounterColor()&&this.counter.get(0).ifStepped()&&counter.canKill()){
                 this.counter.get(0).resetToBase();
+                System.out.println(counter.getClass().getName());
                 this.counter.clear();
                 this.counter.add(counter);
                 handler.getPlayer().addBeat();
