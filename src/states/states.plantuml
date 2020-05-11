@@ -3,7 +3,7 @@
 title __STATES's Class Diagram__\n
 
   namespace states {
-    class display.GameOverScreen {
+    class states.GameOverScreen {
         {static} - FRAME_X : int
         {static} - FRAME_Y : int
         {static} - LEADERBOARD_HEIGHT : int
@@ -169,12 +169,12 @@ title __STATES's Class Diagram__\n
   }
   
 
-  display.GameOverScreen o-- ludogame.Handler : handler
-  display.GameOverScreen o-- Entities.ui.Button : menu
+  states.GameOverScreen o-- ludogame.Handler : handler
+  states.GameOverScreen o-- Entities.ui.Button : menu
   states.GameState -up-|> states.State
   states.GameState o-- Entities.Board : board
   states.GameState o-- Entities.HUD.Dice : dice
-  states.GameState o-- display.GameOverScreen : gameOverScreen
+  states.GameState o-- states.GameOverScreen : gameOverScreen
   states.GameState o-- Entities.ui.Pause : pause
   states.GameState o-- Entities.HUD.Timer : timer
   states.HighScoresState -up-|> states.State

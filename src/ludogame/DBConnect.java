@@ -21,7 +21,6 @@ public class DBConnect {
 
         public DBConnect(Handler handler) {
 
-            handler.getLoadingScreen().setRender(true);
             connected=false;
             connection=null;
 
@@ -47,7 +46,6 @@ public class DBConnect {
                 System.out.println("Error: "+e.getMessage());
                 e.printStackTrace();
             }
-            handler.getLoadingScreen().setRender(false);
         }
 
         public void getData(String orderBy, int limit, List<PlayerData> playerData){

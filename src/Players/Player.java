@@ -1,7 +1,6 @@
 package Players;
 import Entities.Counters.Counter;
 import Entities.Counters.Funi;
-import Entities.PositionOnMap;
 import Entities.ui.Tile;
 import ludogame.Handler;
 
@@ -101,7 +100,7 @@ public abstract class Player {
             if (input >= 0) {
                 counter[input].setMoving(true);
             }
-        } else if (!isinbase && handler.getRoll() < 6) {
+        } else if (!isinbase && (handler.getRoll() < 6||handler.getRoll()>6)) {
             int input = Bot.getOutsideBaseInput(counter);
 
             if(input==-1)
@@ -146,6 +145,9 @@ public abstract class Player {
 
     public void substractUltLoad(int ultLoad){
         this.ultLoad-=ultLoad;
+        
+        if(this.ultLoad<0)
+            this.ultLoad=0;
     }
 
     public abstract void tick();
@@ -233,7 +235,6 @@ public abstract class Player {
     public int getDeaths(){
         return this.deaths;
     }
-
 
     public PlayerData getPlayerData() {
     	PlayerData dane = new PlayerData(nickname, points, beats,isPlayer);

@@ -61,7 +61,9 @@ public class Game implements Runnable {
         Assets.init();
         //
         handler.setGame(this);
+        handler.getLoadingScreen().setRender(true);
         connect=new DBConnect(handler);
+        handler.getLoadingScreen().setRender(false);
         //
         setColors();
 

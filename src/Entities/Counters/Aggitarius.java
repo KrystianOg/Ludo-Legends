@@ -1,8 +1,6 @@
 package Entities.Counters;
 
 import Entities.HUD.UltimateBar;
-import Entities.PositionOnMap;
-import GFX.Assets;
 import ludogame.Handler;
 
 import java.awt.*;
@@ -10,7 +8,7 @@ import java.awt.image.BufferedImage;
 
 import static GFX.Assets.*;
 
-public class Venator extends Counter {
+public class Aggitarius extends Counter {
     //łowca - zbija pionki na kilka kratek przed sobą podczas ulta
     public static final int BOWR_FX=-3,BOWR_FY=-12;
     private static final int BOWR_BX=-2,BOWR_BY=-8,
@@ -23,7 +21,7 @@ public class Venator extends Counter {
 
         //
 
-    public Venator(Handler handler, float x, float y, BufferedImage counterColor,int barPos) {
+    public Aggitarius(Handler handler, float x, float y, BufferedImage counterColor,int barPos) {
         super(handler,x, y,counterColor);
         //spec
         ultBar=true;

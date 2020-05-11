@@ -1,20 +1,24 @@
-package states;
+package ludogame;
 
 import GFX.Assets;
 import GFX.Text;
+import states.SettingState;
 
 import java.awt.*;
 
-    class Error {
+    public class Error {
 
 
         private boolean occured;
-        private String errorText;
+        private final String errorText;
         private Color redOp;
         private int opacity;
 
         private int count;
-        private int defx, defy,x,y;
+        private final int defx;
+        private final int defy;
+        private int x;
+        private int y;
 
 
         public Error(int x,int y, String errorText) {

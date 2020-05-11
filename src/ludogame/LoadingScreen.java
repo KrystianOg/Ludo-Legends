@@ -6,6 +6,7 @@ import GFX.DynamicBackground;
 
 import display.Display;
 import states.MenuState;
+import states.SettingState;
 
 import java.awt.*;
 import java.awt.image.BufferStrategy;
@@ -57,7 +58,7 @@ public class LoadingScreen implements Runnable{
         }
 
         if(initConnection)
-            if(!connect.isConnected())
+            if(connect==null||!connect.isConnected())
                 connect=new DBConnect(handler);
     }
 
@@ -109,10 +110,9 @@ public class LoadingScreen implements Runnable{
             lastTime=now;
 
             if(delta>=1) {
-                if(doRender) {
-                    tick();
+                tick();
+                if(doRender)
                     render();
-                }
                 delta--;
             }
         }
@@ -157,7 +157,4 @@ public class LoadingScreen implements Runnable{
         this.connect=connect;
     }
 
-    public void resetConnection(){
-        this.connect=new DBConnect(handler);
-    }
 }

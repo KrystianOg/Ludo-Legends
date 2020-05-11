@@ -1,6 +1,6 @@
 package Entities.Counters;
 import Entities.Entity;
-import Entities.PositionOnMap;
+import Players.PositionOnMap;
 import Entities.ui.Tile;
 import Entities.HUD.UltimateBar;
 import ludogame.Handler;
@@ -50,6 +50,7 @@ public abstract class Counter extends Entity {
     //protected int ANIM_TICKS=4;
     private int tickcount=0;
     protected int moved=0;
+    protected int tilesMoved=0;
 
     public Counter(Handler handler, float x, float y,BufferedImage counterColor) {
         super(handler,x, y,DEFAULT_WIDTH,DEFAULT_HEIGHT);
@@ -106,13 +107,13 @@ public abstract class Counter extends Entity {
                     cisinbase = false;
                     tickcount = 0;
                     moving = false;
+                    tilesMoved=0;
 
                     pos = new PositionOnMap(handler.getPlayer().getStartingPos());
 
                     bufferedPosition = getNextPosition();
                     handler.setCounterOnTile(pos, this);
                     handler.getTimer().resetTimer();
-                    System.out.println(handler.getPlayer().getRollsLeft());
                     handler.getDice().setRolled(false);
 
                     if(handler.getPlayer().getRollsLeft()==0)
@@ -150,6 +151,7 @@ public abstract class Counter extends Entity {
                     handler.getPlayer().addPoint();
 
                     moved++;
+                    tilesMoved++;
 
                     bufferedPosition = getNextPosition();
 
@@ -166,6 +168,7 @@ public abstract class Counter extends Entity {
 
                         handler.setCounterOnTile(pos, this);
 
+                        handler.getDice().setRolled(false);
                         handler.getGameState().setRenderOrder();
                         moved = 0;
                         if (handler.getPlayer().getRollsLeft() == 0)
@@ -195,7 +198,6 @@ public abstract class Counter extends Entity {
             renderBig();
 
             handler.getGameState().getPlayerByColor(counterColor).addDeath();
-            System.out.println(handler.getGameState().getPlayerByColor(counterColor).getDeaths());
             cisinbase = true;
             handler.getGameState().setRenderOrder();
         } else if (tickcount > 0 && tickcount < ANIM_TICKS*2) {
@@ -221,25 +223,40 @@ public abstract class Counter extends Entity {
     }
 
     protected PositionOnMap getNextPosition(){
-        if(pos.arr==handler.getPlayer().getEndingPos().arr&&pos.tile==handler.getPlayer().getEndingPos().tile) {
-            if(ultBar)
-                this.ultimateBar.setCanBeLoaded(false);
-            return new PositionOnMap(handler.getTurnOf() + 1, 0);
+        if(handler.getDice().getRoll()>0) {
+
+            if (pos.arr == handler.getPlayer().getEndingPos().arr && pos.tile == handler.getPlayer().getEndingPos().tile&&tilesMoved>49) {
+                if (ultBar)
+                    this.ultimateBar.setCanBeLoaded(false);
+                return new PositionOnMap(handler.getTurnOf() + 1, 0);
+            } else if (pos.tile == 51)
+                return new PositionOnMap(0);
+            else if (pos.arr > 0 && pos.tile == 5) {
+                won = true;
+                ultimateAbility = false;
+                System.out.println("WON");
+                return new PositionOnMap(pos.arr, pos.tile);
+            } else
+                return new PositionOnMap(pos.arr, pos.tile + 1);
         }
-        else if(pos.tile==51)
-            return new PositionOnMap(0);
-        else if(pos.arr>0&&pos.tile==5){
-            won=true;
-            ultimateAbility=false;
-            System.out.println("WON");
-            return new PositionOnMap(pos.arr,pos.tile);
+
+        //do "cofanie"
+        else if(handler.getDice().getRoll()==0)
+            return new PositionOnMap(pos.arr, pos.tile);
+        else{
+            if(pos.tile==0)
+                return new PositionOnMap(51);
+            else
+                return new PositionOnMap(pos.arr, pos.tile - 1);
         }
-        else
-            return new PositionOnMap(pos.arr,pos.tile+1);
     }
 
     public boolean isInbase() {
         return cisinbase;
+    }
+
+    protected void renderWasKilled(Graphics g){
+        //g.drawImage(Assets.);
     }
     
     protected abstract void counterLogic();

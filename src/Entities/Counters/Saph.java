@@ -1,14 +1,12 @@
 package Entities.Counters;
 
 import Entities.HUD.UltimateBar;
-import Entities.PositionOnMap;
 import ludogame.Handler;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
 import static GFX.Assets.sword;
-import static GFX.Assets.wand;
 
 public class Saph extends Counter{
     //wojownik

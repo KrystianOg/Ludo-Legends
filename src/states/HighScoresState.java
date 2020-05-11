@@ -112,7 +112,6 @@ public class HighScoresState extends State{
 
         if(back.contains(handler.getMouseClickX(),handler.getMouseClickY())){
             handler.resetMousePOS();
-            connect.close();
             setState(handler.getGame().menuState);
         }
     }

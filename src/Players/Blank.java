@@ -1,7 +1,6 @@
 package Players;
 
 import Entities.Counters.Counter;
-import Entities.PositionOnMap;
 import ludogame.Handler;
 
 import java.awt.*;

@@ -51,6 +51,7 @@ public class MenuState extends State{
         }
         else if(this.ranking.contains(handler.getMouseClickX(),handler.getMouseClickY())){
             handler.resetMousePOS();
+
             handler.getHighScoresState().init(this.dynamicBackground,connect);
             setState(handler.getGame().highScoresState);
 

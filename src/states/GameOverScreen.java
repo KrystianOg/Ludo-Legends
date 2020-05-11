@@ -1,4 +1,4 @@
-package display;
+package states;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -30,13 +30,12 @@ public class GameOverScreen {
 
     private final Handler handler;
     private final Button menu;
+    private DBConnect connect;
 
     private final Color blackOp=new Color(0,0,0,190);
     private final Color onHover=new Color(0,0,0,40);
     private final Color grayOp=new Color(38,38,38,180);
     private final Color textColor=new Color(26,26,26,220);
-
-    private final boolean sortByScore;
 
     public GameOverScreen(Handler handler) {
         playerData=new LinkedList<>();
@@ -45,8 +44,6 @@ public class GameOverScreen {
         
         this.handler=handler;
         menu=new Button(handler,handler.getFrameWidth()-225,200,1, Assets.medium_button_template,"MENU",58);
-
-        sortByScore=true;
     }
      
     public void tick() {
@@ -57,13 +54,12 @@ public class GameOverScreen {
             handler.getGameState().clear();
             State.setState(handler.getGame().menuState);
         }
-
     }
     
     public void init(List<PlayerData> playerData) {
     	this.playerData=playerData;
 
-    	DBConnect connect=new DBConnect(handler);
+    	connect=handler.getLoadingScreen().getConnection();
 
     	if(connect.isConnected()) {
             for (int i = 0; i < playerData.size(); i++) {
@@ -72,7 +68,6 @@ public class GameOverScreen {
                 else if(playerData.get(i).isPlayer())
                     connect.addResults(playerData.get(i),0);
             }
-            connect.close();
         }
 
     }

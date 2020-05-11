@@ -2,25 +2,10 @@ package Entities.ui;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.Rectangle;
-import java.awt.geom.RoundRectangle2D;
 import java.awt.image.BufferedImage;
-
 import Entities.Entity;
-import Entities.Counters.Albali;
-import Entities.Counters.Funi;
-import Entities.Counters.Intan;
-import Entities.Counters.Mira;
-import Entities.Counters.Polaris;
-import Entities.Counters.Samaya;
-import Entities.Counters.Saph;
-import Entities.Counters.Venator;
-import GFX.Assets;
-import GFX.Description;
-import GFX.Text;
 import ludogame.Handler;
-import states.State;
 
 public class Info extends Entity {
     
@@ -74,10 +59,15 @@ public class Info extends Entity {
             g.setColor(blackOp);
             g.fillRect(0,0,handler.getFrameWidth(),handler.getFrameHeight());
             g.drawImage(button[1], (int) x, (int) y, null);
+
+
+            g.setClip(0,50,handler.getFrameWidth(),handler.getFrameHeight()-100);
             for(int i=0;i<8;i++)
             counterTile[i].render(g);
-
+            g.setClip(0,0,handler.getFrameWidth(),handler.getFrameHeight());
         }
+
+
 
         if(hoover)
             g.drawImage(button[2],(int)x,(int)y,null);

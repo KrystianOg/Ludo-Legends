@@ -5,15 +5,8 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.geom.RoundRectangle2D;
 
+import Entities.Counters.*;
 import Entities.Entity;
-import Entities.Counters.Albali;
-import Entities.Counters.Funi;
-import Entities.Counters.Intan;
-import Entities.Counters.Mira;
-import Entities.Counters.Polaris;
-import Entities.Counters.Samaya;
-import Entities.Counters.Saph;
-import Entities.Counters.Venator;
 import GFX.Assets;
 import GFX.Description;
 import GFX.Text;
@@ -47,7 +40,7 @@ public class InfoTile extends Entity{
         counterTile[4]=new CounterTile(handler,x+10,y+10, Polaris.ARMORF_X,Polaris.ARMORF_Y,Assets.counter[0],Assets.armor_f[0]);
         counterTile[5]=new CounterTile(handler,x+10,y+10,Samaya.SWAN_X,Samaya.SWAN_Y,Assets.counter[0],Assets.swan);
         counterTile[6]=new CounterTile(handler,x+10,y+10,0, Saph.SWORD_POSY,Assets.counter[0],Assets.sword);
-        counterTile[7]=new CounterTile(handler,x+10,y+10,Venator.BOWR_FX,Venator.BOWR_FY,Assets.counter[0],Assets.bow_rf);
+        counterTile[7]=new CounterTile(handler,x+10,y+10, Aggitarius.BOWR_FX,Aggitarius.BOWR_FY,Assets.counter[0],Assets.bow_rf);
 	}
 
 	@Override
