@@ -59,6 +59,7 @@ public class Game implements Runnable {
         display.getFrame().addKeyListener(keyboardManager);
 
         Assets.init();
+        //SoundEffect.init();
         //
         handler.setGame(this);
         handler.getLoadingScreen().setRender(true);

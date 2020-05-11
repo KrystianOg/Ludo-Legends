@@ -1,10 +1,8 @@
 package input;
 
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
+import java.awt.event.*;
 
-public class MouseManager implements MouseListener, MouseMotionListener { //poprawić + usunac gettery i settery
+public class MouseManager implements MouseListener, MouseMotionListener,MouseWheelListener{ //poprawić + usunac gettery i settery
 
     private int x,y;
     private boolean leftPressed, rightPressed;
@@ -94,5 +92,25 @@ public class MouseManager implements MouseListener, MouseMotionListener { //popr
     public int getY(){
         return this.y;
     }
+
+    /**
+     * Invoked when the mouse wheel is rotated.
+     *
+     * @param e
+     * @see MouseWheelEvent
+     */
+    @Override
+    public void mouseWheelMoved(MouseWheelEvent e) {
+
+        System.out.println("scrollowanko");
+
+            if (e.getWheelRotation() < 0) {
+                System.out.println("Rotated Up... " + e.getWheelRotation());
+            } else {
+                System.out.println("Rotated Down... " + e.getWheelRotation());
+            }
+
+    }
+
 
 }

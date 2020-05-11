@@ -105,6 +105,7 @@ public class Slider extends Entity {
         else
             this.pressed=false;
 		if(this.reset.contains(handler.getMouseClickX(),handler.getMouseClickY())) {
+			handler.resetMousePOS();
 			reset();
 
 		}

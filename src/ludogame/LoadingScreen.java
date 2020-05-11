@@ -2,10 +2,9 @@ package ludogame;
 
 
 import GFX.Assets;
-import GFX.DynamicBackground;
 
+import GFX.SoundEffect;
 import display.Display;
-import states.MenuState;
 import states.SettingState;
 
 import java.awt.*;
@@ -26,6 +25,10 @@ public class LoadingScreen implements Runnable{
     private final boolean initConnection;
 
     private DBConnect connect;
+    //sounds
+    private boolean play=false;
+    private String path;
+
 
     //grafiki
     private int value=0;
@@ -55,6 +58,11 @@ public class LoadingScreen implements Runnable{
             value++;
             if(value==4)
                 value=0;
+        }
+
+        if(play&&SettingState.SOUND){
+            SoundEffect.play(path);
+            play=false;
         }
 
         if(initConnection)
@@ -157,4 +165,9 @@ public class LoadingScreen implements Runnable{
         this.connect=connect;
     }
 
+    public void setPlay(String path){
+            this.path = path;
+            this.play = true;
+
+    }
 }

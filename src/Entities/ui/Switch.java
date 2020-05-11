@@ -42,6 +42,7 @@ public class Switch extends Entity {
 
         if(hitbox.contains(handler.getMouseClickX(),handler.getMouseClickY())) {
             handler.resetMousePOS();
+            handler.getLoadingScreen().setPlay("button_click");
             value = !value;
         }
     }

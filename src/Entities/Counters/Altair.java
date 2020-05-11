@@ -45,7 +45,7 @@ however no human is a match for his speed.
     protected void counterLogic() {
         if(moved==0) {
             picked = true;
-            dice.setTickcount();
+            dice.botRoll();
             dice.tick();
             //handler.getDice().addSpecial(dice.getRoll());
             handler.getPlayer().rollsPlusOne();

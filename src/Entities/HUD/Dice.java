@@ -9,9 +9,6 @@ import states.SettingState;
 import java.awt.*;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class Dice extends Entity {
 
@@ -30,7 +27,7 @@ public class Dice extends Entity {
 
     //animation
     private int tickcount;
-    private static final int DICE_ANIM_TICKS= 27* SettingState.FPS/60;
+    private static final int DICE_ANIM_TICKS= 31* SettingState.FPS/60;
 
     public Dice(Handler handler, int x, int y,int dimensions,int minus) {
         super(handler,x, y, DICE_WIDTH, DICE_HEIGHT);
@@ -54,6 +51,7 @@ public class Dice extends Entity {
             handler.resetMousePOS();
             clicked=true;
             tickcount=0;
+            handler.getLoadingScreen().setPlay("dice");
             setChanceRoll();
             handler.getPlayer().rollsMinusOne();
         }
@@ -118,13 +116,6 @@ public class Dice extends Entity {
         this.roll=roll;
     }
 
-    public void setTickcount(){
-        clicked=true;
-        tickcount=0;
-        setChanceRoll();
-        handler.getPlayer().rollsMinusOne();
-    }
-
     public int getTickCount(){
         return this.tickcount;
     }
@@ -140,6 +131,7 @@ public class Dice extends Entity {
     public void botRoll(){
         clicked=true;
         tickcount=0;
+        handler.getLoadingScreen().setPlay("dice");
         setChanceRoll();
         handler.getPlayer().rollsMinusOne();
     }

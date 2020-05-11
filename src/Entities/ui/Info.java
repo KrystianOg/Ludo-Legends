@@ -3,11 +3,13 @@ package Entities.ui;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
+import java.awt.event.MouseWheelEvent;
+import java.awt.event.MouseWheelListener;
 import java.awt.image.BufferedImage;
 import Entities.Entity;
 import ludogame.Handler;
 
-public class Info extends Entity {
+public class Info extends Entity{
     
 	private final InfoTile[] counterTile = new InfoTile[8];
     private final BufferedImage[] button;
@@ -80,6 +82,13 @@ public class Info extends Entity {
     public boolean getClicked(){
         return this.clicked;
     }
+
+    /**
+     * Invoked when the mouse wheel is rotated.
+     *
+     * @param e
+     * @see MouseWheelEvent
+     */
 
 }
 
