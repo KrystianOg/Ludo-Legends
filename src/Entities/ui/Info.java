@@ -32,7 +32,7 @@ public class Info extends Entity {
         for(int i=0;i<4;i++)
         	counterTile[i]=new InfoTile(handler, 30, 30+i*(10+counterTileHeight), counterTileWidth, counterTileHeight, i);
         for(int i=4;i<8;i++)
-        	counterTile[i]=new InfoTile(handler, 30+counterTileWidth, 30+(i-4)*(10+counterTileHeight), counterTileWidth, counterTileHeight, i);
+        	counterTile[i]=new InfoTile(handler, 60+counterTileWidth, 30+(i-4)*(10+counterTileHeight), counterTileWidth, counterTileHeight, i);
         
     }
 

@@ -60,10 +60,17 @@ public class InfoTile extends Entity{
 		for(int i=0;i<9;i++) {          		
     		Text.drawString(g,Description.textCounterTile[i],x+110,y+22+i*14,false,Color.white,Assets.Ubuntu12);
     	}
-        Text.drawString(g,"advantages:",x+70,y+148,false,Color.green,Assets.Ubuntu12);
-        Text.drawString(g,"disadvantages:",x+210,y+148,false,Color.red,Assets.Ubuntu12);
-		Text.drawString(g,Description.advantages,x+70,y+160,false,Color.green,Assets.Ubuntu12);
-		Text.drawString(g,Description.disadvantages,x+180,y+160,false,Color.red,Assets.Ubuntu12);
+		if(counter==5 || counter==2 || counter==4 || counter==6 || counter==7) {
+	        Text.drawString(g,"advantages:",x+70,y+148,false,Color.green,Assets.Ubuntu12);
+	        Text.drawString(g,"disadvantages:",x+330,y+148,false,Color.red,Assets.Ubuntu12);
+			Text.drawString(g,Description.advantages,x+120,y+160,true,Color.green,Assets.Ubuntu12);
+			Text.drawString(g,Description.disadvantages,x+360,y+160,true,Color.red,Assets.Ubuntu12);
+		} else {
+			Text.drawString(g,"advantages:",x+10,y+148,false,Color.green,Assets.Ubuntu12);
+			Text.drawString(g,Description.advantages,x+80,y+148,false,Color.green,Assets.Ubuntu12);
+			Text.drawString(g,Description.disadvantages,x+80,y+160,false,Color.green,Assets.Ubuntu12);
+		}
+
 
 	}
 
