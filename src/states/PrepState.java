@@ -1,15 +1,20 @@
 package states;
 
 import Entities.Counters.*;
-import Players.PositionOnMap;
-import Entities.ui.Button;
+import Entities.ui.Pause;
 import Entities.ui.TextField;
-import Entities.ui.*;
-import GFX.Assets;
-import GFX.DynamicBackground;
+import GFX.Text;
 import Players.Blank;
 import Players.Bot;
 import Players.Person;
+import Entities.ui.Button;
+import Entities.ui.Info;
+import Entities.ui.LegendPick;
+import Entities.ui.PlayerPick;
+import GFX.Assets;
+import GFX.DynamicBackground;
+import Players.Player;
+import Players.PositionOnMap;
 import ludogame.Handler;
 
 import java.awt.*;
@@ -34,7 +39,6 @@ public class PrepState extends State {
     private final Button apply;
     private ludogame.Error nicknameLengthError;
     private ludogame.Error nullPlayersError;
-    //
 
     private PlayerPick[] playerPick;
     private List<Integer> playerI;
@@ -78,7 +82,7 @@ public class PrepState extends State {
 
         for(int i=0;i<textField.length;i++)
             textField[i]=new TextField(handler,780,(handler.getFrameHeight()-60*4)/2+i*60-20,GameState.color[i],Person.defaultNickname[i]);
-
+    
         nicknameLengthError=new ludogame.Error(handler.getFrameWidth()/2,130,"Please choose a nickname at least 4 characters long.");
         nullPlayersError=new ludogame.Error(handler.getFrameWidth()/2,130,"Please choose at least one player other than blank.");
     }
@@ -140,15 +144,18 @@ public class PrepState extends State {
         }
         if (!typePick&&!pause.getClicked())
         	info.tick();
+
         if(!info.getClicked()) {
 
             pause.tick();
+          handler.setMouseWheel(0);
             if(pause.getMenuClicked()){
                 resetVariables();
                 pause.setMenuClicked(false);
 
             }
         }
+
     }
 
     @Override
@@ -171,7 +178,7 @@ public class PrepState extends State {
         }
 
         renderErrors(g);
-
+        
         pause.render(g);
 
     }
@@ -183,7 +190,7 @@ public class PrepState extends State {
         int i=0;
         int barPos=0;
 
-            for(int j=0;j<legendPick[picking].getCounterTileSize();j++) {
+            for(int j=0;j<8;j++) {
                 if (legendPick[picking].getCounterTile(j).isChoosen()){
                     setCountertypes(j,barPos,i);
                     legendPick[picking].getCounterTile(j).setChoosen();
@@ -226,7 +233,8 @@ public class PrepState extends State {
             case 6 : handler.getPlayer(picking).setCounter(new Saph(handler, BASE_POS_X[picking]+COUNTER_POS_X[i], BASE_POS_Y[picking]+COUNTER_POS_Y[i], Assets.counter[picking],barPos));break;
             //case 7 : handler.getPlayer(picking).setCounter(new Aggitarius(handler,BASE_POS_X[picking]+COUNTER_POS_X[i], BASE_POS_Y[picking]+COUNTER_POS_Y[i], Assets.counter[picking],barPos));break;
             case 7 : handler.getPlayer(picking).setCounter(new Altair(handler,BASE_POS_X[picking]+COUNTER_POS_X[i],BASE_POS_Y[picking]+COUNTER_POS_Y[i],Assets.counter[picking]));break;
-        }
+            }
+
     }
 
     private void nickNamePlaceTick(){
@@ -241,12 +249,13 @@ public class PrepState extends State {
 
             textField[playerI.get(i)].tick();
         }
+
     }
 
     private void nickNamePlaceRender(Graphics g){
-        if(playerI.size()>0)
-            for (Integer integer : playerI) {
-                textField[integer].render(g);
+        if(playerI.size()>=0)
+            for(int i=0;i<playerI.size();i++){
+                textField[playerI.get(i)].render(g);
             }
     }
 

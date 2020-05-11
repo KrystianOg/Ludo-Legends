@@ -6,6 +6,7 @@ import java.awt.Rectangle;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 import java.awt.image.BufferedImage;
+
 import Entities.Entity;
 import ludogame.Handler;
 
@@ -18,8 +19,7 @@ public class Info extends Entity{
 
     private final Color blackOp=new Color(0,0,0,190);
     
-    private final int counterTileWidth = 485;
-    private final int counterTileHeight=175;
+    private int counterTileWidth = 485, counterTileHeight=175;
     
     private boolean hoover;
     private boolean clicked;
@@ -30,13 +30,10 @@ public class Info extends Entity{
         this.button=button;
         hitbox=new Rectangle((int)x,(int)y,width,height);
         clicked=false;
-        
-        for(int i=0;i<4;i++)
-        	counterTile[i]=new InfoTile(handler, 30, 30+i*(10+counterTileHeight), counterTileWidth, counterTileHeight, i);
-        for(int i=4;i<8;i++)
-        	counterTile[i]=new InfoTile(handler, 60+counterTileWidth, 30+(i-4)*(10+counterTileHeight), counterTileWidth, counterTileHeight, i);
-        
+
     }
+    
+
 
     @Override
     public void tick() {
@@ -49,8 +46,17 @@ public class Info extends Entity{
 
         if(clicked){
 
+            }
+        if(handler.getMouseWheel()>12)
+    		handler.setMouseWheel(12);
+    	if(handler.getMouseWheel()<-12)
+    		handler.setMouseWheel(-12);
+        for(int i=0;i<4;i++)
+        	counterTile[i]=new InfoTile(handler, 30, 30+i*(10+counterTileHeight)+handler.getMouseWheel()*15, counterTileWidth, counterTileHeight, i);
+        for(int i=4;i<8;i++)
+        	counterTile[i]=new InfoTile(handler, 60+counterTileWidth, 30+(i-4)*(10+counterTileHeight)+handler.getMouseWheel()*15, counterTileWidth, counterTileHeight, i);
+        
         }
-    }
 
     @Override
     public void render(Graphics g) {
@@ -61,15 +67,10 @@ public class Info extends Entity{
             g.setColor(blackOp);
             g.fillRect(0,0,handler.getFrameWidth(),handler.getFrameHeight());
             g.drawImage(button[1], (int) x, (int) y, null);
-
-
-            g.setClip(0,50,handler.getFrameWidth(),handler.getFrameHeight()-100);
             for(int i=0;i<8;i++)
-            counterTile[i].render(g);
-            g.setClip(0,0,handler.getFrameWidth(),handler.getFrameHeight());
+            	counterTile[i].render(g);
+
         }
-
-
 
         if(hoover)
             g.drawImage(button[2],(int)x,(int)y,null);
@@ -83,12 +84,9 @@ public class Info extends Entity{
         return this.clicked;
     }
 
-    /**
-     * Invoked when the mouse wheel is rotated.
-     *
-     * @param e
-     * @see MouseWheelEvent
-     */
+    public boolean contains(int MouseX,int MouseY){
+        return this.hitbox.contains(MouseX,MouseY);
+    }
 
 }
 

@@ -3,8 +3,8 @@ package ludogame;
 import Entities.Counters.Counter;
 import Entities.HUD.Dice;
 import Entities.HUD.Timer;
-import Players.PositionOnMap;
 import Players.Player;
+import Players.PositionOnMap;
 import Entities.ui.Tile;
 import display.Display;
 import input.KeyboardManager;
@@ -17,7 +17,7 @@ public class Handler {
     private GameState gameState;
 
     private LoadingScreen loadingScreen;
-
+    
     private Display display;
 
     public Handler(){
@@ -27,7 +27,7 @@ public class Handler {
     public void setGame(Game game){
         this.game=game;
     }
-
+    
     public void setLoadingScreen(LoadingScreen loadingScreen){
         this.loadingScreen=loadingScreen;
     }
@@ -43,7 +43,7 @@ public class Handler {
     public PrepState getPrepState(){
         return (PrepState)game.prepState;
     }
-
+    
     public MenuState getMenuState(){
         return (MenuState)game.menuState;
     }
@@ -118,6 +118,14 @@ public class Handler {
         return game.getMousemanager().getY();
     }
 
+    public int getMouseWheel() {
+    	return game.getMousemanager().getWheel();
+    }
+    
+    public void setMouseWheel(int wheel) {
+		game.getMousemanager().setWheel(wheel);
+	}
+    
     public void resetMousePOS(){
         game.getMousemanager().reset();
     }
@@ -141,8 +149,9 @@ public class Handler {
     public Display getDisplay(){
         return this.display;
     }
-
+    
     public LoadingScreen getLoadingScreen(){
         return this.loadingScreen;
     }
+
 }

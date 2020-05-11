@@ -1,12 +1,22 @@
 package Entities.ui;
 
+import static GFX.Assets.wingsb;
+import static GFX.Assets.wingsf;
+
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.geom.RoundRectangle2D;
 
-import Entities.Counters.*;
 import Entities.Entity;
+import Entities.Counters.Albali;
+import Entities.Counters.Altair;
+import Entities.Counters.Funi;
+import Entities.Counters.Intan;
+import Entities.Counters.Mira;
+import Entities.Counters.Polaris;
+import Entities.Counters.Samaya;
+import Entities.Counters.Saph;
 import GFX.Assets;
 import GFX.Description;
 import GFX.Text;
@@ -14,11 +24,11 @@ import ludogame.Handler;
 
 public class InfoTile extends Entity{
 	
-	private final int x;
-	private final int y;
-	private final int width;
-	private final int height;
-	private final int counter;
+	private int x;
+	private int y;
+	private int width;
+	private int height;
+	private int counter;
 	
     private final CounterTile[] counterTile;
     
@@ -31,7 +41,7 @@ public class InfoTile extends Entity{
 		this.width=width;
 		this.height=height;
 		this.counter=counter;
-
+		
         counterTile=new CounterTile[8];
         counterTile[0]=new CounterTile(handler,x+10,y+10,Albali.CLOAK_POSX,Albali.CLOAK_POSY,Assets.counter[0],Assets.cloak_f,Assets.cloak_b);
         counterTile[1]=new CounterTile(handler,x+10,y+10, Funi.WAND_POSX,Funi.WAND_POSY, Assets.counter[0],Assets.wand);
@@ -40,7 +50,8 @@ public class InfoTile extends Entity{
         counterTile[4]=new CounterTile(handler,x+10,y+10, Polaris.ARMORF_X,Polaris.ARMORF_Y,Assets.counter[0],Assets.armor_f[0]);
         counterTile[5]=new CounterTile(handler,x+10,y+10,Samaya.SWAN_X,Samaya.SWAN_Y,Assets.counter[0],Assets.swan);
         counterTile[6]=new CounterTile(handler,x+10,y+10,0, Saph.SWORD_POSY,Assets.counter[0],Assets.sword);
-        counterTile[7]=new CounterTile(handler,x+10,y+10, Aggitarius.BOWR_FX,Aggitarius.BOWR_FY,Assets.counter[0],Assets.bow_rf);
+        counterTile[7]=new CounterTile(handler,x+10,y+10,Altair.WINGSF_POSX,Altair.WINGSF_POSY,Assets.counter[0],wingsf,wingsb);
+	
 	}
 
 	@Override
@@ -51,7 +62,11 @@ public class InfoTile extends Entity{
 
 	@Override
 	public void render(Graphics g) {
+		
 		Graphics2D g2=(Graphics2D)g;
+		g2.clipRect(30,30,1000,730);
+		g.clipRect(30,30,1000,730);
+
 		g2.setPaint(grayOp);
 		g2.fill(new RoundRectangle2D.Double(x,y,width,height,20,20));
 		counterTile[counter].render(g);
