@@ -57,6 +57,7 @@ public class Game implements Runnable {
         display.getFrame().addMouseMotionListener(mouseManager);
         display.getCanvas().addMouseMotionListener(mouseManager);
         display.getFrame().addKeyListener(keyboardManager);
+        display.getCanvas().addMouseWheelListener(mouseManager);
 
         Assets.init();
         //
