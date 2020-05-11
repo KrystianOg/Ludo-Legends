@@ -2,6 +2,7 @@ package Entities.ui;
 
 import Entities.Entity;
 import GFX.Assets;
+import GFX.SoundEffect;
 import GFX.Text;
 import ludogame.Handler;
 
@@ -57,6 +58,10 @@ public class Button extends Entity {
     }
 
     public boolean contains(int MouseX,int MouseY){
+
+        if(hitbox.contains(MouseX,MouseY))
+            handler.getLoadingScreen().setPlay("button_click");
+
         return this.hitbox.contains(MouseX,MouseY);
     }
 

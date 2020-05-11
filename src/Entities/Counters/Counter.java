@@ -39,7 +39,6 @@ public abstract class Counter extends Entity {
     protected boolean ultBar;
     protected UltimateBar ultimateBar=null;
     protected boolean ultimateAbility=false;
-
     //
 
     //
@@ -88,6 +87,7 @@ public abstract class Counter extends Entity {
                 if (tickcount == 0) {
                     Tile tempTile = handler.getTile(handler.getPlayer().getStartingPos());
 
+                    handler.getLoadingScreen().setPlay("move");
                     directionx = (tempTile.getX() + 4 - x) / ANIM_TICKS;
                     directiony = (tempTile.getY() - 48 - y) / ANIM_TICKS;
                     tickcount++;
@@ -128,6 +128,7 @@ public abstract class Counter extends Entity {
                     if (ultimateAbility)
                         counterLogic();
 
+                    handler.getLoadingScreen().setPlay("move");
                     renderBig();
 
                     directionx = (handler.getTile(bufferedPosition).getX() + 4 - x) / ANIM_TICKS;

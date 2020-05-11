@@ -31,7 +31,7 @@ public class Timer extends Entity {
         if (currentTime == time) {
 
             if(!handler.getDice().isRolled())
-                handler.getDice().setTickcount();
+                handler.getDice().botRoll();
 
             if (handler.getDice().isRolled()) {
                 handler.getPlayer().autoPick();

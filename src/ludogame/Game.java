@@ -60,6 +60,7 @@ public class Game implements Runnable {
         display.getCanvas().addMouseWheelListener(mouseManager);
 
         Assets.init();
+        //SoundEffect.init();
         //
         handler.setGame(this);
         handler.getLoadingScreen().setRender(true);

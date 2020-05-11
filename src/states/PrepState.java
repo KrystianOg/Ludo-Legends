@@ -139,14 +139,23 @@ public class PrepState extends State {
             apply.tick();
 
 
+
             errorsTick();
         }
         if (!typePick&&!pause.getClicked())
         	info.tick();
-        if(!info.getClicked()){
+
+        if(!info.getClicked()) {
+
             pause.tick();
-	    handler.setMouseWheel(0);
-	}
+          handler.setMouseWheel(0);
+            if(pause.getMenuClicked()){
+                resetVariables();
+                pause.setMenuClicked(false);
+
+            }
+        }
+
     }
 
     @Override
@@ -211,7 +220,6 @@ public class PrepState extends State {
         this.playerPick=null;
         typePick=true;
         picking=0;
-
     }
 
     private void setCountertypes(int pick,int barPos,int i){

@@ -1,5 +1,6 @@
 package input;
 
+
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -7,6 +8,7 @@ import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 
 public class MouseManager implements MouseListener, MouseMotionListener, MouseWheelListener { //poprawić + usunac gettery i settery
+
 
     private int x,y;
     private boolean leftPressed, rightPressed;
@@ -104,6 +106,7 @@ public class MouseManager implements MouseListener, MouseMotionListener, MouseWh
         return this.y;
     }
 
+
 	public int getWheel() {
 		return wheel;
 	}
@@ -111,5 +114,6 @@ public class MouseManager implements MouseListener, MouseMotionListener, MouseWh
 	public void setWheel(int wheel) {
 		this.wheel = wheel;
 	}
+
 
 }

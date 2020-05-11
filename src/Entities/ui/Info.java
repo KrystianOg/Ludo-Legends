@@ -3,12 +3,14 @@ package Entities.ui;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
+import java.awt.event.MouseWheelEvent;
+import java.awt.event.MouseWheelListener;
 import java.awt.image.BufferedImage;
 
 import Entities.Entity;
 import ludogame.Handler;
 
-public class Info extends Entity {
+public class Info extends Entity{
     
 	private final InfoTile[] counterTile = new InfoTile[8];
     private final BufferedImage[] button;
@@ -28,7 +30,7 @@ public class Info extends Entity {
         this.button=button;
         hitbox=new Rectangle((int)x,(int)y,width,height);
         clicked=false;
- 
+
     }
     
 
@@ -85,5 +87,6 @@ public class Info extends Entity {
     public boolean contains(int MouseX,int MouseY){
         return this.hitbox.contains(MouseX,MouseY);
     }
+
 }
 

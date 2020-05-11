@@ -13,7 +13,7 @@ public class DBConnect {
         private ResultSet resultSet;
         private boolean connected;
 
-        private final String url="jdbc:mysql://remotemysql.com:3306/e6FpSaeFOi";
+        private final String url="jdbc:mysql://remotemysql.com:3306/e6FpSaeFOi?autoReconnect=true";
         private final String user="e6FpSaeFOi";
         private final String password="u1fHS7jJTy";
 

@@ -18,7 +18,7 @@ public class Pause extends Entity {
     private final Color blackOp=new Color(0,0,0,190);
 
     private boolean hoover;
-    private boolean clicked;
+    private boolean clicked,menuClicked;
 
     public Pause(Handler handler, float x, float y, BufferedImage[] button) {
         super(handler,x, y, 70, 70);
@@ -27,6 +27,7 @@ public class Pause extends Entity {
         hitbox=new Rectangle((int)x,(int)y,width,height);
         menu=new Button(handler,(handler.getFrameWidth()-225)/2,400,1, Assets.medium_button_template,"MENU",58);
         clicked=false;
+        menuClicked=false;
     }
 
     @Override
@@ -45,7 +46,7 @@ public class Pause extends Entity {
             menu.tick();
             if(menu.contains(handler.getMouseClickX(),handler.getMouseClickY())){
                 handler.resetMousePOS();
-
+                menuClicked=true;
                 State.setState(handler.getGame().menuState);
                 clicked=false;
                 //handler.getGame().prepState.re
@@ -73,6 +74,14 @@ public class Pause extends Entity {
     private void changeClicked(){
         this.clicked=!clicked;
     }
+
+    public boolean getMenuClicked(){
+        return this.menuClicked;
+    }
+    public void setMenuClicked(boolean clicked){
+        this.menuClicked=clicked;
+    }
+
 
     public boolean getClicked(){
         return this.clicked;
