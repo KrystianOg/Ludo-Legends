@@ -1,7 +1,7 @@
 package ludogame;
 
-import GFX.Assets;
-import GFX.Text;
+import GFXandEffects.Assets;
+import GFXandEffects.Text;
 import states.SettingState;
 
 import java.awt.*;

@@ -1,14 +1,13 @@
 package states;
 
-import Entities.ui.Button;
-import Entities.ui.Slider;
-import Entities.ui.Switch;
-import GFX.Assets;
-import GFX.DynamicBackground;
+import entities.ui.Button;
+import entities.ui.Slider;
+import entities.ui.Switch;
+import GFXandEffects.Assets;
+import GFXandEffects.DynamicBackground;
 import ludogame.Handler;
 
 import java.awt.*;
-import java.util.ArrayList;
 
 public class SettingState extends State{
 

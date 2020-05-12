@@ -6,10 +6,10 @@ import java.awt.Graphics2D;
 import java.awt.geom.RoundRectangle2D;
 import java.util.LinkedList;
 import java.util.List;
-import Entities.ui.Button;
-import GFX.Assets;
-import GFX.Text;
-import Players.PlayerData;
+import entities.ui.Button;
+import GFXandEffects.Assets;
+import GFXandEffects.Text;
+import players.PlayerData;
 import ludogame.DBConnect;
 import ludogame.Handler;
 

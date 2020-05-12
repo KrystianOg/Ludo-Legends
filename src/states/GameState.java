@@ -1,14 +1,14 @@
 package states;
-import Entities.Board;
-import Entities.Counters.Counter;
-import Entities.HUD.Dice;
-import Players.PositionOnMap;
-import Entities.ui.Pause;
-import GFX.Assets;
-import Players.Bot;
-import Players.Player;
-import Entities.HUD.Timer;
-import Players.PlayerData;
+import entities.Board;
+import entities.counters.Counter;
+import entities.HUD.Dice;
+import players.PositionOnMap;
+import entities.ui.Pause;
+import GFXandEffects.Assets;
+import players.Bot;
+import players.Player;
+import entities.HUD.Timer;
+import players.PlayerData;
 import ludogame.Handler;
 
 import java.awt.*;
