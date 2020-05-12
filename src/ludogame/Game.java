@@ -3,7 +3,7 @@ package ludogame;
 import java.awt.*;
 import java.awt.image.BufferStrategy;
 
-import GFX.*;
+import GFXandEffects.*;
 import display.*;
 import input.KeyboardManager;
 import input.MouseManager;

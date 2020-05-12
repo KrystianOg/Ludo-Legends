@@ -1,6 +1,6 @@
 package ludogame;
 
-import Players.PlayerData;
+import players.PlayerData;
 
 import java.sql.*;
 import java.util.List;

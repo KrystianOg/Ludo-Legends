@@ -1,10 +1,10 @@
 package states;
 
-import Entities.ui.Button;
-import GFX.Assets;
-import GFX.DynamicBackground;
-import GFX.Text;
-import Players.PlayerData;
+import entities.ui.Button;
+import GFXandEffects.Assets;
+import GFXandEffects.DynamicBackground;
+import GFXandEffects.Text;
+import players.PlayerData;
 import ludogame.DBConnect;
 import ludogame.Handler;
 
@@ -12,8 +12,6 @@ import java.awt.*;
 import java.awt.geom.RoundRectangle2D;
 import java.util.LinkedList;
 import java.util.List;
-
-import static states.GameState.color;
 
 
 //tabela z wynikami
@@ -41,7 +39,7 @@ public class HighScoresState extends State{
     private final Rectangle winsHitbox;
     private boolean scoreHover,beatsHover,winsHover;
 
-    private final Entities.ui.Button back;
+    private final entities.ui.Button back;
 
     //DB settings
     private static final int LIMIT=10;

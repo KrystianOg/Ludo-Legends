@@ -1,13 +1,13 @@
 package states;
 
-import GFX.Assets;
-import Entities.ui.Button;
-import GFX.DynamicBackground;
+import GFXandEffects.Assets;
+import entities.ui.Button;
+import GFXandEffects.DynamicBackground;
 import ludogame.DBConnect;
 import ludogame.Handler;
 import java.awt.*;
 
-import static GFX.Assets.logo;
+import static GFXandEffects.Assets.logo;
 
 public class MenuState extends State{
 
@@ -21,7 +21,7 @@ public class MenuState extends State{
         super(handler);
 
         float BUTTON_SCALE=(float)0.8;
-        game=new Button(handler,(handler.getFrameWidth()-350*BUTTON_SCALE)/2,455,BUTTON_SCALE,Assets.big_button_template,"GAME",58);
+        game=new Button(handler,(handler.getFrameWidth()-350*BUTTON_SCALE)/2,455,BUTTON_SCALE,Assets.big_button_template,"PLAY",58);
         settings=new Button(handler,(handler.getFrameWidth()-350*BUTTON_SCALE)/2,535, BUTTON_SCALE,Assets.big_button_template,"SETTINGS",58);
         ranking=new Button(handler,(handler.getFrameWidth()-350*BUTTON_SCALE)/2,615,BUTTON_SCALE,Assets.big_button_template,"RANKING",58);
         exit=new Button(handler,(handler.getFrameWidth()-350*BUTTON_SCALE)/2,695,BUTTON_SCALE,Assets.big_button_template,"EXIT",58);
