@@ -3,24 +3,15 @@ package states;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-
-import java.awt.Rectangle;
 import java.awt.geom.RoundRectangle2D;
-import java.awt.image.BufferedImage;
-
 import java.util.LinkedList;
 import java.util.List;
-
 import Entities.ui.Button;
 import GFX.Assets;
-import GFX.DynamicBackground;
 import GFX.Text;
-import Players.Player;
-
 import Players.PlayerData;
 import ludogame.DBConnect;
 import ludogame.Handler;
-import states.State;
 
 public class GameOverScreen {
     private static final int LEADERBOARD_WIDTH=715,LEADERBOARD_HEIGHT=625;
@@ -43,7 +34,7 @@ public class GameOverScreen {
         FRAME_Y=(handler.getFrameHeight()-LEADERBOARD_HEIGHT+40)/2+15;
         
         this.handler=handler;
-        menu=new Button(handler,handler.getFrameWidth()-225,200,1, Assets.medium_button_template,"MENU",58);
+        menu=new Button(handler,(handler.getFrameWidth()-225)/2,400,1, Assets.medium_button_template,"MENU",58);
     }
      
     public void tick() {
@@ -53,6 +44,11 @@ public class GameOverScreen {
             handler.resetMousePOS();
             handler.getGameState().clear();
             State.setState(handler.getGame().menuState);
+            try {
+                this.finalize();
+            } catch (Throwable throwable) {
+                throwable.printStackTrace();
+            }
         }
     }
     
@@ -61,12 +57,15 @@ public class GameOverScreen {
 
     	connect=handler.getLoadingScreen().getConnection();
 
+
     	if(connect.isConnected()) {
             for (int i = 0; i < playerData.size(); i++) {
                 if (i == 0&&playerData.get(0).isPlayer())
-                    connect.addResults(playerData.get(i),1);
+                    playerData.get(i).setWins(1);
                 else if(playerData.get(i).isPlayer())
-                    connect.addResults(playerData.get(i),0);
+                    playerData.get(i).setWins(0);
+
+                connect.addResults(playerData.get(i));
             }
         }
 

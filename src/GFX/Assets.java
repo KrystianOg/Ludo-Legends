@@ -40,9 +40,7 @@ public class Assets {
                                   arrow=new BufferedImage[5],
                                   dynamicBackground=new BufferedImage[2],
                                   pause_button=new BufferedImage[3],
-
                                   info_button=new BufferedImage[3],
-
                                   switchB=new BufferedImage[2],
                                   fire=new BufferedImage[3],
                                   armor_f=new BufferedImage[2],
@@ -79,8 +77,6 @@ public class Assets {
         wand=loadImage("/graphics/Counters/wand1.png");
 
         medkit=loadImage("/graphics/Counters/medkit1.png");
-
-        icicle_f=loadImage("/graphics/Counters/icicle_front.png");
 
         bow_lb=loadImage("/graphics/Counters/bow_lb.png");
         bow_lf=loadImage("/graphics/Counters/bow_lf.png");

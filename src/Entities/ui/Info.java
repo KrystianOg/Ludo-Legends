@@ -3,8 +3,6 @@ package Entities.ui;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
-import java.awt.event.MouseWheelEvent;
-import java.awt.event.MouseWheelListener;
 import java.awt.image.BufferedImage;
 
 import Entities.Entity;
@@ -19,7 +17,8 @@ public class Info extends Entity{
 
     private final Color blackOp=new Color(0,0,0,190);
     
-    private int counterTileWidth = 485, counterTileHeight=175;
+    private final int counterTileWidth = 485;
+    private final int counterTileHeight=175;
     
     private boolean hoover;
     private boolean clicked;

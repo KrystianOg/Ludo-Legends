@@ -11,8 +11,6 @@ public class Blank extends Player{
     public Blank(Handler handler, PositionOnMap starting_pos, PositionOnMap ending_pos, BufferedImage counterColor) {
         super(handler,starting_pos, ending_pos, counterColor);
 
-
-
         this.nickname="";
         counter=new Counter[4];
         counter[0]=null;

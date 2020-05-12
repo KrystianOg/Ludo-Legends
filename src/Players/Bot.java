@@ -11,7 +11,6 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
-
 public class Bot extends Player {
 
     private static final List<String> botNickname=new LinkedList<>();

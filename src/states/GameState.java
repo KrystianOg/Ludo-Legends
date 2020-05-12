@@ -270,6 +270,12 @@ public class GameState extends State{
         resetingCounter.clear();
         winnerTable.clear();
         renderOrder.clear();
+
+        for(int i=0;i<player.length;i++)
+            player[i]=null;
+        board=null;
+        timer=null;
+        dice=null;
         round=0;
     }
 

@@ -1,8 +1,6 @@
 package ludogame;
 
-
 import GFX.Assets;
-
 import GFX.SoundEffect;
 import display.Display;
 import states.SettingState;
@@ -64,6 +62,8 @@ public class LoadingScreen implements Runnable{
             SoundEffect.play(path);
             play=false;
         }
+
+        connectionSupporter();
 
         if(initConnection)
             if(connect==null||!connect.isConnected())
@@ -163,6 +163,13 @@ public class LoadingScreen implements Runnable{
 
     public void setConnection(DBConnect connect){
         this.connect=connect;
+    }
+
+    private void connectionSupporter(){
+        if(tick==120*SettingState.FPS){
+            tick=0;
+            connect.getUser("");
+        }
     }
 
     public void setPlay(String path){

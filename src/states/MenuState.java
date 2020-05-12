@@ -5,9 +5,7 @@ import Entities.ui.Button;
 import GFX.DynamicBackground;
 import ludogame.DBConnect;
 import ludogame.Handler;
-
 import java.awt.*;
-import java.awt.image.BufferedImage;
 
 import static GFX.Assets.logo;
 
@@ -28,6 +26,7 @@ public class MenuState extends State{
         ranking=new Button(handler,(handler.getFrameWidth()-350*BUTTON_SCALE)/2,615,BUTTON_SCALE,Assets.big_button_template,"RANKING",58);
         exit=new Button(handler,(handler.getFrameWidth()-350*BUTTON_SCALE)/2,695,BUTTON_SCALE,Assets.big_button_template,"EXIT",58);
         dynamicBackground=new DynamicBackground(handler,handler.getFrameHeight());
+
     }
 
     @Override

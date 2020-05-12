@@ -151,8 +151,8 @@ public class PrepState extends State {
           handler.setMouseWheel(0);
             if(pause.getMenuClicked()){
                 resetVariables();
+                handler.getGameState().clear();
                 pause.setMenuClicked(false);
-
             }
         }
 
@@ -218,6 +218,7 @@ public class PrepState extends State {
     public void resetVariables(){
         this.legendPick=null;
         this.playerPick=null;
+        playerI.clear();
         typePick=true;
         picking=0;
     }

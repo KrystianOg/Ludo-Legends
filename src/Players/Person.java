@@ -8,7 +8,6 @@ import java.awt.image.BufferedImage;
 
 public class Person extends Player {
 
-    //Z BAZY DANYCH
     public static final String[] defaultNickname={ "Player1", "Player2", "Player3", "Player4"};
 
     private int input;
@@ -39,8 +38,6 @@ public class Person extends Player {
         }
 
         for (Entities.Counters.Counter value : counter){ value.tick(); }
-
-
     }
 
     @Override

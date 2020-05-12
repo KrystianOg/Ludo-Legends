@@ -17,8 +17,6 @@ public class DBConnect {
         private final String user="e6FpSaeFOi";
         private final String password="u1fHS7jJTy";
 
-        //private final String connectionString=url+"?user="+user+"&password="+password+"&useUnicode=true&characterEncoding=UTF-8";
-
         public DBConnect(Handler handler) {
 
             connected=false;
@@ -105,38 +103,33 @@ public class DBConnect {
                     System.out.println("Id: \t"+player_id+"\t"+nickName+"\t\t"+score+"\t\t"+kills);
                 }
 
-                if(!exists)
-                    addNewPlayer(nickname);
-
 
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }
         }
 
-        public void addResults(PlayerData playerData,int won){
+        public void addResults(PlayerData playerData){
             //select player_id from players
+            int score,kills,wins;
 
-            int score;
-            int kills;
-            int wins;
             try {
-                String query="SELECT score,kills,wins FROM players WHERE nickname='"+playerData.getNickname()+"'";
+                String query="SELECT score,kills,wins FROM players WHERE nickname='"+playerData.getNickname()+"';";
 
                 resultSet= statement.executeQuery(query);
 
-                if(resultSet==null)
-                    addNewPlayer(playerData.getNickname());
-
                 score=playerData.getScore();
                 kills=playerData.getKills();
-                wins=won;
+                wins=playerData.getWins();
 
-                if(resultSet.next()) {
-                    score += resultSet.getInt("score");
-                    kills += resultSet.getInt("kills");
-                    wins += resultSet.getInt("wins");
-                }
+               if (resultSet.next()){
+                   score += resultSet.getInt("score");
+                   kills += resultSet.getInt("kills");
+                   wins += resultSet.getInt("wins");
+               }else{
+                   System.out.println("ResultSet is empty");
+                   addNewPlayer(playerData);
+               }
 
                 statement.executeUpdate(String.format("UPDATE players SET score=%d, kills=%d, wins=%d WHERE nickname='%s'",score,kills,wins,playerData.getNickname()));
 
@@ -154,7 +147,7 @@ public class DBConnect {
 
         }
 
-        private void addNewPlayer(String nickname){
+        private void addNewPlayer(PlayerData playerData){
 
             String query="SELECT player_id FROM players ORDER BY player_id DESC limit 1";
 
@@ -165,7 +158,7 @@ public class DBConnect {
                 while(resultSet.next())
                     player_id=resultSet.getInt("player_id")+1;
 
-                statement.executeUpdate(String.format("INSERT INTO players(player_id,nickname,score,kills,wins) VALUES (%d, '%s', 0, 0, 0)",player_id,nickname));
+                statement.executeUpdate(String.format("INSERT INTO players(player_id,nickname,score,kills,wins) VALUES (%d, '%s', %d, %d, %d)",player_id,playerData.getNickname(),playerData.getScore(),playerData.getKills(),playerData.getWins()));
 
             } catch (SQLException throwables) {
                 throwables.printStackTrace();

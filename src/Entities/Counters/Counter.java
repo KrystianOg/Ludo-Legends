@@ -46,7 +46,7 @@ public abstract class Counter extends Entity {
 
     //animacja
     protected int ANIM_TICKS=(int)(0.37* SettingState.FPS);
-    //protected int ANIM_TICKS=4;
+
     private int tickcount=0;
     protected int moved=0;
     protected int tilesMoved=0;

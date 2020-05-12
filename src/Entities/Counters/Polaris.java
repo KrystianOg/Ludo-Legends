@@ -24,7 +24,7 @@ public class Polaris extends Counter {
 
     public Polaris(Handler handler, float x, float y,BufferedImage counterColor) {
         super(handler,x, y,counterColor);
-        ANIM_TICKS=(int)(0.57* SettingState.FPS);
+        ANIM_TICKS=(int)(0.53* SettingState.FPS);
 
         //spec
         ultBar=false;
