@@ -170,38 +170,38 @@ title __STATES's Class Diagram__\n
   
 
   states.GameOverScreen o-- ludogame.Handler : handler
-  states.GameOverScreen o-- Entities.ui.Button : menu
+  states.GameOverScreen o-- entities.ui.Button : menu
   states.GameState -up-|> states.State
-  states.GameState o-- Entities.Board : board
-  states.GameState o-- Entities.HUD.Dice : dice
+  states.GameState o-- entities.Board : board
+  states.GameState o-- entities.HUD.Dice : dice
   states.GameState o-- states.GameOverScreen : gameOverScreen
-  states.GameState o-- Entities.ui.Pause : pause
-  states.GameState o-- Entities.HUD.Timer : timer
+  states.GameState o-- entities.ui.Pause : pause
+  states.GameState o-- entities.HUD.Timer : timer
   states.HighScoresState -up-|> states.State
-  states.HighScoresState o-- Entities.ui.Button : back
+  states.HighScoresState o-- entities.ui.Button : back
   states.HighScoresState o-- ludogame.DBConnect : connect
-  states.HighScoresState o-- GFX.DynamicBackground : dynamicBackground
+  states.HighScoresState o-- GFXandEffects.DynamicBackground : dynamicBackground
   states.MenuState -up-|> states.State
-  states.MenuState o-- GFX.DynamicBackground : dynamicBackground
-  states.MenuState o-- Entities.ui.Button : exit
-  states.MenuState o-- Entities.ui.Button : game
-  states.MenuState o-- Entities.ui.Button : ranking
-  states.MenuState o-- Entities.ui.Button : settings
+  states.MenuState o-- GFXandEffects.DynamicBackground : dynamicBackground
+  states.MenuState o-- entities.ui.Button : exit
+  states.MenuState o-- entities.ui.Button : game
+  states.MenuState o-- entities.ui.Button : ranking
+  states.MenuState o-- entities.ui.Button : settings
   states.PrepState -up-|> states.State
-  states.PrepState o-- GFX.DynamicBackground : dynamicBackground
-  states.PrepState o-- Entities.ui.Button : apply
-  states.PrepState o-- Entities.ui.Pause : pause
+  states.PrepState o-- GFXandEffects.DynamicBackground : dynamicBackground
+  states.PrepState o-- entities.ui.Button : apply
+  states.PrepState o-- entities.ui.Pause : pause
   states.SettingState -up-|> states.State
-  states.SettingState o-- Entities.ui.Button : apply
-  states.SettingState o-- Entities.ui.Button : back
-  states.SettingState o-- Entities.ui.Slider : buttonSize
-  states.SettingState o-- Entities.ui.Button : defaults
-  states.SettingState o-- Entities.ui.Slider : diceAnimTime
-  states.SettingState o-- GFX.DynamicBackground : dynamicBackground
-  states.SettingState o-- Entities.ui.Switch : dynamicBackgroundSwitch
-  states.SettingState o-- Entities.ui.Switch : fpsCounterSwitch
-  states.SettingState o-- Entities.ui.Slider : sliderFps
-  states.SettingState o-- Entities.ui.Slider : ultLoad
+  states.SettingState o-- entities.ui.Button : apply
+  states.SettingState o-- entities.ui.Button : back
+  states.SettingState o-- entities.ui.Slider : buttonSize
+  states.SettingState o-- entities.ui.Button : defaults
+  states.SettingState o-- entities.ui.Slider : diceAnimTime
+  states.SettingState o-- GFXandEffects.DynamicBackground : dynamicBackground
+  states.SettingState o-- entities.ui.Switch : dynamicBackgroundSwitch
+  states.SettingState o-- entities.ui.Switch : fpsCounterSwitch
+  states.SettingState o-- entities.ui.Slider : sliderFps
+  states.SettingState o-- entities.ui.Slider : ultLoad
   states.State o-- ludogame.Handler : handler
 
 

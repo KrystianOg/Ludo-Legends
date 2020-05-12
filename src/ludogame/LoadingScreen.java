@@ -1,7 +1,7 @@
 package ludogame;
 
-import GFX.Assets;
-import GFX.SoundEffect;
+import GFXandEffects.Assets;
+import GFXandEffects.SoundEffect;
 import display.Display;
 import states.SettingState;
 

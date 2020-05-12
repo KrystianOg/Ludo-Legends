@@ -1,20 +1,18 @@
 package states;
 
-import Entities.Counters.*;
-import Entities.ui.Pause;
-import Entities.ui.TextField;
-import GFX.Text;
-import Players.Blank;
-import Players.Bot;
-import Players.Person;
-import Entities.ui.Button;
-import Entities.ui.Info;
-import Entities.ui.LegendPick;
-import Entities.ui.PlayerPick;
-import GFX.Assets;
-import GFX.DynamicBackground;
-import Players.Player;
-import Players.PositionOnMap;
+import entities.counters.*;
+import entities.ui.Pause;
+import entities.ui.TextField;
+import players.Blank;
+import players.Bot;
+import players.Person;
+import entities.ui.Button;
+import entities.ui.Info;
+import entities.ui.LegendPick;
+import entities.ui.PlayerPick;
+import GFXandEffects.Assets;
+import GFXandEffects.DynamicBackground;
+import players.PositionOnMap;
 import ludogame.Handler;
 
 import java.awt.*;
@@ -71,14 +69,14 @@ public class PrepState extends State {
 
         picking =0;
         playerI=new LinkedList<>();
-
         legendPick=new LegendPick[4];
+
         for(int i=0;i<legendPick.length;i++)
-        legendPick[i]=new LegendPick(handler,Assets.counter[i]);
+            legendPick[i]=new LegendPick(handler,Assets.counter[i]);
 
         playerPick=new PlayerPick[4];
         for(int i=0;i<playerPick.length;i++)
-        playerPick[i]=new PlayerPick(handler,handler.getFrameWidth()/2-195+i*100,PLAYER_POSY,Assets.tile[i],Assets.arrow[i]);
+            playerPick[i]=new PlayerPick(handler,handler.getFrameWidth()/2-195+i*100,PLAYER_POSY,Assets.tile[i],Assets.arrow[i]);
 
         for(int i=0;i<textField.length;i++)
             textField[i]=new TextField(handler,780,(handler.getFrameHeight()-60*4)/2+i*60-20,GameState.color[i],Person.defaultNickname[i]);
@@ -110,7 +108,6 @@ public class PrepState extends State {
                 if (apply.contains(handler.getMouseClickX(), handler.getMouseClickY())) {
                     handler.resetMousePOS();
                     checkPick();
-
                 }
 
             } else {
@@ -146,7 +143,6 @@ public class PrepState extends State {
         	info.tick();
 
         if(!info.getClicked()) {
-
             pause.tick();
           handler.setMouseWheel(0);
             if(pause.getMenuClicked()){
@@ -172,7 +168,7 @@ public class PrepState extends State {
                 playerPick[i].render(g);
             nickNamePlaceRender(g);
         }
-        else if(handler.getPlayer(picking).getClass().getName()=="Players.Person"){
+        else if(handler.getPlayer(picking).getClass().getName()=="players.Person"){
             legendPick[picking].render(g);
             info.render(g);
         }

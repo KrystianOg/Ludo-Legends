@@ -1,0 +1,235 @@
+@startuml
+
+title __UI's Class Diagram__\n
+
+  namespace entities {
+    namespace ui {
+      class entities.ui.Button {
+          - font : Map<Integer, Font>
+          - fontSize : int
+          - hitbox : Rectangle
+          - onhover : boolean
+          - template : BufferedImage[]
+          - text : String
+          + Button()
+          + contains()
+          + render()
+          + tick()
+      }
+    }
+  }
+  
+
+  namespace entities {
+    namespace ui {
+      class entities.ui.CounterTile {
+          {static} + COUNTER_TILE_HEIGHT : int
+          {static} + COUNTER_TILE_WIDTH : int
+          {static} - COUNTER_HEIGHT : int
+          {static} - COUNTER_WIDTH : int
+          - clicked : boolean
+          - hitbox : Rectangle
+          - hover : boolean
+          - img : BufferedImage[]
+          - imgPosX : int
+          - imgPosY : int
+          + isChoosen()
+          + render()
+          + setChoosen()
+          + tick()
+          ~ CounterTile()
+          ~ CounterTile()
+          - changeClicked()
+      }
+    }
+  }
+  
+
+  namespace entities {
+    namespace ui {
+      class entities.ui.LegendPick {
+          {static} + LEGEND_WINDOW_H : int
+          {static} + LEGEND_WINDOW_W : int
+          {static} + LEGEND_WINDOW_Y : int
+          {static} + SCALING : double
+          - choosen : int
+          - counterTile : CounterTile[]
+          + LegendPick()
+          + getCounterTile()
+          + getchoosen()
+          + render()
+          + tick()
+      }
+    }
+  }
+  
+
+  namespace entities {
+    namespace ui {
+      class entities.ui.Pause {
+          - blackOp : Color
+          - button : BufferedImage[]
+          - clicked : boolean
+          - hitbox : Rectangle
+          - hoover : boolean
+          + Pause()
+          + getClicked()
+          + render()
+          + tick()
+          - changeClicked()
+      }
+    }
+  }
+  
+
+  namespace entities {
+    namespace ui {
+      class entities.ui.PlayerPick {
+          ~ arrowDownHitbox : Rectangle
+          ~ arrowUpHitbox : Rectangle
+          {static} - ARROW_HEIGHT : int
+          {static} - ARROW_WIDTH : int
+          {static} - PLAYER_PICK_HEIGHT : int
+          {static} - PLAYER_PICK_WIDTH : int
+          - arrowDown : BufferedImage
+          - arrowUp : BufferedImage
+          - bColor : BufferedImage
+          - currentPick : int
+          - hooverDown : boolean
+          - hooverUp : boolean
+          + PlayerPick()
+          + getCurrentPick()
+          + render()
+          + tick()
+      }
+    }
+  }
+  
+
+  namespace entities {
+    namespace ui {
+      class entities.ui.Slider {
+          {static} + SLIDER_WIDTH : int
+          {static} - HEIGHT : int
+          {static} - WIDTH : int
+          - defaultValue : float
+          - frameWidth : float
+          - hitbox : Rectangle
+          - maxValue : float
+          - minMax : float
+          - minValue : float
+          - positionX : float
+          - pressed : boolean
+          - szczeble : int[]
+          - title : String
+          - value : float
+          + Slider()
+          + Slider()
+          + getValue()
+          + render()
+          + reset()
+          + tick()
+      }
+    }
+  }
+  
+
+  namespace entities {
+    namespace ui {
+      class entities.ui.Switch {
+          {static} + SWITCH_WIDTH : int
+          - defaultValue : boolean
+          - hitbox : Rectangle
+          - onhover : boolean
+          - scale : double
+          - template : BufferedImage[]
+          {static} - text : BufferedImage[]
+          - txt : String
+          - value : boolean
+          + Switch()
+          + contains()
+          + getValue()
+          + getWidth()
+          + render()
+          + reset()
+          + tick()
+      }
+    }
+  }
+  
+
+  namespace entities {
+    namespace ui {
+      class entities.ui.TextField {
+          {static} - FIELD_HEIGHT : int
+          {static} - FIELD_WIDTH : int
+          - defaultNickname : String
+          - hitbox : Rectangle
+          - isClicked : boolean
+          - nickname : String
+          - txtfColor : Color
+          + TextField()
+          + contains()
+          + getNickname()
+          + render()
+          + setClicked()
+          + setNickname()
+          + setY()
+          + tick()
+          - setChar()
+      }
+    }
+  }
+  
+
+  namespace entities {
+    namespace ui {
+      class entities.ui.Tile {
+          - capturable : boolean
+          - counter : List<Counter>
+          - i : int
+          - instantKill : boolean
+          - shiftX : int[]
+          - shiftY : int[]
+          - ticks : int
+          - x : float
+          - y : float
+          + Tile()
+          + getCounter()
+          + getCounterListLength()
+          + getInstantKill()
+          + getX()
+          + getY()
+          + isCapturable()
+          + killAll()
+          + removeCounterFromTile()
+          + renderFire()
+          + setCounterOnTile()
+          + setInstantKill()
+      }
+    }
+  }
+  
+
+  entities.ui.Button -up-|> entities.Entity
+  entities.ui.CounterTile -up-|> entities.Entity
+  entities.ui.LegendPick -up-|> entities.Entity
+  entities.ui.Pause -up-|> entities.Entity
+  entities.ui.Pause o-- ludogame.Handler : handler
+  entities.ui.Pause o-- entities.ui.Button : menu
+  entities.ui.PlayerPick -up-|> entities.Entity
+  entities.ui.Slider -up-|> entities.Entity
+  entities.ui.Slider o-- entities.ui.Button : reset
+  entities.ui.Switch -up-|> entities.Entity
+  entities.ui.TextField -up-|> entities.Entity
+  entities.ui.Tile o-- ludogame.Handler : handler
+
+
+right footer
+
+
+PlantUML diagram generated by SketchIt! (https://bitbucket.org/pmesmeur/sketch.it)
+For more information about this tool, please contact philippe.mesmeur@gmail.com
+endfooter
+
+@enduml

@@ -1,11 +1,11 @@
 package ludogame;
 
-import Entities.Counters.Counter;
-import Entities.HUD.Dice;
-import Entities.HUD.Timer;
-import Players.Player;
-import Players.PositionOnMap;
-import Entities.ui.Tile;
+import entities.counters.Counter;
+import entities.HUD.Dice;
+import entities.HUD.Timer;
+import players.Player;
+import players.PositionOnMap;
+import entities.ui.Tile;
 import display.Display;
 import input.KeyboardManager;
 import states.*;
