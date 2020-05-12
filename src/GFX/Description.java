@@ -14,13 +14,13 @@ public class Description {
 			textCounterTile[1]=" how to take care of herself. Some day in a tavern she";
 			textCounterTile[2]=" encountered a rich looking man and quickly seduced him. When";
 			textCounterTile[3]=" they were alone, he killed him and stole his treasures.";
-			textCounterTile[4]=" Amoung the stolen things there was a book of shadow magic.";
+			textCounterTile[4]=" Among the stolen things there was a book of shadow magic.";
 			textCounterTile[5]=" Albali took her time but finally she mastered the art of";
-			textCounterTile[6]=" shadows. Now she uses that power to acomplish her selfish";
-			textCounterTile[7]=" goals of wellfare.";
+			textCounterTile[6]=" shadows. Now she uses that power to accomplish her selfish";
+			textCounterTile[7]=" goals of welfare.";
 			textCounterTile[8]="";
 			advantages="+SPELL: Uses the shadow magic to become invisible, therefore ";
-			disadvantages="unable to get hit. She gets out of the shadows after killing someone";
+			disadvantages="unable to get hit or burnt.";
 			
 			break;
 		}
@@ -30,7 +30,7 @@ public class Description {
 			textCounterTile[2]=" immense powers and became one of the best  at her university.";
 			textCounterTile[3]=" One day a friend of her took her to the forest and by";
 			textCounterTile[4]=" mistake set the woods on fire. From that day on Funi";
-			textCounterTile[5]=" is obssesed with fire magic and she refuses learning";
+			textCounterTile[5]=" is obsessed with fire magic and she refuses learning";
 			textCounterTile[6]=" anything else. She even had her memory wiped out just";
 			textCounterTile[7]=" so she could know only fire magic.";
 			textCounterTile[8]="";
@@ -48,8 +48,8 @@ public class Description {
 			textCounterTile[6]=" protect people. His husband is dead, but noone else will";
 			textCounterTile[7]=" die in his presence.";
 			textCounterTile[8]="";
-			advantages="SPELL: Gives a shield to an ally ";
-			disadvantages="-Can't shield himself";
+			advantages="Has a shield to protect himself";
+			disadvantages="-";
 			break;
 		}
 		case 3:{ //Mira
@@ -119,15 +119,15 @@ public class Description {
 			textCounterTile[7]=" control his flight, getting carried away by wind,";
 			textCounterTile[8]="however no human is a match for his speed.";
 			advantages="+ Has 2 dices";
-			disadvantages="- The second dice has values between -3/3";
+			disadvantages="- The second dice has values 1 and 2";
 			break;
 		}
 		case 8:{ //Aggitarius
 			textCounterTile[0]="Aggitarius - A son of royal family cursed by their envious";
 			textCounterTile[1]=" maid, who had romance with the king. He tried to fight it, but";
 			textCounterTile[2]=" eventually he surrendered himself to his inner demon. He";
-			textCounterTile[3]=" slaughetered everyone in the castle making it his lair. From";
-			textCounterTile[4]=" time to time he ventures outside to fullfil his blood craving,";
+			textCounterTile[3]=" slaughtered everyone in the castle making it his lair. From";
+			textCounterTile[4]=" time to time he ventures outside to fulfill his blood craving,";
 			textCounterTile[5]=" because brutal killings make him stronger. If he don't kill";
 			textCounterTile[6]=" anyone for 2 weeks, then he will die, because of that making";
 			textCounterTile[7]=" him unable to do that is preferable way of getting rid of him.";
