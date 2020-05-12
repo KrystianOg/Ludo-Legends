@@ -108,7 +108,21 @@ public class Description {
 			disadvantages="-Everyone";
 			break;
 		}
-		case 7:{ //Venator
+		case 7:{ //Altair
+			textCounterTile[0]="Altair - A mutant born with a pair of wings. Not long after";
+			textCounterTile[1]=" birth, he was left near a river by his parents, as he would";
+			textCounterTile[2]=" never be accepted by them. Not long after that, an eagle";
+			textCounterTile[3]=" flying by, saw little, featherless, yet bird-like being, and";
+			textCounterTile[4]=" took him as his own child. Now 15 years later, Altair thinks";
+			textCounterTile[5]=" of himself to be more  eagle than a human. Unfortunately,";
+			textCounterTile[6]=" he still can't fully control his powers, often not able to";
+			textCounterTile[7]=" control his flight, getting carried away by wind,";
+			textCounterTile[8]="however no human is a match for his speed.";
+			advantages="+ Has 2 dices";
+			disadvantages="- The second dice has values between -3/3";
+			break;
+		}
+		case 8:{ //Aggitarius
 			textCounterTile[0]="Aggitarius - A son of royal family cursed by their envious";
 			textCounterTile[1]=" maid, who had romance with the king. He tried to fight it, but";
 			textCounterTile[2]=" eventually he surrendered himself to his inner demon. He";
